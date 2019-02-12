@@ -36,6 +36,11 @@ void LitMaterial::setDiffuseColor(glm::vec3 pDiffuseColor)
 	_diffuseColor = pDiffuseColor;
 }
 
+void LitMaterial::AddLight(Light * light)
+{
+	_lights.push_back(light);
+}
+
 void LitMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix)
 {
 	_shader->use();
@@ -48,19 +53,21 @@ void LitMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatr
 	glUniformMatrix4fv(_shader->getUniformLocation("viewMatrix"), 1, GL_FALSE, glm::value_ptr(pViewMatrix));
 	glUniformMatrix4fv(_shader->getUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(pModelMatrix));
 
-	//Light stuff
-	glUniform3fv(_shader->getUniformLocation("lightCol"), 1, glm::value_ptr(_light->_color));
-	glUniform3fv(_shader->getUniformLocation("lightPos"), 1, glm::value_ptr(_light->getWorldPosition()));
-	glUniform3fv(_shader->getUniformLocation("lightRot"), 1, glm::value_ptr(_light->getTransform()[1]));
-	glUniform1f(_shader->getUniformLocation("cutOff"), glm::cos(glm::radians(_light->_startCutOff)));
-	glUniform1f(_shader->getUniformLocation("outerCutOff"), glm::cos(glm::radians(_light->_endCutOff)));
-	if (_light->_lightType == Light::Directional) 
+	//Light stuff 2
+	glUniform3fv(_shader->getUniformLocation("dirLight.lightCol"), 1, glm::value_ptr(_light->_color));
+	glUniform3fv(_shader->getUniformLocation("dirLight.lightRot"), 1, glm::value_ptr(_light->getTransform()[1]));
+
+	////Light stuff
+	for (int i = 0; i < _lights.size(); i++)
 	{
-		glUniform1i(_shader->getUniformLocation("isSpotlight"), false);
-	}
-	else 
-	{
-		glUniform1i(_shader->getUniformLocation("isSpotlight"), true);
+		if (_lights[i]->_lightType == _light->Spotlight)
+		{
+			glUniform3fv(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].lightCol"), 1, glm::value_ptr(_lights[i]->_color));
+			glUniform3fv(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].lightPos"), 1, glm::value_ptr(_lights[i]->getWorldPosition()));
+			glUniform3fv(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].lightRot"), 1, glm::value_ptr(_lights[i]->getTransform()[1]));
+			glUniform1f(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].cutOff"), glm::cos(glm::radians(_lights[i]->_startCutOff)));
+			glUniform1f(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].outerCutOff"), glm::cos(glm::radians(_lights[i]->_endCutOff)));
+		}
 	}
 
 	//now inform mesh of where to stream its data

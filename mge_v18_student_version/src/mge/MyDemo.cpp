@@ -64,17 +64,19 @@ void MyDemo::_initializeScene()
 
 
 	//Directional
-	Light* light = new Light("light", glm::vec3(0, 10, 0), glm::vec3(1, 0, 0), 10.0f, 30.0f, Light::Directional);
+	Light* light = new Light("light", glm::vec3(0, 10, 0), glm::vec3(1, 1, 1), 10.0f, 30.0f, Light::Directional);
 
 	//SpotLight
-	//Light* light = new Light("light", glm::vec3(0, 10, 0), glm::vec3(1, 0, 0), 10.0f, 30.0f, Light::Spotlight);
+	Light* light2 = new Light("light2", glm::vec3(0, 10, 0), glm::vec3(0, 0, 1), 10.0f, 30.0f, Light::Spotlight);
 	light->rotate(glm::radians(180.0f), glm::vec3(1, 0, 0));
+	light2->rotate(glm::radians(180.0f), glm::vec3(1, 0, 0));
 
 	//Behaviours
-	//light->setBehaviour(new WASDBehaviour());
-	//light->setBehaviour(new RotatingBehaviour());
+	//light2->setBehaviour(new WASDBehaviour());
+	light->setBehaviour(new RotatingBehaviour());
 
 	_world->add(light);
+	_world->add(light2);
 
 	//MATERIALS
 
@@ -83,13 +85,15 @@ void MyDemo::_initializeScene()
 	AbstractMaterial* stoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 	AbstractMaterial* grassMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
 	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec3(0, 0, 1));
-	AbstractMaterial* litMaterial = new LitMaterial(light, glm::vec3(0.3, 0.1, 1));
-	AbstractMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"), 
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"), 
+	LitMaterial* litMaterial1 = new LitMaterial(light, glm::vec3(0.9f, 0.9f, 0.9f));
+	litMaterial1->AddLight(light2);
+	AbstractMaterial* litMaterial = litMaterial1;
+	AbstractMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
 		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
 		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
 		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"), 
+		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
 		2);
 	//SCENE SETUP
 
@@ -106,7 +110,7 @@ void MyDemo::_initializeScene()
 	plane->setMaterial(terrainMaterial);
 	_world->add(plane);
 
-	camera->setBehaviour(new CameraOrbitBehaviour(plane, 3, 90, 1));
+	camera->addBehaviour(new CameraOrbitBehaviour(plane, 3, 90, 1));
 }
 
 void MyDemo::_render()
