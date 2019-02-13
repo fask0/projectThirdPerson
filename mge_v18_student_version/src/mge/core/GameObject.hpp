@@ -51,6 +51,9 @@ class GameObject
 	void setBehaviour(AbstractBehaviour* pBehaviour);
 	AbstractBehaviour* getBehaviour() const;
 
+	void addBehaviour(AbstractBehaviour* pBehaviour);
+	std::vector<AbstractBehaviour*> getBehaviours() const;
+
 	virtual void update(float pStep);
 
 	//child management, note that add/remove and setParent are closely coupled.
@@ -83,6 +86,7 @@ class GameObject
 
 	Mesh* _mesh;
 	AbstractBehaviour* _behaviour;
+	std::vector<AbstractBehaviour*> _behaviours;
 	AbstractMaterial* _material;
 	World* _world;
 

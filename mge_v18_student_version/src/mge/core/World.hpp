@@ -8,25 +8,25 @@ class Light;
 
 class World : public GameObject
 {
-	public:
-        World();
+public:
+	World();
 
-		void setMainCamera (Camera* pCamera);
-		Camera* getMainCamera();
+	void setMainCamera(Camera* pCamera);
+	Camera* getMainCamera();
 
-        //only used internally, do not use from outside
-        void registerLight (Light* pLight);
-        void unregisterLight (Light* pLight);
+	//only used internally, do not use from outside
+	void registerLight(Light* pLight);
+	void unregisterLight(Light* pLight);
 
-        Light* getLightAt (int pIndex);
-        int getLightCount();
+	Light* getLightAt(int pIndex);
+	int getLightCount();
 
-	private:
-	    Camera* _mainCamera;
-	    std::vector<Light*> _lights;
+private:
+	Camera* _mainCamera;
+	std::vector<Light*> _lights;
 
-        World(const World&);
-        World& operator=(const World&);
+	World(const World&);
+	World& operator=(const World&);
 };
 
 

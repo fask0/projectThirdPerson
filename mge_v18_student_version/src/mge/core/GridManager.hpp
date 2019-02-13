@@ -1,38 +1,33 @@
-#ifndef CAMERA_HPP
-#define CAMERA_HPP
+#ifndef GRIDMANAGER_HPP
+#define GRIDMANAGER_HPP
 
 #include <string>
 #include "mge/core/GameObject.hpp"
 #include <SFML/Graphics.hpp>
+#include "mge/core/Renderer.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
  * The camera's own transform is used to generate a world-to-view matrix by taking the inverse of the camera transform.
  * The camera's perspective matrix is used in the MVP matrix creation.
  */
-class Camera : public GameObject
+class GridManager : public GameObject
 {
 public:
-	Camera(
-		sf::RenderWindow* pWindow,
-		std::string pName = "camera",
-		glm::vec3 pPosition = glm::vec3(0.0f, 3.0f, 5.0f),
-		glm::mat4 pProjectionMatrix = glm::perspective(glm::radians(60.0f), 4.0f / 3.0f, 0.1f, 1000.0f)
-	);
+	GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow* pWindow);
 
-	virtual ~Camera();
+	virtual ~GridManager();
 
-	glm::mat4& getProjection();
 	void update(float pStep) override;
-	glm::vec3 rayCastNormalizedDiffVec();
+	void InputDetection(sf::Event pEvent);
 
 private:
-	glm::mat4 _projection;
+	std::vector<GameObject*> _gridObjects;
 	sf::RenderWindow* _window;
 
 private:
-	Camera(const Camera&);
-	Camera& operator= (const Camera&);
+	GridManager(const GridManager&);
+	GridManager& operator= (const GridManager&);
 };
 
 #endif // CAMERA_HPP

@@ -3,6 +3,7 @@
 #include "AbstractGame.hpp"
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
+#include "mge/core/GridManager.hpp"
 
 AbstractGame::AbstractGame() :_window(NULL), _renderer(NULL), _world(NULL), _fps(0)
 {
@@ -29,12 +30,32 @@ void AbstractGame::initialize()
 	std::cout << std::endl << "Engine initialized." << std::endl << std::endl;
 }
 
-///SETUP
+void AbstractGame::initialize(int _windowWidth, int _windowHeight)
+{
+	std::cout << "Initializing engine..." << std::endl << std::endl;
+	_initializeWindow(_windowWidth, _windowHeight);
+	_printVersionInfo();
+	_initializeGlew();
+	_initializeRenderer();
+	_initializeWorld();
+	_initializeScene();
+	_window->setKeyRepeatEnabled(false);
+	std::cout << std::endl << "Engine initialized." << std::endl << std::endl;
+}
 
+///SETUP
 void AbstractGame::_initializeWindow()
 {
 	std::cout << "Initializing window..." << std::endl;
 	_window = new sf::RenderWindow(sf::VideoMode(800, 600), "My Game!", sf::Style::Default, sf::ContextSettings(24, 8, 0, 3, 3));
+	//_window->setVerticalSyncEnabled(true);
+	std::cout << "Window initialized." << std::endl << std::endl;
+}
+
+void AbstractGame::_initializeWindow(int _windowWidth, int _windowHeight)
+{
+	std::cout << "Initializing window..." << std::endl;
+	_window = new sf::RenderWindow(sf::VideoMode(_windowWidth, _windowHeight), "My Game!", sf::Style::Default, sf::ContextSettings(24, 8, 0, 3, 3));
 	//_window->setVerticalSyncEnabled(true);
 	std::cout << "Window initialized." << std::endl << std::endl;
 }
@@ -127,10 +148,17 @@ void AbstractGame::run()
 				timeSinceLastFPSCalculation -= 1;
 				frameCount = 0;
 			}
+
 		}
+
 		//empty the event queue
 		_processEvents();
 	}
+}
+
+void AbstractGame::SetGridManager(GridManager* pGridManager)
+{
+	gridManager = pGridManager;
 }
 
 void AbstractGame::_update(float pStep)
@@ -159,24 +187,27 @@ void AbstractGame::_processEvents()
 
 		switch (event.type)
 		{
-			case sf::Event::Closed:
+		case sf::Event::Closed:
 			exit = true;
 			break;
-			case sf::Event::KeyPressed:
+		case sf::Event::KeyPressed:
 			if (event.key.code == sf::Keyboard::Escape)
 			{
 				exit = true;
 			}
 			break;
-			case sf::Event::Resized:
+		case sf::Event::Resized:
 			//would be better to move this to the renderer
 			//this version implements nonconstrained match viewport scaling
 			glViewport(0, 0, event.size.width, event.size.height);
 			break;
 
-			default:
+		default:
 			break;
 		}
+
+		if (gridManager)
+			gridManager->InputDetection(event);
 	}
 
 	if (exit)

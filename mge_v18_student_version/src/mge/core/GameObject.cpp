@@ -2,6 +2,7 @@
 
 #include "GameObject.hpp"
 #include "mge/behaviours/AbstractBehaviour.hpp"
+#include "mge/core/GameController.hpp"
 
 GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 	: _name(pName), _transform(glm::translate(pPosition)), _parent(nullptr), _children(),
@@ -84,6 +85,17 @@ void GameObject::setBehaviour(AbstractBehaviour* pBehaviour)
 AbstractBehaviour* GameObject::getBehaviour() const
 {
 	return _behaviour;
+}
+
+void GameObject::addBehaviour(AbstractBehaviour* pBehaviour)
+{
+	_behaviours.push_back(pBehaviour);
+	_behaviours.back()->setOwner(this);
+}
+
+std::vector<AbstractBehaviour*> GameObject::getBehaviours() const
+{
+	return _behaviours;
 }
 
 void GameObject::setParent(GameObject* pParent)
@@ -188,6 +200,11 @@ void GameObject::update(float pStep)
 	if (_behaviour)
 	{
 		_behaviour->update(pStep);
+	}
+
+	for each (AbstractBehaviour* behaviour in _behaviours)
+	{
+		behaviour->update(pStep);
 	}
 
 	for (int i = _children.size() - 1; i >= 0; --i)
