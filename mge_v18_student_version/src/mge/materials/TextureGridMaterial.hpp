@@ -13,7 +13,7 @@ class Texture;
  */
 class TextureGridMaterial : public AbstractMaterial
 {
-public:
+	public:
 	TextureGridMaterial(Texture* pDiffuseTexture);
 	virtual ~TextureGridMaterial();
 
@@ -27,8 +27,8 @@ public:
 	void setLineThiccness(float thiccness);
 	float getLineThiccness();
 
-protected:
-private:
+	protected:
+	private:
 	static ShaderProgram* _shader;
 	static void _lazyInitializeShader();
 
@@ -54,6 +54,7 @@ private:
 	bool _gridShowing;
 	float _gridSize = 5;
 	float _lineThiccness = 0.3f;
+	glm::vec3 _mousePos;
 };
 
 #endif // TEXTUREMATERIAL_HPP

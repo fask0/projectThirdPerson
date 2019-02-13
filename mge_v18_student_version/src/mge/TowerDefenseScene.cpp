@@ -13,11 +13,8 @@
 #include "mge/core/Light.hpp"
 #include "mge/core/Camera.hpp"
 #include "mge/core/GameObject.hpp"
-<<<<<<< HEAD:mge_v18_student_version/src/mge/MyDemo.cpp
 #include "mge/core/CollisionManager.hpp"
-=======
 #include "mge/core/GridManager.hpp"
->>>>>>> cfc2f2586f7eaaa6516aec4d29b7ab729e468706:mge_v18_student_version/src/mge/TowerDefenseScene.cpp
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
@@ -120,46 +117,24 @@ void TowerDefenseScene::_initializeScene()
 	_world->add(light);
 	_world->add(light2);
 
-	//MATERIALS
-
-	//create some materials to display the cube, the plane and the light
-	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec4(1, 1, 0, 1));
-	AbstractMaterial* stoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
-	AbstractMaterial* grassMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
-<<<<<<< HEAD:mge_v18_student_version/src/mge/MyDemo.cpp
-	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(0, 0, 1, 1));
-	AbstractMaterial* litMaterial = new LitMaterial(light, glm::vec3(0.3, 0.1, 1));
-	AbstractMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
-															Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
-															Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-															Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-															Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-															Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-															2);
 	//SCENE SETUP
 
-	//add camera first (it will be updated last)
-	Camera* camera = new Camera("camera", glm::vec3(0, 0, 6));
-	//camera->rotate(glm::radians(-40.0f), glm::vec3(1, 0, 0));
-=======
 	TextureGridMaterial* gridMaterial = new TextureGridMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
-	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec3(0, 0, 1));
+	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(0, 0, 1, 1));
 	LitMaterial* litMaterial1 = new LitMaterial(light, glm::vec3(0.9f, 0.9f, 0.9f));
 	litMaterial1->AddLight(light2);
 	AbstractMaterial* litMaterial = litMaterial1;
 	TerrainMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-		0);
-	//SCENE SETUP
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
+														   0);
 
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 20));
 	camera->rotate(glm::radians(-35.0f), glm::vec3(1, 0, 0));
->>>>>>> cfc2f2586f7eaaa6516aec4d29b7ab729e468706:mge_v18_student_version/src/mge/TowerDefenseScene.cpp
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
@@ -167,9 +142,8 @@ void TowerDefenseScene::_initializeScene()
 	GameObject* plane = new GameObject("plane", glm::vec3(0, 0, 0));
 	plane->scale(glm::vec3(20, 20, 20));
 	plane->setMesh(newPlaneMesh);
-<<<<<<< HEAD:mge_v18_student_version/src/mge/MyDemo.cpp
-	plane->setMaterial(terrainMaterial);
-	//_world->add(plane);
+	plane->setMaterial(gridMaterial);
+	_world->add(plane);
 
 	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
 	_world->add(colManager);
@@ -180,16 +154,11 @@ void TowerDefenseScene::_initializeScene()
 	colA->DrawCollider();
 	_world->add(colliderA);
 
-	GameObject* colliderB = new GameObject("B", glm::vec3(0, 1, 0));
+	GameObject* colliderB = new GameObject("B", glm::vec3(0, 2, 0));
 	CollisionBehaviour* colB = new CollisionBehaviour(1);
 	colliderB->setBehaviour(colB);
 	colB->DrawCollider();
 	_world->add(colliderB);
-
-	//camera->setBehaviour(new CameraOrbitBehaviour(plane, 3, 90, 1));
-=======
-	plane->setMaterial(gridMaterial);
-	_world->add(plane);
 
 	std::vector<GameObject*> objs;
 	objs.push_back(plane);
@@ -200,7 +169,6 @@ void TowerDefenseScene::_initializeScene()
 	_plane = plane;
 	_camera = camera;
 	_mat = gridMaterial;
->>>>>>> cfc2f2586f7eaaa6516aec4d29b7ab729e468706:mge_v18_student_version/src/mge/TowerDefenseScene.cpp
 }
 
 void TowerDefenseScene::_render()

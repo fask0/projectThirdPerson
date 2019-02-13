@@ -12,7 +12,7 @@ class DebugHud;
 class TowerDefenseScene : public AbstractGame
 {
 
-public:
+	public:
 	TowerDefenseScene();
 	virtual ~TowerDefenseScene();
 
@@ -24,14 +24,14 @@ public:
 	int WindowHeight;
 	int WindowWidth;
 
-protected:
+	protected:
 	//override so we can construct the actual scene
 	virtual void _initializeScene();
 
 	//override render to render the hud as well.
 	virtual void _render();
 
-private:
+	private:
 	DebugHud* _hud;                   //hud display
 	Camera* _camera;
 	GameObject* _plane;

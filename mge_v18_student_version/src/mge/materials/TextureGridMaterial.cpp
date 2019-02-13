@@ -86,6 +86,7 @@ void TextureGridMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pM
 	glUniform1i(_uGridVisible, _gridShowing);
 	glUniform1f(_uGridSize, _gridSize);
 	glUniform1f(_uLineThiccness, _lineThiccness);
+	glUniform3fv(_uMousePos, 1, glm::value_ptr(_mousePos));
 
 	//now inform mesh of where to stream its data
 	pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV);
@@ -93,7 +94,7 @@ void TextureGridMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pM
 
 void TextureGridMaterial::setHighlightArea(glm::vec3 mousePos)
 {
-	glUniform3fv(_uMousePos, 1, glm::value_ptr(mousePos));
+	_mousePos = mousePos;
 }
 
 void TextureGridMaterial::toggleGrid()
