@@ -14,24 +14,25 @@ class AbstractBehaviour
 {
 	public:
 
-		AbstractBehaviour();
-		virtual ~AbstractBehaviour() = 0;
+	AbstractBehaviour();
+	virtual ~AbstractBehaviour() = 0;
 
-        //for internal administration, do not use directly
-        virtual void setOwner (GameObject* pGameObject);
+	//for internal administration, do not use directly
+	virtual void setOwner(GameObject* pGameObject);
+	virtual GameObject* getOwner();
 
-        //behaviour should be able to update itself every step and MUST be implemented
-		virtual void update(float pStep) = 0;
+	//behaviour should be able to update itself every step and MUST be implemented
+	virtual void update(float pStep) = 0;
 
-    protected:
+	protected:
 
-		GameObject* _owner;
+	GameObject* _owner;
 
-    private:
+	private:
 
-        //disallow copy and assignment
-        AbstractBehaviour(const AbstractBehaviour&);
-        AbstractBehaviour& operator=(const AbstractBehaviour&);
+	//disallow copy and assignment
+	AbstractBehaviour(const AbstractBehaviour&);
+	AbstractBehaviour& operator=(const AbstractBehaviour&);
 
 };
 

@@ -97,6 +97,12 @@
     <ClInclude Include="..\src\mge\materials\TerrainMaterial.hpp">
       <Filter>MGE Source files\mge\materials</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\core\CollisionManager.hpp">
+      <Filter>MGE Source files\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\CollisionBehaviour.hpp">
+      <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -170,6 +176,12 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\materials\TerrainMaterial.cpp">
       <Filter>MGE Source files\mge\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\CollisionBehaviour.cpp">
+      <Filter>MGE Source files\mge\behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\CollisionManager.cpp">
+      <Filter>MGE Source files\mge\core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -8,21 +8,21 @@ class DebugHud;
 class MyDemo : public AbstractGame
 {
 
-public:
+	public:
 	MyDemo();
 	virtual ~MyDemo();
 
 	//override initialize so we can add a DebugHud
 	virtual void initialize();
 
-protected:
+	protected:
 	//override so we can construct the actual scene
 	virtual void _initializeScene();
 
 	//override render to render the hud as well.
 	virtual void _render();
 
-private:
+	private:
 	DebugHud* _hud;                   //hud display
 
 	void _updateHud();

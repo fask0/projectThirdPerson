@@ -6,12 +6,14 @@
 
 #include "mge/core/Renderer.hpp"
 
+#include "mge/core/LineSegment.hpp"
 #include "mge/core/Mesh.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/core/Light.hpp"
 #include "mge/core/Camera.hpp"
 #include "mge/core/GameObject.hpp"
+#include "mge/core/CollisionManager.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
@@ -24,6 +26,7 @@
 #include "mge/behaviours/KeysBehaviour.hpp"
 #include "mge/behaviours/WASDBehaviour.hpp"
 #include "mge/behaviours/CameraOrbitBehaviour.hpp"
+#include "mge/behaviours/CollisionBehaviour.hpp"
 
 #include "mge/util/DebugHud.hpp"
 
@@ -79,23 +82,23 @@ void MyDemo::_initializeScene()
 	//MATERIALS
 
 	//create some materials to display the cube, the plane and the light
-	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
+	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec4(1, 1, 0, 1));
 	AbstractMaterial* stoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 	AbstractMaterial* grassMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
-	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec3(0, 0, 1));
+	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(0, 0, 1, 1));
 	AbstractMaterial* litMaterial = new LitMaterial(light, glm::vec3(0.3, 0.1, 1));
-	AbstractMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"), 
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"), 
-		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"), 
-		2);
+	AbstractMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
+															Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
+															Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
+															Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
+															Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
+															Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
+															2);
 	//SCENE SETUP
 
 	//add camera first (it will be updated last)
-	Camera* camera = new Camera("camera", glm::vec3(0, 4, 6));
-	camera->rotate(glm::radians(-40.0f), glm::vec3(1, 0, 0));
+	Camera* camera = new Camera("camera", glm::vec3(0, 0, 6));
+	//camera->rotate(glm::radians(-40.0f), glm::vec3(1, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
@@ -104,9 +107,24 @@ void MyDemo::_initializeScene()
 	plane->scale(glm::vec3(20, 20, 20));
 	plane->setMesh(newPlaneMesh);
 	plane->setMaterial(terrainMaterial);
-	_world->add(plane);
+	//_world->add(plane);
 
-	camera->setBehaviour(new CameraOrbitBehaviour(plane, 3, 90, 1));
+	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
+	_world->add(colManager);
+
+	GameObject* colliderA = new GameObject("A", glm::vec3(0, -0.5f, 0));
+	CollisionBehaviour* colA = new CollisionBehaviour(glm::vec3(1, 1, 1));
+	colliderA->setBehaviour(colA);
+	colA->DrawCollider();
+	_world->add(colliderA);
+
+	GameObject* colliderB = new GameObject("B", glm::vec3(0, 1, 0));
+	CollisionBehaviour* colB = new CollisionBehaviour(1);
+	colliderB->setBehaviour(colB);
+	colB->DrawCollider();
+	_world->add(colliderB);
+
+	//camera->setBehaviour(new CameraOrbitBehaviour(plane, 3, 90, 1));
 }
 
 void MyDemo::_render()

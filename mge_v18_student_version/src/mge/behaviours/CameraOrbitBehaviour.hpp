@@ -9,14 +9,14 @@
  */
 class CameraOrbitBehaviour : public AbstractBehaviour
 {
-public:
+	public:
 	CameraOrbitBehaviour(GameObject * target, float distance, float maxTiltAngle, float rotationSpeed);
 	virtual ~CameraOrbitBehaviour();
 
 	virtual void update(float pstep);
 
 
-private:
+	private:
 	glm::mat4 _target;
 	float _distance;
 	float _maxTiltAngle;

@@ -8,7 +8,7 @@
  */
 class WASDBehaviour : public AbstractBehaviour
 {
-public:
+	public:
 	WASDBehaviour();
 	virtual ~WASDBehaviour();
 

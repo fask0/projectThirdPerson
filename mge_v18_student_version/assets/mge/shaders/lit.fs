@@ -2,6 +2,19 @@
 
 #version 330 // for glsl version (12 is for older versions , say opengl 2.1
 
+struct DirLight{
+	uniform vec3 lightCol;
+	uniform vec3 lightRot;
+}
+
+struct SpotLight{
+	uniform vec3 lightCol;
+	uniform vec3 lightPos;
+	uniform vec3 lightRot;
+	uniform float cutOff;
+	uniform float outerCutOff;
+}
+
 uniform vec3 lightCol;
 uniform vec3 lightPos;
 uniform vec3 lightRot;

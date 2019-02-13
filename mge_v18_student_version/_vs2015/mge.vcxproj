@@ -168,12 +168,14 @@
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
     <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\CollisionBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\CameraOrbitBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\WASDBehaviour.hpp" />
     <ClInclude Include="..\src\mge\config.hpp" />
     <ClInclude Include="..\src\mge\core\AbstractGame.hpp" />
+    <ClInclude Include="..\src\mge\core\CollisionManager.hpp" />
     <ClInclude Include="..\src\mge\core\Camera.hpp" />
     <ClInclude Include="..\src\mge\core\GameObject.hpp" />
     <ClInclude Include="..\src\mge\core\Light.hpp" />
@@ -201,6 +203,8 @@
     <ClCompile Include="..\src\mge\behaviours\WASDBehaviour.cpp" />
     <ClCompile Include="..\src\mge\core\AbstractGame.cpp" />
     <ClCompile Include="..\src\mge\core\Camera.cpp" />
+    <ClCompile Include="..\src\mge\core\CollisionManager.cpp" />
+    <ClCompile Include="..\src\mge\core\CollisionBehaviour.cpp" />
     <ClCompile Include="..\src\mge\core\GameObject.cpp" />
     <ClCompile Include="..\src\mge\core\Light.cpp" />
     <ClCompile Include="..\src\mge\core\Mesh.cpp" />

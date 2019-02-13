@@ -8,18 +8,18 @@
 class Texture
 {
 	public:
-		static Texture* load(const std::string& pTexturePath);
+	static Texture* load(const std::string& pTexturePath);
 
-		GLuint getId();
+	GLuint getId();
 
 	protected:
-	    Texture();
-		virtual ~Texture();
+	Texture();
+	virtual ~Texture();
 
-        static Texture* _loadFromFile(const std::string pTexturePath);
+	static Texture* _loadFromFile(const std::string pTexturePath);
 
-	    //OpenGL id for texture buffer
-		GLuint _id;
+	//OpenGL id for texture buffer
+	GLuint _id;
 };
 
 #endif // TEXTURE_HPP

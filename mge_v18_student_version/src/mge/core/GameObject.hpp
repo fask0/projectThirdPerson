@@ -15,7 +15,7 @@ class Mesh;
  */
 class GameObject
 {
-public:
+	public:
 	GameObject(const std::string& pName = nullptr, const glm::vec3& pPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~GameObject();
 
@@ -68,7 +68,13 @@ public:
 	int getChildCount() const;
 	GameObject* getChildAt(int pIndex) const;
 
-protected:
+	virtual void OnCollisionEnter(std::string pOtherName);
+	virtual void OnCollisionStay(std::string pOtherName);
+	virtual void OnCollisionExit(std::string pOtherName);
+
+	bool isColliding;
+
+	protected:
 	std::string _name;
 	glm::mat4 _transform;
 
@@ -87,7 +93,8 @@ protected:
 	//used to pass on pointer to the world to a gameobject
 	virtual void _setWorldRecursively(World* pWorld);
 
-private:
+
+	private:
 	GameObject(const GameObject&);
 	GameObject& operator= (const GameObject&);
 };

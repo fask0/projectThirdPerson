@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include "GameObject.hpp"
 #include "mge/behaviours/AbstractBehaviour.hpp"
 
@@ -215,3 +216,14 @@ GameObject* GameObject::getChildAt(int pIndex) const
 	return _children[pIndex];
 }
 
+void GameObject::OnCollisionEnter(std::string pOtherName)
+{
+}
+
+void GameObject::OnCollisionStay(std::string pOtherName)
+{
+}
+
+void GameObject::OnCollisionExit(std::string pOtherName)
+{
+}

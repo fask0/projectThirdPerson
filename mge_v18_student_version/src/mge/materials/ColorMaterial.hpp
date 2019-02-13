@@ -12,23 +12,23 @@ class ShaderProgram;
  */
 class ColorMaterial : public AbstractMaterial
 {
-    public:
-        ColorMaterial(glm::vec3 pColor = glm::vec3(1,0,0));
-        virtual ~ColorMaterial();
+	public:
+	ColorMaterial(glm::vec4 pColor = glm::vec4(1, 0, 0, 1));
+	virtual ~ColorMaterial();
 
-        virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
+	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
-        //in rgb values
-        void setDiffuseColor (glm::vec3 pDiffuseColor);
+	//in rgb values
+	void setDiffuseColor(glm::vec4 pDiffuseColor);
 
-    private:
-        //all the static properties are shared between instances of ColorMaterial
-        //note that they are all PRIVATE, we do not expose this static info to the outside world
-        static ShaderProgram* _shader;
-        static void _lazyInitializeShader();
+	private:
+	//all the static properties are shared between instances of ColorMaterial
+	//note that they are all PRIVATE, we do not expose this static info to the outside world
+	static ShaderProgram* _shader;
+	static void _lazyInitializeShader();
 
-        //this one is unique per instance of color material
-        glm::vec3 _diffuseColor;
+	//this one is unique per instance of color material
+	glm::vec4 _diffuseColor;
 };
 
 #endif // COLORMATERIAL_HPP
