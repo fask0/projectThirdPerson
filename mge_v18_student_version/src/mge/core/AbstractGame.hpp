@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <GL/glew.h>
 #include <string>
+#include "mge/core/GridManager.hpp"
 
 class World;
 class Renderer;
@@ -15,51 +16,54 @@ class Renderer;
  */
 class AbstractGame
 {
-    public:
+public:
 
-        AbstractGame();
-        virtual ~AbstractGame();
+	AbstractGame();
+	virtual ~AbstractGame();
 
-        //creates a window, initializes glew, a renderer and a world instance
-        virtual void initialize();
-        //run the actual process of updating all objects, rendering them and processing events
-        virtual void run();
+	//creates a window, initializes glew, a renderer and a world instance
+	virtual void initialize();
+	virtual void initialize(int _windowWidth, int _windowHeight);
+	//run the actual process of updating all objects, rendering them and processing events
+	virtual void run();
 
-    protected:
+	void SetGridManager(GridManager* pGridManager);
 
-        //methods above delegate behaviour to the methods below so that you can override it in a subclass
+protected:
 
-        //initialize sfml rendering context
-        virtual void _initializeWindow();
-        //print info about the current driver version etc
-        virtual void _printVersionInfo();
-        //initialize the extension wrangler
-        virtual void _initializeGlew();
-        //create our own custom renderer instance
-        virtual void _initializeRenderer();
-        //initialize a scene root to which we can attach/add objects
-        virtual void _initializeWorld();
+	//methods above delegate behaviour to the methods below so that you can override it in a subclass
 
-        //initialize the actual scene, HAS to be done by a subclass
-        virtual void _initializeScene() = 0;
+	//initialize sfml rendering context
+	virtual void _initializeWindow();
+	virtual void _initializeWindow(int _windowWidth, int _windowHeight);
+	//print info about the current driver version etc
+	virtual void _printVersionInfo();
+	//initialize the extension wrangler
+	virtual void _initializeGlew();
+	//create our own custom renderer instance
+	virtual void _initializeRenderer();
+	//initialize a scene root to which we can attach/add objects
+	virtual void _initializeWorld();
 
-        //call update on all game objects in the display root
-        virtual void _update(float pStep);
-        //render all game objects in the display root
-        virtual void _render();
-        //process any sfml window events (see SystemEventDispatcher/Listener)
-        virtual void _processEvents();
+	//initialize the actual scene, HAS to be done by a subclass
+	virtual void _initializeScene() = 0;
 
-		sf::RenderWindow* _window;  //sfml window to render into
-		Renderer* _renderer;        //the renderer class to render the world
-		World* _world;              //the root game object that represents our scene
-		float _fps;                 //stores the real fps
+	//call update on all game objects in the display root
+	virtual void _update(float pStep);
+	//render all game objects in the display root
+	virtual void _render();
+	//process any sfml window events (see SystemEventDispatcher/Listener)
+	virtual void _processEvents();
 
-    private:
-        AbstractGame(const AbstractGame&);
-        AbstractGame& operator=(const AbstractGame&);
+	sf::RenderWindow* _window;  //sfml window to render into
+	Renderer* _renderer;        //the renderer class to render the world
+	World* _world;              //the root game object that represents our scene
+	float _fps;                 //stores the real fps
 
-
+private:
+	AbstractGame(const AbstractGame&);
+	AbstractGame& operator=(const AbstractGame&);
+	GridManager* gridManager;
 };
 
 #endif // ABSTRACTGAME_HPP

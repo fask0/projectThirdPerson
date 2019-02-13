@@ -13,46 +13,47 @@ class Texture;
  */
 class TerrainMaterial : public AbstractMaterial
 {
-    public:
-        TerrainMaterial (Texture* pSplatMap, Texture* pDiffuseTexture0, Texture* pDiffuseTexture1, Texture* pDiffuseTexture2, Texture* pDiffuseTexture3, Texture* pHeightMap, float pTerrainHeight);
-        virtual ~TerrainMaterial ();
+public:
+	TerrainMaterial(Texture* pSplatMap, Texture* pDiffuseTexture0, Texture* pDiffuseTexture1, Texture* pDiffuseTexture2, Texture* pDiffuseTexture3, Texture* pHeightMap, float pTerrainHeight);
+	virtual ~TerrainMaterial();
 
-        virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
+	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
-        void setDiffuseTexture (Texture* pDiffuseTexture);
+	void setDiffuseTexture(Texture* pDiffuseTexture);
+	void TerrainMaterial::setHighlightArea(glm::vec3 pos);
 
-    protected:
-    private:
-        static ShaderProgram* _shader;
-        static void _lazyInitializeShader();
+protected:
+private:
+	static ShaderProgram* _shader;
+	static void _lazyInitializeShader();
 
-        //in this example we cache all identifiers for uniforms & attributes
-        static GLint _uMVPMatrix;
-		static GLint _uHeightMap;
-		static GLint _uTerrainHeight;
+	//in this example we cache all identifiers for uniforms & attributes
+	static GLint _uMVPMatrix;
+	static GLint _uHeightMap;
+	static GLint _uTerrainHeight;
 
-		static GLint _uSplatMap;
-		static GLint _uDiffuseTexture0;
-		static GLint _uDiffuseTexture1;
-		static GLint _uDiffuseTexture2;
-		static GLint _uDiffuseTexture3;
+	static GLint _uSplatMap;
+	static GLint _uDiffuseTexture0;
+	static GLint _uDiffuseTexture1;
+	static GLint _uDiffuseTexture2;
+	static GLint _uDiffuseTexture3;
 
-		static GLint _uTime;
+	static GLint _uTime;
 
-        static GLint _aVertex ;
-        static GLint _aNormal;
-        static GLint _aUV ;
+	static GLint _aVertex;
+	static GLint _aNormal;
+	static GLint _aUV;
 
-		Texture* _splatMap;
-        Texture* _diffuseTexture0;
-		Texture* _diffuseTexture1;
-		Texture* _diffuseTexture2;
-		Texture* _diffuseTexture3;
-		Texture* _heightMap;
-		float _terrainHeight;
+	Texture* _splatMap;
+	Texture* _diffuseTexture0;
+	Texture* _diffuseTexture1;
+	Texture* _diffuseTexture2;
+	Texture* _diffuseTexture3;
+	Texture* _heightMap;
+	float _terrainHeight;
 
-        TerrainMaterial(const TerrainMaterial&);
-        TerrainMaterial& operator=(const TerrainMaterial&);
+	TerrainMaterial(const TerrainMaterial&);
+	TerrainMaterial& operator=(const TerrainMaterial&);
 
 };
 

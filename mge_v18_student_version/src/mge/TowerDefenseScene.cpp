@@ -1,4 +1,4 @@
-#include "MyDemo.hpp"
+#include "TowerDefenseScene.hpp"
 #include <iostream>
 #include <string>
 
@@ -12,6 +12,7 @@
 #include "mge/core/Light.hpp"
 #include "mge/core/Camera.hpp"
 #include "mge/core/GameObject.hpp"
+#include "mge/core/GridManager.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
@@ -19,6 +20,7 @@
 #include "mge/materials/WobbleMaterial.hpp"
 #include "mge/materials/LitMaterial.hpp"
 #include "mge/materials/TerrainMaterial.hpp"
+#include "mge/materials/TextureGridMaterial.hpp"
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -28,15 +30,19 @@
 #include "mge/util/DebugHud.hpp"
 
 #include "mge/config.hpp"
+#include "Lua/lua.hpp"
 
-MyDemo::MyDemo() :AbstractGame(), _hud(0)
+TowerDefenseScene::TowerDefenseScene() :AbstractGame(), _hud(0)
 {
+
 }
 
-void MyDemo::initialize()
+void TowerDefenseScene::initialize()
 {
+	initializeLua();
+
 	//setup the core part
-	AbstractGame::initialize();
+	AbstractGame::initialize(WindowWidth, WindowHeight);
 
 	//setup the custom part so we can display some text
 	std::cout << "Initializing HUD" << std::endl;
@@ -44,8 +50,38 @@ void MyDemo::initialize()
 	std::cout << "HUD initialized." << std::endl << std::endl;
 }
 
+void TowerDefenseScene::initializeLua()
+{
+	std::cout << "Initializing Lua" << std::endl;
+
+	//Create state
+	lua = luaL_newstate();
+	luaL_openlibs(lua);
+	luaL_loadfile(lua, (config::MGE_LUA_PATH + "main.lua").c_str());
+
+	std::cout << "Lua State created" << std::endl;
+
+	//Run
+	lua_call(lua, 0, 0);
+
+	//Set vars
+	lua_getglobal(lua, "Debug");
+	Debug = lua_toboolean(lua, -1);
+	lua_pop(lua, -1);
+	std::cout << "Debug set" << std::endl;
+
+	lua_getglobal(lua, "WindowHeight");
+	WindowHeight = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
+
+	lua_getglobal(lua, "WindowWidth");
+	WindowWidth = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
+	std::cout << "Windowsize set" << std::endl;
+}
+
 //build the game _world
-void MyDemo::_initializeScene()
+void TowerDefenseScene::_initializeScene()
 {
 	//MESHES
 
@@ -84,22 +120,23 @@ void MyDemo::_initializeScene()
 	AbstractMaterial* lightMaterial = new ColorMaterial(glm::vec3(1, 1, 0));
 	AbstractMaterial* stoneMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 	AbstractMaterial* grassMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
+	TextureGridMaterial* gridMaterial = new TextureGridMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
 	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec3(0, 0, 1));
 	LitMaterial* litMaterial1 = new LitMaterial(light, glm::vec3(0.9f, 0.9f, 0.9f));
 	litMaterial1->AddLight(light2);
 	AbstractMaterial* litMaterial = litMaterial1;
-	AbstractMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
+	TerrainMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
 		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
 		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
 		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
 		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
 		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-		2);
+		0);
 	//SCENE SETUP
 
 	//add camera first (it will be updated last)
-	Camera* camera = new Camera("camera", glm::vec3(0, 4, 6));
-	camera->rotate(glm::radians(-40.0f), glm::vec3(1, 0, 0));
+	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 20));
+	camera->rotate(glm::radians(-35.0f), glm::vec3(1, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
@@ -107,20 +144,43 @@ void MyDemo::_initializeScene()
 	GameObject* plane = new GameObject("plane", glm::vec3(0, 0, 0));
 	plane->scale(glm::vec3(20, 20, 20));
 	plane->setMesh(newPlaneMesh);
-	plane->setMaterial(terrainMaterial);
+	plane->setMaterial(gridMaterial);
 	_world->add(plane);
 
-	camera->addBehaviour(new CameraOrbitBehaviour(plane, 3, 90, 1));
+	std::vector<GameObject*> objs;
+	objs.push_back(plane);
+	GridManager* gridManager = new GridManager(objs, _window);
+	_world->add(gridManager);
+	SetGridManager(gridManager);
+
+	_plane = plane;
+	_camera = camera;
+	_mat = gridMaterial;
 }
 
-void MyDemo::_render()
+void TowerDefenseScene::_render()
 {
 	AbstractGame::_render();
+
+	glm::vec3 normalizedDiff = _camera->rayCastNormalizedDiffVec();
+
+	glm::vec3 cameraToPlane = _plane->getWorldPosition() - _camera->getWorldPosition();
+	glm::vec3 parallel = glm::dot(cameraToPlane, normalizedDiff) * normalizedDiff;
+	glm::vec3 perpendicular = cameraToPlane - parallel;
+
+	float distance = glm::length(perpendicular);
+
+	float planeCamYDiff = _camera->getWorldPosition().y - _plane->getWorldPosition().y;
+	float multiplyValue = planeCamYDiff / normalizedDiff.y;
+	glm::vec3 thingy = (normalizedDiff * fabs(multiplyValue));
+	glm::vec3 planePos = _camera->getWorldPosition() + thingy;
+
+	_mat->setHighlightArea(planePos);
 
 	_updateHud();
 }
 
-void MyDemo::_updateHud()
+void TowerDefenseScene::_updateHud()
 {
 	std::string debugInfo = "";
 	debugInfo += std::string("FPS:") + std::to_string((int)_fps) + "\n";
@@ -129,7 +189,7 @@ void MyDemo::_updateHud()
 	_hud->draw();
 }
 
-MyDemo::~MyDemo()
+TowerDefenseScene::~TowerDefenseScene()
 {
 	//dtor
 }

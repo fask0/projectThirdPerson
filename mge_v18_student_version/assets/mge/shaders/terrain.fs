@@ -8,8 +8,11 @@ uniform sampler2D diffuseTexture2;
 uniform sampler2D diffuseTexture3;
 
 uniform float time;
+uniform vec3 mousePos;
 
 in vec2 texCoord;
+in vec3 FragPos;
+
 out vec4 fragment_color;
 
 void main( void ) 
@@ -24,25 +27,17 @@ void main( void )
 
 
 	//Line Thicccness
-	float lineThickness = 0.3f;
-	int gridSize = 10;
+	float lineThickness = 0.1f;
+	int gridSize = 3;
 
-	float stepSize = 100.0f / gridSize;
-	float currentStep = 0.0f;
-
-	for(int i = 0; i < gridSize - 1; i++)
+	if(floor(FragPos[0] / gridSize) == floor(mousePos[0] / gridSize) && floor(FragPos[2] / gridSize) == floor(mousePos[2] / gridSize))
 	{
-		currentStep += stepSize;
-		float thing = 0;
-		if(texCoord[0] * 100.0f >= currentStep - lineThickness && texCoord[0] * 100.0f <= currentStep + lineThickness)
-		{
-			thing = abs((currentStep - texCoord[0] * 100.0f) * 100) / 100;
-			fragment_color = mix(fragment_color, vec4(0,0,0, 1.0f), 1 - (thing * (1.0f / lineThickness)));
-		}
-		if(texCoord[1] * 100.0f >= currentStep - lineThickness && texCoord[1] * 100.0f <= currentStep + lineThickness)
-		{
-			thing = abs((currentStep - texCoord[1] * 100.0f) * 100) / 100;
-			fragment_color = mix(fragment_color, vec4(0,0,0, 1.0f), 1 - (thing * (1.0f / lineThickness)));
-		}
+		fragment_color = mix(fragment_color, vec4(0.4f,0.4f,0.9f,1.0f), 0.3f);
+	}
+
+	if((mod(FragPos[0], gridSize) >= -lineThickness && mod(FragPos[0], gridSize) <= lineThickness)
+	|| (mod(FragPos[2], gridSize) >= -lineThickness && mod(FragPos[2], gridSize) <= lineThickness))
+	{
+		fragment_color = vec4(0,0,0,1);
 	}
 }
