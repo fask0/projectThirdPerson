@@ -77,6 +77,9 @@ void main( void ) {
 
 	fragment_color = vec4(result, 1.0);		
 
+
+
+	//GRID
 	if(gridVisible)
 	{
 		//Line Thicccness

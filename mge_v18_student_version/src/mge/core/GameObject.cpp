@@ -9,6 +9,8 @@ GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 	_mesh(nullptr), _behaviour(nullptr), _material(nullptr), _world(nullptr)
 
 {
+	GameController::GameObjects.push_back(this);
+	_gameControllerIndex = GameController::GameObjects.size() - 1;
 }
 
 GameObject::~GameObject()

@@ -18,7 +18,8 @@ public:
 
 	virtual ~GameController();
 	static std::vector<Light*> Lights;
-
+	static std::vector<GameObject*> GameObjects;
+	static std::vector<GameObject*> GridObjects;
 private:
 
 private:

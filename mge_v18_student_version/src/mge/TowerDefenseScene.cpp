@@ -150,6 +150,12 @@ void TowerDefenseScene::_initializeScene()
 	plane->setMaterial(litTextureGridMaterial);
 	_world->add(plane);
 
+	GameObject* plane2 = new GameObject("plane2", glm::vec3(40, 0, 0));
+	plane2->scale(glm::vec3(20, 20, 20));
+	plane2->setMesh(newPlaneMesh);
+	plane2->setMaterial(litTextureGridMaterial);
+	_world->add(plane2);
+
 	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
 	_world->add(colManager);
 
@@ -166,9 +172,9 @@ void TowerDefenseScene::_initializeScene()
 	//colliderB->setMaterial(litTextureMaterial);
 	_world->add(colliderB);
 
-	std::vector<GameObject*> objs;
-	objs.push_back(plane);
-	GridManager* gridManager = new GridManager(objs, _window, _world);
+	GameController::GridObjects.push_back(plane);
+	GameController::GridObjects.push_back(plane2);
+	GridManager* gridManager = new GridManager(GameController::GridObjects, _window, _world);
 	_world->add(gridManager);
 	SetGridManager(gridManager);
 

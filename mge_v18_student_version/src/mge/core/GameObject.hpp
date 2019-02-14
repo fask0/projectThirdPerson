@@ -80,6 +80,8 @@ public:
 
 	bool isColliding;
 
+	int _gameControllerIndex;
+
 protected:
 	std::string _name;
 	glm::mat4 _transform;
