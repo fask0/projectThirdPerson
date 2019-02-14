@@ -125,12 +125,12 @@ void TowerDefenseScene::_initializeScene()
 	litMaterial1->AddLight(light2);
 	AbstractMaterial* litMaterial = litMaterial1;
 	TerrainMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-														   0);
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
+		0);
 
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 20));
@@ -162,7 +162,7 @@ void TowerDefenseScene::_initializeScene()
 
 	std::vector<GameObject*> objs;
 	objs.push_back(plane);
-	GridManager* gridManager = new GridManager(objs, _window);
+	GridManager* gridManager = new GridManager(objs, _window, _world);
 	_world->add(gridManager);
 	SetGridManager(gridManager);
 

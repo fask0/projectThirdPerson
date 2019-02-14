@@ -5,6 +5,8 @@
 #include "mge/core/GameObject.hpp"
 #include <SFML/Graphics.hpp>
 #include "mge/core/Renderer.hpp"
+#include "mge/core/World.hpp"
+#include "mge/core/Tower.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -14,16 +16,32 @@
 class GridManager : public GameObject
 {
 public:
-	GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow* pWindow);
+	GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow* pWindow, World* pWorld);
 
 	virtual ~GridManager();
 
 	void update(float pStep) override;
 	void InputDetection(sf::Event pEvent);
 
+
 private:
 	std::vector<GameObject*> _gridObjects;
 	sf::RenderWindow* _window;
+	World* _world;
+
+	//Tower variables
+	std::vector<Tower*> _placedTowers;
+	Tower* _tower = nullptr;
+	Tower* _mouseOverTower = nullptr;
+	Tower* _selectedTower = nullptr;
+
+	//Input handling
+	void CheckIfMouseOverTower();
+	void GridControls(sf::Event pEvent);
+	void TowerPlacementControls(sf::Event pEvent);
+	void TowerSelectionControls(sf::Event pEvent);
+	void ResetMouseOverAndSelected();
+	void ResetAllTowerMaterials();
 
 private:
 	GridManager(const GridManager&);

@@ -93,6 +93,16 @@ void GameObject::addBehaviour(AbstractBehaviour* pBehaviour)
 	_behaviours.back()->setOwner(this);
 }
 
+void GameObject::removeBehaviour(AbstractBehaviour* pBehaviour)
+{
+	std::cout << "Not yet implemented" << std::endl;
+}
+
+void GameObject::removeAllBehaviours()
+{
+	_behaviours.clear();
+}
+
 std::vector<AbstractBehaviour*> GameObject::getBehaviours() const
 {
 	return _behaviours;
