@@ -1,9 +1,11 @@
 #include "mge/core/Light.hpp"
 #include "mge/core/World.hpp"
+#include "mge/core/GameController.hpp"
 
 Light::Light(const std::string& pName, const glm::vec3& pPosition, glm::vec3 color, float startCutOff, float endCutOff, LightType lightType)
 	:GameObject(pName, pPosition), _color(color), _startCutOff(startCutOff), _endCutOff(endCutOff), _lightType(lightType)
 {
+	GameController::Lights.push_back(this);
 }
 
 Light::~Light()

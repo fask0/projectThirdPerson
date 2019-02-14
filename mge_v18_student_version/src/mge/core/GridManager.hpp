@@ -7,6 +7,9 @@
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/Tower.hpp"
+#include "mge/materials/LitSelectedTextureMaterial.hpp"
+#include "mge/materials/TextureGridMaterial.hpp"
+#include "mge/materials/LitTextureGridMaterial.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -30,6 +33,8 @@ private:
 	World* _world;
 
 	//Tower variables
+	LitSelectedTextureMaterial* selectedMaterial;
+	LitTextureGridMaterial* material;
 	std::vector<Tower*> _placedTowers;
 	Tower* _tower = nullptr;
 	Tower* _mouseOverTower = nullptr;

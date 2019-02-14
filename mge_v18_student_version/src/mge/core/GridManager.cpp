@@ -7,6 +7,8 @@
 #include <thread>
 #include "mge/materials/TextureGridMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
+#include "mge/materials/LitSelectedTextureMaterial.hpp"
+#include "mge/materials/LitTextureGridMaterial.hpp"
 #include "mge/core/Tower.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/Camera.hpp"
@@ -14,6 +16,7 @@
 #include "mge/core/Mesh.hpp"
 #include "mge/behaviours/FollowMouseOnGridBehaviour.hpp"
 #include "glm.hpp"
+#include "GameController.hpp"
 
 GridManager::GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow* pWindow, World* pWorld) : GameObject("GridManager", glm::vec3(0, 0, 0)), _window(pWindow), _world(pWorld)
 {
@@ -22,6 +25,9 @@ GridManager::GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow
 		_gridObjects.push_back(obj);
 		std::cout << obj->getName() << std::endl;
 	}
+	material = dynamic_cast<LitTextureGridMaterial*>(_gridObjects[0]->getMaterial());
+	selectedMaterial = new LitSelectedTextureMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"));
+	selectedMaterial->SetMixIntensity(0.5f);
 }
 
 GridManager::~GridManager()
@@ -58,7 +64,7 @@ void GridManager::CheckIfMouseOverTower()
 				_mouseOverTower->ResetMaterial();
 
 			_mouseOverTower = tower;
-			_mouseOverTower->setMaterial(new ColorMaterial(glm::vec4(0, 0, 1, 1.0f)));
+			_mouseOverTower->setMaterial(selectedMaterial);
 			mousingOverTower = true;
 		}
 	}
@@ -89,14 +95,14 @@ void GridManager::GridControls(sf::Event pEvent)
 		case sf::Keyboard::Key::G:
 			for each (GameObject* obj in _gridObjects)
 			{
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->toggleGrid();
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->toggleGrid();
 				std::cout << "Toggled Grid" << std::endl;
 			}
 			break;
 		case sf::Keyboard::Key::O:
 			for each (GameObject* obj in _gridObjects)
 			{
-				TextureGridMaterial* material = dynamic_cast<TextureGridMaterial*>(obj->getMaterial());
+				LitTextureGridMaterial* material = dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial());
 				material->setGridSize(material->getGridSize() + 0.5f);
 				std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
 			}
@@ -104,7 +110,7 @@ void GridManager::GridControls(sf::Event pEvent)
 		case sf::Keyboard::Key::P:
 			for each (GameObject* obj in _gridObjects)
 			{
-				TextureGridMaterial* material = dynamic_cast<TextureGridMaterial*>(obj->getMaterial());
+				LitTextureGridMaterial* material = dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial());
 				material->setGridSize(material->getGridSize() - 0.5f);
 				std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
 			}
@@ -112,7 +118,7 @@ void GridManager::GridControls(sf::Event pEvent)
 		case sf::Keyboard::Key::K:
 			for each (GameObject* obj in _gridObjects)
 			{
-				TextureGridMaterial* material = dynamic_cast<TextureGridMaterial*>(obj->getMaterial());
+				LitTextureGridMaterial* material = dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial());
 				material->setLineThiccness(material->getLineThiccness() + 0.05f);
 				std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
 			}
@@ -120,7 +126,7 @@ void GridManager::GridControls(sf::Event pEvent)
 		case sf::Keyboard::Key::L:
 			for each (GameObject* obj in _gridObjects)
 			{
-				TextureGridMaterial* material = dynamic_cast<TextureGridMaterial*>(obj->getMaterial());
+				LitTextureGridMaterial* material = dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial());
 				material->setLineThiccness(material->getLineThiccness() - 0.05f);
 				std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
 			}
@@ -134,10 +140,9 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 {
 	if (pEvent.type == sf::Event::KeyPressed)
 	{
-		TextureGridMaterial* material = dynamic_cast<TextureGridMaterial*>(_gridObjects[0]->getMaterial());
-		ColorMaterial* colorMaterial = new ColorMaterial(glm::vec4(0.4f, 0.4f, 0.9f, 0.7f));
+		//TextureGridMaterial* material = dynamic_cast<TextureGridMaterial*>(_gridObjects[0]->getMaterial());
 
-		Mesh* towerMesh = Mesh::load(config::MGE_MODEL_PATH + "cube_smooth.obj");
+		Mesh* towerMesh = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
 		FollowMouseOnGridBehaviour* behaviour = new FollowMouseOnGridBehaviour(material);
 
 		float gSize = material->getGridSize();
@@ -158,8 +163,8 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			{
 				for each (GameObject* obj in _gridObjects)
 				{
-					dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setGrid(true);
-					dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRangeShowing(true);
+					dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setGrid(true);
+					dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRangeShowing(true);
 					std::cout << "Toggled Grid" << std::endl;
 				}
 			}
@@ -169,13 +174,13 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 
 			for each (GameObject* obj in _gridObjects)
 			{
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRange(8);
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRange(8);
 			}
 
-			towerMesh = Mesh::load(config::MGE_MODEL_PATH + "cube_smooth.obj");
+			towerMesh = Mesh::load(config::MGE_MODEL_PATH + "cube_flat.obj");
 			_tower->scale(glm::vec3(2.5f, 2.5f, 2.5f));
 			_tower->setMesh(towerMesh);
-			_tower->setMaterial(colorMaterial);
+			_tower->setMaterial(selectedMaterial);
 			_tower->addBehaviour(behaviour);
 			_world->add(_tower);
 			break;
@@ -189,8 +194,8 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			{
 				for each (GameObject* obj in _gridObjects)
 				{
-					dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setGrid(true);
-					dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRangeShowing(true);
+					dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setGrid(true);
+					dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRangeShowing(true);
 					std::cout << "Toggled Grid" << std::endl;
 				}
 			}
@@ -201,12 +206,12 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 
 			for each (GameObject* obj in _gridObjects)
 			{
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRange(12);
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRange(12);
 			}
 
 			_tower->scale(glm::vec3(2.5f, 2.5f, 2.5f));
 			_tower->setMesh(towerMesh);
-			_tower->setMaterial(colorMaterial);
+			_tower->setMaterial(selectedMaterial);
 			_tower->addBehaviour(behaviour);
 			_world->add(_tower);
 			break;
@@ -220,8 +225,8 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			{
 				for each (GameObject* obj in _gridObjects)
 				{
-					dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setGrid(true);
-					dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRangeShowing(true);
+					dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setGrid(true);
+					dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRangeShowing(true);
 					std::cout << "Toggled Grid" << std::endl;
 				}
 			}
@@ -232,12 +237,12 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 
 			for each (GameObject* obj in _gridObjects)
 			{
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRange(16);
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRange(16);
 			}
 
 			_tower->scale(glm::vec3(2.5f, 2.5f, 2.5f));
 			_tower->setMesh(towerMesh);
-			_tower->setMaterial(colorMaterial);
+			_tower->setMaterial(selectedMaterial);
 			_tower->addBehaviour(behaviour);
 			_world->add(_tower);
 			break;
@@ -251,8 +256,8 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			{
 				for each (GameObject* obj in _gridObjects)
 				{
-					dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setGrid(true);
-					dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRangeShowing(true);
+					dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setGrid(true);
+					dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRangeShowing(true);
 					std::cout << "Toggled Grid" << std::endl;
 				}
 			}
@@ -263,12 +268,12 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 
 			for each (GameObject* obj in _gridObjects)
 			{
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRange(12);
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRange(12);
 			}
 
 			_tower->scale(glm::vec3(2.5f, 2.5f, 2.5f));
 			_tower->setMesh(towerMesh);
-			_tower->setMaterial(colorMaterial);
+			_tower->setMaterial(selectedMaterial);
 			_tower->addBehaviour(behaviour);
 			_world->add(_tower);
 			break;
@@ -282,8 +287,8 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 
 				for each (GameObject* obj in _gridObjects)
 				{
-					dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setGrid(false);
-					dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRangeShowing(false);
+					dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setGrid(false);
+					dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRangeShowing(false);
 					std::cout << "Toggled Grid" << std::endl;
 				}
 			}
@@ -304,8 +309,8 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 
 			for each (GameObject* obj in _gridObjects)
 			{
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setGrid(false);
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRangeShowing(false);
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setGrid(false);
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRangeShowing(false);
 				std::cout << "Toggled Grid" << std::endl;
 			}
 		}
@@ -321,8 +326,8 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 
 			for each (GameObject* obj in _gridObjects)
 			{
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setGrid(false);
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRangeShowing(false);
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setGrid(false);
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRangeShowing(false);
 				std::cout << "Toggled Grid" << std::endl;
 			}
 		}
@@ -338,7 +343,7 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 		{
 			for each (GameObject* obj in _gridObjects)
 			{
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRangeShowing(false);
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRangeShowing(false);
 			}
 			_selectedTower->ResetMaterial();
 			_selectedTower = nullptr;
@@ -354,9 +359,9 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 			_selectedTower = _mouseOverTower;
 			for each (GameObject* obj in _gridObjects)
 			{
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRange(_selectedTower->GetRange());
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->setRangeShowing(true);
-				dynamic_cast<TextureGridMaterial*>(obj->getMaterial())->SetTowerPos(_selectedTower->getLocalPosition());
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRange(_selectedTower->GetRange());
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->setRangeShowing(true);
+				dynamic_cast<LitTextureGridMaterial*>(obj->getMaterial())->SetTowerPos(_selectedTower->getLocalPosition());
 			}
 		}
 	}

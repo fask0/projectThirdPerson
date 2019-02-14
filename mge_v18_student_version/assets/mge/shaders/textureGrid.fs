@@ -25,11 +25,6 @@ void main( void )
 	if(gridVisible)
 	{
 		//Line Thicccness
-		if(floor(FragPos[0] / gridSize) == floor(mousePos[0] / gridSize) && floor(FragPos[2] / gridSize) == floor(mousePos[2] / gridSize))
-		{
-			fragment_color = mix(fragment_color, vec4(0.4f,0.4f,0.9f,1.0f), 0.6f);
-		}
-
 		if((mod(FragPos[0], gridSize) >= -lineThiccness && mod(FragPos[0], gridSize) <= lineThiccness)
 		|| (mod(FragPos[2], gridSize) >= -lineThiccness && mod(FragPos[2], gridSize) <= lineThiccness))
 		{

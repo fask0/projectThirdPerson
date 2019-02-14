@@ -23,6 +23,8 @@
 #include "mge/materials/LitMaterial.hpp"
 #include "mge/materials/TerrainMaterial.hpp"
 #include "mge/materials/TextureGridMaterial.hpp"
+#include "mge/materials/LitTextureMaterial.hpp"
+#include "mge/materials/LitTextureGridMaterial.hpp"
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -31,6 +33,7 @@
 #include "mge/behaviours/CollisionBehaviour.hpp"
 
 #include "mge/util/DebugHud.hpp"
+#include "mge/core/GameController.hpp"
 
 #include "mge/config.hpp"
 #include "Lua/lua.hpp"
@@ -103,16 +106,15 @@ void TowerDefenseScene::_initializeScene()
 
 
 	//Directional
-	Light* light = new Light("light", glm::vec3(0, 10, 0), glm::vec3(1, 1, 1), 10.0f, 30.0f, Light::Directional);
+	Light* light = new Light("light", glm::vec3(0, 10, 0), glm::vec3(0.9f, 1.0f, 0.8f), 10.0f, 30.0f, Light::Directional);
 
 	//SpotLight
 	Light* light2 = new Light("light2", glm::vec3(0, 10, 0), glm::vec3(0, 0, 1), 10.0f, 30.0f, Light::Spotlight);
-	light->rotate(glm::radians(180.0f), glm::vec3(1, 0, 0));
+	light->rotate(glm::radians(-110.0f), glm::vec3(1, 0, 0));
+	light->rotate(glm::radians(-45.0f), glm::vec3(0, 1, 0));
 	light2->rotate(glm::radians(180.0f), glm::vec3(1, 0, 0));
 
-	//Behaviours
-	//light2->setBehaviour(new WASDBehaviour());
-	light->setBehaviour(new RotatingBehaviour());
+	light->addBehaviour(new RotatingBehaviour());
 
 	_world->add(light);
 	_world->add(light2);
@@ -120,6 +122,7 @@ void TowerDefenseScene::_initializeScene()
 	//SCENE SETUP
 
 	TextureGridMaterial* gridMaterial = new TextureGridMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
+	LitTextureGridMaterial* litTextureGridMaterial = new LitTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
 	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(0, 0, 1, 1));
 	LitMaterial* litMaterial1 = new LitMaterial(light, glm::vec3(0.9f, 0.9f, 0.9f));
 	litMaterial1->AddLight(light2);
@@ -131,6 +134,8 @@ void TowerDefenseScene::_initializeScene()
 		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
 		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
 		0);
+	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(light, Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
+
 
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 20));
@@ -142,7 +147,7 @@ void TowerDefenseScene::_initializeScene()
 	GameObject* plane = new GameObject("plane", glm::vec3(0, 0, 0));
 	plane->scale(glm::vec3(20, 20, 20));
 	plane->setMesh(newPlaneMesh);
-	plane->setMaterial(gridMaterial);
+	plane->setMaterial(litTextureGridMaterial);
 	_world->add(plane);
 
 	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
@@ -158,6 +163,7 @@ void TowerDefenseScene::_initializeScene()
 	CollisionBehaviour* colB = new CollisionBehaviour(1);
 	colliderB->setBehaviour(colB);
 	colB->DrawCollider();
+	//colliderB->setMaterial(litTextureMaterial);
 	_world->add(colliderB);
 
 	std::vector<GameObject*> objs;
@@ -168,7 +174,7 @@ void TowerDefenseScene::_initializeScene()
 
 	_plane = plane;
 	_camera = camera;
-	_mat = gridMaterial;
+	_mat = litTextureGridMaterial;
 }
 
 void TowerDefenseScene::_render()

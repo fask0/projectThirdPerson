@@ -179,6 +179,7 @@
     <ClInclude Include="..\src\mge\core\AbstractGame.hpp" />
     <ClInclude Include="..\src\mge\core\CollisionManager.hpp" />
     <ClInclude Include="..\src\mge\core\Camera.hpp" />
+    <ClInclude Include="..\src\mge\core\GameController.hpp" />
     <ClInclude Include="..\src\mge\core\GameObject.hpp" />
     <ClInclude Include="..\src\mge\core\GridManager.hpp" />
     <ClInclude Include="..\src\mge\core\Light.hpp" />
@@ -191,6 +192,9 @@
     <ClInclude Include="..\src\mge\materials\AbstractMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\ColorMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\LitMaterial.hpp" />
+    <ClInclude Include="..\src\mge\materials\LitSelectedTextureMaterial.hpp" />
+    <ClInclude Include="..\src\mge\materials\LitTextureGridMaterial.hpp" />
+    <ClInclude Include="..\src\mge\materials\LitTextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\TerrainMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\TextureGridMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
@@ -210,6 +214,7 @@
     <ClCompile Include="..\src\mge\core\Camera.cpp" />
     <ClCompile Include="..\src\mge\core\CollisionManager.cpp" />
     <ClCompile Include="..\src\mge\core\CollisionBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\core\GameController.cpp" />
     <ClCompile Include="..\src\mge\core\GameObject.cpp" />
     <ClCompile Include="..\src\mge\core\GridManager.cpp" />
     <ClCompile Include="..\src\mge\core\Light.cpp" />
@@ -222,6 +227,9 @@
     <ClCompile Include="..\src\mge\materials\AbstractMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\ColorMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\LitMaterial.cpp" />
+    <ClCompile Include="..\src\mge\materials\LitSelectedTextureMaterial.cpp" />
+    <ClCompile Include="..\src\mge\materials\LitTextureGridMaterial.cpp" />
+    <ClCompile Include="..\src\mge\materials\LitTextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TerrainMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TextureGridMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />

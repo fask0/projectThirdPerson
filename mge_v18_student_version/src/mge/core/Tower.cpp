@@ -5,11 +5,20 @@
 #include <SFML/Window.hpp>
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
+#include "mge/materials/LitSelectedTextureMaterial.hpp"
+#include "mge/core/GameController.hpp"
+#include "mge/config.hpp"
 
 Tower::Tower(std::string pName, glm::vec3 pPosition, float pRange, AbstractMaterial* pMaterial)
 	: GameObject(pName, pPosition), _range(pRange), _material(pMaterial)
 {
+	_material = new LitSelectedTextureMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"));
+	for (int i = 1; i < GameController::Lights.size(); i++)
+	{
+		dynamic_cast<LitSelectedTextureMaterial*>(_material)->AddLight(GameController::Lights[1]);
+	}
 	setMaterial(_material);
+	dynamic_cast<LitSelectedTextureMaterial*>(_material)->SetMixIntensity(0.0f);
 }
 
 Tower::~Tower()

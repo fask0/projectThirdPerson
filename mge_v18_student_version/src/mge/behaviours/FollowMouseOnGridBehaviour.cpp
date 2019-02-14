@@ -1,13 +1,13 @@
 #include "mge/behaviours/FollowMouseOnGridBehaviour.hpp"
 #include "mge/core/GameObject.hpp"
-#include "mge/materials/TextureGridMaterial.hpp"
+#include "mge/materials/LitTextureGridMaterial.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "glm.hpp"
 
 
-FollowMouseOnGridBehaviour::FollowMouseOnGridBehaviour(TextureGridMaterial* pMaterial) : AbstractBehaviour(), _material(pMaterial)
+FollowMouseOnGridBehaviour::FollowMouseOnGridBehaviour(LitTextureGridMaterial* pMaterial) : AbstractBehaviour(), _material(pMaterial)
 {
 
 }

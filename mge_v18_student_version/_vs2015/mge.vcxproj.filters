@@ -30,6 +30,10 @@
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
     <ClCompile Include="..\src\mge\core\Tower.cpp" />
     <ClCompile Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\materials\LitTextureMaterial.cpp" />
+    <ClCompile Include="..\src\mge\core\GameController.cpp" />
+    <ClCompile Include="..\src\mge\materials\LitSelectedTextureMaterial.cpp" />
+    <ClCompile Include="..\src\mge\materials\LitTextureGridMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -62,5 +66,9 @@
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
     <ClInclude Include="..\src\mge\core\Tower.hpp" />
     <ClInclude Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\materials\LitTextureMaterial.hpp" />
+    <ClInclude Include="..\src\mge\core\GameController.hpp" />
+    <ClInclude Include="..\src\mge\materials\LitSelectedTextureMaterial.hpp" />
+    <ClInclude Include="..\src\mge\materials\LitTextureGridMaterial.hpp" />
   </ItemGroup>
 </Project>

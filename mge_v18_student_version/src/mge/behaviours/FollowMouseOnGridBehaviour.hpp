@@ -2,7 +2,7 @@
 #define FOLLOWMOUSEONGRIDBEHAVIOUR_HPP
 
 #include "mge/behaviours/AbstractBehaviour.hpp"
-#include "mge/materials/TextureGridMaterial.hpp"
+#include "mge/materials/LitTextureGridMaterial.hpp"
 #include "glm.hpp"
 
 /**
@@ -11,13 +11,13 @@
 class FollowMouseOnGridBehaviour : public AbstractBehaviour
 {
 public:
-	FollowMouseOnGridBehaviour(TextureGridMaterial* pMaterial);
+	FollowMouseOnGridBehaviour(LitTextureGridMaterial* pMaterial);
 	virtual ~FollowMouseOnGridBehaviour();
 
 	virtual void update(float pstep);
 
 private:
-	TextureGridMaterial* _material;
+	LitTextureGridMaterial* _material;
 };
 
 #endif // ROTATINGBEHAVIOUR_HPP
