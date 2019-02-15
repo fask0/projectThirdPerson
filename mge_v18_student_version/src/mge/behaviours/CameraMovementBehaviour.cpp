@@ -66,28 +66,36 @@ void CameraMovementBehaviour::CalcLockVars()
 
 void CameraMovementBehaviour::Move(float pStep)
 {
+	float movementSpeed;
+	float diffVar = (_maxMovementSpeed - _minMovementSpeed) / (_windowSize.x / 4);
 	//Move camera
 	if (_relativeMousePos.x < -(_windowSize.x / 4))
 	{
-		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x - pStep * 10, _owner->getLocalPosition().y, _owner->getLocalPosition().z));
+		movementSpeed = _relativeMousePos.x + (_windowSize.x / 4);
+		movementSpeed = -movementSpeed * diffVar;
+		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x - pStep * movementSpeed, _owner->getLocalPosition().y, _owner->getLocalPosition().z));
 	}
 	if (_relativeMousePos.x > _windowSize.x / 4)
 	{
-		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x + pStep * 10, _owner->getLocalPosition().y, _owner->getLocalPosition().z));
+		movementSpeed = _relativeMousePos.x - (_windowSize.x / 4);
+		movementSpeed = movementSpeed * diffVar;
+		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x + pStep * movementSpeed, _owner->getLocalPosition().y, _owner->getLocalPosition().z));
 	}
 	if (_relativeMousePos.y < -(_windowSize.y / 4))
 	{
-		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x, _owner->getLocalPosition().y, _owner->getLocalPosition().z + pStep * 10));
+		movementSpeed = _relativeMousePos.y + (_windowSize.y / 4);
+		movementSpeed = -movementSpeed * diffVar;
+		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x, _owner->getLocalPosition().y, _owner->getLocalPosition().z + pStep * movementSpeed));
 	}
 	if (_relativeMousePos.y > _windowSize.y / 4)
 	{
-		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x, _owner->getLocalPosition().y, _owner->getLocalPosition().z - pStep * 10));
+		movementSpeed = _relativeMousePos.y - (_windowSize.y / 4);
+		movementSpeed = movementSpeed * diffVar;
+		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x, _owner->getLocalPosition().y, _owner->getLocalPosition().z - pStep * movementSpeed));
 	}
 
 	//Clamp camera
 	_owner->setLocalPosition(glm::clamp(_owner->getLocalPosition(), glm::vec3(_camMinX, _minHeight, _camMaxZ), glm::vec3(_camMaxX, _maxHeight, _camMinZ)));
-	//_owner->setLocalPosition(glm::vec3(_camMinX, _ownerPosition.y, _camMinZ));
-	//std::cout << _owner->getLastPosition() << std::endl;
 }
 
 void CameraMovementBehaviour::Scroll(sf::Event pEvent)
