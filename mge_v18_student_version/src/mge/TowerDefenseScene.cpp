@@ -31,6 +31,7 @@
 #include "mge/behaviours/WASDBehaviour.hpp"
 #include "mge/behaviours/CameraOrbitBehaviour.hpp"
 #include "mge/behaviours/CollisionBehaviour.hpp"
+#include "mge/behaviours/CameraMovementBehaviour.hpp"
 
 #include "mge/util/DebugHud.hpp"
 #include "mge/core/GameController.hpp"
@@ -140,6 +141,7 @@ void TowerDefenseScene::_initializeScene()
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 20));
 	camera->rotate(glm::radians(-35.0f), glm::vec3(1, 0, 0));
+	camera->addBehaviour(new CameraMovementBehaviour(10, 10, 0, 100, _window, camera->getLocalPosition()));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 

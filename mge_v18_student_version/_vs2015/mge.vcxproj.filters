@@ -34,6 +34,7 @@
     <ClCompile Include="..\src\mge\core\GameController.cpp" />
     <ClCompile Include="..\src\mge\materials\LitSelectedTextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\LitTextureGridMaterial.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\CameraMovementBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -70,5 +71,6 @@
     <ClInclude Include="..\src\mge\core\GameController.hpp" />
     <ClInclude Include="..\src\mge\materials\LitSelectedTextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\LitTextureGridMaterial.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\CameraMovementBehaviour.hpp" />
   </ItemGroup>
 </Project>
