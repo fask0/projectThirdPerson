@@ -4,6 +4,7 @@
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/GridManager.hpp"
+#include "mge/core/GameController.hpp"
 
 AbstractGame::AbstractGame() :_window(NULL), _renderer(NULL), _world(NULL), _fps(0)
 {
@@ -208,6 +209,8 @@ void AbstractGame::_processEvents()
 
 		if (gridManager)
 			gridManager->InputDetection(event);
+		if (GameController::CameraBehaviour)
+			GameController::CameraBehaviour->Scroll(event);
 	}
 
 	if (exit)
