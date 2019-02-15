@@ -2,7 +2,9 @@
 #define GAMECONTROLLER_HPP
 
 #include <string>
+#include <iostream>
 #include "mge/core/GameObject.hpp"
+#include "mge/core/Light.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -15,7 +17,9 @@ public:
 	GameController();
 
 	virtual ~GameController();
-
+	static std::vector<Light*> Lights;
+	static std::vector<GameObject*> GameObjects;
+	static std::vector<GameObject*> GridObjects;
 private:
 
 private:

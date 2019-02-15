@@ -250,7 +250,7 @@ Mesh* Mesh::load(std::string pFilename)
 			delete[] specularArray[i];
 		}
 
-		for (int i = 0;i < mesh->faces; ++i)
+		for (int i = 0; i < mesh->faces; ++i)
 			delete[] facesArray[i];
 
 		delete[] diffuseArray;
@@ -369,7 +369,7 @@ int Mesh::getOBJinfo(std::string pFileName)
 	if (!inOBJ.good())
 	{
 		std::cout << "Could not open " + pFileName + ".obj";
-		return -1;
+		return 0;
 	}
 
 	while (!inOBJ.eof())

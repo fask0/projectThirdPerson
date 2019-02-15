@@ -191,10 +191,10 @@ void AbstractGame::_processEvents()
 			exit = true;
 			break;
 		case sf::Event::KeyPressed:
-			if (event.key.code == sf::Keyboard::Escape)
+			/*if (event.key.code == sf::Keyboard::Escape)
 			{
 				exit = true;
-			}
+			}*/
 			break;
 		case sf::Event::Resized:
 			//would be better to move this to the renderer

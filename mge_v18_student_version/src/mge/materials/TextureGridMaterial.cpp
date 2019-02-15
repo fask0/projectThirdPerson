@@ -14,16 +14,21 @@ ShaderProgram* TextureGridMaterial::_shader = NULL;
 GLint TextureGridMaterial::_uMVPMatrix = 0;
 GLint TextureGridMaterial::_uModelMatrix = 0;
 GLint TextureGridMaterial::_uDiffuseTexture = 0;
-GLint TextureGridMaterial::_uMousePos = 0;
+
 GLint TextureGridMaterial::_uGridVisible = 0;
+GLint TextureGridMaterial::_uShowRange = 0;
+
+GLint TextureGridMaterial::_uMousePos = 0;
+GLint TextureGridMaterial::_uTowerPos = 0;
 GLint TextureGridMaterial::_uLineThiccness = 0;
 GLint TextureGridMaterial::_uGridSize = 0;
+GLint TextureGridMaterial::_uRange = 0;
 
 GLint TextureGridMaterial::_aVertex = 0;
 GLint TextureGridMaterial::_aNormal = 0;
 GLint TextureGridMaterial::_aUV = 0;
 
-TextureGridMaterial::TextureGridMaterial(Texture * pDiffuseTexture) :_diffuseTexture(pDiffuseTexture), _gridShowing(true)
+TextureGridMaterial::TextureGridMaterial(Texture * pDiffuseTexture) :_diffuseTexture(pDiffuseTexture), _gridShowing(false), _showRange(false)
 {
 	_lazyInitializeShader();
 }
@@ -43,10 +48,15 @@ void TextureGridMaterial::_lazyInitializeShader()
 		_uMVPMatrix = _shader->getUniformLocation("mvpMatrix");
 		_uModelMatrix = _shader->getUniformLocation("modelMatrix");
 		_uDiffuseTexture = _shader->getUniformLocation("diffuseTexture");
-		_uMousePos = _shader->getUniformLocation("mousePos");
+
 		_uGridVisible = _shader->getUniformLocation("gridVisible");
+		_uShowRange = _shader->getUniformLocation("showRange");
+
+		_uMousePos = _shader->getUniformLocation("mousePos");
+		_uTowerPos = _shader->getUniformLocation("towerPos");
 		_uLineThiccness = _shader->getUniformLocation("lineThiccness");
 		_uGridSize = _shader->getUniformLocation("gridSize");
+		_uRange = _shader->getUniformLocation("range");
 
 		_aVertex = _shader->getAttribLocation("vertex");
 		_aNormal = _shader->getAttribLocation("normal");
@@ -81,12 +91,15 @@ void TextureGridMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pM
 	//pass in a precalculate mvp matrix (see texture material for the opposite)
 	glm::mat4 mvpMatrix = pProjectionMatrix * pViewMatrix * pModelMatrix;
 	glUniformMatrix4fv(_uMVPMatrix, 1, GL_FALSE, glm::value_ptr(mvpMatrix));
-
 	glUniformMatrix4fv(_uModelMatrix, 1, GL_FALSE, glm::value_ptr(pModelMatrix));
+
 	glUniform1i(_uGridVisible, _gridShowing);
+	glUniform1i(_uShowRange, _showRange);
 	glUniform1f(_uGridSize, _gridSize);
+	glUniform1f(_uRange, _range);
 	glUniform1f(_uLineThiccness, _lineThiccness);
 	glUniform3fv(_uMousePos, 1, glm::value_ptr(_mousePos));
+	glUniform3fv(_uTowerPos, 1, glm::value_ptr(_towerPos));
 
 	//now inform mesh of where to stream its data
 	pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV);
@@ -109,6 +122,28 @@ void TextureGridMaterial::toggleGrid()
 	}
 }
 
+void TextureGridMaterial::setGrid(bool showGrid)
+{
+	_gridShowing = showGrid;
+}
+
+void TextureGridMaterial::toggleRangeShowing()
+{
+	if (_showRange)
+	{
+		_showRange = false;
+	}
+	else
+	{
+		_showRange = true;
+	}
+}
+
+void TextureGridMaterial::setRangeShowing(bool showRange)
+{
+	_showRange = showRange;
+}
+
 void TextureGridMaterial::setGridSize(float size)
 {
 	_gridSize = size;
@@ -127,4 +162,29 @@ void TextureGridMaterial::setLineThiccness(float thiccness)
 float TextureGridMaterial::getLineThiccness()
 {
 	return _lineThiccness;
+}
+
+glm::vec3 TextureGridMaterial::getMousePos()
+{
+	return _mousePos;
+}
+
+void TextureGridMaterial::setRange(float range)
+{
+	_range = range;
+}
+
+float TextureGridMaterial::getRange()
+{
+	return _range;
+}
+
+void TextureGridMaterial::SetTowerPos(glm::vec3 pTowerPosition)
+{
+	_towerPos = pTowerPosition;
+}
+
+glm::vec3 TextureGridMaterial::getTowerPos()
+{
+	return _towerPos;
 }

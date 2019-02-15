@@ -15,7 +15,7 @@ class Mesh;
  */
 class GameObject
 {
-	public:
+public:
 	GameObject(const std::string& pName = nullptr, const glm::vec3& pPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~GameObject();
 
@@ -54,6 +54,9 @@ class GameObject
 	void addBehaviour(AbstractBehaviour* pBehaviour);
 	std::vector<AbstractBehaviour*> getBehaviours() const;
 
+	void removeBehaviour(AbstractBehaviour* pBehaviour);
+	void removeAllBehaviours();
+
 	virtual void update(float pStep);
 
 	//child management, note that add/remove and setParent are closely coupled.
@@ -79,7 +82,9 @@ class GameObject
 
 	bool isColliding;
 
-	protected:
+	int _gameControllerIndex;
+
+protected:
 	std::string _name;
 	glm::vec3 _lastPosition;
 	glm::mat4 _transform;

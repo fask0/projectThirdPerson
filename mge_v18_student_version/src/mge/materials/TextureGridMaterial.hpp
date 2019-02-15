@@ -13,7 +13,7 @@ class Texture;
  */
 class TextureGridMaterial : public AbstractMaterial
 {
-	public:
+public:
 	TextureGridMaterial(Texture* pDiffuseTexture);
 	virtual ~TextureGridMaterial();
 
@@ -21,14 +21,25 @@ class TextureGridMaterial : public AbstractMaterial
 
 	void setDiffuseTexture(Texture* pDiffuseTexture);
 	void setHighlightArea(glm::vec3 mousePos);
+
 	void toggleGrid();
+	void setGrid(bool showGrid);
+
+	void toggleRangeShowing();
+	void setRangeShowing(bool showRange);
+	void SetTowerPos(glm::vec3 pTowerPosition);
+
 	void setGridSize(float size);
 	float getGridSize();
 	void setLineThiccness(float thiccness);
 	float getLineThiccness();
+	void setRange(float range);
+	float getRange();
+	glm::vec3 getMousePos();
+	glm::vec3 getTowerPos();
 
-	protected:
-	private:
+protected:
+private:
 	static ShaderProgram* _shader;
 	static void _lazyInitializeShader();
 
@@ -37,10 +48,15 @@ class TextureGridMaterial : public AbstractMaterial
 	static GLint _uModelMatrix;
 
 	static GLint _uDiffuseTexture;
-	static GLint _uMousePos;
+
 	static GLint _uGridVisible;
+	static GLint _uShowRange;
+
+	static GLint _uMousePos;
+	static GLint _uTowerPos;
 	static GLint _uLineThiccness;
 	static GLint _uGridSize;
+	static GLint _uRange;
 
 	static GLint _aVertex;
 	static GLint _aNormal;
@@ -52,9 +68,12 @@ class TextureGridMaterial : public AbstractMaterial
 	TextureGridMaterial& operator=(const TextureGridMaterial&);
 
 	bool _gridShowing;
+	bool _showRange;
 	float _gridSize = 5;
-	float _lineThiccness = 0.3f;
+	float _lineThiccness = 0.1f;
+	float _range = 0;
 	glm::vec3 _mousePos;
+	glm::vec3 _towerPos;
 };
 
 #endif // TEXTUREMATERIAL_HPP

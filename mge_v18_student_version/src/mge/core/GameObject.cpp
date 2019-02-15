@@ -15,6 +15,8 @@ GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 
 {
 	isColliding = false;
+	GameController::GameObjects.push_back(this);
+	_gameControllerIndex = GameController::GameObjects.size() - 1;
 }
 
 GameObject::~GameObject()
@@ -98,6 +100,16 @@ void GameObject::addBehaviour(AbstractBehaviour* pBehaviour)
 {
 	_behaviours.push_back(pBehaviour);
 	_behaviours.back()->setOwner(this);
+}
+
+void GameObject::removeBehaviour(AbstractBehaviour* pBehaviour)
+{
+	std::cout << "Not yet implemented" << std::endl;
+}
+
+void GameObject::removeAllBehaviours()
+{
+	_behaviours.clear();
 }
 
 std::vector<AbstractBehaviour*> GameObject::getBehaviours() const
