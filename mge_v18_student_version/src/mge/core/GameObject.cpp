@@ -1,14 +1,20 @@
 #include <iostream>
 
 #include "GameObject.hpp"
+#include "mge/core/Mesh.hpp"
+#include "mge/core/Texture.hpp"
+#include "mge/materials/TextureMaterial.hpp"
 #include "mge/behaviours/AbstractBehaviour.hpp"
 #include "mge/core/GameController.hpp"
+
+#include "mge/config.hpp"
 
 GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 	: _name(pName), _transform(glm::translate(pPosition)), _parent(nullptr), _children(),
 	_mesh(nullptr), _behaviour(nullptr), _material(nullptr), _world(nullptr)
 
 {
+	isColliding = false;
 }
 
 GameObject::~GameObject()
@@ -48,6 +54,7 @@ const glm::mat4& GameObject::getTransform() const
 
 void GameObject::setLocalPosition(glm::vec3 pPosition)
 {
+	_lastPosition = glm::vec3(_transform[3]);
 	_transform[3] = glm::vec4(pPosition, 1);
 }
 
@@ -233,14 +240,19 @@ GameObject* GameObject::getChildAt(int pIndex) const
 	return _children[pIndex];
 }
 
-void GameObject::OnCollisionEnter(std::string pOtherName)
+glm::vec3 GameObject::getLastPosition()
+{
+	return _lastPosition;
+}
+
+void GameObject::OnCollisionEnter(GameObject* pOther)
 {
 }
 
-void GameObject::OnCollisionStay(std::string pOtherName)
+void GameObject::OnCollisionStay(GameObject* pOther)
 {
 }
 
-void GameObject::OnCollisionExit(std::string pOtherName)
+void GameObject::OnCollisionExit(GameObject* pOther)
 {
 }

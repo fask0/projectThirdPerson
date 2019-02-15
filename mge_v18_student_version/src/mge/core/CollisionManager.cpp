@@ -42,7 +42,16 @@ void CollisionManager::update(float pStep)
 								(collider->GetMax().y >= other->GetMin().y && collider->GetMin().y <= other->GetMax().y) &&
 								(collider->GetMax().z >= other->GetMin().z && collider->GetMin().z <= other->GetMax().z))
 							{
-								collider->ResolveCollision(other->getOwner()->getName());
+								collider->ResolveCollision(other, other->getOwner(), collider->getOwner()->getLastPosition());
+								collider->getOwner()->isColliding = true;
+							}
+							else
+							{
+								if (collider->getOwner()->isColliding)
+								{
+									collider->getOwner()->OnCollisionExit(other->getOwner());
+								}
+								collider->getOwner()->isColliding = false;
 							}
 						}
 						break;
@@ -59,7 +68,18 @@ void CollisionManager::update(float pStep)
 								(z - other->GetPosition().z) * (z - other->GetPosition().z));
 
 							if (distance <= other->GetRadius())
-								collider->ResolveCollision(other->getOwner()->getName());
+							{
+								collider->ResolveCollision(other, other->getOwner(), collider->getOwner()->getLastPosition());
+								collider->getOwner()->isColliding = true;
+							}
+							else
+							{
+								if (collider->getOwner()->isColliding)
+								{
+									collider->getOwner()->OnCollisionExit(other->getOwner());
+								}
+								collider->getOwner()->isColliding = false;
+							}
 						}
 						break;
 					}
@@ -82,7 +102,18 @@ void CollisionManager::update(float pStep)
 								(z - collider->GetPosition().z) * (z - collider->GetPosition().z));
 
 							if (distance <= collider->GetRadius())
-								collider->ResolveCollision(other->getOwner()->getName());
+							{
+								collider->ResolveCollision(other, other->getOwner(), collider->getOwner()->getLastPosition());
+								collider->getOwner()->isColliding = true;
+							}
+							else
+							{
+								if (collider->getOwner()->isColliding)
+								{
+									collider->getOwner()->OnCollisionExit(other->getOwner());
+								}
+								collider->getOwner()->isColliding = false;
+							}
 						}
 						break;
 
@@ -94,7 +125,18 @@ void CollisionManager::update(float pStep)
 								(collider->GetPosition().z - other->GetPosition().z) * (collider->GetPosition().z - other->GetPosition().z));
 
 							if (distance <= collider->GetRadius() + other->GetRadius())
-								collider->ResolveCollision(other->getOwner()->getName());
+							{
+								collider->ResolveCollision(other, other->getOwner(), collider->getOwner()->getLastPosition());
+								collider->getOwner()->isColliding = true;
+							}
+							else
+							{
+								if (collider->getOwner()->isColliding)
+								{
+									collider->getOwner()->OnCollisionExit(other->getOwner());
+								}
+								collider->getOwner()->isColliding = false;
+							}
 						}
 						break;
 					}

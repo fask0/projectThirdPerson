@@ -22,8 +22,8 @@ class CollisionBehaviour : public AbstractBehaviour
 		SphereCollider
 	};
 
-	CollisionBehaviour(glm::vec3 pBoundaries);
-	CollisionBehaviour(float pRadius);
+	CollisionBehaviour(glm::vec3 pBoundaries, bool pIsTrigger = false);
+	CollisionBehaviour(float pRadius, bool pIsTrigger = false);
 	virtual ~CollisionBehaviour();
 	virtual void update(float pStep);
 
@@ -34,7 +34,7 @@ class CollisionBehaviour : public AbstractBehaviour
 	float GetRadius();
 
 	void ScaleCollider(float pScaler);
-	void ResolveCollision(std::string pOtherName);
+	void ResolveCollision(CollisionBehaviour* pOtherCollider, GameObject* pOtherOwner, glm::vec3 pLastPos);
 	void DrawCollider();
 
 	bool isTrigger;

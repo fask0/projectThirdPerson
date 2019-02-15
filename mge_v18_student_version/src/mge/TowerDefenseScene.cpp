@@ -91,16 +91,15 @@ void TowerDefenseScene::_initializeScene()
 	//load a bunch of meshes we will be using throughout this demo
 	//each mesh only has to be loaded once, but can be used multiple times:
 	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-	Mesh* newPlaneMesh = Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj");
-	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
-	Mesh* teapotS = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth.obj");
-	Mesh* cylinderS = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth.obj");
-	Mesh* sphere1 = Mesh::load(config::MGE_MODEL_PATH + "sphere1.obj");
-	Mesh* sphere2 = Mesh::load(config::MGE_MODEL_PATH + "sphere2.obj");
-	Mesh* sphere3 = Mesh::load(config::MGE_MODEL_PATH + "sphere3.obj");
-	Mesh* sphere4 = Mesh::load(config::MGE_MODEL_PATH + "sphere4.obj");
-	Mesh* monkeyHeadS = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth.obj");
-
+	//Mesh* newPlaneMesh = Mesh::load(config::MGE_MODEL_PATH + "unityexport2");
+	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane");
+	Mesh* teapotS = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth");
+	Mesh* cylinderS = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth");
+	Mesh* sphere1 = Mesh::load(config::MGE_MODEL_PATH + "sphere1");
+	Mesh* sphere2 = Mesh::load(config::MGE_MODEL_PATH + "sphere2");
+	Mesh* sphere3 = Mesh::load(config::MGE_MODEL_PATH + "sphere3");
+	Mesh* sphere4 = Mesh::load(config::MGE_MODEL_PATH + "sphere4");
+	Mesh* monkeyHeadS = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth");
 
 	//Directional
 	Light* light = new Light("light", glm::vec3(0, 10, 0), glm::vec3(1, 1, 1), 10.0f, 30.0f, Light::Directional);
@@ -120,7 +119,7 @@ void TowerDefenseScene::_initializeScene()
 	//SCENE SETUP
 
 	TextureGridMaterial* gridMaterial = new TextureGridMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
-	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(0, 0, 1, 1));
+	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(1, 1, 1, 1));
 	LitMaterial* litMaterial1 = new LitMaterial(light, glm::vec3(0.9f, 0.9f, 0.9f));
 	litMaterial1->AddLight(light2);
 	AbstractMaterial* litMaterial = litMaterial1;
@@ -132,38 +131,42 @@ void TowerDefenseScene::_initializeScene()
 														   Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
 														   0);
 
+
 	//add camera first (it will be updated last)
-	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 20));
-	camera->rotate(glm::radians(-35.0f), glm::vec3(1, 0, 0));
+	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 75, 25));
+	camera->rotate(glm::radians(-65.0f), glm::vec3(1, 0, 0));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
 	//add the floor
+	Mesh* planeMesh = Mesh::load(config::MGE_MODEL_PATH + "Scene0/scene001");
 	GameObject* plane = new GameObject("plane", glm::vec3(0, 0, 0));
-	plane->scale(glm::vec3(20, 20, 20));
-	plane->setMesh(newPlaneMesh);
+	plane->scale(glm::vec3(10, 10, 10));
+	plane->setMesh(planeMesh);
+	std::cout << "\n\n" << planeMesh->materials << "\n\n";
 	plane->setMaterial(gridMaterial);
 	_world->add(plane);
 
 	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
 	_world->add(colManager);
 
-	GameObject* colliderA = new GameObject("A", glm::vec3(0, -0.5f, 0));
-	CollisionBehaviour* colA = new CollisionBehaviour(glm::vec3(1, 1, 1));
-	colliderA->setBehaviour(colA);
-	colA->DrawCollider();
-	_world->add(colliderA);
+	//GameObject* colliderA = new GameObject("A", glm::vec3(6, 0, 0));
+	//CollisionBehaviour* colA = new CollisionBehaviour(glm::vec3(5, 5, 5));
+	//colliderA->addBehaviour(colA);
+	//colliderA->addBehaviour(new WASDBehaviour());
+	//colA->DrawCollider();
+	//_world->add(colliderA);
 
-	GameObject* colliderB = new GameObject("B", glm::vec3(0, 2, 0));
-	CollisionBehaviour* colB = new CollisionBehaviour(1);
-	colliderB->setBehaviour(colB);
-	colB->DrawCollider();
-	_world->add(colliderB);
+	//GameObject* colliderB = new GameObject("B", glm::vec3(0, 0, 0));
+	//CollisionBehaviour* colB = new CollisionBehaviour(2.5f, true);
+	//colliderB->addBehaviour(colB);
+	//colB->DrawCollider();
+	//_world->add(colliderB);
 
 	std::vector<GameObject*> objs;
 	objs.push_back(plane);
 	GridManager* gridManager = new GridManager(objs, _window);
-	_world->add(gridManager);
+	//_world->add(gridManager);
 	SetGridManager(gridManager);
 
 	_plane = plane;

@@ -71,14 +71,17 @@ class GameObject
 	int getChildCount() const;
 	GameObject* getChildAt(int pIndex) const;
 
-	virtual void OnCollisionEnter(std::string pOtherName);
-	virtual void OnCollisionStay(std::string pOtherName);
-	virtual void OnCollisionExit(std::string pOtherName);
+	glm::vec3 getLastPosition();
+
+	virtual void OnCollisionEnter(GameObject* pOther);
+	virtual void OnCollisionStay(GameObject* pOther);
+	virtual void OnCollisionExit(GameObject* pOther);
 
 	bool isColliding;
 
 	protected:
 	std::string _name;
+	glm::vec3 _lastPosition;
 	glm::mat4 _transform;
 
 	GameObject* _parent;
@@ -96,7 +99,6 @@ class GameObject
 
 	//used to pass on pointer to the world to a gameobject
 	virtual void _setWorldRecursively(World* pWorld);
-
 
 	private:
 	GameObject(const GameObject&);

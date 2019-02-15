@@ -31,9 +31,17 @@ class Mesh
 	 */
 	void drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
 
+	int materials;
+	int faces;
+
 	protected:
 	Mesh();
 	virtual ~Mesh();
+
+	int getMTLinfo(std::string pFileName);
+	void extractMTLinfo(std::string pFileName, std::string* pMatNames, float** pDiffuses, float** pSpeculars, std::string* pTextureNames);
+
+	int getOBJinfo(std::string pFileName);
 
 	//OpenGL id's for the different buffers created for this mesh
 	GLuint _indexBufferId;

@@ -13,28 +13,30 @@
 
 #include "mge/config.hpp"
 
-CollisionBehaviour::CollisionBehaviour(glm::vec3 pBoundaries)
+CollisionBehaviour::CollisionBehaviour(glm::vec3 pBoundaries, bool pIsTrigger)
 	: AbstractBehaviour()
 {
 	CollisionManager::_collisionBehaviours.push_back(this);
 	colliderType = BoxCollider;
 	_boundaries = pBoundaries;
+	isTrigger = pIsTrigger;
 
 	_collider = new GameObject("col");
 	_material = new ColorMaterial(glm::vec4(0, 1, 0, 0.25f));
-	_mesh = Mesh::load(config::MGE_MODEL_PATH + "cube_smooth.obj");
+	_mesh = Mesh::load(config::MGE_MODEL_PATH + "cube_smooth");
 }
 
-CollisionBehaviour::CollisionBehaviour(float pRadius)
+CollisionBehaviour::CollisionBehaviour(float pRadius, bool pIsTrigger)
 	: AbstractBehaviour()
 {
 	CollisionManager::_collisionBehaviours.push_back(this);
 	colliderType = SphereCollider;
 	_radius = pRadius;
+	isTrigger = pIsTrigger;
 
 	_collider = new GameObject("col");
 	_material = new ColorMaterial(glm::vec4(0, 1, 0, 0.25f));
-	_mesh = Mesh::load(config::MGE_MODEL_PATH + "sphere4.obj");
+	_mesh = Mesh::load(config::MGE_MODEL_PATH + "sphere4");
 }
 
 CollisionBehaviour::~CollisionBehaviour()
@@ -53,23 +55,35 @@ void CollisionBehaviour::update(float pStep)
 {
 }
 
-void CollisionBehaviour::ResolveCollision(std::string pOtherName)
+void CollisionBehaviour::ResolveCollision(CollisionBehaviour* pOtherCollider, GameObject* pOtherOwner, glm::vec3 pLastPos)
 {
 	switch (colliderType)
 	{
 		case BoxCollider:
 		{
-			std::cout << "Object: " + _owner->getName() + " is colliding with " + pOtherName + "\n";
-			_owner->OnCollisionStay(pOtherName);
+			//std::cout << "Object: " + _owner->getName() + " is colliding with " + pOtherName + "\n";
 
+			if (!_owner->isColliding)
+				_owner->OnCollisionEnter(pOtherOwner);
+			_owner->OnCollisionStay(pOtherOwner);
+
+			if (isTrigger || pOtherCollider->isTrigger) return;
+
+			_owner->setLocalPosition(pLastPos);
 		}
 		break;
 
 		case SphereCollider:
 		{
-			std::cout << "Object: " + _owner->getName() + " is colliding with " + pOtherName + "\n";
-			_owner->OnCollisionStay(pOtherName);
+			//std::cout << "Object: " + _owner->getName() + " is colliding with " + pOtherName + "\n";
 
+			if (!_owner->isColliding)
+				_owner->OnCollisionEnter(pOtherOwner);
+			_owner->OnCollisionStay(pOtherOwner);
+
+			if (isTrigger || pOtherCollider->isTrigger) return;
+
+			_owner->setLocalPosition(pLastPos);
 		}
 		break;
 	}

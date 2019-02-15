@@ -68,8 +68,27 @@ Mesh* Mesh::load(std::string pFilename)
 	std::cout << "Loading " << pFilename << "...";
 
 	Mesh* mesh = new Mesh();
+	mesh->materials = mesh->getMTLinfo(pFilename);
+	mesh->faces = mesh->getOBJinfo(pFilename);
 
-	std::ifstream file(pFilename, std::ios::in);
+	std::string* materialNamesArray = new std::string[mesh->materials];
+	float** diffuseArray = new float*[mesh->materials];
+	float** specularArray = new float*[mesh->materials];
+	std::string* textureNamesArray = new std::string[mesh->materials];
+	int** facesArray = new int*[mesh->faces];
+	int mtl = 0;
+	int f = 0;
+
+	for (int i = 0; i < mesh->materials; ++i)
+	{
+		diffuseArray[i] = new float[3];
+		specularArray[i] = new float[3];
+	}
+	for (int i = 0; i < mesh->faces; ++i)
+		facesArray[i] = new int[10];
+	mesh->extractMTLinfo(pFilename, materialNamesArray, diffuseArray, specularArray, textureNamesArray);
+
+	std::ifstream file(pFilename + ".obj", std::ios::in);
 
 	if (file.is_open())
 	{
@@ -87,7 +106,6 @@ Mesh* Mesh::load(std::string pFilename)
 		std::string line; // to store each line in
 		while (getline(file, line))
 		{
-
 			// c-type string to store cmd read from obj file (cmd is v, vt, vn, f)
 			char cmd[10];
 			cmd[0] = 0;
@@ -103,6 +121,8 @@ Mesh* Mesh::load(std::string pFilename)
 
 			//so... start processing lines
 			//are we reading a vertex line? straightforward copy into local vertices vector
+
+
 			if (strcmp(cmd, "v") == 0)
 			{
 				glm::vec3 vertex;
@@ -130,7 +150,6 @@ Mesh* Mesh::load(std::string pFilename)
 			}
 			else if (strcmp(cmd, "f") == 0)
 			{
-
 				//an f lines looks like
 				//f 2/1/1 1/2/1 3/3/1
 				//in other words
@@ -145,7 +164,6 @@ Mesh* Mesh::load(std::string pFilename)
 				//Have we read exactly 10 elements?
 				if (count == 10)
 				{
-
 					//process 3 triplets, one for each vertex (which is first element of the triplet)
 					for (int i = 0; i < 3; ++i)
 					{
@@ -186,11 +204,58 @@ Mesh* Mesh::load(std::string pFilename)
 					return NULL;
 				}
 			}
-
 		}
+
+		std::ifstream inOBJ;
+		inOBJ.open(pFilename + ".obj");
+		while (!inOBJ.eof())
+		{
+			std::string line;
+			std::getline(inOBJ, line);
+			std::string type = line.substr(0, 2);
+
+			if (type.compare("us") == 0)
+			{
+				std::string l = "usemtl ";
+				std::string mat = line.substr(l.size());
+
+				for (int i = 0; i < mesh->materials;++i)
+					if (mat.compare(materialNamesArray[i]) == 0)
+						mtl = i;
+			}
+
+			if (type.compare("f ") == 0)
+			{
+				char* l = new char[line.size() + 1];
+				std::memcpy(l, line.c_str(), line.size() + 1);
+
+				std::strtok(l, " ");
+				for (int i = 0; i < 9; i++)
+					facesArray[f][i] = std::atof(std::strtok(NULL, " /"));
+
+				facesArray[f][9] = mtl;
+				//materialNames[mtl] gets the name of the material
+				delete[] l;
+				f++;
+			}
+		}
+		inOBJ.close();
 
 		file.close();
 		mesh->_buffer();
+
+		for (int i = 0; i < mesh->materials; ++i)
+		{
+			delete[] diffuseArray[i];
+			delete[] specularArray[i];
+		}
+
+		for (int i = 0;i < mesh->faces; ++i)
+			delete[] facesArray[i];
+
+		delete[] diffuseArray;
+		delete[] specularArray;
+		delete[] facesArray;
 
 		std::cout << "Mesh loaded and buffered:" << (mesh->_indices.size() / 3.0f) << " triangles." << std::endl;
 		return mesh;
@@ -201,6 +266,124 @@ Mesh* Mesh::load(std::string pFilename)
 		delete mesh;
 		return NULL;
 	}
+}
+
+int Mesh::getMTLinfo(std::string pFileName)
+{
+	int m = 0;
+
+	std::ifstream inMTL;
+	inMTL.open(pFileName + ".mtl");
+	if (!inMTL.good())
+	{
+		std::cout << "Could not open: " + pFileName + ".mtl";
+		return 0;
+	}
+
+	while (!inMTL.eof())
+	{
+		std::string line;
+		std::getline(inMTL, line);
+		std::string type = line.substr(0, 2);
+
+		if (type.compare("ne") == 0)
+			m++;
+	}
+
+	inMTL.close();
+	return m;
+}
+
+void Mesh::extractMTLinfo(std::string pFileName, std::string * pMatNames, float** pDiffuses, float** pSpeculars, std::string* pTextureName)
+{
+	int m = 0;
+	int d = 0;
+	int s = 0;
+	int t = 0;
+
+	std::ifstream inMTL;
+	inMTL.open(pFileName + ".mtl");
+	if (!inMTL.good())
+	{
+		std::cout << "Could not open: " + pFileName + ".mtl";
+		return;
+	}
+
+	while (!inMTL.eof())
+	{
+		std::string line;
+		std::getline(inMTL, line);
+		std::string type = line.substr(0, 2);
+
+		if (type.compare("ne") == 0)
+		{
+			std::string l = "newmtl ";
+			pMatNames[m] = line.substr(l.size());
+			m++;
+		}
+		else if (type.compare("Kd") == 0)
+		{
+			char* l = new char[line.size() + 1];
+			std::memcpy(l, line.c_str(), line.size() + 1);
+
+			std::strtok(l, " ");
+			for (int i = 0; i < 3; ++i)
+			{
+				pDiffuses[d][i] = std::atof(std::strtok(NULL, " "));
+			}
+
+
+			delete[] l;
+			d++;
+		}
+		else if (type.compare("Ks") == 0)
+		{
+			char* l = new char[line.size() + 1];
+			std::memcpy(l, line.c_str(), line.size() + 1);
+
+			std::strtok(l, " ");
+			for (int i = 0;i < 3;++i)
+				pSpeculars[s][i] = std::atof(std::strtok(NULL, " "));
+
+			delete[] l;
+			s++;
+		}
+		else if (type.compare("ma") == 0)
+		{
+			int index = line.rfind("\\");
+			pTextureName[t] = line.substr(index + 1);
+			std::cout << "\n" << pTextureName[t] << "\n";
+			t++;
+		}
+	}
+
+	inMTL.close();
+}
+
+int Mesh::getOBJinfo(std::string pFileName)
+{
+	int f = 0;
+
+	std::ifstream inOBJ;
+	inOBJ.open(pFileName + ".obj");
+	if (!inOBJ.good())
+	{
+		std::cout << "Could not open " + pFileName + ".obj";
+		return -1;
+	}
+
+	while (!inOBJ.eof())
+	{
+		std::string line;
+		std::getline(inOBJ, line);
+		std::string type = line.substr(0, 2);
+
+		if (type.compare("f ") == 0)
+			f++;
+	}
+
+	inOBJ.close();
+	return f;
 }
 
 void Mesh::_buffer()
