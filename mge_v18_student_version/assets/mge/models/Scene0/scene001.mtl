@@ -1,12 +1,14 @@
+newmtl water
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Scene0\water.png
+illum 2
+
+newmtl bricks
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Scene0\bricks.png
+illum 2
+
 newmtl Default-Material
-Kd 1 1 1
-illum 2
-
-newmtl lambert2
-Kd 1 1 1
-illum 2
-
-newmtl lambert1
 Kd 1 1 1
 illum 2
 
