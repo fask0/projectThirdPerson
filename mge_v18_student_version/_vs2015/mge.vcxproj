@@ -107,7 +107,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>lua51.lib;lua5.1.lib;glew32d.lib;opengl32.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>E:\School\Year 2\Project Third Person\mge_v18_student_version\assets;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>G:\School\Year 2\testing project thingy\mge_v18_student_version\assets;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">
@@ -176,6 +176,7 @@
     <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\CameraOrbitBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\WASDBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\WaypointFollowBehaviour.hpp" />
     <ClInclude Include="..\src\mge\config.hpp" />
     <ClInclude Include="..\src\mge\core\AbstractGame.hpp" />
     <ClInclude Include="..\src\mge\core\CollisionManager.hpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="..\src\mge\core\ShaderProgram.hpp" />
     <ClInclude Include="..\src\mge\core\Texture.hpp" />
     <ClInclude Include="..\src\mge\core\Tower.hpp" />
+    <ClInclude Include="..\src\mge\core\Waypoint.hpp" />
     <ClInclude Include="..\src\mge\core\World.hpp" />
     <ClInclude Include="..\src\mge\materials\AbstractMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\ColorMaterial.hpp" />
@@ -213,6 +215,7 @@
     <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\CameraOrbitBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\WASDBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\WaypointFollowBehaviour.cpp" />
     <ClCompile Include="..\src\mge\core\AbstractGame.cpp" />
     <ClCompile Include="..\src\mge\core\Camera.cpp" />
     <ClCompile Include="..\src\mge\core\CollisionManager.cpp" />
@@ -226,6 +229,7 @@
     <ClCompile Include="..\src\mge\core\ShaderProgram.cpp" />
     <ClCompile Include="..\src\mge\core\Texture.cpp" />
     <ClCompile Include="..\src\mge\core\Tower.cpp" />
+    <ClCompile Include="..\src\mge\core\Waypoint.cpp" />
     <ClCompile Include="..\src\mge\core\World.cpp" />
     <ClCompile Include="..\src\mge\materials\AbstractMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\ColorMaterial.cpp" />

@@ -55,6 +55,7 @@ public:
 	std::vector<AbstractBehaviour*> getBehaviours() const;
 
 	void removeBehaviour(AbstractBehaviour* pBehaviour);
+	void removeBehaviourAtIndex(int pIndex);
 	void removeAllBehaviours();
 
 	virtual void update(float pStep);
@@ -105,7 +106,7 @@ protected:
 	//used to pass on pointer to the world to a gameobject
 	virtual void _setWorldRecursively(World* pWorld);
 
-	private:
+private:
 	GameObject(const GameObject&);
 	GameObject& operator= (const GameObject&);
 };

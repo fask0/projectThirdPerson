@@ -10,6 +10,7 @@
 #include "mge/materials/LitSelectedTextureMaterial.hpp"
 #include "mge/materials/TextureGridMaterial.hpp"
 #include "mge/materials/LitTextureGridMaterial.hpp"
+#include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -34,7 +35,7 @@ private:
 
 	//Tower variables
 	LitSelectedTextureMaterial* selectedMaterial;
-	LitTextureGridMaterial* material;
+	LitDynamicTextureGridMaterial* material;
 	std::vector<Tower*> _placedTowers;
 	Tower* _tower = nullptr;
 	Tower* _mouseOverTower = nullptr;

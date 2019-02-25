@@ -25,6 +25,7 @@ in vec3 Normal;
 in vec3 ambientColor;
 in vec3 FragPos;
 in vec2 texCoord;
+flat in int vertexID;
 
 out vec4 fragment_color;
 
@@ -38,11 +39,11 @@ uniform bool showRange = false;
 uniform float gridSize;
 uniform float lineThiccness;
 uniform float range;
+uniform bool isColliding;
 
 //Dynamic object loading stuff
 #define NR_OF_TEXTURES 100
 uniform sampler2D textures[NR_OF_TEXTURES];
-#define NR_OF_TEXTURES 100
 uniform int splitter[NR_OF_TEXTURES];
 in int index;
 
@@ -53,7 +54,15 @@ vec3 CalcDirLight(DirLight _dirLight, vec3 normal)
 	float diff = max(dot(norm, lightDir), 0.0f);
 	vec3 diffuse = diff * _dirLight.lightCol;
 
-	vec3 result = (ambientColor + diffuse) * vec3(texture(diffuseTexture,texCoord));
+	vec3 result = (ambientColor + diffuse) * vec3(texture(textures[0],texCoord));
+	for(int i = 0; i < NR_OF_TEXTURES; i++)
+	{
+		if(splitter[i] != 0 && vertexID >= splitter[i])
+		{
+			result = (ambientColor + diffuse) * vec3(texture(textures[i],texCoord));
+		}
+	}
+
 	return result;	
 }
 
@@ -69,8 +78,16 @@ vec3 CalcSpotLight(SpotLight _spotLight, vec3 normal, vec3 fragPos)
 	float intensity = clamp((theta - _spotLight.outerCutOff) / epsilon, 0.0, 1.0);
 	diffuse *= intensity;
 
-	vec3 result = (ambientColor + diffuse) * vec3(texture(diffuseTexture,texCoord));
-	return result;	
+	vec3 result = (ambientColor + diffuse) * vec3(texture(textures[0],texCoord));
+	for(int i = 0; i < NR_OF_TEXTURES; i++)
+	{
+		if(splitter[i] != 0 && vertexID >= splitter[i])
+		{
+			result = (ambientColor + diffuse) * vec3(texture(textures[i],texCoord));
+		}
+	}
+
+	return result;
 }
 
 void main( void ) {
@@ -82,7 +99,7 @@ void main( void ) {
 	for(int i = 0; i < NR_SPOT_LIGHTS; i++)
 		result += CalcSpotLight(spotLights[i], Normal, FragPos);
 
-	fragment_color = vec4(result, 1.0);		
+	fragment_color = vec4(result, 1.0f);		
 
 
 
@@ -99,14 +116,28 @@ void main( void ) {
 
 	if(showRange)
 	{
-		if(distance(vec3(FragPos[0], 0, FragPos[2]), towerPos) <= range)
+		if(isColliding)
 		{
-			fragment_color = mix(fragment_color, vec4(0.8f, 0.8f, 0.8f, 1.0f), 0.5f);
+			if(distance(vec3(FragPos[0], 0, FragPos[2]), towerPos) <= range)
+			{
+				fragment_color = mix(fragment_color, vec4(0.8f, 0.0f, 0.0f, 1.0f), 0.5f);
+			}
+			else if(distance(vec3(FragPos[0], 0, FragPos[2]), towerPos) <= range + 0.1f)
+			{
+				fragment_color = mix(fragment_color, vec4(0.5f, 0.0f, 0.0f, 1.0f), 0.5f);
+				
+			}
 		}
-		else if(distance(vec3(FragPos[0], 0, FragPos[2]), towerPos) <= range + 0.3f)
-		{
-			fragment_color = mix(fragment_color, vec4(0.5f, 0.5f, 0.5f, 1.0f), 0.5f);
-			
+		else{
+			if(distance(vec3(FragPos[0], 0, FragPos[2]), towerPos) <= range)
+			{
+				fragment_color = mix(fragment_color, vec4(0.8f, 0.8f, 0.8f, 1.0f), 0.5f);
+			}
+			else if(distance(vec3(FragPos[0], 0, FragPos[2]), towerPos) <= range + 0.1f)
+			{
+				fragment_color = mix(fragment_color, vec4(0.5f, 0.5f, 0.5f, 1.0f), 0.5f);
+				
+			}
 		}
 	}
 }

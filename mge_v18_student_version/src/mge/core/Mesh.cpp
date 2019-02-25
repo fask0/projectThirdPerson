@@ -143,7 +143,7 @@ Mesh* Mesh::load(std::string pFileName)
 			if (type.compare("g ") == 0)
 			{
 				std::string obj = line.substr(type.size());
-				if (obj.compare("Collider") == 0)
+				if (obj.compare("Collider") == 0 || obj.at(0) == 'w')
 				{
 					std::string l;
 					glm::vec3 vOne;
@@ -160,9 +160,9 @@ Mesh* Mesh::load(std::string pFileName)
 					}
 					glm::vec3 pos = glm::vec3(vOne.x + vTwo.x, vOne.y + vTwo.y, vOne.z + vTwo.z) * 0.5f;
 					GameObject* col = new GameObject("Collider", pos);
-					CollisionBehaviour* objectCollider = new CollisionBehaviour(0.5f * glm::vec3(glm::abs(glm::abs(vOne.x) - glm::abs(vTwo.x)),
-																								 glm::abs(glm::abs(vOne.y) - glm::abs(vTwo.y)),
-																								 glm::abs(glm::abs(vOne.z) - glm::abs(vTwo.z))));
+					CollisionBehaviour* objectCollider = new CollisionBehaviour(glm::vec3(glm::max(vOne.x, vTwo.x) - glm::min(vOne.x, vTwo.x),
+																						  glm::max(vOne.y, vTwo.y) - glm::min(vOne.y, vTwo.y),
+																						  glm::max(vOne.z, vTwo.z) - glm::min(vOne.z, vTwo.z)));
 					col->addBehaviour(objectCollider);
 					objectCollider->DrawCollider();
 					mesh->collidersInMesh.push_back(col);

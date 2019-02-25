@@ -80,6 +80,7 @@ void LitDynamicTextureGridMaterial::render(World* pWorld, Mesh* pMesh, const glm
 	//Grid stuff
 	glUniform1i(_shader->getUniformLocation("gridVisible"), _gridShowing);
 	glUniform1i(_shader->getUniformLocation("showRange"), _showRange);
+	glUniform1i(_shader->getUniformLocation("isColliding"), _isColliding);
 	glUniform1f(_shader->getUniformLocation("gridSize"), _gridSize);
 	glUniform1f(_shader->getUniformLocation("range"), _range);
 	glUniform1f(_shader->getUniformLocation("lineThiccness"), _lineThiccness);
@@ -175,4 +176,9 @@ void LitDynamicTextureGridMaterial::SetTowerPos(glm::vec3 pTowerPosition)
 glm::vec3 LitDynamicTextureGridMaterial::getTowerPos()
 {
 	return _towerPos;
+}
+
+void LitDynamicTextureGridMaterial::setColliding(bool pIsColliding)
+{
+	_isColliding = pIsColliding;
 }

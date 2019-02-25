@@ -79,6 +79,9 @@ void LitSelectedTextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::m
 	//Mix intensity
 	glUniform1f(_shader->getUniformLocation("mixIntensity"), _mixIntesity);
 
+	//Collision
+	glUniform1f(_shader->getUniformLocation("isColliding"), _isColliding);
+
 	//now inform mesh of where to stream its data
 	pMesh->streamToOpenGL(
 		_shader->getAttribLocation("vertex"),
@@ -91,4 +94,9 @@ void LitSelectedTextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::m
 void LitSelectedTextureMaterial::SetMixIntensity(float pIntensity)
 {
 	_mixIntesity = pIntensity;
+}
+
+void LitSelectedTextureMaterial::SetColliding(bool pIsColliding)
+{
+	_isColliding = pIsColliding;
 }

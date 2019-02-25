@@ -24,6 +24,8 @@ public:
 	virtual ~Tower();
 
 	void update(float pStep) override;
+	void OnCollisionEnter(GameObject* pOther) override;
+	void OnCollisionExit(GameObject* pOther) override;
 	void Rotate90();
 
 	void ResetMaterial();

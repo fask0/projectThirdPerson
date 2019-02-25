@@ -6,6 +6,7 @@
 #include "mge/materials/TextureMaterial.hpp"
 #include "mge/behaviours/AbstractBehaviour.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/behaviours/CollisionBehaviour.hpp"
 
 #include "mge/config.hpp"
 
@@ -23,6 +24,8 @@ GameObject::~GameObject()
 {
 	//detach all children
 	std::cout << "GC running on:" << _name << std::endl;
+
+	removeAllBehaviours();
 
 	while (_children.size() > 0)
 	{
@@ -104,11 +107,26 @@ void GameObject::addBehaviour(AbstractBehaviour* pBehaviour)
 
 void GameObject::removeBehaviour(AbstractBehaviour* pBehaviour)
 {
-	std::cout << "Not yet implemented" << std::endl;
+	for (int i = 0; i < _behaviours.size(); i++)
+	{
+		if (_behaviours[i] == pBehaviour)
+		{
+			_behaviours.erase(_behaviours.begin() + i);
+		}
+	}
+}
+
+void GameObject::removeBehaviourAtIndex(int pIndex)
+{
+	_behaviours.erase(_behaviours.begin() + pIndex);
 }
 
 void GameObject::removeAllBehaviours()
 {
+	for each (AbstractBehaviour* behaviour in _behaviours)
+	{
+		delete(behaviour);
+	}
 	_behaviours.clear();
 }
 
@@ -206,6 +224,13 @@ void GameObject::translate(glm::vec3 pTranslation)
 void GameObject::scale(glm::vec3 pScale)
 {
 	setTransform(glm::scale(_transform, pScale));
+	for each (AbstractBehaviour* behaviour in _behaviours)
+	{
+		if (dynamic_cast<CollisionBehaviour*>(behaviour) != nullptr)
+		{
+			dynamic_cast<CollisionBehaviour*>(behaviour)->ScaleCollider(pScale[0] * 2);
+		}
+	}
 }
 
 void GameObject::rotate(float pAngle, glm::vec3 pAxis)

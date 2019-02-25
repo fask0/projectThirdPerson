@@ -36,6 +36,8 @@
     <ClCompile Include="..\src\mge\materials\LitTextureGridMaterial.cpp" />
     <ClCompile Include="..\src\mge\behaviours\CameraMovementBehaviour.cpp" />
     <ClCompile Include="..\src\mge\materials\LitDynamicGridTextureMaterial.cpp" />
+    <ClCompile Include="..\src\mge\core\Waypoint.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\WaypointFollowBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -74,5 +76,7 @@
     <ClInclude Include="..\src\mge\materials\LitTextureGridMaterial.hpp" />
     <ClInclude Include="..\src\mge\behaviours\CameraMovementBehaviour.hpp" />
     <ClInclude Include="..\src\mge\materials\LitDynamicGridTextureMaterial.hpp" />
+    <ClInclude Include="..\src\mge\core\Waypoint.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\WaypointFollowBehaviour.hpp" />
   </ItemGroup>
 </Project>

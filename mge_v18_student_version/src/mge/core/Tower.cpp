@@ -8,6 +8,7 @@
 #include "mge/materials/LitSelectedTextureMaterial.hpp"
 #include "mge/core/GameController.hpp"
 #include "mge/config.hpp"
+#include "mge/behaviours/CollisionBehaviour.hpp"
 
 Tower::Tower(std::string pName, glm::vec3 pPosition, float pRange, AbstractMaterial* pMaterial)
 	: GameObject(pName, pPosition), _range(pRange), _material(pMaterial)
@@ -19,11 +20,29 @@ Tower::Tower(std::string pName, glm::vec3 pPosition, float pRange, AbstractMater
 	}
 	setMaterial(_material);
 	dynamic_cast<LitSelectedTextureMaterial*>(_material)->SetMixIntensity(0.0f);
+
+	float xScale = glm::sqrt(getTransform()[0][0] * getTransform()[0][0] + getTransform()[0][1] * getTransform()[0][1] + getTransform()[0][2] * getTransform()[0][2]);
+	float yScale = glm::sqrt(getTransform()[1][0] * getTransform()[1][0] + getTransform()[1][1] * getTransform()[1][1] + getTransform()[1][2] * getTransform()[1][2]);
+	float zScale = glm::sqrt(getTransform()[2][0] * getTransform()[2][0] + getTransform()[2][1] * getTransform()[2][1] + getTransform()[2][2] * getTransform()[2][2]);
+
+	addBehaviour(new CollisionBehaviour(glm::vec3(xScale * 0.99f, yScale, zScale * 0.99f), true));
+	std::cout << "Tower spawn" << std::endl;
 }
 
 Tower::~Tower()
 {
 	//dtor
+	GameObject::~GameObject();
+}
+
+void Tower::OnCollisionEnter(GameObject* pOther)
+{
+	std::cout << "hit lel" << std::endl;
+}
+
+void Tower::OnCollisionExit(GameObject* pOther)
+{
+	std::cout << "stop lel" << std::endl;
 }
 
 void Tower::update(float pStep)

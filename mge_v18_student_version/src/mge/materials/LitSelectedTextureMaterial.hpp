@@ -24,6 +24,7 @@ public:
 	void setDiffuseTexture(Texture* pDiffuseTexture);
 	void AddLight(Light *light);
 	void SetMixIntensity(float pIntensity);
+	void SetColliding(bool pIsColliding);
 
 private:
 	//all the static properties are shared between instances of LitMaterial
@@ -37,6 +38,7 @@ private:
 	Texture* _diffuseTexture;
 	Light* _light;
 	float _mixIntesity;
+	bool _isColliding = false;
 };
 
 #endif // LitMaterial_HPP

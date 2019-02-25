@@ -14,7 +14,7 @@ class ShaderProgram;
  */
 class LitDynamicTextureGridMaterial : public AbstractMaterial
 {
-	public:
+public:
 	LitDynamicTextureGridMaterial(Light *light, Texture* pDiffuseTexture);
 	virtual ~LitDynamicTextureGridMaterial();
 
@@ -34,6 +34,8 @@ class LitDynamicTextureGridMaterial : public AbstractMaterial
 	void setRangeShowing(bool showRange);
 	void SetTowerPos(glm::vec3 pTowerPosition);
 
+
+	void setColliding(bool pIsColliding);
 	void setGridSize(float size);
 	float getGridSize();
 	void setLineThiccness(float thiccness);
@@ -43,7 +45,7 @@ class LitDynamicTextureGridMaterial : public AbstractMaterial
 	glm::vec3 getMousePos();
 	glm::vec3 getTowerPos();
 
-	private:
+private:
 	//all the static properties are shared between instances of LitMaterial
 	//note that they are all PRIVATE, we do not expose this static info to the outside world
 	static ShaderProgram* _shader;
@@ -58,8 +60,9 @@ class LitDynamicTextureGridMaterial : public AbstractMaterial
 	//Grid stuff
 	bool _gridShowing;
 	bool _showRange;
-	float _gridSize = 5;
-	float _lineThiccness = 0.1f;
+	bool _isColliding;
+	float _gridSize = 1;
+	float _lineThiccness = 0.05f;
 	float _range = 0;
 	glm::vec3 _mousePos;
 	glm::vec3 _towerPos;

@@ -21,6 +21,7 @@ uniform SpotLight spotLights[NR_SPOT_LIGHTS];
 
 uniform sampler2D diffuseTexture;
 uniform float mixIntensity;
+uniform bool isColliding;
 
 in vec3 Normal;
 in vec3 ambientColor;
@@ -65,5 +66,12 @@ void main( void ) {
 	for(int i = 0; i < NR_SPOT_LIGHTS; i++)
 		result += CalcSpotLight(spotLights[i], Normal, FragPos);
 
-	fragment_color = mix(vec4(result, 1), vec4(1,1,1,0.8f), mixIntensity);
+	if(isColliding)
+	{
+		fragment_color = mix(vec4(result, 1), vec4(1,0,0,0.8f), mixIntensity);
+	}
+	else
+	{
+		fragment_color = mix(vec4(result, 1), vec4(1,1,1,0.8f), mixIntensity);
+	}
 }

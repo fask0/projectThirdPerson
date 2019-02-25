@@ -130,12 +130,12 @@ void TowerDefenseScene::_initializeScene()
 	litMaterial1->AddLight(light2);
 	AbstractMaterial* litMaterial = litMaterial1;
 	TerrainMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-														   0);
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
+		0);
 	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(light, Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 
 
@@ -143,14 +143,13 @@ void TowerDefenseScene::_initializeScene()
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0));
 	camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
-	camera->addBehaviour(new CameraMovementBehaviour(-30, 30, 30, -30, 5, 40, _window, camera->getLocalPosition(), 5.0f, 40.0f));
+	camera->addBehaviour(new CameraMovementBehaviour(-8, 8, 8, -8, 5, 10, _window, camera->getLocalPosition(), 1.0f, 10.0f));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
 	//add the floor
 	Mesh* planeMesh = Mesh::load(config::MGE_MODEL_PATH + "Scene0/scene001");
 	GameObject* plane = new GameObject("plane", glm::vec3(0, 0, 0));
-	plane->scale(glm::vec3(5, 5, 5));
 	plane->setMesh(planeMesh);
 	//plane->setMaterial(litTextureGridMaterial);
 	plane->setMaterial(dynamicTextureGridMaterial);
