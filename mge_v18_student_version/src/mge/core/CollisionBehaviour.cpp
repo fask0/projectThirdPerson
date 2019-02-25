@@ -16,7 +16,7 @@
 CollisionBehaviour::CollisionBehaviour(glm::vec3 pBoundaries, bool pIsTrigger)
 	: AbstractBehaviour()
 {
-	CollisionManager::_collisionBehaviours.push_back(this);
+	CollisionManager::collisionBehaviours.push_back(this);
 	colliderType = BoxCollider;
 	_boundaries = pBoundaries;
 	isTrigger = pIsTrigger;
@@ -29,7 +29,7 @@ CollisionBehaviour::CollisionBehaviour(glm::vec3 pBoundaries, bool pIsTrigger)
 CollisionBehaviour::CollisionBehaviour(float pRadius, bool pIsTrigger)
 	: AbstractBehaviour()
 {
-	CollisionManager::_collisionBehaviours.push_back(this);
+	CollisionManager::collisionBehaviours.push_back(this);
 	colliderType = SphereCollider;
 	_radius = pRadius;
 	isTrigger = pIsTrigger;
@@ -41,11 +41,11 @@ CollisionBehaviour::CollisionBehaviour(float pRadius, bool pIsTrigger)
 
 CollisionBehaviour::~CollisionBehaviour()
 {
-	for (unsigned i = 0; i < CollisionManager::_collisionBehaviours.size(); i++)
+	for (unsigned i = 0; i < CollisionManager::collisionBehaviours.size(); i++)
 	{
-		if (CollisionManager::_collisionBehaviours[i] == this)
+		if (CollisionManager::collisionBehaviours[i] == this)
 		{
-			CollisionManager::_collisionBehaviours.erase(CollisionManager::_collisionBehaviours.begin() + i);
+			CollisionManager::collisionBehaviours.erase(CollisionManager::collisionBehaviours.begin() + i);
 			return;
 		}
 	}
@@ -135,4 +135,37 @@ void CollisionBehaviour::DrawCollider()
 	_collider->setMesh(_mesh);
 	_collider->setMaterial(_material);
 	_owner->add(_collider);
+}
+
+std::vector<CollisionBehaviour*> CollisionBehaviour::getCollisions()
+{
+	return _behavioursInCollision;
+}
+
+bool CollisionBehaviour::checkCollision(CollisionBehaviour* pOther)
+{
+	if (_behavioursInCollision.size() == 0) return false;
+
+	for (int i = 0; i < _behavioursInCollision.size();++i)
+	{
+		if (_behavioursInCollision[i] == pOther)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+void CollisionBehaviour::removeCollision(CollisionBehaviour* pOther)
+{
+	if (_behavioursInCollision.size() == 0) return;
+
+	for (int i = 0; i < _behavioursInCollision.size(); ++i)
+	{
+		if (_behavioursInCollision[i] == pOther)
+		{
+			_behavioursInCollision.erase(_behavioursInCollision.begin() + i);
+			return;
+		}
+	}
 }
