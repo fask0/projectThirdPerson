@@ -28,6 +28,12 @@ GridManager::GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow
 	material = dynamic_cast<LitTextureGridMaterial*>(_gridObjects[0]->getMaterial());
 	selectedMaterial = new LitSelectedTextureMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"));
 	selectedMaterial->SetMixIntensity(0.5f);
+
+	//Load meshes
+	_towerMesh1 = Mesh::load(config::MGE_MODEL_PATH + "cube_flat");
+	_towerMesh2 = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth");
+	_towerMesh3 = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth");
+	_towerMesh4 = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth");
 }
 
 GridManager::~GridManager()
@@ -89,17 +95,17 @@ void GridManager::GridControls(sf::Event pEvent)
 {
 	switch (pEvent.type)
 	{
-		case sf::Event::KeyPressed:
+	case sf::Event::KeyPressed:
 		switch (pEvent.key.code)
 		{
-			case sf::Keyboard::Key::G:
+		case sf::Keyboard::Key::G:
 			if (_gridObjects.size() > 0)
 			{
 				dynamic_cast<LitTextureGridMaterial*>(_gridObjects[0]->getMaterial())->toggleGrid();
 				std::cout << "Toggled Grid" << std::endl;
 			}
 			break;
-			case sf::Keyboard::Key::O:
+		case sf::Keyboard::Key::O:
 			if (_gridObjects.size() > 0)
 			{
 				LitTextureGridMaterial* material = dynamic_cast<LitTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -107,7 +113,7 @@ void GridManager::GridControls(sf::Event pEvent)
 				std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
 			}
 			break;
-			case sf::Keyboard::Key::P:
+		case sf::Keyboard::Key::P:
 			if (_gridObjects.size() > 0)
 			{
 				LitTextureGridMaterial* material = dynamic_cast<LitTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -115,7 +121,7 @@ void GridManager::GridControls(sf::Event pEvent)
 				std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
 			}
 			break;
-			case sf::Keyboard::Key::K:
+		case sf::Keyboard::Key::K:
 			if (_gridObjects.size() > 0)
 			{
 				LitTextureGridMaterial* material = dynamic_cast<LitTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -123,7 +129,7 @@ void GridManager::GridControls(sf::Event pEvent)
 				std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
 			}
 			break;
-			case sf::Keyboard::Key::L:
+		case sf::Keyboard::Key::L:
 			if (_gridObjects.size() > 0)
 			{
 				LitTextureGridMaterial* material = dynamic_cast<LitTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -140,9 +146,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 {
 	if (pEvent.type == sf::Event::KeyPressed)
 	{
-		//TextureGridMaterial* material = dynamic_cast<TextureGridMaterial*>(_gridObjects[0]->getMaterial());
-
-		Mesh* towerMesh = Mesh::load(config::MGE_MODEL_PATH + "cube_flat");
+		Mesh* towerMesh = _towerMesh1;
 		FollowMouseOnGridBehaviour* behaviour = new FollowMouseOnGridBehaviour(material);
 
 		float gSize = material->getGridSize();
@@ -153,7 +157,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 
 		switch (pEvent.key.code)
 		{
-			case sf::Keyboard::Key::Num1:
+		case sf::Keyboard::Key::Num1:
 			if (_tower != nullptr)
 			{
 				_world->remove(_tower);
@@ -177,14 +181,14 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 				dynamic_cast<LitTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRange(8);
 			}
 
-			towerMesh = Mesh::load(config::MGE_MODEL_PATH + "cube_flat");
+			towerMesh = _towerMesh1;
 			_tower->scale(glm::vec3(2.5f, 2.5f, 2.5f));
 			_tower->setMesh(towerMesh);
 			_tower->setMaterial(selectedMaterial);
 			_tower->addBehaviour(behaviour);
 			_world->add(_tower);
 			break;
-			case sf::Keyboard::Key::Num2:
+		case sf::Keyboard::Key::Num2:
 			if (_tower != nullptr)
 			{
 				_world->remove(_tower);
@@ -201,7 +205,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			}
 
 			ResetMouseOverAndSelected();
-			towerMesh = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth");
+			towerMesh = _towerMesh2;
 			_tower = new Tower("Tower1", pos, 12);
 
 			if (_gridObjects.size() > 0)
@@ -215,7 +219,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			_tower->addBehaviour(behaviour);
 			_world->add(_tower);
 			break;
-			case sf::Keyboard::Key::Num3:
+		case sf::Keyboard::Key::Num3:
 			if (_tower != nullptr)
 			{
 				_world->remove(_tower);
@@ -232,7 +236,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			}
 
 			ResetMouseOverAndSelected();
-			towerMesh = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth");
+			towerMesh = _towerMesh3;
 			_tower = new Tower("Tower1", pos, 16);
 
 			if (_gridObjects.size() > 0)
@@ -246,7 +250,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			_tower->addBehaviour(behaviour);
 			_world->add(_tower);
 			break;
-			case sf::Keyboard::Key::Num4:
+		case sf::Keyboard::Key::Num4:
 			if (_tower != nullptr)
 			{
 				_world->remove(_tower);
@@ -263,7 +267,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			}
 
 			ResetMouseOverAndSelected();
-			towerMesh = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth");
+			towerMesh = _towerMesh4;
 			_tower = new Tower("Tower1", pos, 12);
 
 			if (_gridObjects.size() > 0)
@@ -278,7 +282,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			_world->add(_tower);
 			break;
 
-			case sf::Keyboard::Key::Escape:
+		case sf::Keyboard::Key::Escape:
 			if (_tower != nullptr)
 			{
 				_world->remove(_tower);
@@ -293,7 +297,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 				}
 			}
 			break;
-			case sf::Keyboard::Key::R:
+		case sf::Keyboard::Key::R:
 			if (_tower != nullptr)
 				_tower->Rotate90();
 			break;
@@ -338,7 +342,7 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 {
 	switch (pEvent.key.code)
 	{
-		case sf::Keyboard::Key::Escape:
+	case sf::Keyboard::Key::Escape:
 		if (_selectedTower != nullptr)
 		{
 			if (_gridObjects.size() > 0)

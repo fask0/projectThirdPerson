@@ -42,6 +42,7 @@ uniform float range;
 //Dynamic object loading stuff
 #define NR_OF_TEXTURES 100
 uniform sampler2D textures[NR_OF_TEXTURES];
+#define NR_OF_TEXTURES 100
 uniform int splitter[NR_OF_TEXTURES];
 in int index;
 
@@ -52,16 +53,7 @@ vec3 CalcDirLight(DirLight _dirLight, vec3 normal)
 	float diff = max(dot(norm, lightDir), 0.0f);
 	vec3 diffuse = diff * _dirLight.lightCol;
 
-	sampler2D chosenTexture = textures[0];
-	for(int i = 0; i < NR_OF_TEXTURES; i++)
-	{
-		if(splitter[i] != 0 && gl_VertexID >= splitter[i])
-		{
-			chosenTexture = textures[i];
-		}
-	}
-
-	vec3 result = (ambientColor + diffuse) * vec3(texture(chosenTexture,texCoord));
+	vec3 result = (ambientColor + diffuse) * vec3(texture(diffuseTexture,texCoord));
 	return result;	
 }
 
@@ -77,16 +69,7 @@ vec3 CalcSpotLight(SpotLight _spotLight, vec3 normal, vec3 fragPos)
 	float intensity = clamp((theta - _spotLight.outerCutOff) / epsilon, 0.0, 1.0);
 	diffuse *= intensity;
 
-	sampler2D chosenTexture = textures[0];
-	for(int i = 0; i < NR_OF_TEXTURES; i++)
-	{
-		if(splitter[i] != 0 && gl_VertexID >= splitter[i])
-		{
-			chosenTexture = textures[i];
-		}
-	}
-
-	vec3 result = (ambientColor + diffuse) * vec3(texture(chosenTexture,texCoord));
+	vec3 result = (ambientColor + diffuse) * vec3(texture(diffuseTexture,texCoord));
 	return result;	
 }
 

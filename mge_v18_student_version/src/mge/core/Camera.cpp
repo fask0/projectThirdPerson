@@ -3,10 +3,12 @@
 #include <SFML/Window/Mouse.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include "mge/core/GameController.hpp"
 
 Camera::Camera(sf::RenderWindow* pWindow, std::string pName, glm::vec3 pPosition, glm::mat4 pProjectionMatrix)
 	: GameObject(pName, pPosition), _projection(pProjectionMatrix), _window(pWindow)
 {
+	GameController::MainCamera = this;
 }
 
 Camera::~Camera()

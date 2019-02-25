@@ -5,6 +5,8 @@
 #include <iostream>
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Light.hpp"
+#include "mge/core/Camera.hpp"
+#include "mge/behaviours/CameraMovementBehaviour.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -17,9 +19,13 @@ public:
 	GameController();
 
 	virtual ~GameController();
+
 	static std::vector<Light*> Lights;
 	static std::vector<GameObject*> GameObjects;
 	static std::vector<GameObject*> GridObjects;
+
+	static Camera* MainCamera;
+	static CameraMovementBehaviour* CameraBehaviour;
 private:
 
 private:
