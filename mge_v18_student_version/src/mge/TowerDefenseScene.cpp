@@ -25,6 +25,7 @@
 #include "mge/materials/TextureGridMaterial.hpp"
 #include "mge/materials/LitTextureMaterial.hpp"
 #include "mge/materials/LitTextureGridMaterial.hpp"
+#include "mge/materials//LitDynamicGridTextureMaterial.hpp"
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -122,7 +123,8 @@ void TowerDefenseScene::_initializeScene()
 	//SCENE SETUP
 
 	TextureGridMaterial* gridMaterial = new TextureGridMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
-	LitTextureGridMaterial* litTextureGridMaterial = new LitTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
+	//LitTextureGridMaterial* litTextureGridMaterial = new LitTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
+	LitDynamicTextureGridMaterial* dynamicTextureGridMaterial = new LitDynamicTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
 	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(0, 0, 1, 1));
 	LitMaterial* litMaterial1 = new LitMaterial(light, glm::vec3(0.9f, 0.9f, 0.9f));
 	litMaterial1->AddLight(light2);
@@ -150,7 +152,15 @@ void TowerDefenseScene::_initializeScene()
 	GameObject* plane = new GameObject("plane", glm::vec3(0, 0, 0));
 	plane->scale(glm::vec3(5, 5, 5));
 	plane->setMesh(planeMesh);
-	plane->setMaterial(litTextureGridMaterial);
+	//plane->setMaterial(litTextureGridMaterial);
+	plane->setMaterial(dynamicTextureGridMaterial);
+	if (planeMesh->collidersInMesh.size() > 0)
+	{
+		for (auto &i : planeMesh->collidersInMesh)
+		{
+			_world->add(i);
+		}
+	}
 	_world->add(plane);
 
 	//GameObject* plane2 = new GameObject("plane2", glm::vec3(40, -10, 0));
@@ -169,12 +179,12 @@ void TowerDefenseScene::_initializeScene()
 	//colA->DrawCollider();
 	//_world->add(colliderA);
 
-	GameObject* colliderB = new GameObject("B", glm::vec3(0, 2, 0));
-	CollisionBehaviour* colB = new CollisionBehaviour(1);
-	colliderB->setBehaviour(colB);
-	colB->DrawCollider();
-	//colliderB->setMaterial(litTextureMaterial);
-	_world->add(colliderB);
+	//GameObject* colliderB = new GameObject("B", glm::vec3(0, 2, 0));
+	//CollisionBehaviour* colB = new CollisionBehaviour(1);
+	//colliderB->setBehaviour(colB);
+	//colB->DrawCollider();
+	////colliderB->setMaterial(litTextureMaterial);
+	////_world->add(colliderB);
 
 	GameController::GridObjects.push_back(plane);
 	//GameController::GridObjects.push_back(plane2);
@@ -184,7 +194,8 @@ void TowerDefenseScene::_initializeScene()
 
 	_plane = plane;
 	_camera = camera;
-	_mat = litTextureGridMaterial;
+	//_mat = litTextureGridMaterial;
+	_matD = dynamicTextureGridMaterial;
 }
 
 void TowerDefenseScene::_render()
@@ -204,7 +215,8 @@ void TowerDefenseScene::_render()
 	glm::vec3 thingy = (normalizedDiff * fabs(multiplyValue));
 	glm::vec3 planePos = _camera->getWorldPosition() + thingy;
 
-	_mat->setHighlightArea(planePos);
+	//_mat->setHighlightArea(planePos);
+	_matD->setHighlightArea(planePos);
 
 	_updateHud();
 }

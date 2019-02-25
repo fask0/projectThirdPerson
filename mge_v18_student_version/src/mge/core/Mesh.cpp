@@ -3,7 +3,15 @@
 #include <string>
 #include <fstream>
 
+#include "mge/behaviours/CollisionBehaviour.hpp"
+
 #include "mge/core/Mesh.hpp"
+#include "mge/core/Texture.hpp"
+#include "mge/core/GameObject.hpp"
+#include "mge/core/World.hpp"
+#include "mge/core/AbstractGame.hpp"
+
+#include "mge/config.hpp"
 
 Mesh::Mesh() : _indexBufferId(0), _vertexBufferId(0), _normalBufferId(0), _uvBufferId(0), _vertices(), _normals(), _uvs(), _indices()
 {
@@ -63,32 +71,27 @@ Mesh::~Mesh()
  *
  * Note that loading this mesh isn't cached like we do with texturing, this is an exercise left for the students.
  */
-Mesh* Mesh::load(std::string pFilename)
+Mesh* Mesh::load(std::string pFileName)
 {
-	std::cout << "Loading " << pFilename << "...";
+	std::cout << "Loading " << pFileName << ".obj...";
 
 	Mesh* mesh = new Mesh();
-	mesh->materials = mesh->getMTLinfo(pFilename);
-	mesh->faces = mesh->getOBJinfo(pFilename);
+	mesh->materials = mesh->getMTLinfo(pFileName);
+	//mesh->faces = mesh->getOBJinfo(pFileName);
+	mesh->filePath = pFileName;
 
-	std::string* materialNamesArray = new std::string[mesh->materials];
-	float** diffuseArray = new float*[mesh->materials];
-	float** specularArray = new float*[mesh->materials];
-	std::string* textureNamesArray = new std::string[mesh->materials];
-	int** facesArray = new int*[mesh->faces];
-	int mtl = 0;
-	int f = 0;
+	mesh->materialNamesArray = new std::string[mesh->materials];
+	mesh->textureNamesArray = new std::string[mesh->materials];
+	//mesh->facesArray = new int*[mesh->faces];
+	//int mtl = 0;
+	//int f = 0;
+	int objectIndex = 0;
 
-	for (int i = 0; i < mesh->materials; ++i)
-	{
-		diffuseArray[i] = new float[3];
-		specularArray[i] = new float[3];
-	}
-	for (int i = 0; i < mesh->faces; ++i)
-		facesArray[i] = new int[10];
-	mesh->extractMTLinfo(pFilename, materialNamesArray, diffuseArray, specularArray, textureNamesArray);
+	/*for (int i = 0; i < mesh->faces; ++i)
+		mesh->facesArray[i] = new int[10];*/
+	mesh->extractMTLinfo(pFileName, mesh->materialNamesArray, mesh->textureNamesArray);
 
-	std::ifstream file(pFilename + ".obj", std::ios::in);
+	std::ifstream file(pFileName + ".obj", std::ios::in);
 
 	if (file.is_open())
 	{
@@ -102,7 +105,7 @@ Mesh* Mesh::load(std::string pFilename)
 		//object file and map them to an index for our index buffer (just number them sequentially
 		//as we encounter them and store references to the pack
 		std::map <FaceIndexTriplet, unsigned int> mappedTriplets;
-
+		int colliderCount = 0;
 		std::string line; // to store each line in
 		while (getline(file, line))
 		{
@@ -121,7 +124,53 @@ Mesh* Mesh::load(std::string pFilename)
 
 			//so... start processing lines
 			//are we reading a vertex line? straightforward copy into local vertices vector
+			std::string type = line.substr(0, 2);
+			if (type.compare("us") == 0)
+			{
+				std::string l = "usemtl ";
+				std::string mat = line.substr(l.size());
 
+				for (int i = 0; i < mesh->materials;++i)
+				{
+					if (mat.compare(mesh->materialNamesArray[i]) == 0)
+					{
+						//mtl = i;
+						mesh->objectTextures.push_back(Texture::load(config::MGE_TEXTURE_PATH + mesh->getMaterialTextureName(pFileName, mat)));
+					}
+				}
+			}
+
+			if (type.compare("g ") == 0)
+			{
+				std::string obj = line.substr(type.size());
+				if (obj.compare("Collider") == 0)
+				{
+					std::string l;
+					glm::vec3 vOne;
+					glm::vec3 vTwo;
+					char cArr[10];
+					cArr[0] = 0;
+					for (int i = 0; i < 85; ++i)
+					{
+						getline(file, l);
+						if (i == 0)
+							sscanf(l.c_str(), "%10s %f %f %f", cArr, &vOne.x, &vOne.y, &vOne.z);
+						else if (i == 5)
+							sscanf(l.c_str(), "%10s %f %f %f", cArr, &vTwo.x, &vTwo.y, &vTwo.z);
+					}
+					glm::vec3 pos = glm::vec3(vOne.x + vTwo.x, vOne.y + vTwo.y, vOne.z + vTwo.z) * 0.5f;
+					GameObject* col = new GameObject("Collider", pos);
+					CollisionBehaviour* objectCollider = new CollisionBehaviour(0.5f * glm::vec3(glm::abs(glm::abs(vOne.x) - glm::abs(vTwo.x)),
+																								 glm::abs(glm::abs(vOne.y) - glm::abs(vTwo.y)),
+																								 glm::abs(glm::abs(vOne.z) - glm::abs(vTwo.z))));
+					col->addBehaviour(objectCollider);
+					objectCollider->DrawCollider();
+					mesh->collidersInMesh.push_back(col);
+					colliderCount++;
+				}
+				else
+					mesh->objectVertexIndex.push_back(objectIndex);
+			}
 
 			if (strcmp(cmd, "v") == 0)
 			{
@@ -129,6 +178,7 @@ Mesh* Mesh::load(std::string pFilename)
 				sscanf(line.c_str(), "%10s %f %f %f ", cmd, &vertex.x, &vertex.y, &vertex.z);
 				vertices.push_back(vertex);
 
+				objectIndex++;
 				//or are we reading a normal line? straightforward copy into local normal vector
 			}
 			else if (strcmp(cmd, "vn") == 0)
@@ -159,7 +209,20 @@ Mesh* Mesh::load(std::string pFilename)
 				glm::ivec3 vertexIndex;
 				glm::ivec3 normalIndex;
 				glm::ivec3 uvIndex;
-				int count = sscanf(line.c_str(), "%10s %d/%d/%d %d/%d/%d %d/%d/%d", cmd, &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
+				int count = sscanf(line.c_str(), "%10s %d/%d/%d %d/%d/%d %d/%d/%d", cmd,
+								   &vertexIndex[0], &uvIndex[0], &normalIndex[0],
+								   &vertexIndex[1], &uvIndex[1], &normalIndex[1],
+								   &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
+
+				vertexIndex[0] -= 24 * colliderCount;
+				vertexIndex[1] -= 24 * colliderCount;
+				vertexIndex[2] -= 24 * colliderCount;
+				uvIndex[0] -= 24 * colliderCount;
+				uvIndex[1] -= 24 * colliderCount;
+				uvIndex[2] -= 24 * colliderCount;
+				normalIndex[0] -= 24 * colliderCount;
+				normalIndex[1] -= 24 * colliderCount;
+				normalIndex[2] -= 24 * colliderCount;
 
 				//Have we read exactly 10 elements?
 				if (count == 10)
@@ -204,68 +267,85 @@ Mesh* Mesh::load(std::string pFilename)
 					return NULL;
 				}
 			}
-		}
 
-		std::ifstream inOBJ;
-		inOBJ.open(pFilename + ".obj");
-		while (!inOBJ.eof())
-		{
-			std::string line;
-			std::getline(inOBJ, line);
-			std::string type = line.substr(0, 2);
-
-			if (type.compare("us") == 0)
-			{
-				std::string l = "usemtl ";
-				std::string mat = line.substr(l.size());
-
-				for (int i = 0; i < mesh->materials;++i)
-					if (mat.compare(materialNamesArray[i]) == 0)
-						mtl = i;
-			}
-
-			if (type.compare("f ") == 0)
+			/*if (type.compare("f ") == 0)
 			{
 				char* l = new char[line.size() + 1];
 				std::memcpy(l, line.c_str(), line.size() + 1);
 
 				std::strtok(l, " ");
 				for (int i = 0; i < 9; i++)
-					facesArray[f][i] = std::atof(std::strtok(NULL, " /"));
+					mesh->facesArray[f][i] = std::atof(std::strtok(NULL, " /"));
 
-				facesArray[f][9] = mtl;
-				//materialNames[mtl] gets the name of the material
+				mesh->facesArray[f][9] = mtl;
 				delete[] l;
 				f++;
-			}
+			}*/
 		}
-		inOBJ.close();
 
 		file.close();
 		mesh->_buffer();
 
-		for (int i = 0; i < mesh->materials; ++i)
-		{
-			delete[] diffuseArray[i];
-			delete[] specularArray[i];
-		}
+		//for (int i = 0;i < mesh->faces; ++i)
+		//	delete[] mesh->facesArray[i];
 
-		for (int i = 0; i < mesh->faces; ++i)
-			delete[] facesArray[i];
+		//delete[] mesh->facesArray;
+		delete[] mesh->materialNamesArray;
+		delete[] mesh->textureNamesArray;
 
-		delete[] diffuseArray;
-		delete[] specularArray;
-		delete[] facesArray;
 
 		std::cout << "Mesh loaded and buffered:" << (mesh->_indices.size() / 3.0f) << " triangles." << std::endl;
 		return mesh;
 	}
 	else
 	{
-		std::cout << "Could not read " << pFilename << std::endl;
+		std::cout << "Could not read " << pFileName + ".obj" << std::endl;
 		delete mesh;
 		return NULL;
 	}
+}
+
+std::string Mesh::getMaterialTextureName(std::string pFileName, std::string pMaterialName)
+{
+	std::string textureName;
+	std::ifstream inMLT;
+	inMLT.open(pFileName + ".mtl");
+	if (!inMLT.good())
+	{
+		std::cout << "Could not open: " + pFileName + ".mtl";
+		inMLT.close();
+		return "land.jpg";
+	}
+
+	std::string line;
+	while (!inMLT.eof())
+	{
+		std::getline(inMLT, line);
+		std::string type = line.substr(0, 2);
+
+		if (type.compare("ne") == 0)
+		{
+			std::string l = "newmtl ";
+			std::string nextLine;
+			if (pMaterialName.compare(line.substr(l.size())) == 0)
+			{
+				for (int i = 0; i < 3; ++i)
+				{
+					std::getline(inMLT, nextLine);
+					std::string t = nextLine.substr(0, 2);
+					if (t.compare("ma") == 0)
+					{
+						int index = nextLine.rfind("\\");
+						inMLT.close();
+						return nextLine.substr(index + 1);
+					}
+				}
+			}
+		}
+	}
+
+	inMLT.close();
+	return "land.jpg";
 }
 
 int Mesh::getMTLinfo(std::string pFileName)
@@ -277,28 +357,31 @@ int Mesh::getMTLinfo(std::string pFileName)
 	if (!inMTL.good())
 	{
 		std::cout << "Could not open: " + pFileName + ".mtl";
+		inMTL.close();
 		return 0;
 	}
 
+	std::string line;
 	while (!inMTL.eof())
 	{
-		std::string line;
 		std::getline(inMTL, line);
 		std::string type = line.substr(0, 2);
 
 		if (type.compare("ne") == 0)
-			m++;
+		{
+			std::string l = "newmtl ";
+			if (l.compare("Default-Material") != 0)
+				m++;
+		}
 	}
 
 	inMTL.close();
 	return m;
 }
 
-void Mesh::extractMTLinfo(std::string pFileName, std::string * pMatNames, float** pDiffuses, float** pSpeculars, std::string* pTextureName)
+void Mesh::extractMTLinfo(std::string pFileName, std::string * pMatNames, std::string* pTextureName)
 {
 	int m = 0;
-	int d = 0;
-	int s = 0;
 	int t = 0;
 
 	std::ifstream inMTL;
@@ -306,53 +389,29 @@ void Mesh::extractMTLinfo(std::string pFileName, std::string * pMatNames, float*
 	if (!inMTL.good())
 	{
 		std::cout << "Could not open: " + pFileName + ".mtl";
+		inMTL.close();
 		return;
 	}
 
+	std::string line;
 	while (!inMTL.eof())
 	{
-		std::string line;
 		std::getline(inMTL, line);
 		std::string type = line.substr(0, 2);
 
 		if (type.compare("ne") == 0)
 		{
 			std::string l = "newmtl ";
-			pMatNames[m] = line.substr(l.size());
-			m++;
-		}
-		else if (type.compare("Kd") == 0)
-		{
-			char* l = new char[line.size() + 1];
-			std::memcpy(l, line.c_str(), line.size() + 1);
-
-			std::strtok(l, " ");
-			for (int i = 0; i < 3; ++i)
+			if (l.compare("Default-Material") != 0)
 			{
-				pDiffuses[d][i] = std::atof(std::strtok(NULL, " "));
+				pMatNames[m] = line.substr(l.size());
+				m++;
 			}
-
-
-			delete[] l;
-			d++;
-		}
-		else if (type.compare("Ks") == 0)
-		{
-			char* l = new char[line.size() + 1];
-			std::memcpy(l, line.c_str(), line.size() + 1);
-
-			std::strtok(l, " ");
-			for (int i = 0;i < 3;++i)
-				pSpeculars[s][i] = std::atof(std::strtok(NULL, " "));
-
-			delete[] l;
-			s++;
 		}
 		else if (type.compare("ma") == 0)
 		{
 			int index = line.rfind("\\");
 			pTextureName[t] = line.substr(index + 1);
-			std::cout << "\n" << pTextureName[t] << "\n";
 			t++;
 		}
 	}
@@ -369,12 +428,13 @@ int Mesh::getOBJinfo(std::string pFileName)
 	if (!inOBJ.good())
 	{
 		std::cout << "Could not open " + pFileName + ".obj";
+		inOBJ.close();
 		return 0;
 	}
 
+	std::string line;
 	while (!inOBJ.eof())
 	{
-		std::string line;
 		std::getline(inOBJ, line);
 		std::string type = line.substr(0, 2);
 

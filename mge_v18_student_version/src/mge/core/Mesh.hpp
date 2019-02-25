@@ -5,6 +5,9 @@
 #include <GL/glew.h>
 #include "glm.hpp"
 
+#include "mge/core/Texture.hpp"
+#include "mge/core/GameObject.hpp"
+
 class World;
 
 /**
@@ -19,7 +22,7 @@ class Mesh
 	 * vertexes, uvs, normals and face indexes. See load source
 	 * for more format information.
 	 */
-	static Mesh* load(std::string pFilename);
+	static Mesh* load(std::string pFileName);
 
 	/**
 	 * Streams the mesh to opengl using the given indexes for the different attributes
@@ -32,16 +35,24 @@ class Mesh
 	void drawDebugInfo(const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix);
 
 	int materials;
-	int faces;
+	//int faces;
+	std::string filePath;
+
+	std::string* materialNamesArray;
+	std::string* textureNamesArray;
+	//int** facesArray;
+	std::vector<int> objectVertexIndex;
+	std::vector<Texture*> objectTextures;
+	std::vector<GameObject*> collidersInMesh;
 
 	protected:
 	Mesh();
 	virtual ~Mesh();
 
+	std::string getMaterialTextureName(std::string pFileName, std::string pMaterialName);;
 	int getMTLinfo(std::string pFileName);
-	void extractMTLinfo(std::string pFileName, std::string* pMatNames, float** pDiffuses, float** pSpeculars, std::string* pTextureNames);
-
 	int getOBJinfo(std::string pFileName);
+	void extractMTLinfo(std::string pFileName, std::string* pMatNames, std::string* pTextureNames);
 
 	//OpenGL id's for the different buffers created for this mesh
 	GLuint _indexBufferId;

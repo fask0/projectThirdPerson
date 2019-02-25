@@ -35,6 +35,7 @@
     <ClCompile Include="..\src\mge\materials\LitSelectedTextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\LitTextureGridMaterial.cpp" />
     <ClCompile Include="..\src\mge\behaviours\CameraMovementBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\materials\LitDynamicGridTextureMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -72,5 +73,6 @@
     <ClInclude Include="..\src\mge\materials\LitSelectedTextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\LitTextureGridMaterial.hpp" />
     <ClInclude Include="..\src\mge\behaviours\CameraMovementBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\materials\LitDynamicGridTextureMaterial.hpp" />
   </ItemGroup>
 </Project>

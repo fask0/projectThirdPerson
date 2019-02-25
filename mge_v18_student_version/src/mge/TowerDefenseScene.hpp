@@ -5,6 +5,7 @@
 #include "mge/core/Camera.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/materials/TextureGridMaterial.hpp"
+#include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 #include "Lua/lua.hpp"
 
 class DebugHud;
@@ -12,7 +13,7 @@ class DebugHud;
 class TowerDefenseScene : public AbstractGame
 {
 
-public:
+	public:
 	TowerDefenseScene();
 	virtual ~TowerDefenseScene();
 
@@ -24,18 +25,19 @@ public:
 	int WindowHeight;
 	int WindowWidth;
 
-protected:
+	protected:
 	//override so we can construct the actual scene
 	virtual void _initializeScene();
 
 	//override render to render the hud as well.
 	virtual void _render();
 
-private:
+	private:
 	DebugHud* _hud;                   //hud display
 	Camera* _camera;
 	GameObject* _plane;
 	LitTextureGridMaterial* _mat;
+	LitDynamicTextureGridMaterial* _matD;
 	lua_State* lua;
 
 	void _updateHud();
