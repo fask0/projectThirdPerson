@@ -46,6 +46,18 @@ CollisionBehaviour::~CollisionBehaviour()
 		if (CollisionManager::collisionBehaviours[i] == this)
 		{
 			CollisionManager::collisionBehaviours.erase(CollisionManager::collisionBehaviours.begin() + i);
+			for (auto &b : _behavioursInCollision)
+			{
+				int index = 0;
+				for (auto &col : b->_behavioursInCollision)
+				{
+					if (col == this)
+					{
+						b->getCollisions()->erase(b->getCollisions()->begin() + index);
+					}
+					index++;
+				}
+			}
 			return;
 		}
 	}

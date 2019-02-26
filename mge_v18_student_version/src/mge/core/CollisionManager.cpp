@@ -28,22 +28,28 @@ void CollisionManager::update(float pStep)
 	for (int i = 0; i < collisionBehaviours.size();++i)
 	{
 		collider = collisionBehaviours[i];
+		glm::vec3 colliderMax = collider->GetMax();
+		glm::vec3 colliderMin = collider->GetMin();
+		glm::vec3 colliderPos = collider->GetPosition();
 
-		for (int j = i + 1;j < collisionBehaviours.size();++j)
+		switch (collider->colliderType)
 		{
-			other = collisionBehaviours[j];
-
-			switch (collider->colliderType)
+			case CollisionBehaviour::BoxCollider:
 			{
-				case CollisionBehaviour::BoxCollider:
+				for (int j = i + 1;j < collisionBehaviours.size(); ++j)
 				{
+					other = collisionBehaviours[j];
+
 					switch (other->colliderType)
 					{
 						case CollisionBehaviour::BoxCollider:
 						{
-							if ((collider->GetMax().x >= other->GetMin().x && collider->GetMin().x <= other->GetMax().x) &&
-								(collider->GetMax().y >= other->GetMin().y && collider->GetMin().y <= other->GetMax().y) &&
-								(collider->GetMax().z >= other->GetMin().z && collider->GetMin().z <= other->GetMax().z))
+							glm::vec3 otherMax = other->GetMax();
+							glm::vec3 otherMin = other->GetMin();
+
+							if ((colliderMax.x >= otherMin.x && colliderMin.x <= otherMax.x) &&
+								(colliderMax.y >= otherMin.y && colliderMin.y <= otherMax.y) &&
+								(colliderMax.z >= otherMin.z && colliderMin.z <= otherMax.z))
 							{
 								collider->ResolveCollision(other, other->getOwner(), collider->getOwner()->getLastPosition());
 
@@ -64,14 +70,16 @@ void CollisionManager::update(float pStep)
 
 						case CollisionBehaviour::SphereCollider:
 						{
-							float x = glm::max(collider->GetMin().x, glm::min(other->GetPosition().x, collider->GetMax().x));
-							float y = glm::max(collider->GetMin().y, glm::min(other->GetPosition().y, collider->GetMax().y));
-							float z = glm::max(collider->GetMin().z, glm::min(other->GetPosition().z, collider->GetMax().z));
+							glm::vec3 oPos = other->GetPosition();
+
+							float x = glm::max(colliderMin.x, glm::min(oPos.x, colliderMax.x));
+							float y = glm::max(colliderMin.y, glm::min(oPos.y, colliderMax.y));
+							float z = glm::max(colliderMin.z, glm::min(oPos.z, colliderMax.z));
 
 							float distance = glm::sqrt(
-								(x - other->GetPosition().x) * (x - other->GetPosition().x) +
-								(y - other->GetPosition().y) * (y - other->GetPosition().y) +
-								(z - other->GetPosition().z) * (z - other->GetPosition().z));
+								(x - oPos.x) * (x - oPos.x) +
+								(y - oPos.y) * (y - oPos.y) +
+								(z - oPos.z) * (z - oPos.z));
 
 							if (distance <= other->GetRadius())
 							{
@@ -93,22 +101,30 @@ void CollisionManager::update(float pStep)
 						break;
 					}
 				}
-				break;
+			}
+			break;
 
-				case CollisionBehaviour::SphereCollider:
+			case CollisionBehaviour::SphereCollider:
+			{
+				for (int j = i + 1;j < collisionBehaviours.size(); ++j)
 				{
+					other = collisionBehaviours[j];
+
 					switch (other->colliderType)
 					{
 						case CollisionBehaviour::BoxCollider:
 						{
-							float x = glm::max(other->GetMin().x, glm::min(collider->GetPosition().x, other->GetMax().x));
-							float y = glm::max(other->GetMin().y, glm::min(collider->GetPosition().y, other->GetMax().y));
-							float z = glm::max(other->GetMin().z, glm::min(collider->GetPosition().z, other->GetMax().z));
+							glm::vec3 otherMax = other->GetMax();
+							glm::vec3 otherMin = other->GetMin();
+
+							float x = glm::max(otherMin.x, glm::min(colliderPos.x, otherMax.x));
+							float y = glm::max(otherMin.y, glm::min(colliderPos.y, otherMax.y));
+							float z = glm::max(otherMin.z, glm::min(colliderPos.z, otherMax.z));
 
 							float distance = glm::sqrt(
-								(x - collider->GetPosition().x) * (x - collider->GetPosition().x) +
-								(y - collider->GetPosition().y) * (y - collider->GetPosition().y) +
-								(z - collider->GetPosition().z) * (z - collider->GetPosition().z));
+								(x - colliderPos.x) * (x - colliderPos.x) +
+								(y - colliderPos.y) * (y - colliderPos.y) +
+								(z - colliderPos.z) * (z - colliderPos.z));
 
 							if (distance <= collider->GetRadius())
 							{
@@ -131,10 +147,12 @@ void CollisionManager::update(float pStep)
 
 						case CollisionBehaviour::SphereCollider:
 						{
+							glm::vec3 oPos = other->GetPosition();
+
 							float distance = glm::sqrt(
-								(collider->GetPosition().x - other->GetPosition().x) * (collider->GetPosition().x - other->GetPosition().x) +
-								(collider->GetPosition().y - other->GetPosition().y) * (collider->GetPosition().y - other->GetPosition().y) +
-								(collider->GetPosition().z - other->GetPosition().z) * (collider->GetPosition().z - other->GetPosition().z));
+								(colliderPos.x - oPos.x) * (colliderPos.x - oPos.x) +
+								(colliderPos.y - oPos.y) * (colliderPos.y - oPos.y) +
+								(colliderPos.z - oPos.z) * (colliderPos.z - oPos.z));
 
 							if (distance <= collider->GetRadius() + other->GetRadius())
 							{
