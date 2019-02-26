@@ -1,11 +1,14 @@
 #include "mge/behaviours/ToasterTowerBehaviour.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/core/World.hpp"
 #include "mge/core/Helper.hpp"
+#include "mge/core/ToasterProjectile.hpp"
 
 ToasterTowerBehaviour::ToasterTowerBehaviour() : TowerBehaviour()
 {
 	//ctor
+	_lastAttackTime = clock();
 }
 
 ToasterTowerBehaviour::~ToasterTowerBehaviour()
@@ -48,6 +51,11 @@ void ToasterTowerBehaviour::Attack()
 {
 	if (_enemiesInRange)
 	{
-
+		if (float(clock() - _lastAttackTime) / CLOCKS_PER_SEC >= 1)
+		{
+			ToasterProjectile* projectile = new ToasterProjectile(_owner->getTransform());
+			GameController::World->add(projectile);
+			_lastAttackTime = clock();
+		}
 	}
 }

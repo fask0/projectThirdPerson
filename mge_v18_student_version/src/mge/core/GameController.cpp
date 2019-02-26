@@ -14,6 +14,8 @@
 #include "mge/core/MouseTrapTower.hpp"
 #include "mge/core/ShockTower.hpp"
 
+#include "mge/core/ToasterProjectile.hpp"
+
 std::vector<Light*> GameController::Lights;
 std::vector<Enemy*> GameController::Enemies;
 std::vector<GameObject*> GameController::GameObjects;
@@ -22,6 +24,7 @@ std::vector<Waypoint*> GameController::WaypointsInLevel;
 
 Camera* GameController::MainCamera;
 CameraMovementBehaviour* GameController::CameraBehaviour;
+World* GameController::World;
 
 //--Lua variables
 bool GameController::Debug = false;
@@ -57,6 +60,9 @@ GameController::~GameController()
 void GameController::SetTowerVariables()
 {
 	AbstractMaterial* mat;
+
+	ToasterProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth");
+	ToasterProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"));
 
 	//Slingshot tower
 	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "cube_flat");

@@ -175,6 +175,7 @@
     <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\CameraOrbitBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\ToasterProjectileBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\ToasterTowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\TowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\WASDBehaviour.hpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="..\src\mge\core\Renderer.hpp" />
     <ClInclude Include="..\src\mge\core\ShaderProgram.hpp" />
     <ClInclude Include="..\src\mge\core\ShockTower.hpp" />
+    <ClInclude Include="..\src\mge\core\ToasterProjectile.hpp" />
     <ClInclude Include="..\src\mge\core\ToasterTower.hpp" />
     <ClInclude Include="..\src\mge\core\Texture.hpp" />
     <ClInclude Include="..\src\mge\core\Tower.hpp" />
@@ -223,6 +225,7 @@
     <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\CameraOrbitBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\ToasterProjectileBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\ToasterTowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\TowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\WASDBehaviour.cpp" />
@@ -242,6 +245,7 @@
     <ClCompile Include="..\src\mge\core\Renderer.cpp" />
     <ClCompile Include="..\src\mge\core\ShaderProgram.cpp" />
     <ClCompile Include="..\src\mge\core\ShockTower.cpp" />
+    <ClCompile Include="..\src\mge\core\ToasterProjectile.cpp" />
     <ClCompile Include="..\src\mge\core\ToasterTower.cpp" />
     <ClCompile Include="..\src\mge\core\Texture.cpp" />
     <ClCompile Include="..\src\mge\core\Tower.cpp" />

@@ -32,6 +32,7 @@ public:
 
 	static Camera* MainCamera;
 	static CameraMovementBehaviour* CameraBehaviour;
+	static World* World;
 
 	//--Lua variables
 	static bool Debug;

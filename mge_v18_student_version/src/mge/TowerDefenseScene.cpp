@@ -62,6 +62,8 @@ void TowerDefenseScene::initialize()
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
+
+	GameController::World = _world;
 }
 
 void TowerDefenseScene::initializeLua()

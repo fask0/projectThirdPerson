@@ -34,6 +34,7 @@ GameObject::~GameObject()
 		delete child;
 	}
 
+	std::cout << "Deleted " << _name << std::endl;
 	//do not forget to delete behaviour, material, mesh, collider manually if required!
 }
 
@@ -118,6 +119,7 @@ void GameObject::removeBehaviour(AbstractBehaviour* pBehaviour)
 
 void GameObject::removeBehaviourAtIndex(int pIndex)
 {
+	delete(_behaviours[pIndex]);
 	_behaviours.erase(_behaviours.begin() + pIndex);
 }
 

@@ -118,6 +118,10 @@
     <ClCompile Include="..\src\mge\behaviours\CollisionBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\core\ToasterProjectile.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\ToasterProjectileBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -238,6 +242,10 @@
       <Filter>Towers</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\Helper.hpp" />
+    <ClInclude Include="..\src\mge\core\ToasterProjectile.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\ToasterProjectileBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Towers">
