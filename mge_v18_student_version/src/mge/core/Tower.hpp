@@ -30,13 +30,17 @@ public:
 
 	void ResetMaterial();
 	float GetRange();
+	float GetAttSpeed();
+	int GetCost();
 
-private:
+protected:
 	Tower(const Tower&);
 	Tower& operator= (const Tower&);
 
 	float _rotation;
 	float _range;
+	float _attSpeed;
+	int _cost;
 	AbstractMaterial* _material;
 };
 

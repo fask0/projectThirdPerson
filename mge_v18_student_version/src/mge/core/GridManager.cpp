@@ -19,6 +19,11 @@
 #include "glm.hpp"
 #include "GameController.hpp"
 
+#include "mge/core/SlingshotTower.hpp"
+#include "mge/core/HoneyTower.hpp"
+#include "mge/core/MouseTrapTower.hpp"
+#include "mge/core/ShockTower.hpp"
+
 GridManager::GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow* pWindow, World* pWorld) : GameObject("GridManager", glm::vec3(0, 0, 0)), _window(pWindow), _world(pWorld)
 {
 	for each (GameObject* obj in pGridObjects)
@@ -29,12 +34,6 @@ GridManager::GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow
 	material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
 	selectedMaterial = new LitSelectedTextureMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"));
 	selectedMaterial->SetMixIntensity(0.5f);
-
-	//Load meshes
-	_towerMesh1 = Mesh::load(config::MGE_MODEL_PATH + "cube_flat");
-	_towerMesh2 = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth");
-	_towerMesh3 = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth");
-	_towerMesh4 = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth");
 }
 
 GridManager::~GridManager()
@@ -94,200 +93,74 @@ void GridManager::InputDetection(sf::Event pEvent)
 	TowerSelectionControls(pEvent);
 }
 
-void GridManager::GridControls(sf::Event pEvent)
+void GridManager::SpecificTowerSelection(sf::Event pEvent)
 {
-	if (GameController::Debug)
+	FollowMouseOnGridBehaviour* behaviour = new FollowMouseOnGridBehaviour(material);
+	Mesh* towerMesh;
+
+	switch (pEvent.key.code)
 	{
-		switch (pEvent.type)
-		{
-		case sf::Event::KeyPressed:
-			switch (pEvent.key.code)
-			{
-			case sf::Keyboard::Key::G:
-				if (_gridObjects.size() > 0)
-				{
-					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->toggleGrid();
-					std::cout << "Toggled Grid" << std::endl;
-				}
-				break;
-			case sf::Keyboard::Key::O:
-				if (_gridObjects.size() > 0)
-				{
-					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
-					material->setGridSize(material->getGridSize() + 0.1f);
-					std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
-				}
-				break;
-			case sf::Keyboard::Key::P:
-				if (_gridObjects.size() > 0)
-				{
-					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
-					material->setGridSize(material->getGridSize() - 0.1f);
-					std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
-				}
-				break;
-			case sf::Keyboard::Key::K:
-				if (_gridObjects.size() > 0)
-				{
-					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
-					material->setLineThiccness(material->getLineThiccness() + 0.01f);
-					std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
-				}
-				break;
-			case sf::Keyboard::Key::L:
-				if (_gridObjects.size() > 0)
-				{
-					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
-					material->setLineThiccness(material->getLineThiccness() - 0.01f);
-					std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
-				}
-				break;
-			}
-			break;
-		}
+	case sf::Keyboard::Key::Num1:
+		towerMesh = SlingshotTower::Mesh;
+		_tower = new SlingshotTower();
+		break;
+	case sf::Keyboard::Key::Num2:
+		towerMesh = HoneyTower::Mesh;
+		_tower = new HoneyTower();
+		break;
+	case sf::Keyboard::Key::Num3:
+		towerMesh = MouseTrapTower::Mesh;
+		_tower = new MouseTrapTower();
+		break;
+	case sf::Keyboard::Key::Num4:
+		towerMesh = ShockTower::Mesh;
+		_tower = new ShockTower();
+		break;
 	}
+
+	//After tower has been specified
+	if (_gridObjects.size() > 0)
+	{
+		dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRange(_tower->GetRange());
+	}
+	_tower->scale(glm::vec3(0.5f, 0.5f, 0.5f));
+	_tower->setMesh(towerMesh);
+	_tower->setMaterial(selectedMaterial);
+	_tower->addBehaviour(behaviour);
+	_world->add(_tower);
 }
 
 void GridManager::TowerPlacementControls(sf::Event pEvent)
 {
+	//Check for keyboard input
 	if (pEvent.type == sf::Event::KeyPressed)
 	{
-		Mesh* towerMesh = _towerMesh1;
-		FollowMouseOnGridBehaviour* behaviour = new FollowMouseOnGridBehaviour(material);
-
-		float gSize = material->getGridSize();
-		std::cout << gSize << std::endl;
-
-		glm::vec3 mousePos = material->getMousePos();
-		glm::vec3 pos = (glm::floor(mousePos / gSize) * gSize) + glm::vec3(gSize / 2, 0, gSize / 2);
+		//Check wether player is trying to place a tower
+		if (pEvent.key.code == sf::Keyboard::Key::Num1 ||
+			pEvent.key.code == sf::Keyboard::Key::Num2 ||
+			pEvent.key.code == sf::Keyboard::Key::Num3 ||
+			pEvent.key.code == sf::Keyboard::Key::Num4)
+		{
+			if (_tower != nullptr)
+			{
+				_world->remove(_tower);
+				delete(_tower);
+			}
+			else
+			{
+				if (_gridObjects.size() > 0)
+				{
+					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setGrid(true);
+					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(true);
+					std::cout << "Toggled Grid" << std::endl;
+				}
+			}
+			ResetMouseOverAndSelected();
+			SpecificTowerSelection(pEvent);
+		}
 
 		switch (pEvent.key.code)
 		{
-		case sf::Keyboard::Key::Num1:
-			if (_tower != nullptr)
-			{
-				_world->remove(_tower);
-				delete(_tower);
-			}
-			else
-			{
-				if (_gridObjects.size() > 0)
-				{
-					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setGrid(true);
-					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(true);
-					std::cout << "Toggled Grid" << std::endl;
-				}
-			}
-
-			ResetMouseOverAndSelected();
-			_tower = new Tower("Tower1", pos, 2);
-
-			if (_gridObjects.size() > 0)
-			{
-				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRange(_tower->GetRange());
-			}
-
-			towerMesh = _towerMesh1;
-			_tower->scale(glm::vec3(0.5f, 0.5f, 0.5f));
-			_tower->setMesh(towerMesh);
-			_tower->setMaterial(selectedMaterial);
-			_tower->addBehaviour(behaviour);
-			_world->add(_tower);
-			break;
-		case sf::Keyboard::Key::Num2:
-			if (_tower != nullptr)
-			{
-				_world->remove(_tower);
-				delete(_tower);
-			}
-			else
-			{
-				if (_gridObjects.size() > 0)
-				{
-					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setGrid(true);
-					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(true);
-					std::cout << "Toggled Grid" << std::endl;
-				}
-			}
-
-			ResetMouseOverAndSelected();
-			towerMesh = _towerMesh2;
-			_tower = new Tower("Tower1", pos, 3);
-
-			if (_gridObjects.size() > 0)
-			{
-				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRange(_tower->GetRange());
-			}
-
-			_tower->scale(glm::vec3(0.5f, 0.5f, 0.5f));
-			_tower->setMesh(towerMesh);
-			_tower->setMaterial(selectedMaterial);
-			_tower->addBehaviour(behaviour);
-			_world->add(_tower);
-			break;
-		case sf::Keyboard::Key::Num3:
-			if (_tower != nullptr)
-			{
-				_world->remove(_tower);
-				delete(_tower);
-			}
-			else
-			{
-				if (_gridObjects.size() > 0)
-				{
-					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setGrid(true);
-					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(true);
-					std::cout << "Toggled Grid" << std::endl;
-				}
-			}
-
-			ResetMouseOverAndSelected();
-			towerMesh = _towerMesh3;
-			_tower = new Tower("Tower1", pos, 4);
-
-			if (_gridObjects.size() > 0)
-			{
-				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRange(_tower->GetRange());
-			}
-
-			_tower->scale(glm::vec3(0.5f, 0.5f, 0.5f));
-			_tower->setMesh(towerMesh);
-			_tower->setMaterial(selectedMaterial);
-			_tower->addBehaviour(behaviour);
-			_world->add(_tower);
-			break;
-		case sf::Keyboard::Key::Num4:
-			if (_tower != nullptr)
-			{
-				_world->remove(_tower);
-				delete(_tower);
-			}
-			else
-			{
-				if (_gridObjects.size() > 0)
-				{
-					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setGrid(true);
-					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(true);
-					std::cout << "Toggled Grid" << std::endl;
-				}
-			}
-
-			ResetMouseOverAndSelected();
-			towerMesh = _towerMesh4;
-			_tower = new Tower("Tower1", pos, 5);
-
-			if (_gridObjects.size() > 0)
-			{
-				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRange(_tower->GetRange());
-			}
-
-			_tower->scale(glm::vec3(0.5f, 0.5f, 0.5f));
-			_tower->setMesh(towerMesh);
-			_tower->setMaterial(selectedMaterial);
-			_tower->addBehaviour(behaviour);
-			_world->add(_tower);
-			break;
-
 		case sf::Keyboard::Key::Escape:
 			if (_tower != nullptr)
 			{
@@ -299,6 +172,8 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 				{
 					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setGrid(false);
 					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
+					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setColliding(false);
+					selectedMaterial->SetColliding(false);
 					std::cout << "Toggled Grid" << std::endl;
 				}
 			}
@@ -321,6 +196,8 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			{
 				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setGrid(false);
 				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
+				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setColliding(false);
+				selectedMaterial->SetColliding(false);
 				std::cout << "Toggled Grid" << std::endl;
 			}
 		}
@@ -395,5 +272,59 @@ void GridManager::ResetAllTowerMaterials()
 	for each (Tower* tower in _placedTowers)
 	{
 		tower->ResetMaterial();
+	}
+}
+
+void GridManager::GridControls(sf::Event pEvent)
+{
+	if (GameController::Debug)
+	{
+		switch (pEvent.type)
+		{
+		case sf::Event::KeyPressed:
+			switch (pEvent.key.code)
+			{
+			case sf::Keyboard::Key::G:
+				if (_gridObjects.size() > 0)
+				{
+					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->toggleGrid();
+					std::cout << "Toggled Grid" << std::endl;
+				}
+				break;
+			case sf::Keyboard::Key::O:
+				if (_gridObjects.size() > 0)
+				{
+					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
+					material->setGridSize(material->getGridSize() + 0.1f);
+					std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
+				}
+				break;
+			case sf::Keyboard::Key::P:
+				if (_gridObjects.size() > 0)
+				{
+					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
+					material->setGridSize(material->getGridSize() - 0.1f);
+					std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
+				}
+				break;
+			case sf::Keyboard::Key::K:
+				if (_gridObjects.size() > 0)
+				{
+					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
+					material->setLineThiccness(material->getLineThiccness() + 0.01f);
+					std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
+				}
+				break;
+			case sf::Keyboard::Key::L:
+				if (_gridObjects.size() > 0)
+				{
+					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
+					material->setLineThiccness(material->getLineThiccness() - 0.01f);
+					std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
+				}
+				break;
+			}
+			break;
+		}
 	}
 }

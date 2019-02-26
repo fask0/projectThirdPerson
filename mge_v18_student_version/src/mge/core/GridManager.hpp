@@ -41,11 +41,6 @@ private:
 	Tower* _mouseOverTower = nullptr;
 	Tower* _selectedTower = nullptr;
 
-	Mesh* _towerMesh1;
-	Mesh* _towerMesh2;
-	Mesh* _towerMesh3;
-	Mesh* _towerMesh4;
-
 	//Input handling
 	void CheckIfMouseOverTower();
 	void GridControls(sf::Event pEvent);
@@ -57,6 +52,8 @@ private:
 private:
 	GridManager(const GridManager&);
 	GridManager& operator= (const GridManager&);
+
+	void SpecificTowerSelection(sf::Event pEvent);
 };
 
 #endif // CAMERA_HPP
