@@ -26,6 +26,9 @@ public:
 
 	static Camera* MainCamera;
 	static CameraMovementBehaviour* CameraBehaviour;
+
+	//Lua variables
+	static bool Debug;
 private:
 
 private:

@@ -96,52 +96,55 @@ void GridManager::InputDetection(sf::Event pEvent)
 
 void GridManager::GridControls(sf::Event pEvent)
 {
-	switch (pEvent.type)
+	if (GameController::Debug)
 	{
-	case sf::Event::KeyPressed:
-		switch (pEvent.key.code)
+		switch (pEvent.type)
 		{
-		case sf::Keyboard::Key::G:
-			if (_gridObjects.size() > 0)
+		case sf::Event::KeyPressed:
+			switch (pEvent.key.code)
 			{
-				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->toggleGrid();
-				std::cout << "Toggled Grid" << std::endl;
-			}
-			break;
-		case sf::Keyboard::Key::O:
-			if (_gridObjects.size() > 0)
-			{
-				LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
-				material->setGridSize(material->getGridSize() + 0.1f);
-				std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
-			}
-			break;
-		case sf::Keyboard::Key::P:
-			if (_gridObjects.size() > 0)
-			{
-				LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
-				material->setGridSize(material->getGridSize() - 0.1f);
-				std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
-			}
-			break;
-		case sf::Keyboard::Key::K:
-			if (_gridObjects.size() > 0)
-			{
-				LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
-				material->setLineThiccness(material->getLineThiccness() + 0.01f);
-				std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
-			}
-			break;
-		case sf::Keyboard::Key::L:
-			if (_gridObjects.size() > 0)
-			{
-				LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
-				material->setLineThiccness(material->getLineThiccness() - 0.01f);
-				std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
+			case sf::Keyboard::Key::G:
+				if (_gridObjects.size() > 0)
+				{
+					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->toggleGrid();
+					std::cout << "Toggled Grid" << std::endl;
+				}
+				break;
+			case sf::Keyboard::Key::O:
+				if (_gridObjects.size() > 0)
+				{
+					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
+					material->setGridSize(material->getGridSize() + 0.1f);
+					std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
+				}
+				break;
+			case sf::Keyboard::Key::P:
+				if (_gridObjects.size() > 0)
+				{
+					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
+					material->setGridSize(material->getGridSize() - 0.1f);
+					std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
+				}
+				break;
+			case sf::Keyboard::Key::K:
+				if (_gridObjects.size() > 0)
+				{
+					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
+					material->setLineThiccness(material->getLineThiccness() + 0.01f);
+					std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
+				}
+				break;
+			case sf::Keyboard::Key::L:
+				if (_gridObjects.size() > 0)
+				{
+					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
+					material->setLineThiccness(material->getLineThiccness() - 0.01f);
+					std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
+				}
+				break;
 			}
 			break;
 		}
-		break;
 	}
 }
 

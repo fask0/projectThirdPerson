@@ -75,6 +75,7 @@ void TowerDefenseScene::initializeLua()
 	//Set vars
 	lua_getglobal(lua, "Debug");
 	Debug = lua_toboolean(lua, -1);
+	GameController::Debug = Debug;
 	lua_pop(lua, -1);
 	std::cout << "Debug set" << std::endl;
 
