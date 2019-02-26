@@ -3,10 +3,10 @@ DrawColliders = true;
 WindowWidth = 800;
 WindowHeight = 600;
 
---Slingshot tower (basic shooting tower)
-SlingshotRange = 6;
-SlingshotAttSpeed = 5;
-SlingshotCost = 20;
+--Toaster tower (basic shooting tower)
+ToasterRange = 6;
+ToasterAttSpeed = 5;
+ToasterCost = 20;
 
 --Honey tower (slows enemies)
 HoneyRange = 5;

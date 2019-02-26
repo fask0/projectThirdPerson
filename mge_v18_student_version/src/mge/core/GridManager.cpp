@@ -19,7 +19,7 @@
 #include "glm.hpp"
 #include "GameController.hpp"
 
-#include "mge/core/SlingshotTower.hpp"
+#include "mge/core/ToasterTower.hpp"
 #include "mge/core/HoneyTower.hpp"
 #include "mge/core/MouseTrapTower.hpp"
 #include "mge/core/ShockTower.hpp"
@@ -101,8 +101,8 @@ void GridManager::SpecificTowerSelection(sf::Event pEvent)
 	switch (pEvent.key.code)
 	{
 	case sf::Keyboard::Key::Num1:
-		towerMesh = SlingshotTower::Mesh;
-		_tower = new SlingshotTower();
+		towerMesh = ToasterTower::Mesh;
+		_tower = new ToasterTower();
 		break;
 	case sf::Keyboard::Key::Num2:
 		towerMesh = HoneyTower::Mesh;
@@ -211,6 +211,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 			_tower->removeBehaviourAtIndex(1);
 			_tower->ResetMaterial();
 			_placedTowers.push_back(_tower);
+			_tower->AddTowerBehaviour();
 			_tower = nullptr;
 
 			if (_gridObjects.size() > 0)

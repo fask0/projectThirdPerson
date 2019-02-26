@@ -33,6 +33,8 @@ public:
 	float GetAttSpeed();
 	int GetCost();
 
+	virtual void AddTowerBehaviour();
+
 protected:
 	Tower(const Tower&);
 	Tower& operator= (const Tower&);

@@ -3,17 +3,19 @@
 #include "mge/core/GameController.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Light.hpp"
+#include "mge/core/Enemy.hpp"
 #include "mge/core/Camera.hpp"
 #include "mge/behaviours/CameraMovementBehaviour.hpp"
 #include "mge/config.hpp"
 #include "mge/materials/LitTextureMaterial.hpp"
 
-#include "mge/core/SlingshotTower.hpp"
+#include "mge/core/ToasterTower.hpp"
 #include "mge/core/HoneyTower.hpp"
 #include "mge/core/MouseTrapTower.hpp"
 #include "mge/core/ShockTower.hpp"
 
 std::vector<Light*> GameController::Lights;
+std::vector<Enemy*> GameController::Enemies;
 std::vector<GameObject*> GameController::GameObjects;
 std::vector<GameObject*> GameController::GridObjects;
 std::vector<Waypoint*> GameController::WaypointsInLevel;
@@ -25,10 +27,10 @@ CameraMovementBehaviour* GameController::CameraBehaviour;
 bool GameController::Debug = false;
 bool GameController::DrawColliders;
 
-//Slingshot tower
-float GameController::SlingshotRange;
-float GameController::SlingshotAttSpeed;
-int GameController::SlingshotCost;
+//Toaster tower
+float GameController::ToasterRange;
+float GameController::ToasterAttSpeed;
+int GameController::ToasterCost;
 //Honey tower
 float GameController::HoneyRange;
 float GameController::HoneyAttSpeed;
@@ -57,8 +59,8 @@ void GameController::SetTowerVariables()
 	AbstractMaterial* mat;
 
 	//Slingshot tower
-	SlingshotTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "cube_flat");
-	SlingshotTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
+	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "cube_flat");
+	ToasterTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
 	//Honey tower
 	HoneyTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth");
 	HoneyTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"));

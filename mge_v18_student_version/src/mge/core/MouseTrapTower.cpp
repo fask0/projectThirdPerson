@@ -25,3 +25,8 @@ void MouseTrapTower::update(float pStep)
 
 	GameObject::update(pStep);
 }
+
+void MouseTrapTower::AddTowerBehaviour()
+{
+
+}

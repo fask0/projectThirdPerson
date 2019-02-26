@@ -25,3 +25,8 @@ void ShockTower::update(float pStep)
 
 	GameObject::update(pStep);
 }
+
+void ShockTower::AddTowerBehaviour()
+{
+
+}
