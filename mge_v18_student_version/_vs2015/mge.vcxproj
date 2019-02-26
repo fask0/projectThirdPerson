@@ -187,6 +187,7 @@
     <ClInclude Include="..\src\mge\core\GameController.hpp" />
     <ClInclude Include="..\src\mge\core\GameObject.hpp" />
     <ClInclude Include="..\src\mge\core\GridManager.hpp" />
+    <ClInclude Include="..\src\mge\core\Helper.hpp" />
     <ClInclude Include="..\src\mge\core\HoneyTower.hpp" />
     <ClInclude Include="..\src\mge\core\Light.hpp" />
     <ClInclude Include="..\src\mge\core\Mesh.hpp" />
@@ -217,6 +218,7 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\CameraMovementBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\CollisionBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp" />
@@ -228,11 +230,11 @@
     <ClCompile Include="..\src\mge\core\AbstractGame.cpp" />
     <ClCompile Include="..\src\mge\core\Camera.cpp" />
     <ClCompile Include="..\src\mge\core\CollisionManager.cpp" />
-    <ClCompile Include="..\src\mge\core\CollisionBehaviour.cpp" />
     <ClCompile Include="..\src\mge\core\Enemy.cpp" />
     <ClCompile Include="..\src\mge\core\GameController.cpp" />
     <ClCompile Include="..\src\mge\core\GameObject.cpp" />
     <ClCompile Include="..\src\mge\core\GridManager.cpp" />
+    <ClCompile Include="..\src\mge\core\Helper.cpp" />
     <ClCompile Include="..\src\mge\core\HoneyTower.cpp" />
     <ClCompile Include="..\src\mge\core\Light.cpp" />
     <ClCompile Include="..\src\mge\core\Mesh.cpp" />

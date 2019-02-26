@@ -29,9 +29,6 @@
     <ClCompile Include="..\src\mge\behaviours\CameraOrbitBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\core\CollisionBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
@@ -116,6 +113,10 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\core\ToasterTower.cpp">
       <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Helper.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\CollisionBehaviour.cpp">
+      <Filter>Behaviours</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +237,7 @@
     <ClInclude Include="..\src\mge\core\ToasterTower.hpp">
       <Filter>Towers</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\core\Helper.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Towers">

@@ -1,6 +1,7 @@
 #include "mge/behaviours/ToasterTowerBehaviour.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/core/Helper.hpp"
 
 ToasterTowerBehaviour::ToasterTowerBehaviour() : TowerBehaviour()
 {
@@ -39,7 +40,7 @@ void ToasterTowerBehaviour::Rotate()
 {
 	if (_enemiesInRange)
 	{
-		glm::vec3 diff = _furthestEnemy->getLocalPosition() - _owner->getLocalPosition();
+		Helper::LookAt(_owner, _furthestEnemy);
 	}
 }
 
