@@ -1,10 +1,17 @@
+#include <iostream>
 #include "glm.hpp"
 #include "mge/core/GameController.hpp"
-#include <iostream>
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Light.hpp"
 #include "mge/core/Camera.hpp"
 #include "mge/behaviours/CameraMovementBehaviour.hpp"
+#include "mge/config.hpp"
+#include "mge/materials/LitTextureMaterial.hpp"
+
+#include "mge/core/SlingshotTower.hpp"
+#include "mge/core/HoneyTower.hpp"
+#include "mge/core/MouseTrapTower.hpp"
+#include "mge/core/ShockTower.hpp"
 
 std::vector<Light*> GameController::Lights;
 std::vector<GameObject*> GameController::GameObjects;
@@ -14,17 +21,52 @@ std::vector<Waypoint*> GameController::WaypointsInLevel;
 Camera* GameController::MainCamera;
 CameraMovementBehaviour* GameController::CameraBehaviour;
 
-//Lua variables
+//--Lua variables
 bool GameController::Debug = false;
 bool GameController::DrawColliders;
 
+//Slingshot tower
+float GameController::SlingshotRange;
+float GameController::SlingshotAttSpeed;
+int GameController::SlingshotCost;
+//Honey tower
+float GameController::HoneyRange;
+float GameController::HoneyAttSpeed;
+int GameController::HoneyCost;
+//MouseTrap tower
+float GameController::MouseTrapRange;
+int GameController::MouseTrapCost;
+//Shock tower
+float GameController::ShockRange;
+float GameController::ShockAttSpeed;
+int GameController::ShockCost;
+//--End of Lua variables
+
 GameController::GameController() : GameObject("GameController", glm::vec3(0.0f, 0.0f, 0.0f))
 {
-
+	SetTowerVariables();
 }
 
 GameController::~GameController()
 {
 
+}
+
+void GameController::SetTowerVariables()
+{
+	AbstractMaterial* mat;
+
+	//Slingshot tower
+	SlingshotTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "cube_flat");
+	SlingshotTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
+	//Honey tower
+	HoneyTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth");
+	HoneyTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"));
+	//MouseTrap tower
+	MouseTrapTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth");
+	MouseTrapTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"));
+	//Shock tower
+	ShockTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth");
+	ShockTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 }
 

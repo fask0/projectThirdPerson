@@ -40,6 +40,11 @@
 #include "mge/config.hpp"
 #include "Lua/lua.hpp"
 
+#include "mge/core/SlingshotTower.hpp"
+#include "mge/core/HoneyTower.hpp"
+#include "mge/core/MouseTrapTower.hpp"
+#include "mge/core/ShockTower.hpp"
+
 TowerDefenseScene::TowerDefenseScene() :AbstractGame(), _hud(0)
 {
 
@@ -91,11 +96,53 @@ void TowerDefenseScene::initializeLua()
 	WindowWidth = lua_tointeger(lua, -1);
 	lua_pop(lua, -1);
 	std::cout << "Windowsize set" << std::endl;
+
+	//Slingshot tower
+	lua_getglobal(lua, "SlingshotRange");
+	GameController::SlingshotRange = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "SlingshotAttSpeed");
+	GameController::SlingshotAttSpeed = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "SlingshotCost");
+	GameController::SlingshotCost = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
+
+	//Honey tower
+	lua_getglobal(lua, "HoneyRange");
+	GameController::HoneyRange = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "HoneyAttSpeed");
+	GameController::HoneyAttSpeed = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "HoneyCost");
+	GameController::HoneyCost = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
+
+	//MouseTrap tower
+	lua_getglobal(lua, "MouseTrapRange");
+	GameController::MouseTrapRange = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "MouseTrapCost");
+	GameController::MouseTrapCost = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
+
+	//Shock tower
+	lua_getglobal(lua, "ShockRange");
+	GameController::ShockRange = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "ShockAttSpeed");
+	GameController::ShockAttSpeed = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "ShockCost");
+	GameController::ShockCost = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
 }
 
 //build the game _world
 void TowerDefenseScene::_initializeScene()
 {
+	GameController* gameController = new GameController();
 	//MESHES
 
 	//load a bunch of meshes we will be using throughout this demo
@@ -135,13 +182,13 @@ void TowerDefenseScene::_initializeScene()
 	litMaterial1->AddLight(light2);
 	AbstractMaterial* litMaterial = litMaterial1;
 	TerrainMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-														   0);
-	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(light, Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
+		0);
+	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 
 
 
@@ -167,28 +214,8 @@ void TowerDefenseScene::_initializeScene()
 	}
 	_world->add(plane);
 
-	//GameObject* plane2 = new GameObject("plane2", glm::vec3(40, -10, 0));
-	//plane2->scale(glm::vec3(10, 10, 10));
-	//plane2->setMesh(planeMesh);
-	//plane2->setMaterial(litTextureGridMaterial);
-	//_world->add(plane2);
-
 	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
 	_world->add(colManager);
-
-	//GameObject* colliderA = new GameObject("A", glm::vec3(6, 0, 0));
-	//CollisionBehaviour* colA = new CollisionBehaviour(glm::vec3(5, 5, 5));
-	//colliderA->addBehaviour(colA);
-	//colliderA->addBehaviour(new WASDBehaviour());
-	//colA->DrawCollider();
-	//_world->add(colliderA);
-
-	//GameObject* colliderB = new GameObject("B", glm::vec3(0, 2, 0));
-	//CollisionBehaviour* colB = new CollisionBehaviour(1);
-	//colliderB->setBehaviour(colB);
-	//colB->DrawCollider();
-	////colliderB->setMaterial(litTextureMaterial);
-	////_world->add(colliderB);
 
 	GameController::GridObjects.push_back(plane);
 	//GameController::GridObjects.push_back(plane2);

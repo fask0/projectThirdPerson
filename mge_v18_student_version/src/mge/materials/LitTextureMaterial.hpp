@@ -15,14 +15,13 @@ class ShaderProgram;
 class LitTextureMaterial : public AbstractMaterial
 {
 public:
-	LitTextureMaterial(Light *light, Texture* pDiffuseTexture);
+	LitTextureMaterial(Texture* pDiffuseTexture);
 	virtual ~LitTextureMaterial();
 
 	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
 	//in rgb values
 	void setDiffuseTexture(Texture* pDiffuseTexture);
-	void AddLight(Light *light);
 
 private:
 	//all the static properties are shared between instances of LitMaterial
@@ -30,11 +29,8 @@ private:
 	static ShaderProgram* _shader;
 	static void _lazyInitializeShader();
 
-	std::vector<Light*> _lights;
-
-	//this one is unique per instance of color material
+	//this one is unique per instance of material
 	Texture* _diffuseTexture;
-	Light *_light;
 };
 
 #endif // LitMaterial_HPP

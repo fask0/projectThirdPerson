@@ -6,10 +6,11 @@
 #include "mge/core/Mesh.hpp"
 #include "mge/core/ShaderProgram.hpp"
 #include "mge/core/Texture.hpp"
+#include "mge/core/GameController.hpp"
 
 ShaderProgram* LitTextureMaterial::_shader = NULL;
 
-LitTextureMaterial::LitTextureMaterial(Light *light, Texture* pDiffuseTexture) :_diffuseTexture(pDiffuseTexture), _light(light)
+LitTextureMaterial::LitTextureMaterial(Texture* pDiffuseTexture) :_diffuseTexture(pDiffuseTexture)
 {
 	//every time we create an instance of LitMaterial we check if the corresponding shader has already been loaded
 	_lazyInitializeShader();
@@ -38,11 +39,6 @@ void LitTextureMaterial::setDiffuseTexture(Texture* pDiffuseTexture)
 	_diffuseTexture = pDiffuseTexture;
 }
 
-void LitTextureMaterial::AddLight(Light * light)
-{
-	_lights.push_back(light);
-}
-
 void LitTextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix)
 {
 	_shader->use();
@@ -60,19 +56,19 @@ void LitTextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pMo
 	glUniformMatrix4fv(_shader->getUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(pModelMatrix));
 
 	//Light stuff 2
-	glUniform3fv(_shader->getUniformLocation("dirLight.lightCol"), 1, glm::value_ptr(_light->_color));
-	glUniform3fv(_shader->getUniformLocation("dirLight.lightRot"), 1, glm::value_ptr(_light->getTransform()[1]));
+	glUniform3fv(_shader->getUniformLocation("dirLight.lightCol"), 1, glm::value_ptr(GameController::Lights[0]->_color));
+	glUniform3fv(_shader->getUniformLocation("dirLight.lightRot"), 1, glm::value_ptr(GameController::Lights[0]->getTransform()[1]));
 
 	////Light stuff
-	for (int i = 0; i < _lights.size(); i++)
+	for (int i = 1; i < GameController::Lights.size(); i++)
 	{
-		if (_lights[i]->_lightType == _light->Spotlight)
+		if (GameController::Lights[i]->_lightType == 0)
 		{
-			glUniform3fv(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].lightCol"), 1, glm::value_ptr(_lights[i]->_color));
-			glUniform3fv(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].lightPos"), 1, glm::value_ptr(_lights[i]->getWorldPosition()));
-			glUniform3fv(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].lightRot"), 1, glm::value_ptr(_lights[i]->getTransform()[1]));
-			glUniform1f(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].cutOff"), glm::cos(glm::radians(_lights[i]->_startCutOff)));
-			glUniform1f(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].outerCutOff"), glm::cos(glm::radians(_lights[i]->_endCutOff)));
+			glUniform3fv(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].lightCol"), 1, glm::value_ptr(GameController::Lights[i]->_color));
+			glUniform3fv(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].lightPos"), 1, glm::value_ptr(GameController::Lights[i]->getWorldPosition()));
+			glUniform3fv(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].lightRot"), 1, glm::value_ptr(GameController::Lights[i]->getTransform()[1]));
+			glUniform1f(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].cutOff"), glm::cos(glm::radians(GameController::Lights[i]->_startCutOff)));
+			glUniform1f(_shader->getUniformLocation("spotLights[" + std::to_string(i) + "].outerCutOff"), glm::cos(glm::radians(GameController::Lights[i]->_endCutOff)));
 		}
 	}
 

@@ -28,7 +28,6 @@
     <ClCompile Include="..\src\mge\materials\WobbleMaterial.cpp" />
     <ClCompile Include="..\src\mge\TowerDefenseScene.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
-    <ClCompile Include="..\src\mge\core\Tower.cpp" />
     <ClCompile Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.cpp" />
     <ClCompile Include="..\src\mge\materials\LitTextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\core\GameController.cpp" />
@@ -38,6 +37,21 @@
     <ClCompile Include="..\src\mge\materials\LitDynamicGridTextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\core\Waypoint.cpp" />
     <ClCompile Include="..\src\mge\behaviours\WaypointFollowBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\core\HoneyTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\MouseTrapTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\ShockTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\SlingshotTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Tower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -68,7 +82,6 @@
     <ClInclude Include="..\src\mge\materials\WobbleMaterial.hpp" />
     <ClInclude Include="..\src\mge\TowerDefenseScene.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
-    <ClInclude Include="..\src\mge\core\Tower.hpp" />
     <ClInclude Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.hpp" />
     <ClInclude Include="..\src\mge\materials\LitTextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\core\GameController.hpp" />
@@ -78,5 +91,25 @@
     <ClInclude Include="..\src\mge\materials\LitDynamicGridTextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\core\Waypoint.hpp" />
     <ClInclude Include="..\src\mge\behaviours\WaypointFollowBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\core\HoneyTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\MouseTrapTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ShockTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\SlingshotTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Tower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Towers">
+      <UniqueIdentifier>{37a1a57b-3251-4d06-bbac-432ad2828ba9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

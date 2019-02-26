@@ -31,13 +31,32 @@ public:
 	static Camera* MainCamera;
 	static CameraMovementBehaviour* CameraBehaviour;
 
-	//Lua variables
+	//--Lua variables
 	static bool Debug;
 	static bool DrawColliders;
+
+	//Slingshot tower
+	static float SlingshotRange;
+	static float SlingshotAttSpeed;
+	static int SlingshotCost;
+	//Honey tower
+	static float HoneyRange;
+	static float HoneyAttSpeed;
+	static int HoneyCost;
+	//MouseTrap tower
+	static float MouseTrapRange;
+	static int MouseTrapCost;
+	//Shock tower
+	static float ShockRange;
+	static float ShockAttSpeed;
+	static int ShockCost;
+	//--End of Lua variables
 
 private:
 	GameController(const GameController&);
 	GameController& operator= (const GameController&);
+
+	void SetTowerVariables();
 };
 
 #endif // GAMECONTROLLER_HPP
