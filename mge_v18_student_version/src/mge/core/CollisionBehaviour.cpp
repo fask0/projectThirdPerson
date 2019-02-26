@@ -53,6 +53,10 @@ CollisionBehaviour::~CollisionBehaviour()
 
 void CollisionBehaviour::update(float pStep)
 {
+	if (_behavioursInCollision.size() == 0)
+		_owner->isColliding = false;
+	else
+		_owner->isColliding = true;
 }
 
 void CollisionBehaviour::ResolveCollision(CollisionBehaviour* pOtherCollider, GameObject* pOtherOwner, glm::vec3 pLastPos)
@@ -61,9 +65,7 @@ void CollisionBehaviour::ResolveCollision(CollisionBehaviour* pOtherCollider, Ga
 	{
 		case BoxCollider:
 		{
-			//std::cout << "Object: " + _owner->getName() + " is colliding with " + pOtherName + "\n";
-
-			if (!_owner->isColliding)
+			if (!checkCollision(pOtherCollider))
 				_owner->OnCollisionEnter(pOtherOwner);
 			_owner->OnCollisionStay(pOtherOwner);
 
@@ -75,9 +77,7 @@ void CollisionBehaviour::ResolveCollision(CollisionBehaviour* pOtherCollider, Ga
 
 		case SphereCollider:
 		{
-			//std::cout << "Object: " + _owner->getName() + " is colliding with " + pOtherName + "\n";
-
-			if (!_owner->isColliding)
+			if (!checkCollision(pOtherCollider))
 				_owner->OnCollisionEnter(pOtherOwner);
 			_owner->OnCollisionStay(pOtherOwner);
 
@@ -137,16 +137,16 @@ void CollisionBehaviour::DrawCollider()
 	_owner->add(_collider);
 }
 
-std::vector<CollisionBehaviour*> CollisionBehaviour::getCollisions()
+std::vector<CollisionBehaviour*>* CollisionBehaviour::getCollisions()
 {
-	return _behavioursInCollision;
+	return &_behavioursInCollision;
 }
 
 bool CollisionBehaviour::checkCollision(CollisionBehaviour* pOther)
 {
 	if (_behavioursInCollision.size() == 0) return false;
 
-	for (int i = 0; i < _behavioursInCollision.size();++i)
+	for (int i = 0; i < _behavioursInCollision.size(); ++i)
 	{
 		if (_behavioursInCollision[i] == pOther)
 		{

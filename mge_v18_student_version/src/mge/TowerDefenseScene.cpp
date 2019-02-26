@@ -78,6 +78,10 @@ void TowerDefenseScene::initializeLua()
 	lua_pop(lua, -1);
 	std::cout << "Debug set" << std::endl;
 
+	lua_getglobal(lua, "DrawColliders");
+	GameController::DrawColliders = lua_toboolean(lua, -1);
+	lua_pop(lua, -1);
+
 	lua_getglobal(lua, "WindowHeight");
 	WindowHeight = lua_tointeger(lua, -1);
 	lua_pop(lua, -1);

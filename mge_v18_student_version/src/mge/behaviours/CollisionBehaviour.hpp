@@ -40,7 +40,7 @@ class CollisionBehaviour : public AbstractBehaviour
 	bool isTrigger;
 	ColliderType colliderType;
 
-	std::vector<CollisionBehaviour*> getCollisions();
+	std::vector<CollisionBehaviour*>* getCollisions();
 	bool checkCollision(CollisionBehaviour* pOther);
 	void removeCollision(CollisionBehaviour* pOther);
 
