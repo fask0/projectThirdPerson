@@ -14,7 +14,7 @@
  */
 class Tower : public GameObject
 {
-public:
+	public:
 	Tower(
 		std::string pName = "Tower",
 		glm::vec3 pPosition = glm::vec3(0.0f, 0.0f, 0.0f),
@@ -26,14 +26,16 @@ public:
 	void update(float pStep) override;
 	void OnCollisionEnter(GameObject* pOther) override;
 	void OnCollisionExit(GameObject* pOther) override;
+	bool SkipCollisionCheck() override;
 	void Rotate90();
 
 	void ResetMaterial();
 	float GetRange();
 	float GetAttSpeed();
 	int GetCost();
+	bool isPlaced;
 
-protected:
+	protected:
 	Tower(const Tower&);
 	Tower& operator= (const Tower&);
 

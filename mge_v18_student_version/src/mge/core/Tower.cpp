@@ -11,8 +11,9 @@
 #include "mge/behaviours/CollisionBehaviour.hpp"
 
 Tower::Tower(std::string pName, glm::vec3 pPosition, float pRange, AbstractMaterial* pMaterial)
-	: GameObject(pName, pPosition), _range(pRange), _material(pMaterial)
+	: GameObject(pName, pPosition), _range(pRange), _material(pMaterial), isPlaced(false)
 {
+	_tag = "tower";
 	_material = new LitSelectedTextureMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"));
 	for (int i = 1; i < GameController::Lights.size(); i++)
 	{
@@ -43,6 +44,11 @@ void Tower::OnCollisionEnter(GameObject* pOther)
 void Tower::OnCollisionExit(GameObject* pOther)
 {
 	std::cout << "stop lel" << std::endl;
+}
+
+bool Tower::SkipCollisionCheck()
+{
+	return isPlaced;
 }
 
 void Tower::update(float pStep)

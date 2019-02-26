@@ -293,3 +293,27 @@ void GameObject::OnCollisionStay(GameObject* pOther)
 void GameObject::OnCollisionExit(GameObject* pOther)
 {
 }
+
+bool GameObject::SkipCollisionCheck()
+{
+	return false;
+}
+
+bool GameObject::IgnoreCollision(GameObject * pOther)
+{
+	for (int i = 0; i < _ignoreTags.size(); ++i)
+		if (_ignoreTags[i].compare(pOther->GetTag()) == 0)
+			return true;
+
+	return false;
+}
+
+void GameObject::SetTag(std::string pTag)
+{
+	_tag = pTag;
+}
+
+std::string GameObject::GetTag()
+{
+	return _tag;
+}
