@@ -10,6 +10,7 @@
 #include "mge/core/Light.hpp"
 #include "mge/core/Camera.hpp"
 #include "mge/core/Waypoint.hpp"
+#include "mge/core/Enemy.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -24,6 +25,7 @@ public:
 	virtual ~GameController();
 
 	static std::vector<Light*> Lights;
+	static std::vector<Enemy*> Enemies;
 	static std::vector<GameObject*> GameObjects;
 	static std::vector<GameObject*> GridObjects;
 	static std::vector<Waypoint*> WaypointsInLevel;
@@ -35,10 +37,10 @@ public:
 	static bool Debug;
 	static bool DrawColliders;
 
-	//Slingshot tower
-	static float SlingshotRange;
-	static float SlingshotAttSpeed;
-	static int SlingshotCost;
+	//Toaster tower
+	static float ToasterRange;
+	static float ToasterAttSpeed;
+	static int ToasterCost;
 	//Honey tower
 	static float HoneyRange;
 	static float HoneyAttSpeed;

@@ -24,6 +24,8 @@ public:
 	static Mesh* Mesh;
 	static AbstractMaterial* Material;
 
+	void AddTowerBehaviour() override;
+
 private:
 	MouseTrapTower(const MouseTrapTower&);
 	MouseTrapTower& operator= (const MouseTrapTower&);

@@ -82,3 +82,8 @@ int Tower::GetCost()
 {
 	return _cost;
 }
+
+void Tower::AddTowerBehaviour()
+{
+
+}

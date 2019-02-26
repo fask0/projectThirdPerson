@@ -1,5 +1,5 @@
-#ifndef SLINGSHOTTOWER_HPP
-#define SLINGSHOTTOWER_HPP
+#ifndef TOASTERTOWER_HPP
+#define TOASTERTOWER_HPP
 
 #include <string>
 
@@ -13,20 +13,22 @@
  * The camera's own transform is used to generate a world-to-view matrix by taking the inverse of the camera transform.
  * The camera's perspective matrix is used in the MVP matrix creation.
  */
-class SlingshotTower : public Tower
+class ToasterTower : public Tower
 {
 public:
-	SlingshotTower();
-	virtual ~SlingshotTower();
+	ToasterTower();
+	virtual ~ToasterTower();
 
 	void update(float pStep) override;
 
 	static Mesh* Mesh;
 	static AbstractMaterial* Material;
 
+	void AddTowerBehaviour() override;
+
 private:
-	SlingshotTower(const SlingshotTower&);
-	SlingshotTower& operator= (const SlingshotTower&);
+	ToasterTower(const ToasterTower&);
+	ToasterTower& operator= (const ToasterTower&);
 };
 
 #endif // CAMERA_HPP

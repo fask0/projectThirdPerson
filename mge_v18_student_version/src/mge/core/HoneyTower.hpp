@@ -24,6 +24,8 @@ public:
 	static Mesh* Mesh;
 	static AbstractMaterial* Material;
 
+	void AddTowerBehaviour() override;
+
 private:
 	HoneyTower(const HoneyTower&);
 	HoneyTower& operator= (const HoneyTower&);

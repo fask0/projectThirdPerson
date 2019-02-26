@@ -35,9 +35,13 @@ class Tower : public GameObject
 	int GetCost();
 	bool isPlaced;
 
+<<<<<<< HEAD
+	protected:
+=======
 	virtual void AddTowerBehaviour();
 
 protected:
+>>>>>>> 680c6f9720c60c6fb03dc534a5233237684abdc4
 	Tower(const Tower&);
 	Tower& operator= (const Tower&);
 

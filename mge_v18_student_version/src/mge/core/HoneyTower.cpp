@@ -25,3 +25,8 @@ void HoneyTower::update(float pStep)
 
 	GameObject::update(pStep);
 }
+
+void HoneyTower::AddTowerBehaviour()
+{
+
+}

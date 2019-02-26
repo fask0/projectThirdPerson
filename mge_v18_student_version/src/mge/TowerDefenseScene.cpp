@@ -15,6 +15,7 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/core/CollisionManager.hpp"
 #include "mge/core/GridManager.hpp"
+#include "mge/core/Enemy.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
@@ -40,7 +41,7 @@
 #include "mge/config.hpp"
 #include "Lua/lua.hpp"
 
-#include "mge/core/SlingshotTower.hpp"
+#include "mge/core/ToasterTower.hpp"
 #include "mge/core/HoneyTower.hpp"
 #include "mge/core/MouseTrapTower.hpp"
 #include "mge/core/ShockTower.hpp"
@@ -97,15 +98,15 @@ void TowerDefenseScene::initializeLua()
 	lua_pop(lua, -1);
 	std::cout << "Windowsize set" << std::endl;
 
-	//Slingshot tower
-	lua_getglobal(lua, "SlingshotRange");
-	GameController::SlingshotRange = lua_tonumber(lua, -1);
+	//Toaster tower
+	lua_getglobal(lua, "ToasterRange");
+	GameController::ToasterRange = lua_tonumber(lua, -1);
 	lua_pop(lua, -1);
-	lua_getglobal(lua, "SlingshotAttSpeed");
-	GameController::SlingshotAttSpeed = lua_tonumber(lua, -1);
+	lua_getglobal(lua, "ToasterAttSpeed");
+	GameController::ToasterAttSpeed = lua_tonumber(lua, -1);
 	lua_pop(lua, -1);
-	lua_getglobal(lua, "SlingshotCost");
-	GameController::SlingshotCost = lua_tointeger(lua, -1);
+	lua_getglobal(lua, "ToasterCost");
+	GameController::ToasterCost = lua_tointeger(lua, -1);
 	lua_pop(lua, -1);
 
 	//Honey tower
@@ -227,6 +228,8 @@ void TowerDefenseScene::_initializeScene()
 	_camera = camera;
 	//_mat = litTextureGridMaterial;
 	_matD = dynamicTextureGridMaterial;
+
+	Enemy* enemy = new Enemy();
 }
 
 void TowerDefenseScene::_render()
