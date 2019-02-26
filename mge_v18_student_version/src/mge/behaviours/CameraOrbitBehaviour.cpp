@@ -23,7 +23,6 @@ void CameraOrbitBehaviour::update(float pstep)
 	//Copy target transform
 	_owner->setTransform(_target);
 
-
 	//Change x rotation based on mouse position and rotation speed
 	sf::Vector2i input = sf::Mouse::getPosition();
 	if (input.x > 1920 / 2)

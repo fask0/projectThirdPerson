@@ -3,10 +3,13 @@
 
 #include <string>
 #include <iostream>
+
+#include "mge/behaviours/CameraMovementBehaviour.hpp"
+
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Light.hpp"
 #include "mge/core/Camera.hpp"
-#include "mge/behaviours/CameraMovementBehaviour.hpp"
+#include "mge/core/Waypoint.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -23,13 +26,14 @@ public:
 	static std::vector<Light*> Lights;
 	static std::vector<GameObject*> GameObjects;
 	static std::vector<GameObject*> GridObjects;
+	static std::vector<Waypoint*> WaypointsInLevel;
 
 	static Camera* MainCamera;
 	static CameraMovementBehaviour* CameraBehaviour;
 
 	//Lua variables
 	static bool Debug;
-private:
+	static bool DrawColliders;
 
 private:
 	GameController(const GameController&);

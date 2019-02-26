@@ -10,6 +10,8 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/AbstractGame.hpp"
+#include "mge/core/GameController.hpp"
+#include "mge/core/Waypoint.hpp"
 
 #include "mge/config.hpp"
 
@@ -158,14 +160,44 @@ Mesh* Mesh::load(std::string pFileName)
 						else if (i == 5)
 							sscanf(l.c_str(), "%10s %f %f %f", cArr, &vTwo.x, &vTwo.y, &vTwo.z);
 					}
+
 					glm::vec3 pos = glm::vec3(vOne.x + vTwo.x, vOne.y + vTwo.y, vOne.z + vTwo.z) * 0.5f;
-					GameObject* col = new GameObject("Collider", pos);
-					CollisionBehaviour* objectCollider = new CollisionBehaviour(glm::vec3(glm::max(vOne.x, vTwo.x) - glm::min(vOne.x, vTwo.x),
-																						  glm::max(vOne.y, vTwo.y) - glm::min(vOne.y, vTwo.y),
-																						  glm::max(vOne.z, vTwo.z) - glm::min(vOne.z, vTwo.z)));
-					col->addBehaviour(objectCollider);
-					objectCollider->DrawCollider();
-					mesh->collidersInMesh.push_back(col);
+					GameObject* col;
+					if (obj.at(0) == 'w')
+					{
+						switch (obj.at(1))
+						{
+							case 'A':
+							col = new Waypoint("Waypoint", pos, Waypoint::A, (int)obj.at(2));
+							break;
+
+							case 'B':
+							col = new Waypoint("Waypoint", pos, Waypoint::B, (int)obj.at(2));
+							break;
+
+							case 'C':
+							col = new Waypoint("Waypoint", pos, Waypoint::C, (int)obj.at(2));
+							break;
+
+							case 'D':
+							col = new Waypoint("Waypoint", pos, Waypoint::D, (int)obj.at(2));
+							break;
+
+							default:
+							col = new Waypoint("Waypoint", pos, Waypoint::D, (int)obj.at(2));
+							break;
+						}
+					}
+					else
+						col = new GameObject("Collider", pos);
+
+					//CollisionBehaviour* objectCollider = new CollisionBehaviour(glm::vec3(glm::max(vOne.x, vTwo.x) - glm::min(vOne.x, vTwo.x),
+					//glm::max(vOne.y, vTwo.y) - glm::min(vOne.y, vTwo.y),
+					//	glm::max(vOne.z, vTwo.z) - glm::min(vOne.z, vTwo.z)), true);
+						//col->addBehaviour(objectCollider);
+						//if (GameController::DrawColliders)
+							//objectCollider->DrawCollider();
+						//mesh->collidersInMesh.push_back(col);
 					colliderCount++;
 				}
 				else

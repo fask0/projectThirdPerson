@@ -9,14 +9,12 @@
 std::vector<Light*> GameController::Lights;
 std::vector<GameObject*> GameController::GameObjects;
 std::vector<GameObject*> GameController::GridObjects;
-std::vector<Waypoint*> GameController::WaypointsInLevel;
 
 Camera* GameController::MainCamera;
 CameraMovementBehaviour* GameController::CameraBehaviour;
 
 //Lua variables
 bool GameController::Debug = false;
-bool GameController::DrawColliders;
 
 GameController::GameController() : GameObject("GameController", glm::vec3(0.0f, 0.0f, 0.0f))
 {

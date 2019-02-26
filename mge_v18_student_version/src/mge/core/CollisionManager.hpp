@@ -12,7 +12,7 @@
 class CollisionManager : public GameObject
 {
 	public:
-	static std::vector<CollisionBehaviour*> _collisionBehaviours;
+	static std::vector<CollisionBehaviour*> collisionBehaviours;
 
 	CollisionManager(const std::string& aName = nullptr, const glm::vec3& aPosition = glm::vec3(0, 0, 0));
 	virtual ~CollisionManager();

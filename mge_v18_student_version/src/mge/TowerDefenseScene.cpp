@@ -79,6 +79,10 @@ void TowerDefenseScene::initializeLua()
 	lua_pop(lua, -1);
 	std::cout << "Debug set" << std::endl;
 
+	lua_getglobal(lua, "DrawColliders");
+	GameController::DrawColliders = lua_toboolean(lua, -1);
+	lua_pop(lua, -1);
+
 	lua_getglobal(lua, "WindowHeight");
 	WindowHeight = lua_tointeger(lua, -1);
 	lua_pop(lua, -1);
@@ -131,12 +135,12 @@ void TowerDefenseScene::_initializeScene()
 	litMaterial1->AddLight(light2);
 	AbstractMaterial* litMaterial = litMaterial1;
 	TerrainMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-		0);
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
+														   0);
 	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(light, Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 
 

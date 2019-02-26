@@ -14,9 +14,12 @@ std::vector<Waypoint*> GameController::WaypointsInLevel;
 Camera* GameController::MainCamera;
 CameraMovementBehaviour* GameController::CameraBehaviour;
 
+<<<<<<< HEAD
 //Lua variables
 bool GameController::Debug = false;
+=======
 bool GameController::DrawColliders;
+>>>>>>> 7e40c7fd5fe4f50d1117a01501a39e7369afaae0
 
 GameController::GameController() : GameObject("GameController", glm::vec3(0.0f, 0.0f, 0.0f))
 {
