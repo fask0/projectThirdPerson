@@ -15,7 +15,7 @@
  */
 class ToasterTower : public Tower
 {
-public:
+	public:
 	ToasterTower();
 	virtual ~ToasterTower();
 
@@ -26,7 +26,7 @@ public:
 
 	void AddTowerBehaviour() override;
 
-private:
+	private:
 	ToasterTower(const ToasterTower&);
 	ToasterTower& operator= (const ToasterTower&);
 };

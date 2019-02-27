@@ -8,7 +8,7 @@
  */
 class TowerBehaviour : public AbstractBehaviour
 {
-public:
+	public:
 	TowerBehaviour();
 	virtual ~TowerBehaviour();
 

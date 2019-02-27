@@ -12,7 +12,7 @@
 
 GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 	: _name(pName), _transform(glm::translate(pPosition)), _parent(nullptr), _children(),
-	_mesh(nullptr), _behaviour(nullptr), _material(nullptr), _world(nullptr)
+	_mesh(nullptr), _behaviour(nullptr), _material(nullptr), _world(nullptr), _speed(0), _speedUp(0), _slowDown(0)
 
 {
 	isColliding = false;
@@ -296,7 +296,7 @@ void GameObject::OnCollisionExit(GameObject* pOther)
 
 bool GameObject::SkipCollisionCheck()
 {
-	return false;
+	return true;
 }
 
 bool GameObject::IgnoreCollision(GameObject * pOther)
@@ -306,6 +306,23 @@ bool GameObject::IgnoreCollision(GameObject * pOther)
 			return true;
 
 	return false;
+}
+
+void GameObject::speedUp(float pPercengateSpeedUp, float pDurationSeconds)
+{
+	_speedUp = pPercengateSpeedUp;
+	_speedUpDuration = pDurationSeconds;
+}
+
+void GameObject::slowDown(float pPercentageSlowDown, float pDurationSeconds)
+{
+	_slowDown = -pPercentageSlowDown;
+	_slowDownDuration = pDurationSeconds;
+}
+
+float GameObject::getSpeed()
+{
+	return _speed * (1 + (_speedUp * 0.01f - _slowDown * 0.01f));
 }
 
 void GameObject::SetTag(std::string pTag)

@@ -9,12 +9,12 @@
  */
 class ToasterTowerBehaviour : public TowerBehaviour
 {
-public:
+	public:
 	ToasterTowerBehaviour();
 	virtual ~ToasterTowerBehaviour();
 	virtual void update(float pStep);
 
-private:
+	private:
 	//Methods
 	void CheckForEnemies();
 	void Rotate();

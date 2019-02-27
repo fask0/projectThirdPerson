@@ -33,7 +33,6 @@ class AbstractBehaviour
 	//disallow copy and assignment
 	AbstractBehaviour(const AbstractBehaviour&);
 	AbstractBehaviour& operator=(const AbstractBehaviour&);
-
 };
 
 #endif // ABSTRACTBEHAVIOUR_HPP

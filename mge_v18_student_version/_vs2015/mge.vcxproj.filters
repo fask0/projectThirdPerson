@@ -41,9 +41,6 @@
     <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\WaypointFollowBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mge\materials\AbstractMaterial.cpp">
       <Filter>Materials</Filter>
     </ClCompile>
@@ -80,7 +77,6 @@
     <ClCompile Include="..\src\mge\behaviours\WASDBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\core\Enemy.cpp" />
     <ClCompile Include="..\src\mge\core\AbstractGame.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -116,6 +112,15 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\core\ToasterTower.cpp">
       <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Enemy.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Rat.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\WaypointFollowBehaviour.cpp">
+      <Filter>Behaviours</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -160,9 +165,6 @@
     <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp">
       <Filter>Behaviours</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\WaypointFollowBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mge\materials\AbstractMaterial.hpp">
       <Filter>Materials</Filter>
     </ClInclude>
@@ -199,7 +201,6 @@
     <ClInclude Include="..\src\mge\behaviours\WASDBehaviour.hpp">
       <Filter>Behaviours</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\core\Enemy.hpp" />
     <ClInclude Include="..\src\mge\core\AbstractGame.hpp">
       <Filter>Core</Filter>
     </ClInclude>
@@ -236,6 +237,15 @@
     <ClInclude Include="..\src\mge\core\ToasterTower.hpp">
       <Filter>Towers</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\core\Enemy.hpp">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Rat.hpp">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\WaypointFollowBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Towers">
@@ -249,6 +259,9 @@
     </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{04e12a00-0639-4470-95c9-e37d1f70f103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies">
+      <UniqueIdentifier>{d3ac38a9-5cca-4ce1-ae68-d7ca7d8854c8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

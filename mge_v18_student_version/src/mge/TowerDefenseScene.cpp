@@ -16,6 +16,7 @@
 #include "mge/core/CollisionManager.hpp"
 #include "mge/core/GridManager.hpp"
 #include "mge/core/Enemy.hpp"
+#include "mge/core/Rat.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
@@ -34,6 +35,7 @@
 #include "mge/behaviours/CameraOrbitBehaviour.hpp"
 #include "mge/behaviours/CollisionBehaviour.hpp"
 #include "mge/behaviours/CameraMovementBehaviour.hpp"
+#include "mge/behaviours/WaypointFollowBehaviour.hpp"
 
 #include "mge/util/DebugHud.hpp"
 #include "mge/core/GameController.hpp"
@@ -144,6 +146,8 @@ void TowerDefenseScene::initializeLua()
 void TowerDefenseScene::_initializeScene()
 {
 	GameController* gameController = new GameController();
+	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
+	_world->add(colManager);
 	//MESHES
 
 	//load a bunch of meshes we will be using throughout this demo
@@ -183,12 +187,12 @@ void TowerDefenseScene::_initializeScene()
 	litMaterial1->AddLight(light2);
 	AbstractMaterial* litMaterial = litMaterial1;
 	TerrainMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-		0);
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
+														   0);
 	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 
 
@@ -215,8 +219,14 @@ void TowerDefenseScene::_initializeScene()
 	}
 	_world->add(plane);
 
-	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
-	_world->add(colManager);
+	Mesh* ratMesh = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth");
+	Rat* rat = new Rat("rat", glm::vec3(3, 0, 2), Waypoint::A);
+	CollisionBehaviour* ratCollider = new CollisionBehaviour(1);
+	rat->addBehaviour(ratCollider);
+	ratCollider->DrawCollider();
+	rat->setMesh(ratMesh);
+	rat->setMaterial(gridMaterial);
+	_world->add(rat);
 
 	GameController::GridObjects.push_back(plane);
 	//GameController::GridObjects.push_back(plane2);

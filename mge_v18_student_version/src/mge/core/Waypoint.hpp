@@ -2,8 +2,7 @@
 
 #include <iostream>
 #include <vector>
-
-#include "mge/behaviours/WaypointFollowBehaviour.hpp"
+#include "glm.hpp"
 
 #include "mge/core/GameObject.hpp"
 
@@ -23,8 +22,13 @@ class Waypoint : public GameObject
 
 	void update(float pStep);
 
+	void OnCollisionEnter(GameObject* pOther) override;
+	void OnCollisionExit(GameObject* pOther) override;
+
 	Lane getLane();
+	int getIndex();
 
 	private:
 	Lane _lane;
+	int _index;
 };

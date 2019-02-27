@@ -1,4 +1,5 @@
-#pragma once
+#ifndef WAYPOINTFOLLOWBEHAVIOUT_HPP
+#define WAYPOINTFOLLOWBEHAVIOUT_HPP
 
 #include <iostream>
 #include <vector>
@@ -6,20 +7,32 @@
 #include "mge/behaviours/AbstractBehaviour.hpp"
 
 #include "mge/core/Waypoint.hpp"
+#include "mge/core/GameObject.hpp"
+
+#include "glm.hpp"
 
 class WaypointFollowBehaviour : public AbstractBehaviour
 {
 	public:
-	//static std::vector<Waypoint*> waypointsInLevel;
+	WaypointFollowBehaviour(Waypoint::Lane pLane);
+	virtual ~WaypointFollowBehaviour();
+	virtual void update(float pStep);
 
-	WaypointFollowBehaviour();
-	~WaypointFollowBehaviour();
+	void Init();
+	void onOwnerCollisionEnter(GameObject* pOther);
+	void onOwnerCollisionStay(GameObject* pOther);
+	void onOwnerCollisionExit(GameObject* pOther);
 
-	void update(float pStep);
+	private:
+	glm::vec3 _direction;
+	glm::vec3 _velocity;
 
+	std::vector<Waypoint*> _toDo;
+	std::vector<Waypoint*> _done;
 
-	//private:
-	//std::vector<Waypoint*> _toDo;
-	//std::vector<Waypoint*> _done;
+	glm::vec3 getDir();
+
+	bool getNextWaypoint();
 };
 
+#endif // !WAYPOINTFOLLOWBEHAVIOUT_HPP

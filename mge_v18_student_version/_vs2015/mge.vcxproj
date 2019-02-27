@@ -191,6 +191,7 @@
     <ClInclude Include="..\src\mge\core\Light.hpp" />
     <ClInclude Include="..\src\mge\core\Mesh.hpp" />
     <ClInclude Include="..\src\mge\core\MouseTrapTower.hpp" />
+    <ClInclude Include="..\src\mge\core\Rat.hpp" />
     <ClInclude Include="..\src\mge\core\Renderer.hpp" />
     <ClInclude Include="..\src\mge\core\ShaderProgram.hpp" />
     <ClInclude Include="..\src\mge\core\ShockTower.hpp" />
@@ -237,6 +238,7 @@
     <ClCompile Include="..\src\mge\core\Light.cpp" />
     <ClCompile Include="..\src\mge\core\Mesh.cpp" />
     <ClCompile Include="..\src\mge\core\MouseTrapTower.cpp" />
+    <ClCompile Include="..\src\mge\core\Rat.cpp" />
     <ClCompile Include="..\src\mge\core\Renderer.cpp" />
     <ClCompile Include="..\src\mge\core\ShaderProgram.cpp" />
     <ClCompile Include="..\src\mge\core\ShockTower.cpp" />

@@ -29,6 +29,7 @@ void CollisionManager::update(float pStep)
 	{
 		collider = collisionBehaviours[i];
 
+		GameObject* colOwner = collider->getOwner();
 		glm::vec3 colliderMax = collider->GetMax();
 		glm::vec3 colliderMin = collider->GetMin();
 		glm::vec3 colliderPos = collider->GetPosition();
@@ -40,7 +41,11 @@ void CollisionManager::update(float pStep)
 				for (int j = i + 1; j < collisionBehaviours.size(); ++j)
 				{
 					other = collisionBehaviours[j];
-					if (other->getOwner()->SkipCollisionCheck() || collider->getOwner()->IgnoreCollision(other->getOwner())) continue;
+					GameObject* oOwner = other->getOwner();
+
+					if (oOwner->SkipCollisionCheck() ||
+						colOwner->IgnoreCollision(oOwner) ||
+						oOwner->IgnoreCollision(colOwner)) continue;
 
 					switch (other->colliderType)
 					{
@@ -53,8 +58,8 @@ void CollisionManager::update(float pStep)
 								(colliderMax.y >= otherMin.y && colliderMin.y <= otherMax.y) &&
 								(colliderMax.z >= otherMin.z && colliderMin.z <= otherMax.z))
 							{
-								collider->ResolveCollision(other, other->getOwner(), collider->getOwner()->getLastPosition());
-								other->ResolveCollision(collider, collider->getOwner(), other->getOwner()->getLastPosition());
+								collider->ResolveCollision(other, oOwner, colOwner->getLastPosition());
+								other->ResolveCollision(collider, colOwner, oOwner->getLastPosition());
 
 								if (!collider->checkCollision(other))
 									collider->getCollisions()->push_back(other);
@@ -63,10 +68,10 @@ void CollisionManager::update(float pStep)
 							}
 							else if (collider->checkCollision(other))
 							{
-								collider->getOwner()->OnCollisionExit(other->getOwner());
+								colOwner->OnCollisionExit(oOwner);
 								collider->removeCollision(other);
 
-								other->getOwner()->OnCollisionExit(collider->getOwner());
+								oOwner->OnCollisionExit(colOwner);
 								other->removeCollision(collider);
 							}
 						}
@@ -87,8 +92,8 @@ void CollisionManager::update(float pStep)
 
 							if (distance <= other->GetRadius() * other->GetRadius())
 							{
-								collider->ResolveCollision(other, other->getOwner(), collider->getOwner()->getLastPosition());
-								other->ResolveCollision(collider, collider->getOwner(), other->getOwner()->getLastPosition());
+								collider->ResolveCollision(other, oOwner, colOwner->getLastPosition());
+								other->ResolveCollision(collider, colOwner, oOwner->getLastPosition());
 
 								if (!collider->checkCollision(other))
 									collider->getCollisions()->push_back(other);
@@ -97,10 +102,10 @@ void CollisionManager::update(float pStep)
 							}
 							else if (collider->checkCollision(other))
 							{
-								collider->getOwner()->OnCollisionExit(other->getOwner());
+								colOwner->OnCollisionExit(oOwner);
 								collider->removeCollision(other);
 
-								other->getOwner()->OnCollisionExit(collider->getOwner());
+								oOwner->OnCollisionExit(colOwner);
 								other->removeCollision(collider);
 							}
 						}
@@ -115,6 +120,11 @@ void CollisionManager::update(float pStep)
 				for (int j = i + 1;j < collisionBehaviours.size(); ++j)
 				{
 					other = collisionBehaviours[j];
+					GameObject* oOwner = other->getOwner();
+
+					if (oOwner->SkipCollisionCheck() ||
+						colOwner->IgnoreCollision(oOwner) ||
+						oOwner->IgnoreCollision(colOwner)) continue;
 
 					switch (other->colliderType)
 					{
@@ -134,8 +144,8 @@ void CollisionManager::update(float pStep)
 
 							if (distance <= collider->GetRadius() * collider->GetRadius())
 							{
-								collider->ResolveCollision(other, other->getOwner(), collider->getOwner()->getLastPosition());
-								other->ResolveCollision(collider, collider->getOwner(), other->getOwner()->getLastPosition());
+								collider->ResolveCollision(other, oOwner, colOwner->getLastPosition());
+								other->ResolveCollision(collider, colOwner, oOwner->getLastPosition());
 
 								if (!collider->checkCollision(other))
 									collider->getCollisions()->push_back(other);
@@ -144,10 +154,10 @@ void CollisionManager::update(float pStep)
 							}
 							else if (collider->checkCollision(other))
 							{
-								collider->getOwner()->OnCollisionExit(other->getOwner());
+								colOwner->OnCollisionExit(oOwner);
 								collider->removeCollision(other);
 
-								other->getOwner()->OnCollisionExit(collider->getOwner());
+								oOwner->OnCollisionExit(colOwner);
 								other->removeCollision(collider);
 							}
 						}
@@ -164,8 +174,8 @@ void CollisionManager::update(float pStep)
 
 							if (distance <= (collider->GetRadius() * collider->GetRadius()) + (other->GetRadius() * other->GetRadius()))
 							{
-								collider->ResolveCollision(other, other->getOwner(), collider->getOwner()->getLastPosition());
-								other->ResolveCollision(collider, collider->getOwner(), other->getOwner()->getLastPosition());
+								collider->ResolveCollision(other, oOwner, colOwner->getLastPosition());
+								other->ResolveCollision(collider, colOwner, oOwner->getLastPosition());
 
 								if (!collider->checkCollision(other))
 									collider->getCollisions()->push_back(other);
@@ -174,10 +184,10 @@ void CollisionManager::update(float pStep)
 							}
 							else if (collider->checkCollision(other))
 							{
-								collider->getOwner()->OnCollisionExit(other->getOwner());
+								colOwner->OnCollisionExit(oOwner);
 								collider->removeCollision(other);
 
-								other->getOwner()->OnCollisionExit(collider->getOwner());
+								oOwner->OnCollisionExit(colOwner);
 								other->removeCollision(collider);
 							}
 						}

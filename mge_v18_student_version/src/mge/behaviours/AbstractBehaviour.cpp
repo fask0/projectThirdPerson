@@ -1,7 +1,6 @@
 #include "AbstractBehaviour.hpp"
 #include <iostream>
 
-
 AbstractBehaviour::AbstractBehaviour() :_owner(nullptr) {}
 
 AbstractBehaviour::~AbstractBehaviour()
