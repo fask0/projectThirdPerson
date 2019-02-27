@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 #include "mge/behaviours/CameraMovementBehaviour.hpp"
 
@@ -11,6 +12,7 @@
 #include "mge/core/Camera.hpp"
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/Enemy.hpp"
+#include "mge/core/UIManager.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -33,6 +35,8 @@ public:
 	static Camera* MainCamera;
 	static CameraMovementBehaviour* CameraBehaviour;
 	static World* World;
+	static sf::RenderWindow* Window;
+	static UIManager* UIManager;
 
 	//--Lua variables
 	static bool Debug;

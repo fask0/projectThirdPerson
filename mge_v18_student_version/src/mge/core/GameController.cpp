@@ -25,6 +25,8 @@ std::vector<Waypoint*> GameController::WaypointsInLevel;
 Camera* GameController::MainCamera;
 CameraMovementBehaviour* GameController::CameraBehaviour;
 World* GameController::World;
+sf::RenderWindow* GameController::Window;
+UIManager* GameController::UIManager;
 
 //--Lua variables
 bool GameController::Debug = false;

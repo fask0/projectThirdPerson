@@ -46,6 +46,9 @@
 #include "mge/core/MouseTrapTower.hpp"
 #include "mge/core/ShockTower.hpp"
 
+#include "mge/core/UIManager.hpp"
+#include "mge/core/AdvancedSprite.hpp"
+
 TowerDefenseScene::TowerDefenseScene() :AbstractGame(), _hud(0)
 {
 
@@ -62,6 +65,10 @@ void TowerDefenseScene::initialize()
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
+
+	std::cout << "Initializing 2D layer" << std::endl;
+	_uiManager = new UIManager(_window);
+	std::cout << "2D layer initialized." << std::endl;
 
 	GameController::World = _world;
 }
@@ -196,9 +203,9 @@ void TowerDefenseScene::_initializeScene()
 
 
 	//add camera first (it will be updated last)
-	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0));
+	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
 	camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
-	camera->addBehaviour(new CameraMovementBehaviour(-8, 8, 8, -8, 5, 10, _window, camera->getLocalPosition(), 1.0f, 10.0f));
+	camera->addBehaviour(new CameraMovementBehaviour(-8, 8, -8, 8, 5, 10, _window, camera->getLocalPosition(), 1.0f, 10.0f));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
@@ -232,6 +239,13 @@ void TowerDefenseScene::_initializeScene()
 	_matD = dynamicTextureGridMaterial;
 
 	Enemy* enemy = new Enemy();
+
+	sf::Texture tex;
+	tex.loadFromFile(config::MGE_TEXTURE_PATH + "water.jpg");
+
+	AdvancedSprite* sprite = new AdvancedSprite();
+	sprite->setTexture(tex);
+	//_uiManager->AddSprite(sprite);
 }
 
 void TowerDefenseScene::_render()
@@ -255,6 +269,7 @@ void TowerDefenseScene::_render()
 	_matD->setHighlightArea(planePos);
 
 	_updateHud();
+	updateUIElements();
 }
 
 void TowerDefenseScene::_updateHud()
@@ -264,6 +279,11 @@ void TowerDefenseScene::_updateHud()
 
 	_hud->setDebugInfo(debugInfo);
 	_hud->draw();
+}
+
+void TowerDefenseScene::updateUIElements()
+{
+	_uiManager->Draw();
 }
 
 TowerDefenseScene::~TowerDefenseScene()

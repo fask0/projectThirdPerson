@@ -9,6 +9,7 @@
 #include "mge/core/GameController.hpp"
 #include "glm/ext.hpp"
 #include "glm/gtx/quaternion.hpp"
+#include "mge/core/Helper.hpp"
 
 CameraMovementBehaviour::CameraMovementBehaviour(float pXMinLockPos, float pXMaxLockPos, float pZMinLockPos, float pZMaxLockPos, float pMinHeight, float pMaxHeight, sf::RenderWindow* pWindow, glm::vec3 pStartPos, float pMinMovementSpeed, float pMaxMovementSpeed)
 	: AbstractBehaviour(), _startPos(pStartPos), _renderWindow(pWindow), _xMinLockPos(pXMinLockPos), _xMaxLockPos(pXMaxLockPos), _zMinLockPos(pZMinLockPos), _zMaxLockPos(pZMaxLockPos), _minHeight(pMinHeight), _maxHeight(pMaxHeight), _minMovementSpeed(pMinMovementSpeed), _maxMovementSpeed(pMaxMovementSpeed)
@@ -57,17 +58,18 @@ void CameraMovementBehaviour::CalcLockVars()
 	float rot = -72.78f;
 	rot = rot + 90;
 	float zdiff = glm::tan(rot * (3.14f / 180.0f)) * _ownerPosition.y;
-	_camMinZ = _zMinLockPos - zdiff;
+	_camMinZ = _zMaxLockPos - zdiff;
 
 	rot = rot + verticalFOV;
 	zdiff = glm::tan(rot * (3.14f / 180.0f)) * _ownerPosition.y;
-	_camMaxZ = _zMaxLockPos + zdiff * 0.25f;
+	_camMaxZ = _zMinLockPos + zdiff * 0.25f;
 }
 
 void CameraMovementBehaviour::Move(float pStep)
 {
 	float movementSpeed;
 	float diffVar = (_maxMovementSpeed - _minMovementSpeed) / (_windowSize.x / 4);
+
 	//Move camera
 	if (_relativeMousePos.x < -(_windowSize.x / 4))
 	{
@@ -96,6 +98,11 @@ void CameraMovementBehaviour::Move(float pStep)
 
 	//Clamp camera
 	_owner->setLocalPosition(glm::clamp(_owner->getLocalPosition(), glm::vec3(_camMinX, _minHeight, _camMaxZ), glm::vec3(_camMaxX, _maxHeight, _camMinZ)));
+	if (_camMaxX < _camMinX)
+	{
+		float middleX = _xMaxLockPos - ((glm::abs(_xMinLockPos) + glm::abs(_xMaxLockPos)) / 2);
+		_owner->setLocalPosition(glm::vec3(middleX, _owner->getLocalPosition().y, _owner->getLocalPosition().z));
+	}
 }
 
 void CameraMovementBehaviour::Scroll(sf::Event pEvent)

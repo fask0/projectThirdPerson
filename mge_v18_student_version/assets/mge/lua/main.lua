@@ -1,7 +1,7 @@
 Debug = true;
 DrawColliders = true;
-WindowWidth = 800;
-WindowHeight = 600;
+WindowWidth = 1920;
+WindowHeight = 1080;
 
 --Toaster tower (basic shooting tower)
 ToasterRange = 6;

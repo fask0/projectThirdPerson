@@ -122,6 +122,8 @@
     <ClCompile Include="..\src\mge\behaviours\ToasterProjectileBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\core\UIManager.cpp" />
+    <ClCompile Include="..\src\mge\core\AdvancedSprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -246,6 +248,8 @@
     <ClInclude Include="..\src\mge\behaviours\ToasterProjectileBehaviour.hpp">
       <Filter>Behaviours</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\core\UIManager.hpp" />
+    <ClInclude Include="..\src\mge\core\AdvancedSprite.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Towers">

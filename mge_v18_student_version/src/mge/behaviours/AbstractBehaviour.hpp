@@ -12,7 +12,7 @@ class GameObject;
  */
 class AbstractBehaviour
 {
-	public:
+public:
 
 	AbstractBehaviour();
 	virtual ~AbstractBehaviour() = 0;
@@ -24,11 +24,16 @@ class AbstractBehaviour
 	//behaviour should be able to update itself every step and MUST be implemented
 	virtual void update(float pStep) = 0;
 
-	protected:
+	virtual void On2DMouseEnter();
+	virtual void On2DMouseExit();
+	virtual void On2DMouseOver();
+	virtual void On2DMouseClick();
+
+protected:
 
 	GameObject* _owner;
 
-	private:
+private:
 
 	//disallow copy and assignment
 	AbstractBehaviour(const AbstractBehaviour&);
