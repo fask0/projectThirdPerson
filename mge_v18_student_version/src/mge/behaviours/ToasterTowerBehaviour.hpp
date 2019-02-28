@@ -3,6 +3,7 @@
 
 #include "mge/behaviours/TowerBehaviour.hpp"
 #include "mge/core/Enemy.hpp"
+#include <time.h>
 
 /**
  * Simply rotates the object around its origin with a fixed speed.
@@ -22,6 +23,7 @@ class ToasterTowerBehaviour : public TowerBehaviour
 	//Variables
 	bool _enemiesInRange;
 	Enemy* _furthestEnemy;
+	clock_t _lastAttackTime;
 };
 
 #endif // ROTATINGBEHAVIOUR_HPP

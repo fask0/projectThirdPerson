@@ -43,10 +43,14 @@
 #include "mge/config.hpp"
 #include "Lua/lua.hpp"
 
+#include "mge/core/EnemySpawner.hpp"
 #include "mge/core/ToasterTower.hpp"
 #include "mge/core/HoneyTower.hpp"
 #include "mge/core/MouseTrapTower.hpp"
 #include "mge/core/ShockTower.hpp"
+
+#include "mge/core/UIManager.hpp"
+#include "mge/core/AdvancedSprite.hpp"
 
 TowerDefenseScene::TowerDefenseScene() :AbstractGame(), _hud(0)
 {
@@ -64,6 +68,12 @@ void TowerDefenseScene::initialize()
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
+
+	std::cout << "Initializing 2D layer" << std::endl;
+	_uiManager = new UIManager(_window);
+	std::cout << "2D layer initialized." << std::endl;
+
+	GameController::World = _world;
 }
 
 void TowerDefenseScene::initializeLua()
@@ -99,6 +109,28 @@ void TowerDefenseScene::initializeLua()
 	WindowWidth = lua_tointeger(lua, -1);
 	lua_pop(lua, -1);
 	std::cout << "Windowsize set" << std::endl;
+
+	//Level
+	//Lane A
+	GameController::LaneOneBaseSize = intFromLua("LaneOneBaseSize");
+	GameController::LaneOneSizeGrowthFrequency = intFromLua("LaneOneSizeGrowthFrequency");
+	GameController::LaneOneEnemyScalingPercentage = intFromLua("LaneOneEnemyScalingPercentage");
+	GameController::LaneOneDelayBetweenEnemies = floatFromLua("LaneOneDelayBetweenEnemies");
+	//Lane B
+	GameController::LaneTwoBaseSize = intFromLua("LaneTwoBaseSize");
+	GameController::LaneTwoSizeGrowthFrequency = intFromLua("LaneTwoSizeGrowthFrequency");
+	GameController::LaneTwoEnemyScalingPercentage = intFromLua("LaneTwoEnemyScalingPercentage");
+	GameController::LaneTwoDelayBetweenEnemies = floatFromLua("LaneTwoDelayBetweenEnemies");
+	//Lane C
+	GameController::LaneThreeBaseSize = intFromLua("LaneThreeBaseSize");
+	GameController::LaneThreeSizeGrowthFrequency = intFromLua("LaneThreeSizeGrowthFrequency");
+	GameController::LaneThreeEnemyScalingPercentage = intFromLua("LaneThreeEnemyScalingPercentage");
+	GameController::LaneThreeDelayBetweenEnemies = floatFromLua("LaneThreeDelayBetweenEnemies");
+	//Lane D
+	GameController::LaneFourBaseSize = intFromLua("LaneFourBaseSize");
+	GameController::LaneFourSizeGrowthFrequency = intFromLua("LaneFourSizeGrowthFrequency");
+	GameController::LaneFourEnemyScalingPercentage = intFromLua("LaneFourEnemyScalingPercentage");
+	GameController::LaneFourDelayBetweenEnemies = floatFromLua("LaneFourDelayBetweenEnemies");
 
 	//Toaster tower
 	lua_getglobal(lua, "ToasterRange");
@@ -140,6 +172,41 @@ void TowerDefenseScene::initializeLua()
 	lua_getglobal(lua, "ShockCost");
 	GameController::ShockCost = lua_tointeger(lua, -1);
 	lua_pop(lua, -1);
+
+	//Rats
+	GameController::RatSize = intFromLua("RatSize");
+	GameController::RatHealth = intFromLua("RatHealth");
+	GameController::RatHealthRegen = intFromLua("RatHealthRegen");
+	GameController::RatDamage = intFromLua("RatDamage");
+	GameController::RatSpeed = floatFromLua("RatSpeed");
+	GameController::RatEffectRecoverySpeed = floatFromLua("RatEffectRecoverySpeed");
+}
+
+int TowerDefenseScene::intFromLua(std::string pVariableName)
+{
+	int i;
+	lua_getglobal(lua, pVariableName.c_str());
+	i = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
+	return i;
+}
+
+float TowerDefenseScene::floatFromLua(std::string pVariableName)
+{
+	float f;
+	lua_getglobal(lua, pVariableName.c_str());
+	f = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	return f;
+}
+
+bool TowerDefenseScene::boolFromLua(std::string pVariableName)
+{
+	bool b;
+	lua_getglobal(lua, pVariableName.c_str());
+	b = lua_toboolean(lua, -1);
+	lua_pop(lua, -1);
+	return b;
 }
 
 //build the game _world
@@ -148,8 +215,8 @@ void TowerDefenseScene::_initializeScene()
 	GameController* gameController = new GameController();
 	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
 	_world->add(colManager);
-	//MESHES
 
+	//MESHES
 	//load a bunch of meshes we will be using throughout this demo
 	//each mesh only has to be loaded once, but can be used multiple times:
 	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
@@ -198,14 +265,14 @@ void TowerDefenseScene::_initializeScene()
 
 
 	//add camera first (it will be updated last)
-	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0));
+	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
 	camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
-	camera->addBehaviour(new CameraMovementBehaviour(-8, 8, 8, -8, 5, 10, _window, camera->getLocalPosition(), 1.0f, 10.0f));
+	camera->addBehaviour(new CameraMovementBehaviour(-17, 17, -17, 17, 10, 20, _window, camera->getLocalPosition(), 1.0f, 10.0f));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
 	//add the floor
-	Mesh* planeMesh = Mesh::load(config::MGE_MODEL_PATH + "Scene0/scene001");
+	Mesh* planeMesh = Mesh::load(config::MGE_MODEL_PATH + "BasLevel/unityexport");
 	GameObject* plane = new GameObject("plane", glm::vec3(0, 0, 0));
 	plane->setMesh(planeMesh);
 	//plane->setMaterial(litTextureGridMaterial);
@@ -219,15 +286,6 @@ void TowerDefenseScene::_initializeScene()
 	}
 	_world->add(plane);
 
-	Mesh* ratMesh = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth");
-	Rat* rat = new Rat("rat", glm::vec3(3, 0, 2), Waypoint::A);
-	CollisionBehaviour* ratCollider = new CollisionBehaviour(1);
-	rat->addBehaviour(ratCollider);
-	ratCollider->DrawCollider();
-	rat->setMesh(ratMesh);
-	rat->setMaterial(gridMaterial);
-	_world->add(rat);
-
 	GameController::GridObjects.push_back(plane);
 	//GameController::GridObjects.push_back(plane2);
 	GridManager* gridManager = new GridManager(GameController::GridObjects, _window, _world);
@@ -239,7 +297,12 @@ void TowerDefenseScene::_initializeScene()
 	//_mat = litTextureGridMaterial;
 	_matD = dynamicTextureGridMaterial;
 
-	Enemy* enemy = new Enemy();
+	sf::Texture tex;
+	tex.loadFromFile(config::MGE_TEXTURE_PATH + "water.jpg");
+
+	AdvancedSprite* sprite = new AdvancedSprite();
+	sprite->setTexture(tex);
+	//_uiManager->AddSprite(sprite);
 }
 
 void TowerDefenseScene::_render()
@@ -262,7 +325,12 @@ void TowerDefenseScene::_render()
 	//_mat->setHighlightArea(planePos);
 	_matD->setHighlightArea(planePos);
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
+		for (int i = 0; i < GameController::SpawnPointsInLevel.size(); ++i)
+			GameController::SpawnPointsInLevel[i]->initializeWave();
+
 	_updateHud();
+	updateUIElements();
 }
 
 void TowerDefenseScene::_updateHud()
@@ -272,6 +340,11 @@ void TowerDefenseScene::_updateHud()
 
 	_hud->setDebugInfo(debugInfo);
 	_hud->draw();
+}
+
+void TowerDefenseScene::updateUIElements()
+{
+	_uiManager->Draw();
 }
 
 TowerDefenseScene::~TowerDefenseScene()

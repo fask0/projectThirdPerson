@@ -22,8 +22,11 @@ class CollisionBehaviour : public AbstractBehaviour
 		SphereCollider
 	};
 
-	CollisionBehaviour(glm::vec3 pBoundaries, bool pIsTrigger = false);
-	CollisionBehaviour(float pRadius, bool pIsTrigger = false);
+	static Mesh* BoxMesh;
+	static Mesh* SphereMesh;
+
+	CollisionBehaviour(glm::vec3 pBoundaries, bool pIsTrigger = false, glm::vec3 pOffset = glm::vec3(0, 0, 0));
+	CollisionBehaviour(float pRadius, bool pIsTrigger = false, glm::vec3 pOffset = glm::vec3(0, 0, 0));
 	virtual ~CollisionBehaviour();
 	virtual void update(float pStep);
 

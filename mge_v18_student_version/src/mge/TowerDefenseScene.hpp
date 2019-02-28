@@ -7,6 +7,7 @@
 #include "mge/materials/TextureGridMaterial.hpp"
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 #include "Lua/lua.hpp"
+#include "mge/core/UIManager.hpp"
 
 class DebugHud;
 
@@ -34,6 +35,7 @@ class TowerDefenseScene : public AbstractGame
 
 	private:
 	DebugHud* _hud;                   //hud display
+	UIManager* _uiManager;
 	Camera* _camera;
 	GameObject* _plane;
 	LitTextureGridMaterial* _mat;
@@ -41,7 +43,12 @@ class TowerDefenseScene : public AbstractGame
 	lua_State* lua;
 
 	void _updateHud();
+	void updateUIElements();
 	void initializeLua();
+
+	int intFromLua(std::string pVariableName);
+	float floatFromLua(std::string pVariableName);
+	bool boolFromLua(std::string pVariableName);
 
 	TowerDefenseScene(const TowerDefenseScene&);
 	TowerDefenseScene& operator=(const TowerDefenseScene&);

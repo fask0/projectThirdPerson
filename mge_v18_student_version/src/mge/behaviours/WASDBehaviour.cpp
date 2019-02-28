@@ -3,6 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "mge/core/Enemy.hpp"
+#include "mge/core/Rat.hpp"
 
 WASDBehaviour::WASDBehaviour() :AbstractBehaviour()
 {
@@ -24,5 +26,9 @@ void WASDBehaviour::update(float pstep)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
 		_owner->setLocalPosition(_owner->getLocalPosition() + glm::vec3(-pstep * 3, 0, 0));
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+	{
+
 	}
 }

@@ -37,7 +37,7 @@ class Tower : public GameObject
 
 	virtual void AddTowerBehaviour();
 
-protected:
+	protected:
 	Tower(const Tower&);
 	Tower& operator= (const Tower&);
 

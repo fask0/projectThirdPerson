@@ -12,6 +12,7 @@
 #include "mge/core/AbstractGame.hpp"
 #include "mge/core/GameController.hpp"
 #include "mge/core/Waypoint.hpp"
+#include "mge/core/EnemySpawner.hpp"
 
 #include "mge/config.hpp"
 
@@ -137,6 +138,7 @@ Mesh* Mesh::load(std::string pFileName)
 					if (mat.compare(mesh->materialNamesArray[i]) == 0)
 					{
 						//mtl = i;
+						//oof EXPENSIVE
 						mesh->objectTextures.push_back(Texture::load(config::MGE_TEXTURE_PATH + mesh->getMaterialTextureName(pFileName, mat)));
 					}
 				}
@@ -165,26 +167,35 @@ Mesh* Mesh::load(std::string pFileName)
 					GameObject* col;
 					if (obj.at(0) == 'w')
 					{
+						int wpIndex = ((int)obj.at(2) - 48) * 10 + (int)obj.at(3) - 48;
 						switch (obj.at(1))
 						{
 							case 'A':
-							col = new Waypoint("Waypoint", pos, Waypoint::A, (int)obj.at(2) - 48);
+							if (wpIndex == 0)
+								col = new EnemySpawner("Spawner", pos, Waypoint::A);
+							else
+								col = new Waypoint("Waypoint", pos, Waypoint::A, wpIndex);
 							break;
 
 							case 'B':
-							col = new Waypoint("Waypoint", pos, Waypoint::B, (int)obj.at(2) - 48);
+							col = new Waypoint("Waypoint", pos, Waypoint::B, wpIndex);
+							/*if (wpIndex == 0)
+								col = new EnemySpawner("Spawner", pos, Waypoint::B);*/
 							break;
 
 							case 'C':
-							col = new Waypoint("Waypoint", pos, Waypoint::C, (int)obj.at(2) - 48);
+							col = new Waypoint("Waypoint", pos, Waypoint::C, wpIndex);
+							/*	if (wpIndex == 0)
+									col = new EnemySpawner("Spawner", pos, Waypoint::C);*/
 							break;
 
 							case 'D':
-							col = new Waypoint("Waypoint", pos, Waypoint::D, (int)obj.at(2) - 48);
+							col = new Waypoint("Waypoint", pos, Waypoint::D, wpIndex);
+							/*	if (wpIndex == 0)
+									col = new EnemySpawner("Spawner", pos, Waypoint::D);*/
 							break;
 
 							default:
-							col = new Waypoint("Waypoint", pos, Waypoint::A, (int)obj.at(2) - 48);
 							break;
 						}
 
@@ -194,14 +205,15 @@ Mesh* Mesh::load(std::string pFileName)
 					{
 						col = new GameObject("Collider", pos);
 						col->SetTag("emptyCollider");
-					}
 
-					CollisionBehaviour* objectCollider = new CollisionBehaviour(glm::vec3(glm::max(vOne.x, vTwo.x) - glm::min(vOne.x, vTwo.x),
-																						  glm::max(vOne.y, vTwo.y) - glm::min(vOne.y, vTwo.y),
-																						  glm::max(vOne.z, vTwo.z) - glm::min(vOne.z, vTwo.z)), true);
-					col->addBehaviour(objectCollider);
-					if (GameController::DrawColliders)
-						objectCollider->DrawCollider();
+						CollisionBehaviour* objectCollider = new CollisionBehaviour(glm::vec3(glm::max(vOne.x, vTwo.x) - glm::min(vOne.x, vTwo.x),
+																							  glm::max(vOne.y, vTwo.y) - glm::min(vOne.y, vTwo.y),
+																							  glm::max(vOne.z, vTwo.z) - glm::min(vOne.z, vTwo.z)), true);
+						col->addBehaviour(objectCollider);
+						if (GameController::DrawColliders)
+							objectCollider->DrawCollider();
+
+					}
 					mesh->collidersInMesh.push_back(col);
 					colliderCount++;
 				}

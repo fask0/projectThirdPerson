@@ -23,16 +23,6 @@ void Waypoint::update(float pStep)
 {
 }
 
-void Waypoint::OnCollisionEnter(GameObject* pOther)
-{
-	std::cout << "hello" << std::endl;
-}
-
-void Waypoint::OnCollisionExit(GameObject * pOther)
-{
-	std::cout << "bye" << std::endl;
-}
-
 Waypoint::Lane Waypoint::getLane()
 {
 	return _lane;

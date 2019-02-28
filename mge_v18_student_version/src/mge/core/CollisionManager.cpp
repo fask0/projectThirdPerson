@@ -28,8 +28,10 @@ void CollisionManager::update(float pStep)
 	for (int i = 0; i < collisionBehaviours.size();++i)
 	{
 		collider = collisionBehaviours[i];
-
 		GameObject* colOwner = collider->getOwner();
+
+		if (colOwner->SkipCollisionCheck()) continue;
+
 		glm::vec3 colliderMax = collider->GetMax();
 		glm::vec3 colliderMin = collider->GetMin();
 		glm::vec3 colliderPos = collider->GetPosition();

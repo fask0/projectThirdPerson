@@ -42,7 +42,7 @@ uniform float range;
 uniform bool isColliding;
 
 //Dynamic object loading stuff
-#define NR_OF_TEXTURES 100
+#define NR_OF_TEXTURES 60
 uniform sampler2D textures[NR_OF_TEXTURES];
 uniform int splitter[NR_OF_TEXTURES];
 in int index;

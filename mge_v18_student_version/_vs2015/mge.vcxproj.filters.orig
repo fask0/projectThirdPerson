@@ -1,0 +1,287 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\mge\core\CollisionManager.cpp" />
+    <ClCompile Include="..\src\mge\core\GridManager.cpp" />
+    <ClCompile Include="..\src\mge\core\World.cpp" />
+    <ClCompile Include="..\src\mge\TowerDefenseScene.cpp" />
+    <ClCompile Include="..\src\mge\core\GameController.cpp" />
+    <ClCompile Include="..\src\mge\core\Waypoint.cpp" />
+    <ClCompile Include="..\src\mge\core\HoneyTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\MouseTrapTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\ShockTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Tower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\CameraMovementBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\CameraOrbitBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\AbstractMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\ColorMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\LitDynamicGridTextureMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\LitMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\LitSelectedTextureMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\LitTextureGridMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\LitTextureMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\TerrainMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\TextureGridMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\materials\WobbleMaterial.cpp">
+      <Filter>Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\WASDBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\AbstractGame.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Camera.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\util\DebugHud.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\GameObject.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Light.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Mesh.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Renderer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\ShaderProgram.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Texture.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\ToasterTowerBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\TowerBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\ToasterTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="..\src\mge\core\Enemy.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Rat.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\WaypointFollowBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+=======
+    <ClCompile Include="..\src\mge\core\Helper.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\CollisionBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\ToasterProjectile.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\ToasterProjectileBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\UIManager.cpp" />
+    <ClCompile Include="..\src\mge\core\AdvancedSprite.cpp" />
+>>>>>>> 13cdb4b9bf1303e1e0dc41cdaa36c2b4a74d7a82
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\glm.hpp" />
+    <ClInclude Include="..\src\mge\config.hpp" />
+    <ClInclude Include="..\src\mge\core\CollisionManager.hpp" />
+    <ClInclude Include="..\src\mge\core\GridManager.hpp" />
+    <ClInclude Include="..\src\mge\core\World.hpp" />
+    <ClInclude Include="..\src\mge\TowerDefenseScene.hpp" />
+    <ClInclude Include="..\src\mge\core\GameController.hpp" />
+    <ClInclude Include="..\src\mge\core\Waypoint.hpp" />
+    <ClInclude Include="..\src\mge\core\HoneyTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\MouseTrapTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ShockTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Tower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\CameraMovementBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\CameraOrbitBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\CollisionBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\AbstractMaterial.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\ColorMaterial.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\LitDynamicGridTextureMaterial.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\LitMaterial.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\LitSelectedTextureMaterial.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\LitTextureGridMaterial.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\LitTextureMaterial.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\TerrainMaterial.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\TextureGridMaterial.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\materials\WobbleMaterial.hpp">
+      <Filter>Materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\WASDBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\AbstractGame.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Camera.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\util\DebugHud.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\GameObject.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Light.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Mesh.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Renderer.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ShaderProgram.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Texture.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\ToasterTowerBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\TowerBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ToasterTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="..\src\mge\core\Enemy.hpp">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Rat.hpp">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\WaypointFollowBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+=======
+    <ClInclude Include="..\src\mge\core\Helper.hpp" />
+    <ClInclude Include="..\src\mge\core\ToasterProjectile.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\ToasterProjectileBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\UIManager.hpp" />
+    <ClInclude Include="..\src\mge\core\AdvancedSprite.hpp" />
+>>>>>>> 13cdb4b9bf1303e1e0dc41cdaa36c2b4a74d7a82
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Towers">
+      <UniqueIdentifier>{37a1a57b-3251-4d06-bbac-432ad2828ba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviours">
+      <UniqueIdentifier>{0a1ab7f6-afc9-4c20-9835-4c3787b1128e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Materials">
+      <UniqueIdentifier>{4ed65072-801a-457d-bb3e-cffb831ef315}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{04e12a00-0639-4470-95c9-e37d1f70f103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies">
+      <UniqueIdentifier>{d3ac38a9-5cca-4ce1-ae68-d7ca7d8854c8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

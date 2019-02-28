@@ -82,28 +82,21 @@ class GameObject
 	virtual void OnCollisionExit(GameObject* pOther);
 	virtual bool SkipCollisionCheck();
 	virtual bool IgnoreCollision(GameObject* pOther);
-	bool skipAllChecks;
 
 	bool isColliding;
-	void speedUp(float pPercengateSpeedUp, float pDuration);
-	void slowDown(float pPercentageSlowDown, float pDuration);
-	float getSpeed();
 
 	void SetTag(std::string pTag);
 	std::string GetTag();
 
 	int _gameControllerIndex;
 
+	void Kill();
+
 	protected:
 	std::string _name;
 	glm::vec3 _lastPosition;
 	glm::mat4 _transform;
 	std::string _tag;
-	float _speedUp;
-	float _speedUpDuration;
-	float _slowDown;
-	float _slowDownDuration;
-	float _speed;
 
 	GameObject* _parent;
 	std::vector<GameObject*> _children;
@@ -122,6 +115,8 @@ class GameObject
 	virtual void _setWorldRecursively(World* pWorld);
 
 	std::vector<std::string> _ignoreTags;
+
+	bool _shouldDie;
 
 	private:
 	GameObject(const GameObject&);

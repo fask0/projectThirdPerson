@@ -22,9 +22,6 @@ class Waypoint : public GameObject
 
 	void update(float pStep);
 
-	void OnCollisionEnter(GameObject* pOther) override;
-	void OnCollisionExit(GameObject* pOther) override;
-
 	Lane getLane();
 	int getIndex();
 

@@ -100,7 +100,7 @@ void GridManager::SpecificTowerSelection(sf::Event pEvent)
 
 	switch (pEvent.key.code)
 	{
-	case sf::Keyboard::Key::Num1:
+		case sf::Keyboard::Key::Num1:
 		towerMesh = ToasterTower::Mesh;
 		_tower = new ToasterTower();
 		break;

@@ -13,7 +13,10 @@
 
 #include "mge/config.hpp"
 
-CollisionBehaviour::CollisionBehaviour(glm::vec3 pBoundaries, bool pIsTrigger)
+Mesh* CollisionBehaviour::BoxMesh;
+Mesh* CollisionBehaviour::SphereMesh;
+
+CollisionBehaviour::CollisionBehaviour(glm::vec3 pBoundaries, bool pIsTrigger, glm::vec3 pOffset)
 	: AbstractBehaviour()
 {
 	CollisionManager::collisionBehaviours.push_back(this);
@@ -21,12 +24,12 @@ CollisionBehaviour::CollisionBehaviour(glm::vec3 pBoundaries, bool pIsTrigger)
 	_boundaries = pBoundaries;
 	isTrigger = pIsTrigger;
 
-	_collider = new GameObject("col");
+	_collider = new GameObject("col", pOffset);
 	_material = new ColorMaterial(glm::vec4(0, 1, 0, 0.25f));
-	_mesh = Mesh::load(config::MGE_MODEL_PATH + "cube_smooth");
+	_mesh = BoxMesh;
 }
 
-CollisionBehaviour::CollisionBehaviour(float pRadius, bool pIsTrigger)
+CollisionBehaviour::CollisionBehaviour(float pRadius, bool pIsTrigger, glm::vec3 pOffset)
 	: AbstractBehaviour()
 {
 	CollisionManager::collisionBehaviours.push_back(this);
@@ -34,9 +37,9 @@ CollisionBehaviour::CollisionBehaviour(float pRadius, bool pIsTrigger)
 	_radius = pRadius;
 	isTrigger = pIsTrigger;
 
-	_collider = new GameObject("col");
+	_collider = new GameObject("col", pOffset);
 	_material = new ColorMaterial(glm::vec4(0, 1, 0, 0.25f));
-	_mesh = Mesh::load(config::MGE_MODEL_PATH + "sphere4");
+	_mesh = SphereMesh;
 }
 
 CollisionBehaviour::~CollisionBehaviour()
@@ -46,13 +49,33 @@ CollisionBehaviour::~CollisionBehaviour()
 		if (CollisionManager::collisionBehaviours[i] == this)
 		{
 			CollisionManager::collisionBehaviours.erase(CollisionManager::collisionBehaviours.begin() + i);
+			for (auto &b : _behavioursInCollision)
+			{
+				int index = 0;
+				for (auto &col : b->_behavioursInCollision)
+				{
+					if (col == this)
+					{
+						b->getCollisions()->erase(b->getCollisions()->begin() + index);
+					}
+					index++;
+				}
+			}
 			return;
 		}
 	}
+
+	_collider = nullptr;
+	_material = nullptr;
+	_mesh = nullptr;
 }
 
 void CollisionBehaviour::update(float pStep)
 {
+	if (_behavioursInCollision.size() == 0)
+		_owner->isColliding = false;
+	else
+		_owner->isColliding = true;
 }
 
 void CollisionBehaviour::ResolveCollision(CollisionBehaviour* pOtherCollider, GameObject* pOtherOwner, glm::vec3 pLastPos)
@@ -61,13 +84,12 @@ void CollisionBehaviour::ResolveCollision(CollisionBehaviour* pOtherCollider, Ga
 	{
 		case BoxCollider:
 		{
-			//std::cout << "Object: " + _owner->getName() + " is colliding with " + pOtherName + "\n";
-
-			if (!_owner->isColliding)
+			if (!checkCollision(pOtherCollider))
 				_owner->OnCollisionEnter(pOtherOwner);
-			_owner->OnCollisionStay(pOtherOwner);
+			if (_owner == NULL)
+				_owner->OnCollisionStay(pOtherOwner);
 
-			if (isTrigger || pOtherCollider->isTrigger) return;
+			if (_owner == NULL || isTrigger || pOtherCollider->isTrigger) return;
 
 			_owner->setLocalPosition(pLastPos);
 		}
@@ -75,13 +97,12 @@ void CollisionBehaviour::ResolveCollision(CollisionBehaviour* pOtherCollider, Ga
 
 		case SphereCollider:
 		{
-			//std::cout << "Object: " + _owner->getName() + " is colliding with " + pOtherName + "\n";
-
-			if (!_owner->isColliding)
+			if (!checkCollision(pOtherCollider))
 				_owner->OnCollisionEnter(pOtherOwner);
-			_owner->OnCollisionStay(pOtherOwner);
+			if (_owner == NULL)
+				_owner->OnCollisionStay(pOtherOwner);
 
-			if (isTrigger || pOtherCollider->isTrigger) return;
+			if (_owner == NULL || isTrigger || pOtherCollider->isTrigger) return;
 
 			_owner->setLocalPosition(pLastPos);
 		}
@@ -137,16 +158,16 @@ void CollisionBehaviour::DrawCollider()
 	_owner->add(_collider);
 }
 
-std::vector<CollisionBehaviour*> CollisionBehaviour::getCollisions()
+std::vector<CollisionBehaviour*>* CollisionBehaviour::getCollisions()
 {
-	return _behavioursInCollision;
+	return &_behavioursInCollision;
 }
 
 bool CollisionBehaviour::checkCollision(CollisionBehaviour* pOther)
 {
 	if (_behavioursInCollision.size() == 0) return false;
 
-	for (int i = 0; i < _behavioursInCollision.size();++i)
+	for (int i = 0; i < _behavioursInCollision.size(); ++i)
 	{
 		if (_behavioursInCollision[i] == pOther)
 		{

@@ -1,10 +1,14 @@
 #include "mge/behaviours/ToasterTowerBehaviour.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/core/World.hpp"
+#include "mge/core/Helper.hpp"
+#include "mge/core/ToasterProjectile.hpp"
 
 ToasterTowerBehaviour::ToasterTowerBehaviour() : TowerBehaviour()
 {
 	//ctor
+	_lastAttackTime = clock();
 }
 
 ToasterTowerBehaviour::~ToasterTowerBehaviour()
@@ -22,6 +26,7 @@ void ToasterTowerBehaviour::update(float pStep)
 void ToasterTowerBehaviour::CheckForEnemies()
 {
 	_enemiesInRange = false;
+	if (GameController::Enemies.size() == 0) return;
 	for each (Enemy* enemy in GameController::Enemies)
 	{
 		glm::vec3 diff = enemy->getLocalPosition() - _owner->getLocalPosition();
@@ -39,7 +44,7 @@ void ToasterTowerBehaviour::Rotate()
 {
 	if (_enemiesInRange)
 	{
-		glm::vec3 diff = _furthestEnemy->getLocalPosition() - _owner->getLocalPosition();
+		Helper::LookAt(_owner, _furthestEnemy);
 	}
 }
 
@@ -47,6 +52,11 @@ void ToasterTowerBehaviour::Attack()
 {
 	if (_enemiesInRange)
 	{
-
+		if (float(clock() - _lastAttackTime) / CLOCKS_PER_SEC >= 1)
+		{
+			ToasterProjectile* projectile = new ToasterProjectile(_owner->getTransform());
+			GameController::World->add(projectile);
+			_lastAttackTime = clock();
+		}
 	}
 }

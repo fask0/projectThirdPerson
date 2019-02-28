@@ -1,6 +1,7 @@
 #include "mge/core/ShockTower.hpp"
 #include "mge/core/Tower.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/behaviours/ToasterTowerBehaviour.hpp"
 
 Mesh* ShockTower::Mesh;
 AbstractMaterial* ShockTower::Material;

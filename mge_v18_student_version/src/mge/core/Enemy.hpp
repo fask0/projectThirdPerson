@@ -2,9 +2,9 @@
 
 #include <iostream>
 #include <vector>
-#include "glm.hpp"
+#include <time.h>
 
-#include "mge/behaviours/WaypointFollowBehaviour.hpp"
+#include "glm.hpp"
 
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Waypoint.hpp"
@@ -25,10 +25,26 @@ class Enemy : public GameObject
 	virtual void OnCollisionStay(GameObject* pOther) override;
 	virtual void OnCollisionExit(GameObject* pOther) override;
 
+	void Knockback(float pForce);
+	void Heal(int pHealth);
+	void TakeDamage(int pDamage);
+
+	void speedUp(float pSpeedUpPercent);
+	void slowDown(float pSlowDownPercent);
+	float getSpeed();
+	int getSize();
+
 	protected:
 	Waypoint::Lane _lane;
-	WaypointFollowBehaviour* _waypointFollowBehaviour;
-
-	private:
+	int _size;
+	int _health;
+	int _baseHealth;
+	int _healthRegen;
+	int _damage;
 	float _speed;
+	int _effectRecovery;
+
+	float _baseSpeed;
+	int _speedUp;
+	int _slowDown;
 };

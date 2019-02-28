@@ -12,10 +12,11 @@
 
 GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 	: _name(pName), _transform(glm::translate(pPosition)), _parent(nullptr), _children(),
-	_mesh(nullptr), _behaviour(nullptr), _material(nullptr), _world(nullptr), _speed(0), _speedUp(0), _slowDown(0)
+	_mesh(nullptr), _behaviour(nullptr), _material(nullptr), _world(nullptr)
 
 {
 	isColliding = false;
+	_shouldDie = false;
 	GameController::GameObjects.push_back(this);
 	_gameControllerIndex = GameController::GameObjects.size() - 1;
 }
@@ -26,6 +27,7 @@ GameObject::~GameObject()
 	std::cout << "GC running on:" << _name << std::endl;
 
 	removeAllBehaviours();
+	_parent->remove(this);
 
 	while (_children.size() > 0)
 	{
@@ -33,7 +35,7 @@ GameObject::~GameObject()
 		remove(child);
 		delete child;
 	}
-
+	std::cout << "Deleted " << _name << std::endl;
 	//do not forget to delete behaviour, material, mesh, collider manually if required!
 }
 
@@ -118,6 +120,7 @@ void GameObject::removeBehaviour(AbstractBehaviour* pBehaviour)
 
 void GameObject::removeBehaviourAtIndex(int pIndex)
 {
+	delete(_behaviours[pIndex]);
 	_behaviours.erase(_behaviours.begin() + pIndex);
 }
 
@@ -240,6 +243,12 @@ void GameObject::rotate(float pAngle, glm::vec3 pAxis)
 
 void GameObject::update(float pStep)
 {
+	if (_shouldDie)
+	{
+		delete(this);
+		return;
+	}
+
 	//make sure behaviour is updated after worldtransform is set
 	if (_behaviour)
 	{
@@ -296,7 +305,7 @@ void GameObject::OnCollisionExit(GameObject* pOther)
 
 bool GameObject::SkipCollisionCheck()
 {
-	return true;
+	return false;
 }
 
 bool GameObject::IgnoreCollision(GameObject * pOther)
@@ -308,23 +317,6 @@ bool GameObject::IgnoreCollision(GameObject * pOther)
 	return false;
 }
 
-void GameObject::speedUp(float pPercengateSpeedUp, float pDurationSeconds)
-{
-	_speedUp = pPercengateSpeedUp;
-	_speedUpDuration = pDurationSeconds;
-}
-
-void GameObject::slowDown(float pPercentageSlowDown, float pDurationSeconds)
-{
-	_slowDown = -pPercentageSlowDown;
-	_slowDownDuration = pDurationSeconds;
-}
-
-float GameObject::getSpeed()
-{
-	return _speed * (1 + (_speedUp * 0.01f - _slowDown * 0.01f));
-}
-
 void GameObject::SetTag(std::string pTag)
 {
 	_tag = pTag;
@@ -333,4 +325,9 @@ void GameObject::SetTag(std::string pTag)
 std::string GameObject::GetTag()
 {
 	return _tag;
+}
+
+void GameObject::Kill()
+{
+	_shouldDie = true;
 }
