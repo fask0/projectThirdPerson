@@ -15,6 +15,8 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/core/CollisionManager.hpp"
 #include "mge/core/GridManager.hpp"
+#include "mge/core/Enemy.hpp"
+#include "mge/core/Rat.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/ColorMaterial.hpp"
@@ -25,6 +27,7 @@
 #include "mge/materials/TextureGridMaterial.hpp"
 #include "mge/materials/LitTextureMaterial.hpp"
 #include "mge/materials/LitTextureGridMaterial.hpp"
+#include "mge/materials//LitDynamicGridTextureMaterial.hpp"
 
 #include "mge/behaviours/RotatingBehaviour.hpp"
 #include "mge/behaviours/KeysBehaviour.hpp"
@@ -32,12 +35,22 @@
 #include "mge/behaviours/CameraOrbitBehaviour.hpp"
 #include "mge/behaviours/CollisionBehaviour.hpp"
 #include "mge/behaviours/CameraMovementBehaviour.hpp"
+#include "mge/behaviours/WaypointFollowBehaviour.hpp"
 
 #include "mge/util/DebugHud.hpp"
 #include "mge/core/GameController.hpp"
 
 #include "mge/config.hpp"
 #include "Lua/lua.hpp"
+
+#include "mge/core/EnemySpawner.hpp"
+#include "mge/core/ToasterTower.hpp"
+#include "mge/core/HoneyTower.hpp"
+#include "mge/core/MouseTrapTower.hpp"
+#include "mge/core/ShockTower.hpp"
+
+#include "mge/core/UIManager.hpp"
+#include "mge/core/AdvancedSprite.hpp"
 
 TowerDefenseScene::TowerDefenseScene() :AbstractGame(), _hud(0)
 {
@@ -50,11 +63,14 @@ void TowerDefenseScene::initialize()
 
 	//setup the core part
 	AbstractGame::initialize(WindowWidth, WindowHeight);
+	GameController::Window = _window;
 
 	//setup the custom part so we can display some text
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
+
+	GameController::World = _world;
 }
 
 void TowerDefenseScene::initializeLua()
@@ -74,8 +90,13 @@ void TowerDefenseScene::initializeLua()
 	//Set vars
 	lua_getglobal(lua, "Debug");
 	Debug = lua_toboolean(lua, -1);
+	GameController::Debug = Debug;
 	lua_pop(lua, -1);
 	std::cout << "Debug set" << std::endl;
+
+	lua_getglobal(lua, "DrawColliders");
+	GameController::DrawColliders = lua_toboolean(lua, -1);
+	lua_pop(lua, -1);
 
 	lua_getglobal(lua, "WindowHeight");
 	WindowHeight = lua_tointeger(lua, -1);
@@ -85,13 +106,121 @@ void TowerDefenseScene::initializeLua()
 	WindowWidth = lua_tointeger(lua, -1);
 	lua_pop(lua, -1);
 	std::cout << "Windowsize set" << std::endl;
+
+	//Level
+	//Lane A
+	GameController::LaneOneBaseSize = intFromLua("LaneOneBaseSize");
+	GameController::LaneOneSizeGrowthFrequency = intFromLua("LaneOneSizeGrowthFrequency");
+	GameController::LaneOneEnemyScalingPercentage = intFromLua("LaneOneEnemyScalingPercentage");
+	GameController::LaneOneDelayBetweenEnemies = floatFromLua("LaneOneDelayBetweenEnemies");
+	//Lane B
+	GameController::LaneTwoBaseSize = intFromLua("LaneTwoBaseSize");
+	GameController::LaneTwoSizeGrowthFrequency = intFromLua("LaneTwoSizeGrowthFrequency");
+	GameController::LaneTwoEnemyScalingPercentage = intFromLua("LaneTwoEnemyScalingPercentage");
+	GameController::LaneTwoDelayBetweenEnemies = floatFromLua("LaneTwoDelayBetweenEnemies");
+	//Lane C
+	GameController::LaneThreeBaseSize = intFromLua("LaneThreeBaseSize");
+	GameController::LaneThreeSizeGrowthFrequency = intFromLua("LaneThreeSizeGrowthFrequency");
+	GameController::LaneThreeEnemyScalingPercentage = intFromLua("LaneThreeEnemyScalingPercentage");
+	GameController::LaneThreeDelayBetweenEnemies = floatFromLua("LaneThreeDelayBetweenEnemies");
+	//Lane D
+	GameController::LaneFourBaseSize = intFromLua("LaneFourBaseSize");
+	GameController::LaneFourSizeGrowthFrequency = intFromLua("LaneFourSizeGrowthFrequency");
+	GameController::LaneFourEnemyScalingPercentage = intFromLua("LaneFourEnemyScalingPercentage");
+	GameController::LaneFourDelayBetweenEnemies = floatFromLua("LaneFourDelayBetweenEnemies");
+
+	//Toaster tower
+	lua_getglobal(lua, "ToasterRange");
+	GameController::ToasterRange = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "ToasterAttSpeed");
+	GameController::ToasterAttSpeed = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "ToasterCost");
+	GameController::ToasterCost = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
+
+	//Honey tower
+	lua_getglobal(lua, "HoneyRange");
+	GameController::HoneyRange = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "HoneyAttSpeed");
+	GameController::HoneyAttSpeed = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "HoneyCost");
+	GameController::HoneyCost = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
+
+	//MouseTrap tower
+	lua_getglobal(lua, "MouseTrapRange");
+	GameController::MouseTrapRange = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "MouseTrapCost");
+	GameController::MouseTrapCost = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
+
+	//Shock tower
+	lua_getglobal(lua, "ShockRange");
+	GameController::ShockRange = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "ShockAttSpeed");
+	GameController::ShockAttSpeed = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	lua_getglobal(lua, "ShockCost");
+	GameController::ShockCost = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
+
+	//Rats
+	GameController::RatSize = intFromLua("RatSize");
+	GameController::RatHealth = intFromLua("RatHealth");
+	GameController::RatHealthRegen = intFromLua("RatHealthRegen");
+	GameController::RatDamage = intFromLua("RatDamage");
+	GameController::RatSpeed = floatFromLua("RatSpeed");
+	GameController::RatEffectRecoverySpeed = floatFromLua("RatEffectRecoverySpeed");
+}
+
+int TowerDefenseScene::intFromLua(std::string pVariableName)
+{
+	int i;
+	lua_getglobal(lua, pVariableName.c_str());
+	i = lua_tointeger(lua, -1);
+	lua_pop(lua, -1);
+	return i;
+}
+
+float TowerDefenseScene::floatFromLua(std::string pVariableName)
+{
+	float f;
+	lua_getglobal(lua, pVariableName.c_str());
+	f = lua_tonumber(lua, -1);
+	lua_pop(lua, -1);
+	return f;
+}
+
+bool TowerDefenseScene::boolFromLua(std::string pVariableName)
+{
+	bool b;
+	lua_getglobal(lua, pVariableName.c_str());
+	b = lua_toboolean(lua, -1);
+	lua_pop(lua, -1);
+	return b;
 }
 
 //build the game _world
 void TowerDefenseScene::_initializeScene()
 {
+	GameController* gameController = new GameController();
+<<<<<<< HEAD
+	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
+	_world->add(colManager);
+=======
+	std::cout << "Initializing 2D layer" << std::endl;
+	_uiManager = new UIManager(_window);
+	std::cout << "2D layer initialized." << std::endl;
 	//MESHES
+>>>>>>> c7d899c625d00e7da3287d3a9776566bc5c9e67b
 
+	//MESHES
 	//load a bunch of meshes we will be using throughout this demo
 	//each mesh only has to be loaded once, but can be used multiple times:
 	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
@@ -119,101 +248,72 @@ void TowerDefenseScene::_initializeScene()
 	_world->add(light);
 	_world->add(light2);
 
+	gameController->Init();
+
 	//SCENE SETUP
 
 	TextureGridMaterial* gridMaterial = new TextureGridMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
-<<<<<<< HEAD
-	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(1, 1, 1, 1));
-=======
-	LitTextureGridMaterial* litTextureGridMaterial = new LitTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
+	//LitTextureGridMaterial* litTextureGridMaterial = new LitTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
 	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(0, 0, 1, 1));
->>>>>>> 3834020fa5cd4f692619b4c80bf3f3b5706fce71
 	LitMaterial* litMaterial1 = new LitMaterial(light, glm::vec3(0.9f, 0.9f, 0.9f));
 	litMaterial1->AddLight(light2);
 	AbstractMaterial* litMaterial = litMaterial1;
 	TerrainMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-		0);
-	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(light, Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
-
-
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
+														   0);
+	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 
 	//add camera first (it will be updated last)
-<<<<<<< HEAD
-	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 75, 25));
-	camera->rotate(glm::radians(-65.0f), glm::vec3(1, 0, 0));
-=======
-	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 20));
-	camera->rotate(glm::radians(-35.0f), glm::vec3(1, 0, 0));
-	camera->addBehaviour(new CameraMovementBehaviour(10, 10, 0, 100, _window, camera->getLocalPosition()));
->>>>>>> 3834020fa5cd4f692619b4c80bf3f3b5706fce71
+	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
+	camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
+	camera->addBehaviour(new CameraMovementBehaviour(-17, 17, -17, 17, 10, 20, _window, camera->getLocalPosition(), 1.0f, 10.0f));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
+	//////////////////////////////////////////Level//////////////////////////////////////////
 	//add the floor
-	Mesh* planeMesh = Mesh::load(config::MGE_MODEL_PATH + "Scene0/scene001");
-	GameObject* plane = new GameObject("plane", glm::vec3(0, 0, 0));
-<<<<<<< HEAD
-	plane->scale(glm::vec3(10, 10, 10));
-	plane->setMesh(planeMesh);
-	std::cout << "\n\n" << planeMesh->materials << "\n\n";
-	plane->setMaterial(gridMaterial);
-=======
-	plane->scale(glm::vec3(20, 20, 20));
-	plane->setMesh(newPlaneMesh);
-	plane->setMaterial(litTextureGridMaterial);
->>>>>>> 3834020fa5cd4f692619b4c80bf3f3b5706fce71
-	_world->add(plane);
+	LitDynamicTextureGridMaterial* layerOneMaterial = new LitDynamicTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
+	LitDynamicTextureGridMaterial* layerTwoMaterial = new LitDynamicTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"), true);
+	Mesh* layerOneMesh = Mesh::load(config::MGE_MODEL_PATH + "BasLevel/layerOne");
+	Mesh* layerTwoMesh = Mesh::load(config::MGE_MODEL_PATH + "BasLevel/layerTwo");
+	GameObject* layerOneObj = new GameObject("plane", glm::vec3(0, 0, 0));
+	GameObject* layerTwoObj = new GameObject("plane", glm::vec3(0, 0, 0));
+	layerOneObj->setMesh(layerOneMesh);
+	layerOneObj->setMaterial(layerOneMaterial);
+	layerTwoObj->setMesh(layerTwoMesh);
+	layerTwoObj->setMaterial(layerTwoMaterial);
 
-	GameObject* plane2 = new GameObject("plane2", glm::vec3(40, 0, 0));
-	plane2->scale(glm::vec3(20, 20, 20));
-	plane2->setMesh(newPlaneMesh);
-	plane2->setMaterial(litTextureGridMaterial);
-	_world->add(plane2);
+	if (layerOneMesh->collidersInMesh.size() > 0)
+		for (auto &i : layerOneMesh->collidersInMesh)
+			_world->add(i);
+	if (layerTwoMesh->collidersInMesh.size() > 0)
+		for (auto &i : layerOneMesh->collidersInMesh)
+			_world->add(i);
 
-	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
-	_world->add(colManager);
+	_world->add(layerOneObj);
+	_world->add(layerTwoObj);
+	////////////////////////////////////////////////////////////////////////////////////////
 
-	//GameObject* colliderA = new GameObject("A", glm::vec3(6, 0, 0));
-	//CollisionBehaviour* colA = new CollisionBehaviour(glm::vec3(5, 5, 5));
-	//colliderA->addBehaviour(colA);
-	//colliderA->addBehaviour(new WASDBehaviour());
-	//colA->DrawCollider();
-	//_world->add(colliderA);
-
-<<<<<<< HEAD
-	//GameObject* colliderB = new GameObject("B", glm::vec3(0, 0, 0));
-	//CollisionBehaviour* colB = new CollisionBehaviour(2.5f, true);
-	//colliderB->addBehaviour(colB);
-	//colB->DrawCollider();
-	//_world->add(colliderB);
-
-	std::vector<GameObject*> objs;
-	objs.push_back(plane);
-	GridManager* gridManager = new GridManager(objs, _window);
-	//_world->add(gridManager);
-=======
-	GameObject* colliderB = new GameObject("B", glm::vec3(0, 2, 0));
-	CollisionBehaviour* colB = new CollisionBehaviour(1);
-	colliderB->setBehaviour(colB);
-	colB->DrawCollider();
-	//colliderB->setMaterial(litTextureMaterial);
-	_world->add(colliderB);
-
-	GameController::GridObjects.push_back(plane);
-	GameController::GridObjects.push_back(plane2);
+	GameController::GridObjects.push_back(layerOneObj);
 	GridManager* gridManager = new GridManager(GameController::GridObjects, _window, _world);
 	_world->add(gridManager);
->>>>>>> 3834020fa5cd4f692619b4c80bf3f3b5706fce71
 	SetGridManager(gridManager);
 
-	_plane = plane;
+	_plane = layerOneObj;
 	_camera = camera;
-	_mat = litTextureGridMaterial;
+	_matD = layerOneMaterial;
+
+	sf::Texture* tex = new sf::Texture();
+	tex->loadFromFile(config::MGE_TEXTURE_PATH + "bricks.jpg");
+
+	AdvancedSprite* sprite = new AdvancedSprite();
+	sprite->addBehaviour(new WASDBehaviour());
+	_world->add(sprite);
+	_uiManager->AddSprite(sprite, tex);
 }
 
 void TowerDefenseScene::_render()
@@ -233,9 +333,14 @@ void TowerDefenseScene::_render()
 	glm::vec3 thingy = (normalizedDiff * fabs(multiplyValue));
 	glm::vec3 planePos = _camera->getWorldPosition() + thingy;
 
-	_mat->setHighlightArea(planePos);
+	_matD->setHighlightArea(planePos);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
+		for (int i = 0; i < GameController::SpawnPointsInLevel.size(); ++i)
+			GameController::SpawnPointsInLevel[i]->initializeWave();
 
 	_updateHud();
+	updateUIElements();
 }
 
 void TowerDefenseScene::_updateHud()
@@ -245,6 +350,11 @@ void TowerDefenseScene::_updateHud()
 
 	_hud->setDebugInfo(debugInfo);
 	_hud->draw();
+}
+
+void TowerDefenseScene::updateUIElements()
+{
+	_uiManager->Draw();
 }
 
 TowerDefenseScene::~TowerDefenseScene()
