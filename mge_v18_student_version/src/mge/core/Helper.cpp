@@ -47,4 +47,3 @@ void Helper::LookAt(GameObject* pLooker, GameObject* pLookedAtter)
 		desiredRot += 3.1415f;
 	pLooker->rotate(-(desiredRot - currentRot), glm::vec3(0, 1, 0));
 }
-

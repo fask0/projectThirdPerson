@@ -28,6 +28,7 @@ class WaypointFollowBehaviour : public AbstractBehaviour
 	std::vector<Waypoint*> _toDo;
 	std::vector<Waypoint*> _done;
 	Waypoint* _currentWaypoint;
+	GameObject* _dummyTransform;
 	Enemy* _enemyOwner;
 
 	glm::vec3 getDir();

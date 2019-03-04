@@ -19,14 +19,14 @@
  */
 class Helper
 {
-public:
+	public:
 	Helper();
 	virtual ~Helper();
 
 	static glm::vec3 GetRotationFromMatrix(glm::mat4);
 	static void LookAt(GameObject* pLooker, GameObject* pLookedAtter);
 
-private:
+	private:
 	Helper(const Helper&);
 	Helper& operator= (const Helper&);
 };

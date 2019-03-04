@@ -11,7 +11,7 @@ WindowHeight = 1080;
 --DelayBetweenEnemies       --How much time between each enemy (in seconds)
 --------------------------------------------------------------------------------------
 --Lane One
-LaneOneBaseSize = 20;
+LaneOneBaseSize = 2;
 LaneOneSizeGrowthFrequency = 1;
 LaneOneEnemyScalingPercentage = 10;
 LaneOneDelayBetweenEnemies = 1.0;

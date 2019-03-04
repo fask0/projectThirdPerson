@@ -10,6 +10,7 @@
 #include "mge/core/WaypointManager.hpp"
 #include "mge/core/Enemy.hpp"
 #include "mge/core/Helper.hpp"
+#include "mge/core/GameObject.hpp"
 
 #include "glm.hpp"
 
@@ -30,12 +31,14 @@ WaypointFollowBehaviour::WaypointFollowBehaviour(Waypoint::Lane pLane)
 
 	std::sort(_toDo.begin(), _toDo.end(), sortWaypoints);
 	_currentWaypoint = _toDo[0];
+	_dummyTransform = new GameObject("dummy", glm::vec3(0, 0, 0));
 }
 
 WaypointFollowBehaviour::~WaypointFollowBehaviour()
 {
 	_currentWaypoint = nullptr;
 	_enemyOwner = nullptr;
+	_dummyTransform = nullptr;
 }
 
 void WaypointFollowBehaviour::update(float pStep)
@@ -48,6 +51,7 @@ void WaypointFollowBehaviour::update(float pStep)
 	_velocity = _direction * _enemyOwner->getSpeed() * pStep;
 	glm::vec3 oPos = _enemyOwner->getLocalPosition();
 	glm::vec3 distToCurrent = _currentWaypoint->getLocalPosition() - oPos;
+
 	if (_enemyOwner->getSpeed() <= 0 && _done.size() != 0)
 	{
 		glm::vec3 distToPrev = _done[0]->getLocalPosition() - oPos;
@@ -69,7 +73,9 @@ void WaypointFollowBehaviour::update(float pStep)
 		_done.insert(_done.begin(), _toDo[0]);
 		_toDo.erase(_toDo.begin());
 	}
-
+	glm::quat eQuat = glm::quat_cast(_enemyOwner->getTransform());
+	glm::quat wpQuat = glm::quat_cast(_dummyTransform->getTransform());
+	_enemyOwner->setTransform(glm::mat4_cast(glm::slerp(eQuat, wpQuat, pStep * 5)));
 	_enemyOwner->setLocalPosition(oPos + _velocity);
 }
 
@@ -83,6 +89,7 @@ glm::vec3 WaypointFollowBehaviour::getDir()
 {
 	glm::vec3 dir = _currentWaypoint->getLocalPosition() - _owner->getLocalPosition();
 	dir.y = 0;
-	Helper::LookAt(_owner, _currentWaypoint);
+	_dummyTransform->setLocalPosition(_owner->getLocalPosition());
+	Helper::LookAt(_dummyTransform, _currentWaypoint);
 	return glm::normalize(dir);
 }
