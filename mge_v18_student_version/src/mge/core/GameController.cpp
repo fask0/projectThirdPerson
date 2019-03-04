@@ -111,11 +111,11 @@ void GameController::SetTowerVariables()
 	AbstractMaterial* mat;
 
 	ToasterProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
-	ToasterProjectile::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"), true);
+	ToasterProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife 1.png"));
 
 	//Slingshot tower
 	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/ToasterTower");
-	ToasterTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"), true);
+	ToasterTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "toaster 1.png"));
 	//Honey tower
 	HoneyTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTower");
 	HoneyTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"), true);
