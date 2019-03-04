@@ -24,10 +24,14 @@ class ToasterProjectile : public GameObject
 	static Mesh* Mesh;
 	static AbstractMaterial* Material;
 
+	void Shoot();
+
 	protected:
 	ToasterProjectile(const ToasterProjectile&);
 	ToasterProjectile& operator= (const ToasterProjectile&);
 	clock_t _spawnTime;
+	glm::vec3 _spawnPos;
+	bool _isShooting;
 };
 
 #endif // CAMERA_HPP

@@ -31,6 +31,8 @@ ToasterProjectile::ToasterProjectile(glm::mat4 pTransform) : GameObject("Toaster
 	setMaterial(Material);
 
 	_spawnTime = clock();
+	_spawnPos = getLocalPosition();
+	_isShooting = false;
 }
 
 ToasterProjectile::~ToasterProjectile()
@@ -41,11 +43,12 @@ ToasterProjectile::~ToasterProjectile()
 
 void ToasterProjectile::update(float pStep)
 {
+	if (!_isShooting) return;
 	//rayCast();
 	GameObject::update(pStep);
 
 	if (_shouldDie) return;
-	if (float(clock() - _spawnTime) / CLOCKS_PER_SEC >= 3)
+	if (glm::vec3(_spawnPos - getLocalPosition()).length() > GameController::ToasterRange)
 	{
 		delete(this);
 	}
@@ -54,4 +57,9 @@ void ToasterProjectile::update(float pStep)
 void ToasterProjectile::OnCollisionEnter(GameObject * pOther)
 {
 	Kill();
+}
+
+void ToasterProjectile::Shoot()
+{
+	_isShooting = true;
 }

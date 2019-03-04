@@ -27,6 +27,8 @@ class GameController : public GameObject
 
 	virtual ~GameController();
 
+	void Init();
+
 	static std::vector<Light*> Lights;
 	static std::vector<Enemy*> Enemies;
 	static std::vector<GameObject*> GameObjects;

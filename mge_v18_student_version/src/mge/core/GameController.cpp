@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+
 #include "glm.hpp"
 #include "mge/core/GameController.hpp"
 #include "mge/core/GameObject.hpp"
@@ -8,6 +10,7 @@
 #include "mge/behaviours/CollisionBehaviour.hpp"
 #include "mge/config.hpp"
 #include "mge/materials/LitTextureMaterial.hpp"
+#include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 
 #include "mge/core/ToasterTower.hpp"
 #include "mge/core/HoneyTower.hpp"
@@ -91,34 +94,37 @@ float GameController::RatEffectRecoverySpeed;
 
 GameController::GameController() : GameObject("GameController", glm::vec3(0.0f, 0.0f, 0.0f))
 {
-	SetTowerVariables();
-	SetUpEnemies();
 }
 
 GameController::~GameController()
 {
+}
 
+void GameController::Init()
+{
+	SetTowerVariables();
+	SetUpEnemies();
 }
 
 void GameController::SetTowerVariables()
 {
 	AbstractMaterial* mat;
 
-	ToasterProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth");
-	ToasterProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"));
+	ToasterProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
+	ToasterProjectile::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"), true);
 
 	//Slingshot tower
-	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "cube_flat");
-	ToasterTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
+	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/ToasterTower");
+	ToasterTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"), true);
 	//Honey tower
-	HoneyTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth");
-	HoneyTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"));
+	HoneyTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTower");
+	HoneyTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"), true);
 	//MouseTrap tower
-	MouseTrapTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth");
-	MouseTrapTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"));
+	MouseTrapTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/MouseTrap");
+	MouseTrapTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"), true);
 	//Shock tower
-	ShockTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth");
-	ShockTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
+	ShockTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/AoETower");
+	ShockTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"), true);
 }
 
 void GameController::SetUpEnemies()

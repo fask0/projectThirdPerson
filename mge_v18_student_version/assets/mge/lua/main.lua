@@ -14,7 +14,7 @@ WindowHeight = 1080;
 LaneOneBaseSize = 20;
 LaneOneSizeGrowthFrequency = 1;
 LaneOneEnemyScalingPercentage = 10;
-LaneOneDelayBetweenEnemies = 1;
+LaneOneDelayBetweenEnemies = 1.0;
 --Lane Two
 LaneTwoBaseSize = 20;
 LaneTwoSizeGrowthFrequency = 1;

@@ -2,6 +2,7 @@
 #define TOASTERTOWERBEHAVIOUR_HPP
 
 #include "mge/behaviours/TowerBehaviour.hpp"
+#include "mge/core/ToasterProjectile.hpp"
 #include "mge/core/Enemy.hpp"
 #include <time.h>
 
@@ -22,7 +23,9 @@ class ToasterTowerBehaviour : public TowerBehaviour
 	void Attack();
 	//Variables
 	bool _enemiesInRange;
+	bool _isProjectileCreated;
 	Enemy* _furthestEnemy;
+	ToasterProjectile* _projectile;
 	clock_t _lastAttackTime;
 };
 

@@ -6,12 +6,16 @@
 #include "mge/core/Mesh.hpp"
 #include "mge/core/ShaderProgram.hpp"
 #include "mge/core/Texture.hpp"
+#include "mge/core/GameController.hpp"
 
 ShaderProgram* LitDynamicTextureGridMaterial::_shader = NULL;
 
-LitDynamicTextureGridMaterial::LitDynamicTextureGridMaterial(Light *light, Texture * pDiffuseTexture) :_diffuseTexture(pDiffuseTexture), _light(light)
+LitDynamicTextureGridMaterial::LitDynamicTextureGridMaterial(Light *light, Texture * pDiffuseTexture, bool pHideGrid)
+	: _diffuseTexture(pDiffuseTexture), _light(light)
 {
 	//every time we create an instance of LitMaterial we check if the corresponding shader has already been loaded
+	_hideGrid = pHideGrid;
+	_gridShowing = false;
 	_lazyInitializeShader();
 }
 
@@ -114,6 +118,8 @@ void LitDynamicTextureGridMaterial::toggleGrid()
 void LitDynamicTextureGridMaterial::setGrid(bool showGrid)
 {
 	_gridShowing = showGrid;
+	if (_hideGrid)
+		_gridShowing = false;
 }
 
 void LitDynamicTextureGridMaterial::toggleRangeShowing()
@@ -131,6 +137,8 @@ void LitDynamicTextureGridMaterial::toggleRangeShowing()
 void LitDynamicTextureGridMaterial::setRangeShowing(bool showRange)
 {
 	_showRange = showRange;
+	if (_hideGrid)
+		_showRange = false;
 }
 
 void LitDynamicTextureGridMaterial::setGridSize(float size)

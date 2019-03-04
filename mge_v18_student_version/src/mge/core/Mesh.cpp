@@ -80,19 +80,11 @@ Mesh* Mesh::load(std::string pFileName)
 
 	Mesh* mesh = new Mesh();
 	mesh->materials = mesh->getMTLinfo(pFileName);
-	//mesh->faces = mesh->getOBJinfo(pFileName);
 	mesh->filePath = pFileName;
 
-	mesh->materialNamesArray = new std::string[mesh->materials];
-	mesh->textureNamesArray = new std::string[mesh->materials];
-	//mesh->facesArray = new int*[mesh->faces];
-	//int mtl = 0;
-	//int f = 0;
 	int objectIndex = 0;
-
-	/*for (int i = 0; i < mesh->faces; ++i)
-		mesh->facesArray[i] = new int[10];*/
-	mesh->extractMTLinfo(pFileName, mesh->materialNamesArray, mesh->textureNamesArray);
+	mesh->materialNamesArray = new std::string[mesh->materials];
+	mesh->extractMTLinfo(mesh, pFileName, mesh->materialNamesArray);
 
 	std::ifstream file(pFileName + ".obj", std::ios::in);
 
@@ -132,14 +124,15 @@ Mesh* Mesh::load(std::string pFileName)
 			{
 				std::string l = "usemtl ";
 				std::string mat = line.substr(l.size());
-
 				for (int i = 0; i < mesh->materials;++i)
 				{
 					if (mat.compare(mesh->materialNamesArray[i]) == 0)
 					{
-						//mtl = i;
-						//oof EXPENSIVE
-						mesh->objectTextures.push_back(Texture::load(config::MGE_TEXTURE_PATH + mesh->getMaterialTextureName(pFileName, mat)));
+						if (mat.compare(mesh->meshTextures[i]->getPath()))
+						{
+							mesh->objectTextures.push_back(mesh->meshTextures[i]);
+							break;
+						}
 					}
 				}
 			}
@@ -178,21 +171,24 @@ Mesh* Mesh::load(std::string pFileName)
 							break;
 
 							case 'B':
-							col = new Waypoint("Waypoint", pos, Waypoint::B, wpIndex);
-							/*if (wpIndex == 0)
-								col = new EnemySpawner("Spawner", pos, Waypoint::B);*/
+							if (wpIndex == 0)
+								col = new EnemySpawner("Spawner", pos, Waypoint::B);
+							else
+								col = new Waypoint("Waypoint", pos, Waypoint::B, wpIndex);
 							break;
 
 							case 'C':
-							col = new Waypoint("Waypoint", pos, Waypoint::C, wpIndex);
-							/*	if (wpIndex == 0)
-									col = new EnemySpawner("Spawner", pos, Waypoint::C);*/
+							if (wpIndex == 0)
+								col = new EnemySpawner("Spawner", pos, Waypoint::C);
+							else
+								col = new Waypoint("Waypoint", pos, Waypoint::C, wpIndex);
 							break;
 
 							case 'D':
-							col = new Waypoint("Waypoint", pos, Waypoint::D, wpIndex);
-							/*	if (wpIndex == 0)
-									col = new EnemySpawner("Spawner", pos, Waypoint::D);*/
+							if (wpIndex == 0)
+								col = new EnemySpawner("Spawner", pos, Waypoint::D);
+							else
+								col = new Waypoint("Waypoint", pos, Waypoint::D, wpIndex);
 							break;
 
 							default:
@@ -316,32 +312,12 @@ Mesh* Mesh::load(std::string pFileName)
 					return NULL;
 				}
 			}
-
-			/*if (type.compare("f ") == 0)
-			{
-				char* l = new char[line.size() + 1];
-				std::memcpy(l, line.c_str(), line.size() + 1);
-
-				std::strtok(l, " ");
-				for (int i = 0; i < 9; i++)
-					mesh->facesArray[f][i] = std::atof(std::strtok(NULL, " /"));
-
-				mesh->facesArray[f][9] = mtl;
-				delete[] l;
-				f++;
-			}*/
 		}
 
 		file.close();
 		mesh->_buffer();
 
-		//for (int i = 0;i < mesh->faces; ++i)
-		//	delete[] mesh->facesArray[i];
-
-		//delete[] mesh->facesArray;
 		delete[] mesh->materialNamesArray;
-		delete[] mesh->textureNamesArray;
-
 
 		std::cout << "Mesh loaded and buffered:" << (mesh->_indices.size() / 3.0f) << " triangles." << std::endl;
 		return mesh;
@@ -352,49 +328,6 @@ Mesh* Mesh::load(std::string pFileName)
 		delete mesh;
 		return NULL;
 	}
-}
-
-std::string Mesh::getMaterialTextureName(std::string pFileName, std::string pMaterialName)
-{
-	std::string textureName;
-	std::ifstream inMLT;
-	inMLT.open(pFileName + ".mtl");
-	if (!inMLT.good())
-	{
-		std::cout << "Could not open: " + pFileName + ".mtl";
-		inMLT.close();
-		return "land.jpg";
-	}
-
-	std::string line;
-	while (!inMLT.eof())
-	{
-		std::getline(inMLT, line);
-		std::string type = line.substr(0, 2);
-
-		if (type.compare("ne") == 0)
-		{
-			std::string l = "newmtl ";
-			std::string nextLine;
-			if (pMaterialName.compare(line.substr(l.size())) == 0)
-			{
-				for (int i = 0; i < 3; ++i)
-				{
-					std::getline(inMLT, nextLine);
-					std::string t = nextLine.substr(0, 2);
-					if (t.compare("ma") == 0)
-					{
-						int index = nextLine.rfind("\\");
-						inMLT.close();
-						return nextLine.substr(index + 1);
-					}
-				}
-			}
-		}
-	}
-
-	inMLT.close();
-	return "land.jpg";
 }
 
 int Mesh::getMTLinfo(std::string pFileName)
@@ -420,7 +353,9 @@ int Mesh::getMTLinfo(std::string pFileName)
 		{
 			std::string l = "newmtl ";
 			if (l.compare("Default-Material") != 0)
+			{
 				m++;
+			}
 		}
 	}
 
@@ -428,7 +363,7 @@ int Mesh::getMTLinfo(std::string pFileName)
 	return m;
 }
 
-void Mesh::extractMTLinfo(std::string pFileName, std::string * pMatNames, std::string* pTextureName)
+void Mesh::extractMTLinfo(Mesh* pMesh, std::string pFileName, std::string * pMatNames)
 {
 	int m = 0;
 	int t = 0;
@@ -451,17 +386,25 @@ void Mesh::extractMTLinfo(std::string pFileName, std::string * pMatNames, std::s
 		if (type.compare("ne") == 0)
 		{
 			std::string l = "newmtl ";
-			if (l.compare("Default-Material") != 0)
+			std::string nextLine;
+			std::string materialName = line.substr(l.size());
+			if (materialName.compare("Default-Material") != 0)
 			{
-				pMatNames[m] = line.substr(l.size());
+				pMatNames[m] = materialName;
+
+				for (int j = 0; j < 3; ++j)
+				{
+					std::getline(inMTL, nextLine);
+					std::string tex = nextLine.substr(0, 2);
+					if (tex.compare("ma") == 0)
+					{
+						int index = nextLine.rfind("\\");
+						pMesh->meshTextures.push_back(Texture::load(config::MGE_TEXTURE_PATH + nextLine.substr(index + 1)));
+						break;
+					}
+				}
 				m++;
 			}
-		}
-		else if (type.compare("ma") == 0)
-		{
-			int index = line.rfind("\\");
-			pTextureName[t] = line.substr(index + 1);
-			t++;
 		}
 	}
 

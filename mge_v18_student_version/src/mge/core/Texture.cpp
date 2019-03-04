@@ -19,6 +19,16 @@ GLuint Texture::getId()
 	return _id;
 }
 
+std::string Texture::getPath()
+{
+	return _path;
+}
+
+void Texture::setPath(std::string pPath)
+{
+	_path = pPath;
+}
+
 // importer for textures
 Texture* Texture::load(const std::string& pFilename)
 {
@@ -31,6 +41,8 @@ Texture* Texture::load(const std::string& pFilename)
 		//create a wrapper for the id (texture is nothing more than that) and
 		//load corresponding data into opengl using this id
 		Texture * texture = new Texture();
+		int index = pFilename.rfind("/");
+		texture->setPath(pFilename.substr(index + 1));
 		glBindTexture(GL_TEXTURE_2D, texture->getId());
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.getSize().x, image.getSize().y, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.getPixelsPtr());
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

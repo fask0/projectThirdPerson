@@ -8,14 +8,16 @@
 ToasterTowerBehaviour::ToasterTowerBehaviour() : TowerBehaviour()
 {
 	//ctor
+	_isProjectileCreated = false;
+	_projectile = nullptr;
 	_lastAttackTime = clock();
 }
 
 ToasterTowerBehaviour::~ToasterTowerBehaviour()
 {
 	//dtor
+	_projectile = nullptr;
 }
-
 void ToasterTowerBehaviour::update(float pStep)
 {
 	CheckForEnemies();
@@ -50,13 +52,20 @@ void ToasterTowerBehaviour::Rotate()
 
 void ToasterTowerBehaviour::Attack()
 {
-	if (_enemiesInRange)
+	if (float(clock() - _lastAttackTime) / CLOCKS_PER_SEC >= 1)
 	{
-		if (float(clock() - _lastAttackTime) / CLOCKS_PER_SEC >= 1)
+		if (!_isProjectileCreated)
 		{
-			ToasterProjectile* projectile = new ToasterProjectile(_owner->getTransform());
-			GameController::World->add(projectile);
+			_projectile = new ToasterProjectile(_owner->getTransform());
+			GameController::World->add(_projectile);
+			_isProjectileCreated = true;
+		}
+		if (_enemiesInRange && _isProjectileCreated)
+		{
+			Rotate();
+			_projectile->Shoot();
 			_lastAttackTime = clock();
+			_isProjectileCreated = false;
 		}
 	}
 }

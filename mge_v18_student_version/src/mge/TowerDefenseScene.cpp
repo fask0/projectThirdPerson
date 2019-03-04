@@ -244,11 +244,12 @@ void TowerDefenseScene::_initializeScene()
 	_world->add(light);
 	_world->add(light2);
 
+	gameController->Init();
+
 	//SCENE SETUP
 
 	TextureGridMaterial* gridMaterial = new TextureGridMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
 	//LitTextureGridMaterial* litTextureGridMaterial = new LitTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
-	LitDynamicTextureGridMaterial* dynamicTextureGridMaterial = new LitDynamicTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
 	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(0, 0, 1, 1));
 	LitMaterial* litMaterial1 = new LitMaterial(light, glm::vec3(0.9f, 0.9f, 0.9f));
 	litMaterial1->AddLight(light2);
@@ -262,8 +263,6 @@ void TowerDefenseScene::_initializeScene()
 														   0);
 	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 
-
-
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
 	camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
@@ -271,31 +270,38 @@ void TowerDefenseScene::_initializeScene()
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
+	//////////////////////////////////////////Level//////////////////////////////////////////
 	//add the floor
-	Mesh* planeMesh = Mesh::load(config::MGE_MODEL_PATH + "BasLevel/unityexport");
-	GameObject* plane = new GameObject("plane", glm::vec3(0, 0, 0));
-	plane->setMesh(planeMesh);
-	//plane->setMaterial(litTextureGridMaterial);
-	plane->setMaterial(dynamicTextureGridMaterial);
-	if (planeMesh->collidersInMesh.size() > 0)
-	{
-		for (auto &i : planeMesh->collidersInMesh)
-		{
-			_world->add(i);
-		}
-	}
-	_world->add(plane);
+	LitDynamicTextureGridMaterial* layerOneMaterial = new LitDynamicTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
+	LitDynamicTextureGridMaterial* layerTwoMaterial = new LitDynamicTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"), true);
+	Mesh* layerOneMesh = Mesh::load(config::MGE_MODEL_PATH + "BasLevel/layerOne");
+	Mesh* layerTwoMesh = Mesh::load(config::MGE_MODEL_PATH + "BasLevel/layerTwo");
+	GameObject* layerOneObj = new GameObject("plane", glm::vec3(0, 0, 0));
+	GameObject* layerTwoObj = new GameObject("plane", glm::vec3(0, 0, 0));
+	layerOneObj->setMesh(layerOneMesh);
+	layerOneObj->setMaterial(layerOneMaterial);
+	layerTwoObj->setMesh(layerTwoMesh);
+	layerTwoObj->setMaterial(layerTwoMaterial);
 
-	GameController::GridObjects.push_back(plane);
-	//GameController::GridObjects.push_back(plane2);
+	if (layerOneMesh->collidersInMesh.size() > 0)
+		for (auto &i : layerOneMesh->collidersInMesh)
+			_world->add(i);
+	if (layerTwoMesh->collidersInMesh.size() > 0)
+		for (auto &i : layerOneMesh->collidersInMesh)
+			_world->add(i);
+
+	_world->add(layerOneObj);
+	_world->add(layerTwoObj);
+	////////////////////////////////////////////////////////////////////////////////////////
+
+	GameController::GridObjects.push_back(layerOneObj);
 	GridManager* gridManager = new GridManager(GameController::GridObjects, _window, _world);
 	_world->add(gridManager);
 	SetGridManager(gridManager);
 
-	_plane = plane;
+	_plane = layerOneObj;
 	_camera = camera;
-	//_mat = litTextureGridMaterial;
-	_matD = dynamicTextureGridMaterial;
+	_matD = layerOneMaterial;
 
 	sf::Texture tex;
 	tex.loadFromFile(config::MGE_TEXTURE_PATH + "water.jpg");
@@ -322,7 +328,6 @@ void TowerDefenseScene::_render()
 	glm::vec3 thingy = (normalizedDiff * fabs(multiplyValue));
 	glm::vec3 planePos = _camera->getWorldPosition() + thingy;
 
-	//_mat->setHighlightArea(planePos);
 	_matD->setHighlightArea(planePos);
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))

@@ -39,20 +39,18 @@ class Mesh
 	std::string filePath;
 
 	std::string* materialNamesArray;
-	std::string* textureNamesArray;
-	//int** facesArray;
 	std::vector<int> objectVertexIndex;
 	std::vector<Texture*> objectTextures;
+	std::vector<Texture*> meshTextures;
 	std::vector<GameObject*> collidersInMesh;
 
 	protected:
 	Mesh();
 	virtual ~Mesh();
 
-	std::string getMaterialTextureName(std::string pFileName, std::string pMaterialName);;
 	int getMTLinfo(std::string pFileName);
 	int getOBJinfo(std::string pFileName);
-	void extractMTLinfo(std::string pFileName, std::string* pMatNames, std::string* pTextureNames);
+	void extractMTLinfo(Mesh* pMesh, std::string pFileName, std::string* pMatNames);
 
 	//OpenGL id's for the different buffers created for this mesh
 	GLuint _indexBufferId;

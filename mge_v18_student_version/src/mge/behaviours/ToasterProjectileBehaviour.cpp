@@ -1,4 +1,5 @@
 #include "mge/behaviours/ToasterProjectileBehaviour.hpp"
+#include "mge/core/ToasterProjectile.hpp"
 #include "mge/core/GameObject.hpp"
 
 ToasterProjectileBehaviour::ToasterProjectileBehaviour() :AbstractBehaviour()
