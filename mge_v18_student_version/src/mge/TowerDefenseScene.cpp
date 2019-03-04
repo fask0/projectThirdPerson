@@ -60,15 +60,12 @@ void TowerDefenseScene::initialize()
 
 	//setup the core part
 	AbstractGame::initialize(WindowWidth, WindowHeight);
+	GameController::Window = _window;
 
 	//setup the custom part so we can display some text
 	std::cout << "Initializing HUD" << std::endl;
 	_hud = new DebugHud(_window);
 	std::cout << "HUD initialized." << std::endl << std::endl;
-
-	std::cout << "Initializing 2D layer" << std::endl;
-	_uiManager = new UIManager(_window);
-	std::cout << "2D layer initialized." << std::endl;
 
 	GameController::World = _world;
 }
@@ -153,6 +150,9 @@ void TowerDefenseScene::initializeLua()
 void TowerDefenseScene::_initializeScene()
 {
 	GameController* gameController = new GameController();
+	std::cout << "Initializing 2D layer" << std::endl;
+	_uiManager = new UIManager(_window);
+	std::cout << "2D layer initialized." << std::endl;
 	//MESHES
 
 	//load a bunch of meshes we will be using throughout this demo
@@ -240,12 +240,13 @@ void TowerDefenseScene::_initializeScene()
 
 	Enemy* enemy = new Enemy();
 
-	sf::Texture tex;
-	tex.loadFromFile(config::MGE_TEXTURE_PATH + "water.jpg");
+	sf::Texture* tex = new sf::Texture();
+	tex->loadFromFile(config::MGE_TEXTURE_PATH + "bricks.jpg");
 
 	AdvancedSprite* sprite = new AdvancedSprite();
-	sprite->setTexture(tex);
-	//_uiManager->AddSprite(sprite);
+	sprite->addBehaviour(new WASDBehaviour());
+	_world->add(sprite);
+	_uiManager->AddSprite(sprite, tex);
 }
 
 void TowerDefenseScene::_render()

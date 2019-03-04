@@ -15,11 +15,12 @@ public:
 	virtual ~UIManager();
 	void Draw();
 
-	void AddSprite(sf::Sprite* pSprite);
+	void AddSprite(AdvancedSprite* pSprite, sf::Texture* pTexture);
 
 private:
 	sf::RenderWindow * _window;
-	std::vector<sf::Sprite*> _sprites;
+	std::vector<AdvancedSprite*> _sprites;
+	std::vector<sf::Texture*> _textures;
 
 	UIManager(const UIManager&);
 	UIManager& operator=(const UIManager&);

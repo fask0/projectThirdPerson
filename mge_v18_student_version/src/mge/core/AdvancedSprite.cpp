@@ -16,51 +16,54 @@ AdvancedSprite::~AdvancedSprite()
 
 void AdvancedSprite::update(float pStep)
 {
-	sf::FloatRect spriteBoundaries = sf::Sprite::getGlobalBounds();
-	sf::Vector2i mousePos = sf::Mouse::getPosition(*GameController::Window);
-
-	if (mousePos.x > spriteBoundaries.left &&
-		mousePos.x < spriteBoundaries.left + spriteBoundaries.width &&
-		mousePos.y > spriteBoundaries.top &&
-		mousePos.y < spriteBoundaries.top + spriteBoundaries.height)
+	if (GameController::Window != nullptr)
 	{
-		if (_lastMouseOver)
+		sf::FloatRect spriteBoundaries = sf::Sprite::getGlobalBounds();
+		sf::Vector2i mousePos = sf::Mouse::getPosition(*GameController::Window);
+
+		if (mousePos.x > spriteBoundaries.left &&
+			mousePos.x < spriteBoundaries.left + spriteBoundaries.width &&
+			mousePos.y > spriteBoundaries.top &&
+			mousePos.y < spriteBoundaries.top + spriteBoundaries.height)
 		{
-			//Execute mouseover
-			for each (AbstractBehaviour* behaviour in getBehaviours())
+			if (_lastMouseOver)
 			{
-				behaviour->On2DMouseOver();
+				//Execute mouseover
+				for each (AbstractBehaviour* behaviour in getBehaviours())
+				{
+					behaviour->On2DMouseOver();
+				}
 			}
+			else
+			{
+				//Execute mouseenter
+				for each (AbstractBehaviour* behaviour in getBehaviours())
+				{
+					behaviour->On2DMouseEnter();
+				}
+			}
+
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+			{
+				//Execute onclick
+				for each (AbstractBehaviour* behaviour in getBehaviours())
+				{
+					behaviour->On2DMouseClick();
+				}
+			}
+			_lastMouseOver = true;
 		}
 		else
 		{
-			//Execute mouseenter
-			for each (AbstractBehaviour* behaviour in getBehaviours())
+			if (_lastMouseOver)
 			{
-				behaviour->On2DMouseEnter();
+				//Execute mouseexit
+				for each (AbstractBehaviour* behaviour in getBehaviours())
+				{
+					behaviour->On2DMouseExit();
+				}
+				_lastMouseOver = false;
 			}
-		}
-
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-		{
-			//Execute onclick
-			for each (AbstractBehaviour* behaviour in getBehaviours())
-			{
-				behaviour->On2DMouseClick();
-			}
-		}
-		_lastMouseOver = true;
-	}
-	else
-	{
-		if (_lastMouseOver)
-		{
-			//Execute mouseexit
-			for each (AbstractBehaviour* behaviour in getBehaviours())
-			{
-				behaviour->On2DMouseExit();
-			}
-			_lastMouseOver = false;
 		}
 	}
 }
