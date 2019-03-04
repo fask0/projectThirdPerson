@@ -255,9 +255,9 @@ void GameObject::update(float pStep)
 		_behaviour->update(pStep);
 	}
 
-	for each (AbstractBehaviour* behaviour in _behaviours)
+	for (int i = 0; i < _behaviours.size(); i++)
 	{
-		behaviour->update(pStep);
+		_behaviours[i]->update(pStep);
 	}
 
 	for (int i = _children.size() - 1; i >= 0; --i)

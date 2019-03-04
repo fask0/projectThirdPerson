@@ -14,6 +14,9 @@
 #include "mge/core/Enemy.hpp"
 #include "mge/core/UIManager.hpp"
 #include "mge/core/EnemySpawner.hpp"
+#include "mge/core/GridManager.hpp"
+
+#include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -22,7 +25,7 @@
  */
 class GameController : public GameObject
 {
-	public:
+public:
 	GameController();
 
 	virtual ~GameController();
@@ -41,6 +44,7 @@ class GameController : public GameObject
 	static World* World;
 	static sf::RenderWindow* Window;
 	static UIManager* UIManager;
+	static GridManager* GridManager;
 
 	//--Lua variables
 	static bool Debug;
@@ -70,6 +74,7 @@ class GameController : public GameObject
 	static float GameController::LaneFourDelayBetweenEnemies;
 
 	//Towers
+	static int StartingMoney;
 	//Toaster tower
 	static float ToasterRange;
 	static float ToasterAttSpeed;
@@ -96,7 +101,7 @@ class GameController : public GameObject
 	static float RatEffectRecoverySpeed;
 	//--End of Lua variables
 
-	private:
+private:
 	GameController(const GameController&);
 	GameController& operator= (const GameController&);
 

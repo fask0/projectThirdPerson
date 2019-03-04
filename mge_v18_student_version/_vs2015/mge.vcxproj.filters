@@ -119,6 +119,18 @@
     <ClCompile Include="..\src\mge\behaviours\EffectBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\HoneyTowerBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\HoneyProjectile.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\HoneyProjectileBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\ShockTowerBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -238,6 +250,18 @@
       <Filter>Enemies</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\behaviours\EffectBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\HoneyTowerBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\HoneyProjectile.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\HoneyProjectileBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\ShockTowerBehaviour.hpp">
       <Filter>Behaviours</Filter>
     </ClInclude>
   </ItemGroup>

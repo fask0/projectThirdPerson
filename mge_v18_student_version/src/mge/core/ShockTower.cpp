@@ -2,6 +2,7 @@
 #include "mge/core/Tower.hpp"
 #include "mge/core/GameController.hpp"
 #include "mge/behaviours/ToasterTowerBehaviour.hpp"
+#include "mge/behaviours/ShockTowerBehaviour.hpp"
 
 Mesh* ShockTower::Mesh;
 AbstractMaterial* ShockTower::Material;
@@ -29,5 +30,5 @@ void ShockTower::update(float pStep)
 
 void ShockTower::AddTowerBehaviour()
 {
-
+	addBehaviour(new ShockTowerBehaviour());
 }

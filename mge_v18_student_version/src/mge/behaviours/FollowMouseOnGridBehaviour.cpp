@@ -7,6 +7,8 @@
 #include <SFML/Audio.hpp>
 #include "glm.hpp"
 
+#include "mge/core/GameController.hpp"
+
 
 FollowMouseOnGridBehaviour::FollowMouseOnGridBehaviour(LitTextureGridMaterial* pMaterial) : AbstractBehaviour(), _material(pMaterial)
 {
@@ -42,5 +44,13 @@ void FollowMouseOnGridBehaviour::update(float pstep)
 		_materialDynamic->setColliding(_owner->isColliding);
 	}
 
-	dynamic_cast<LitSelectedTextureMaterial*>(_owner->getMaterial())->SetColliding(_owner->isColliding);
+	if (GameController::GridManager->_currentMoney > dynamic_cast<Tower*>(_owner)->GetCost())
+	{
+		_materialDynamic->setColliding(false);
+		dynamic_cast<LitSelectedTextureMaterial*>(_owner->getMaterial())->SetColliding(_owner->isColliding);
+	}
+	else
+	{
+		_materialDynamic->setColliding(true);
+	}
 }
