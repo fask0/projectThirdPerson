@@ -1,6 +1,10 @@
 #include "mge/core/MouseTrapTower.hpp"
 #include "mge/core/Tower.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/core/ToasterTower.hpp"
+#include "mge/core/MouseTrapTower.hpp"
+#include "mge/core/HoneyTower.hpp"
+#include "mge/core/ShockTower.hpp"
 
 Mesh* MouseTrapTower::Mesh;
 AbstractMaterial* MouseTrapTower::Material;

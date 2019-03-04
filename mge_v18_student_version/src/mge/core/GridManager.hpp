@@ -27,6 +27,7 @@ public:
 	void update(float pStep) override;
 	void InputDetection(sf::Event pEvent);
 
+	int _currentMoney;
 
 private:
 	std::vector<GameObject*> _gridObjects;

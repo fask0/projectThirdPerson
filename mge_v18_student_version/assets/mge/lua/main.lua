@@ -33,9 +33,10 @@ LaneFourDelayBetweenEnemies = 1.0;
 --------------------------------------------------------------------------------------
 ----------------------------------------Towers----------------------------------------
 --------------------------------------------------------------------------------------
+StartingMoney = 50;
 --Toaster tower (basic shooting tower)
 ToasterRange = 6;
-ToasterAttSpeed = 5;
+ToasterAttSpeed = 1;
 ToasterCost = 20;
 
 --Honey tower (slows enemies)
@@ -49,7 +50,7 @@ MouseTrapCost = 30;
 
 --Shock tower (Shocks enemies within certain range dealing AoE damage)
 ShockRange = 4;
-ShockAttSpeed = 10;
+ShockAttSpeed = 0.25;
 ShockCost = 50;
 
 ---------------------------------------------------------------------------------------
@@ -67,5 +68,6 @@ RatHealth = 100;
 RatHealthRegen = 0;
 RatDamage = 5;
 RatSpeed = 2;
+RatKillValue = 3;
 RatEffectRecoverySpeed = 2;
 ---------------------------------------------------------------------------------------

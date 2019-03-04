@@ -45,6 +45,7 @@ void WaypointFollowBehaviour::update(float pStep)
 		_owner->Kill();
 		return;
 	}
+	_enemyOwner = dynamic_cast<Enemy*>(_owner);
 	_velocity = _direction * _enemyOwner->getSpeed() * pStep;
 	glm::vec3 oPos = _enemyOwner->getLocalPosition();
 	glm::vec3 distToCurrent = _currentWaypoint->getLocalPosition() - oPos;
@@ -59,7 +60,7 @@ void WaypointFollowBehaviour::update(float pStep)
 		}
 	}
 	else if (glm::abs(distToCurrent.x) <= _enemyOwner->getSpeed() * pStep * 1.1f &&
-			 glm::abs(distToCurrent.z) <= _enemyOwner->getSpeed() * pStep * 1.1f)
+		glm::abs(distToCurrent.z) <= _enemyOwner->getSpeed() * pStep * 1.1f)
 	{
 		if (_toDo.size() > 1)
 			_currentWaypoint = _toDo[1];
@@ -76,7 +77,6 @@ void WaypointFollowBehaviour::update(float pStep)
 void WaypointFollowBehaviour::Init()
 {
 	_direction = getDir();
-	_enemyOwner = dynamic_cast<Enemy*>(_owner);
 }
 
 glm::vec3 WaypointFollowBehaviour::getDir()

@@ -52,7 +52,7 @@ void ToasterTowerBehaviour::Rotate()
 
 void ToasterTowerBehaviour::Attack()
 {
-	if (float(clock() - _lastAttackTime) / CLOCKS_PER_SEC >= 1)
+	if (float(clock() - _lastAttackTime) / CLOCKS_PER_SEC >= GameController::ToasterAttSpeed)
 	{
 		if (!_isProjectileCreated)
 		{

@@ -11,7 +11,7 @@
 
 class Enemy : public GameObject
 {
-	public:
+public:
 	Enemy(
 		std::string pName = "Enemy",
 		glm::vec3 pPosition = glm::vec3(0, 0, 0),
@@ -31,10 +31,13 @@ class Enemy : public GameObject
 
 	void speedUp(float pSpeedUpPercent);
 	void slowDown(float pSlowDownPercent);
+	void setSlowDown(float pSlowDownPercent);
 	float getSpeed();
 	int getSize();
 
-	protected:
+	int RatKillValue = 3;
+
+protected:
 	Waypoint::Lane _lane;
 	int _size;
 	int _health;

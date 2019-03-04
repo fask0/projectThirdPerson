@@ -7,7 +7,7 @@
 
 class EffectBehaviour : public AbstractBehaviour
 {
-	public:
+public:
 	enum Effect
 	{
 		SpeedUp,
@@ -16,18 +16,19 @@ class EffectBehaviour : public AbstractBehaviour
 		DamageOverTime
 	};
 
-	EffectBehaviour(Effect pEffectType, int pPotency, int pDuration);
+	EffectBehaviour(Effect pEffectType, int pPotency, int pDuration, float pDotRate = 1.0f);
 	~EffectBehaviour();
 
 	virtual void update(float pStep);
 
-	private:
+private:
 	Effect _effect;
 	Enemy* _enemyOwner;
 
 	int _effectPotency;
 	int _duration;
 	int _timeElapsed;
+	float _dotRate;
 
 	bool _isOwnerAffected;
 

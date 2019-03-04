@@ -5,8 +5,8 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Enemy.hpp"
 
-EffectBehaviour::EffectBehaviour(Effect pEffectType, int pPotency, int pDuration)
-	: AbstractBehaviour(), _effect(pEffectType), _effectPotency(pPotency), _duration(pDuration)
+EffectBehaviour::EffectBehaviour(Effect pEffectType, int pPotency, int pDuration, float pDotRate)
+	: AbstractBehaviour(), _effect(pEffectType), _effectPotency(pPotency), _duration(pDuration), _dotRate(pDotRate)
 {
 	_timeElapsed = 0;
 	_isOwnerAffected = false;
@@ -21,16 +21,16 @@ void EffectBehaviour::update(float pStep)
 {
 	switch (_effect)
 	{
-		case EffectBehaviour::SpeedUp:
+	case EffectBehaviour::SpeedUp:
 		speedUp();
 		break;
-		case EffectBehaviour::SlowDown:
+	case EffectBehaviour::SlowDown:
 		slowDown();
 		break;
-		case EffectBehaviour::HealOverTime:
+	case EffectBehaviour::HealOverTime:
 		heal();
 		break;
-		case EffectBehaviour::DamageOverTime:
+	case EffectBehaviour::DamageOverTime:
 		damage();
 		break;
 	}
@@ -81,7 +81,7 @@ void EffectBehaviour::heal()
 
 void EffectBehaviour::damage()
 {
-	if (clock() >= _timeElapsed + CLOCKS_PER_SEC)
+	if (clock() >= _timeElapsed + CLOCKS_PER_SEC * _dotRate)
 	{
 		dynamic_cast<Enemy*>(_owner)->TakeDamage(_effectPotency);
 		_timeElapsed = clock();

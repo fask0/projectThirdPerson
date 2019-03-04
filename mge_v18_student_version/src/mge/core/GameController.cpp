@@ -24,6 +24,7 @@
 #include "mge/core/Rat.hpp"
 
 #include "mge/core/ToasterProjectile.hpp"
+#include "mge/core/HoneyProjectile.hpp"
 
 std::vector<Light*> GameController::Lights;
 std::vector<Enemy*> GameController::Enemies;
@@ -37,6 +38,7 @@ CameraMovementBehaviour* GameController::CameraBehaviour;
 World* GameController::World;
 sf::RenderWindow* GameController::Window;
 UIManager* GameController::UIManager;
+GridManager* GameController::GridManager;
 
 //--Lua variables
 bool GameController::Debug = false;
@@ -66,6 +68,7 @@ int GameController::LaneFourEnemyScalingPercentage;
 float GameController::LaneFourDelayBetweenEnemies;
 
 //Towers
+int GameController::StartingMoney;
 //Toaster tower
 float GameController::ToasterRange;
 float GameController::ToasterAttSpeed;
@@ -112,6 +115,8 @@ void GameController::SetTowerVariables()
 
 	ToasterProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
 	ToasterProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife 1.png"));
+	HoneyProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
+	HoneyProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife 1.png"));
 
 	//Slingshot tower
 	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/ToasterTower");

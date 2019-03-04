@@ -1,6 +1,7 @@
 #include "mge/core/HoneyTower.hpp"
 #include "mge/core/Tower.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/behaviours/HoneyTowerBehaviour.hpp"
 
 Mesh* HoneyTower::Mesh;
 AbstractMaterial* HoneyTower::Material;
@@ -28,5 +29,5 @@ void HoneyTower::update(float pStep)
 
 void HoneyTower::AddTowerBehaviour()
 {
-
+	addBehaviour(new HoneyTowerBehaviour());
 }
