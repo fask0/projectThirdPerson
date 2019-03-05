@@ -4,6 +4,7 @@
 #include "mge/core/World.hpp"
 #include "mge/core/Helper.hpp"
 #include "mge/core/ToasterProjectile.hpp"
+#include "mge/core/ToasterTower.hpp"
 
 ToasterTowerBehaviour::ToasterTowerBehaviour() : TowerBehaviour()
 {
@@ -59,6 +60,7 @@ void ToasterTowerBehaviour::Attack()
 			_projectile = new ToasterProjectile(_owner->getTransform());
 			GameController::World->add(_projectile);
 			_isProjectileCreated = true;
+			dynamic_cast<ToasterTower*>(_owner)->primedProjectile = _projectile;
 		}
 		if (_enemiesInRange && _isProjectileCreated)
 		{
@@ -66,6 +68,7 @@ void ToasterTowerBehaviour::Attack()
 			_projectile->Shoot();
 			_lastAttackTime = clock();
 			_isProjectileCreated = false;
+			dynamic_cast<ToasterTower*>(_owner)->primedProjectile = nullptr;
 		}
 	}
 }

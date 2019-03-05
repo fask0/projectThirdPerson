@@ -57,6 +57,10 @@ void ToasterProjectile::update(float pStep)
 
 void ToasterProjectile::OnCollisionEnter(GameObject * pOther)
 {
+	if (dynamic_cast<Enemy*>(pOther))
+	{
+		dynamic_cast<Enemy*>(pOther)->TakeDamage(GameController::ToasterDamage);
+	}
 	Kill();
 }
 

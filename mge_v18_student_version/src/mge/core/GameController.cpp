@@ -14,8 +14,14 @@
 
 #include "mge/core/ToasterTower.hpp"
 #include "mge/core/HoneyTower.hpp"
-#include "mge/core/MouseTrapTower.hpp"
 #include "mge/core/ShockTower.hpp"
+#include "mge/core/IceTower.hpp"
+#include "mge/core/MagnifyingGlassTower.hpp"
+#include "mge/core/SniperTower.hpp"
+
+#include "mge/core/ToasterProjectile.hpp"
+#include "mge/core/HoneyProjectile.hpp"
+#include "mge/core/IceProjectile.hpp"
 
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/EnemySpawner.hpp"
@@ -24,9 +30,6 @@
 #include "mge/core/Rat.hpp"
 #include "mge/core/ChadRat.hpp"
 #include "mge/core/SanicRat.hpp"
-
-#include "mge/core/ToasterProjectile.hpp"
-#include "mge/core/HoneyProjectile.hpp"
 
 std::vector<Light*> GameController::Lights;
 std::vector<Enemy*> GameController::Enemies;
@@ -75,17 +78,34 @@ int GameController::StartingMoney;
 float GameController::ToasterRange;
 float GameController::ToasterAttSpeed;
 int GameController::ToasterCost;
+int GameController::ToasterDamage;
 //Honey tower
 float GameController::HoneyRange;
 float GameController::HoneyAttSpeed;
 int GameController::HoneyCost;
-//MouseTrap tower
-float GameController::MouseTrapRange;
-int GameController::MouseTrapCost;
+int GameController::HoneySlowAmount;
 //Shock tower
 float GameController::ShockRange;
 float GameController::ShockAttSpeed;
 int GameController::ShockCost;
+float GameController::ShockDamage;
+//Ice tower
+float GameController::IceRange;
+float GameController::IceAttSpeed;
+float GameController::IceFreezeTime;
+int GameController::IceCost;
+int GameController::IceDamage;
+//Magnifying glass tower
+float GameController::MagnifyingRange;
+float GameController::MagnifyingFireDamage;
+float GameController::MagnifyingFireRate;
+float GameController::MagnifyingFireDuration;
+int GameController::MagnifyingCost;
+//Sniper tower
+float GameController::SniperRange;
+float GameController::SniperAttSpeed;
+int GameController::SniperCost;
+int GameController::SniperDamage;
 
 //Enemies
 //Rat
@@ -133,6 +153,8 @@ void GameController::SetTowerVariables()
 	ToasterProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife 1.png"));
 	HoneyProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
 	HoneyProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife 1.png"));
+	IceProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
+	IceProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife 1.png"));
 
 	//Slingshot tower
 	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/ToasterTower");
@@ -140,12 +162,18 @@ void GameController::SetTowerVariables()
 	//Honey tower
 	HoneyTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTower");
 	HoneyTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"), true);
-	//MouseTrap tower
-	MouseTrapTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/MouseTrap");
-	MouseTrapTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"), true);
 	//Shock tower
 	ShockTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/AoETower");
 	ShockTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"), true);
+	//Ice tower
+	IceTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/MouseTrap");
+	IceTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"), true);
+	//Magnifying glass tower
+	MagnifyingGlassTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/MouseTrap");
+	MagnifyingGlassTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"), true);
+	//Sniper tower
+	SniperTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/MouseTrap");
+	SniperTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"), true);
 }
 
 void GameController::SetUpEnemies()

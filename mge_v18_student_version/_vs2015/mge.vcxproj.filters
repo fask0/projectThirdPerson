@@ -38,12 +38,6 @@
     <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\ToasterProjectileBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\ToasterTowerBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mge\behaviours\TowerBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
@@ -95,9 +89,6 @@
     <ClCompile Include="..\src\mge\core\HoneyTower.cpp">
       <Filter>Towers</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\core\MouseTrapTower.cpp">
-      <Filter>Towers</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mge\core\ShockTower.cpp">
       <Filter>Towers</Filter>
     </ClCompile>
@@ -105,9 +96,6 @@
       <Filter>Towers</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\Tower.cpp">
-      <Filter>Towers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\ToasterProjectile.cpp">
       <Filter>Towers</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\Enemy.cpp">
@@ -119,17 +107,50 @@
     <ClCompile Include="..\src\mge\behaviours\EffectBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\HoneyTowerBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\HoneyProjectile.cpp">
+    <ClCompile Include="..\src\mge\core\MagnifyingGlassTower.cpp">
       <Filter>Towers</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\HoneyProjectileBehaviour.cpp">
-      <Filter>Behaviours</Filter>
+    <ClCompile Include="..\src\mge\core\SniperTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\IceTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\HoneyProjectile.cpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\ToasterProjectile.cpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\HoneyTowerBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\behaviours\ShockTowerBehaviour.cpp">
-      <Filter>Behaviours</Filter>
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\ToasterTowerBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\ToasterProjectileBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\HoneyProjectileBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\IceTowerBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\MagnifyingGlassTowerBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\SniperTowerBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\IceProjectile.cpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\IceProjectileBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\SanicRat.cpp">
       <Filter>Enemies</Filter>
@@ -175,12 +196,6 @@
       <Filter>Behaviours</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\ToasterProjectileBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\ToasterTowerBehaviour.hpp">
       <Filter>Behaviours</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\behaviours\TowerBehaviour.hpp">
@@ -237,16 +252,10 @@
     <ClInclude Include="..\src\mge\core\HoneyTower.hpp">
       <Filter>Towers</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\core\MouseTrapTower.hpp">
-      <Filter>Towers</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mge\core\ShockTower.hpp">
       <Filter>Towers</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\ToasterTower.hpp">
-      <Filter>Towers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\ToasterProjectile.hpp">
       <Filter>Towers</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\Enemy.hpp">
@@ -258,17 +267,50 @@
     <ClInclude Include="..\src\mge\behaviours\EffectBehaviour.hpp">
       <Filter>Behaviours</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\HoneyTowerBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\HoneyProjectile.hpp">
+    <ClInclude Include="..\src\mge\core\MagnifyingGlassTower.hpp">
       <Filter>Towers</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\HoneyProjectileBehaviour.hpp">
-      <Filter>Behaviours</Filter>
+    <ClInclude Include="..\src\mge\core\SniperTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\IceTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\HoneyProjectile.hpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ToasterProjectile.hpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\HoneyTowerBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\behaviours\ShockTowerBehaviour.hpp">
-      <Filter>Behaviours</Filter>
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\ToasterTowerBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\ToasterProjectileBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\HoneyProjectileBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\IceTowerBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\MagnifyingGlassTowerBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\SniperTowerBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\IceProjectile.hpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\IceProjectileBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\SanicRat.hpp">
       <Filter>Enemies</Filter>
@@ -293,8 +335,14 @@
     <Filter Include="Materials">
       <UniqueIdentifier>{3d8fa20b-517c-4f75-acff-df122fc65f27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Shadows">
-      <UniqueIdentifier>{eac874d5-ec15-4b39-90cd-50efb5b5e2f7}</UniqueIdentifier>
+    <Filter Include="Towers\Projectiles">
+      <UniqueIdentifier>{fcc25723-a43b-4d4b-b4de-abcd25663e5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviours\TowerBehaviours">
+      <UniqueIdentifier>{5cc1804d-0d10-47c7-86c6-2cbf0a30ede1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviours\TowerBehaviours\TowerProjectileBehaviours">
+      <UniqueIdentifier>{3e4e924a-61ce-4ffd-b0e3-3122adc53c12}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

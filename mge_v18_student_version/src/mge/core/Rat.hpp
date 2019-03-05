@@ -21,5 +21,4 @@ class Rat : public Enemy
 	~Rat();
 
 	virtual void update(float pStep);
-	void OnCollisionEnter(GameObject* pOther) override;
 };

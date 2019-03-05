@@ -46,8 +46,10 @@
 #include "mge/core/EnemySpawner.hpp"
 #include "mge/core/ToasterTower.hpp"
 #include "mge/core/HoneyTower.hpp"
-#include "mge/core/MouseTrapTower.hpp"
 #include "mge/core/ShockTower.hpp"
+#include "mge/core/IceTower.hpp"
+#include "mge/core/MagnifyingGlassTower.hpp"
+#include "mge/core/SniperTower.hpp"
 
 #include "mge/core/UIManager.hpp"
 #include "mge/core/AdvancedSprite.hpp"
@@ -129,54 +131,62 @@ void TowerDefenseScene::initializeLua()
 	GameController::LaneFourEnemyScalingPercentage = intFromLua("LaneFourEnemyScalingPercentage");
 	GameController::LaneFourDelayBetweenEnemies = floatFromLua("LaneFourDelayBetweenEnemies");
 
+	GameController::StartingMoney = intFromLua("StartingMoney");
 	//Toaster tower
-	lua_getglobal(lua, "ToasterRange");
-	GameController::ToasterRange = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "ToasterAttSpeed");
-	GameController::ToasterAttSpeed = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "ToasterCost");
-	GameController::ToasterCost = lua_tointeger(lua, -1);
-	lua_pop(lua, -1);
-
+	GameController::ToasterRange = floatFromLua("ToasterRange");
+	GameController::ToasterAttSpeed = floatFromLua("ToasterAttSpeed");
+	GameController::ToasterDamage = intFromLua("ToasterDamage");
+	GameController::ToasterCost = intFromLua("ToasterCost");
 	//Honey tower
-	lua_getglobal(lua, "HoneyRange");
-	GameController::HoneyRange = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "HoneyAttSpeed");
-	GameController::HoneyAttSpeed = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "HoneyCost");
-	GameController::HoneyCost = lua_tointeger(lua, -1);
-	lua_pop(lua, -1);
-
-	//MouseTrap tower
-	lua_getglobal(lua, "MouseTrapRange");
-	GameController::MouseTrapRange = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "MouseTrapCost");
-	GameController::MouseTrapCost = lua_tointeger(lua, -1);
-	lua_pop(lua, -1);
-
+	GameController::HoneyRange = floatFromLua("HoneyRange");
+	GameController::HoneyAttSpeed = floatFromLua("HoneyAttSpeed");
+	GameController::HoneyCost = intFromLua("HoneyCost");
+	GameController::HoneySlowAmount = intFromLua("HoneySlowAmount");
 	//Shock tower
-	lua_getglobal(lua, "ShockRange");
-	GameController::ShockRange = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "ShockAttSpeed");
-	GameController::ShockAttSpeed = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "ShockCost");
-	GameController::ShockCost = lua_tointeger(lua, -1);
-	lua_pop(lua, -1);
+	GameController::ShockRange = floatFromLua("ShockRange");
+	GameController::ShockAttSpeed = floatFromLua("ShockAttSpeed");
+	GameController::ShockCost = intFromLua("ShockCost");
+	GameController::ShockDamage = floatFromLua("ShockDamage");
+	//Ice tower
+	GameController::IceRange = floatFromLua("IceRange");
+	GameController::IceAttSpeed = floatFromLua("IceAttSpeed");
+	GameController::IceFreezeTime = floatFromLua("IceFreezeTime");
+	GameController::IceCost = intFromLua("IceCost");
+	GameController::IceDamage = intFromLua("IceDamage");
+	//Magnifying glass tower
+	GameController::MagnifyingRange = floatFromLua("MagnifyingRange");
+	GameController::MagnifyingFireDamage = floatFromLua("MagnifyingFireDamage");
+	GameController::MagnifyingFireRate = floatFromLua("MagnifyingFireRate");
+	GameController::MagnifyingFireDuration = floatFromLua("MagnifyingFireDuration");
+	GameController::MagnifyingCost = intFromLua("MagnifyingCost");
+	//Sniper tower
+	GameController::SniperRange = floatFromLua("SniperRange");
+	GameController::SniperAttSpeed = floatFromLua("SniperAttSpeed");
+	GameController::SniperCost = intFromLua("SniperCost");
+	GameController::SniperDamage = intFromLua("SniperDamage");
 
 	//Rats
+	//Rat
 	GameController::RatSize = intFromLua("RatSize");
 	GameController::RatHealth = intFromLua("RatHealth");
 	GameController::RatHealthRegen = intFromLua("RatHealthRegen");
 	GameController::RatDamage = intFromLua("RatDamage");
 	GameController::RatSpeed = floatFromLua("RatSpeed");
 	GameController::RatEffectRecoverySpeed = floatFromLua("RatEffectRecoverySpeed");
+	//ChadRat
+	GameController::ChadSize = intFromLua("ChadSize");
+	GameController::ChadHealth = intFromLua("ChadHealth");
+	GameController::ChadHealthRegen = intFromLua("ChadHealthRegen");
+	GameController::ChadDamage = intFromLua("ChadDamage");
+	GameController::ChadSpeed = floatFromLua("ChadSpeed");
+	GameController::ChadEffectRecoverySpeed = floatFromLua("ChadEffectRecoverySpeed");
+	//SanicRat
+	GameController::SanicSize = intFromLua("SanicSize");
+	GameController::SanicHealth = intFromLua("SanicHealth");
+	GameController::SanicHealthRegen = intFromLua("SanicHealthRegen");
+	GameController::SanicDamage = intFromLua("SanicDamage");
+	GameController::SanicSpeed = floatFromLua("SanicSpeed");
+	GameController::SanicEffectRecoverySpeed = floatFromLua("SanicEffectRecoverySpeed");
 }
 
 int TowerDefenseScene::intFromLua(std::string pVariableName)
@@ -210,16 +220,12 @@ bool TowerDefenseScene::boolFromLua(std::string pVariableName)
 void TowerDefenseScene::_initializeScene()
 {
 	GameController* gameController = new GameController();
-<<<<<<< HEAD
 	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
 	_world->add(colManager);
-=======
+
 	std::cout << "Initializing 2D layer" << std::endl;
 	_uiManager = new UIManager(_window);
 	std::cout << "2D layer initialized." << std::endl;
-	//MESHES
->>>>>>> c7d899c625d00e7da3287d3a9776566bc5c9e67b
-
 	//MESHES
 	//load a bunch of meshes we will be using throughout this demo
 	//each mesh only has to be loaded once, but can be used multiple times:
@@ -270,7 +276,7 @@ void TowerDefenseScene::_initializeScene()
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
 	camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
-	camera->addBehaviour(new CameraMovementBehaviour(-17, 17, -17, 17, 10, 20, _window, camera->getLocalPosition(), 1.0f, 10.0f));
+	camera->addBehaviour(new CameraMovementBehaviour(-17, 17, -17, 17, 10, 50, _window, camera->getLocalPosition(), 1.0f, 10.0f));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
@@ -311,6 +317,11 @@ void TowerDefenseScene::_initializeScene()
 	tex->loadFromFile(config::MGE_TEXTURE_PATH + "bricks.jpg");
 
 	AdvancedSprite* sprite = new AdvancedSprite();
+<<<<<<< HEAD
+	sprite->setPosition(0, 32);
+=======
+	sprite->setPosition(0, 100);
+>>>>>>> 56c697b054f6b98a13353fb53277a8f596174202
 	sprite->addBehaviour(new WASDBehaviour());
 	_world->add(sprite);
 	_uiManager->AddSprite(sprite, tex);

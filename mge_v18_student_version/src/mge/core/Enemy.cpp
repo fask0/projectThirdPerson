@@ -93,7 +93,7 @@ void Enemy::TakeDamage(int pDamage)
 	_health -= pDamage;
 
 	if (_health > 0) return;
-	GameController::GridManager->_currentMoney += RatKillValue;
+	GameController::GridManager->_currentMoney += KillValue;
 	Kill();
 }
 
@@ -107,6 +107,8 @@ void Enemy::slowDown(float pSlowDownPercent)
 	_slowDown += pSlowDownPercent;
 	if (_slowDown > 100)
 		_slowDown = 100;
+	if (_slowDown < 0)
+		_slowDown = 0;
 }
 
 void Enemy::setSlowDown(float pSlowDownPercent)

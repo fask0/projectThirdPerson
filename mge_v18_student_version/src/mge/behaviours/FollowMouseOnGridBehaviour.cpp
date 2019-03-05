@@ -31,20 +31,20 @@ void FollowMouseOnGridBehaviour::update(float pstep)
 	if (_material != nullptr)
 	{
 		float gSize = _material->getGridSize();
-		glm::vec3 pos = (glm::floor(_material->getMousePos() / gSize) * gSize) + glm::vec3(gSize / 2, yScale / 2, gSize / 2);
+		glm::vec3 pos = (glm::floor(_material->getMousePos() / gSize) * gSize) + glm::vec3(gSize / 2, /*-yScale / 2*/0, gSize / 2);
 		_owner->setLocalPosition(pos);
 		_material->SetTowerPos(pos);
 	}
 	else
 	{
 		float gSize = _materialDynamic->getGridSize();
-		glm::vec3 pos = (glm::floor(_materialDynamic->getMousePos() / gSize) * gSize) + glm::vec3(gSize / 2, yScale / 2, gSize / 2);
+		glm::vec3 pos = (glm::floor(_materialDynamic->getMousePos() / gSize) * gSize) + glm::vec3(gSize / 2, /*-yScale / 2*/0, gSize / 2);
 		_owner->setLocalPosition(pos);
 		_materialDynamic->SetTowerPos(pos);
 		_materialDynamic->setColliding(_owner->isColliding);
 	}
 
-	if (GameController::GridManager->_currentMoney > dynamic_cast<Tower*>(_owner)->GetCost())
+	if (GameController::GridManager->_currentMoney >= dynamic_cast<Tower*>(_owner)->GetCost())
 	{
 		_materialDynamic->setColliding(false);
 		dynamic_cast<LitSelectedTextureMaterial*>(_owner->getMaterial())->SetColliding(_owner->isColliding);

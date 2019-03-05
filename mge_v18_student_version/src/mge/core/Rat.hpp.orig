@@ -1,0 +1,29 @@
+#pragma once
+
+#include <iostream>
+#include <vector>
+
+#include "mge/core/Enemy.hpp"
+#include "mge/core/Mesh.hpp"
+
+#include "mge/materials/AbstractMaterial.hpp"
+
+class Rat : public Enemy
+{
+<<<<<<< HEAD
+	public:
+	static std::vector<Mesh*> Animation;
+=======
+public:
+	static Mesh* Mesh;
+>>>>>>> 56c697b054f6b98a13353fb53277a8f596174202
+	static AbstractMaterial* Material;
+
+	Rat(std::string pName = "Rat",
+		glm::vec3 pPosition = glm::vec3(0, 0, 0),
+		Waypoint::Lane pLane = Waypoint::A,
+		std::string pTag = "enemy");
+	~Rat();
+
+	virtual void update(float pStep);
+};
