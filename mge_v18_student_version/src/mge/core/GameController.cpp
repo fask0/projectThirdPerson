@@ -22,6 +22,8 @@
 
 #include "mge/core/Enemy.hpp"
 #include "mge/core/Rat.hpp"
+#include "mge/core/ChadRat.hpp"
+#include "mge/core/SanicRat.hpp"
 
 #include "mge/core/ToasterProjectile.hpp"
 #include "mge/core/HoneyProjectile.hpp"
@@ -93,6 +95,20 @@ int GameController::RatHealthRegen;
 int GameController::RatDamage;
 float GameController::RatSpeed;
 float GameController::RatEffectRecoverySpeed;
+//ChadRat
+int GameController::ChadSize;
+int GameController::ChadHealth;
+int GameController::ChadHealthRegen;
+int GameController::ChadDamage;
+float GameController::ChadSpeed;
+float GameController::ChadEffectRecoverySpeed;
+//SanicRat
+int GameController::SanicSize;
+int GameController::SanicHealth;
+int GameController::SanicHealthRegen;
+int GameController::SanicDamage;
+float GameController::SanicSpeed;
+float GameController::SanicEffectRecoverySpeed;
 //--End of Lua variables
 
 GameController::GameController() : GameObject("GameController", glm::vec3(0.0f, 0.0f, 0.0f))
@@ -138,6 +154,29 @@ void GameController::SetUpEnemies()
 	CollisionBehaviour::BoxMesh = Mesh::load(config::MGE_MODEL_PATH + "cube_smooth");
 	CollisionBehaviour::SphereMesh = Mesh::load(config::MGE_MODEL_PATH + "sphere4");
 
-	Rat::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Enemies/Incel");
+	//Rat
+	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie0"));
+	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie1"));
+	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie2"));
+	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie3"));
+	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie4"));
+	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie5"));
 	Rat::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemies/incel.png"));
+	//ChadRat
+	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad0"));
+	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad1"));
+	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad2"));
+	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad3"));
+	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad4"));
+	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad5"));
+	ChadRat::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemies/chad_texture.png"));
+	//SanicRat
+	//SanicRat::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Enemies/fastboi");
+	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi0"));
+	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi1"));
+	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi2"));
+	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi3"));
+	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi4"));
+	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi5"));
+	SanicRat::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemies/fastboi_texture.png"));
 }

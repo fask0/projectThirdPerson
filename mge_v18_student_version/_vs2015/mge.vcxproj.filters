@@ -131,6 +131,12 @@
     <ClCompile Include="..\src\mge\behaviours\ShockTowerBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\core\SanicRat.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\ChadRat.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -264,6 +270,15 @@
     <ClInclude Include="..\src\mge\behaviours\ShockTowerBehaviour.hpp">
       <Filter>Behaviours</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\core\SanicRat.hpp">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ChadRat.hpp">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ShadowFrameBuffer.hpp">
+      <Filter>Shadows</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Behaviours">
@@ -277,6 +292,9 @@
     </Filter>
     <Filter Include="Materials">
       <UniqueIdentifier>{3d8fa20b-517c-4f75-acff-df122fc65f27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shadows">
+      <UniqueIdentifier>{eac874d5-ec15-4b39-90cd-50efb5b5e2f7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

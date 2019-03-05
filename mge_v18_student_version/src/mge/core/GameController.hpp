@@ -25,7 +25,7 @@
  */
 class GameController : public GameObject
 {
-public:
+	public:
 	GameController();
 
 	virtual ~GameController();
@@ -99,9 +99,23 @@ public:
 	static int RatDamage;
 	static float RatSpeed;
 	static float RatEffectRecoverySpeed;
+	//ChadRat
+	static int ChadSize;
+	static int ChadHealth;
+	static int ChadHealthRegen;
+	static int ChadDamage;
+	static float ChadSpeed;
+	static float ChadEffectRecoverySpeed;
+	//SanicRat
+	static int SanicSize;
+	static int SanicHealth;
+	static int SanicHealthRegen;
+	static int SanicDamage;
+	static float SanicSpeed;
+	static float SanicEffectRecoverySpeed;
 	//--End of Lua variables
 
-private:
+	private:
 	GameController(const GameController&);
 	GameController& operator= (const GameController&);
 

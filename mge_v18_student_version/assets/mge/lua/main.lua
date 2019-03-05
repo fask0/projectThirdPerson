@@ -11,10 +11,10 @@ WindowHeight = 1080;
 --DelayBetweenEnemies       --How much time between each enemy (in seconds)
 --------------------------------------------------------------------------------------
 --Lane One
-LaneOneBaseSize = 2;
+LaneOneBaseSize = 20;
 LaneOneSizeGrowthFrequency = 1;
 LaneOneEnemyScalingPercentage = 10;
-LaneOneDelayBetweenEnemies = 1.0;
+LaneOneDelayBetweenEnemies = 1;
 --Lane Two
 LaneTwoBaseSize = 20;
 LaneTwoSizeGrowthFrequency = 1;
@@ -70,4 +70,20 @@ RatDamage = 5;
 RatSpeed = 2;
 RatKillValue = 3;
 RatEffectRecoverySpeed = 2;
+--Chad
+ChadSize = 3;            
+ChadHealth = 300;         
+ChadHealthRegen = 0;
+ChadDamage = 5;
+ChadSpeed = 1;
+ChadKillValue = 3;
+ChadEffectRecoverySpeed = 2;
+--Sanic
+SanicSize = 2;
+SanicHealth = 75;         
+SanicHealthRegen = 0;
+SanicDamage = 5;
+SanicSpeed = 4;
+SanicKillValue = 3;
+SanicEffectRecoverySpeed = 2;
 ---------------------------------------------------------------------------------------

@@ -8,10 +8,11 @@
 
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Waypoint.hpp"
+#include "mge/core/Mesh.hpp"
 
 class Enemy : public GameObject
 {
-public:
+	public:
 	Enemy(
 		std::string pName = "Enemy",
 		glm::vec3 pPosition = glm::vec3(0, 0, 0),
@@ -37,7 +38,7 @@ public:
 
 	int RatKillValue = 3;
 
-protected:
+	protected:
 	Waypoint::Lane _lane;
 	int _size;
 	int _health;
@@ -50,4 +51,8 @@ protected:
 	float _baseSpeed;
 	int _speedUp;
 	int _slowDown;
+
+	std::vector<Mesh*> _animation;
+	int _currentFrame;
+	time_t _timer;
 };

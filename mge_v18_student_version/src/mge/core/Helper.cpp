@@ -1,4 +1,6 @@
 #include <iostream>
+#include <algorithm>
+#include <vector>
 #include "glm.hpp"
 #include "mge/core/Helper.hpp"
 #include "mge/core/GameObject.hpp"
@@ -46,4 +48,11 @@ void Helper::LookAt(GameObject* pLooker, GameObject* pLookedAtter)
 	if (diff.x < 0)
 		desiredRot += 3.1415f;
 	pLooker->rotate(-(desiredRot - currentRot), glm::vec3(0, 1, 0));
+}
+
+void Helper::Slerp(GameObject* pSlerper, GameObject* pSlerpatee, float pIncrement)
+{
+	glm::quat qOne = glm::quat_cast(pSlerper->getTransform());
+	glm::quat qTwo = glm::quat_cast(pSlerpatee->getTransform());
+	pSlerper->setTransform(glm::mat4_cast(glm::slerp(qOne, qTwo, pIncrement)));
 }

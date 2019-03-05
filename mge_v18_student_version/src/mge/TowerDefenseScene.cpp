@@ -172,12 +172,27 @@ void TowerDefenseScene::initializeLua()
 	lua_pop(lua, -1);
 
 	//Rats
+	//Rat
 	GameController::RatSize = intFromLua("RatSize");
 	GameController::RatHealth = intFromLua("RatHealth");
 	GameController::RatHealthRegen = intFromLua("RatHealthRegen");
 	GameController::RatDamage = intFromLua("RatDamage");
 	GameController::RatSpeed = floatFromLua("RatSpeed");
 	GameController::RatEffectRecoverySpeed = floatFromLua("RatEffectRecoverySpeed");
+	//ChadRat
+	GameController::ChadSize = intFromLua("ChadSize");
+	GameController::ChadHealth = intFromLua("ChadHealth");
+	GameController::ChadHealthRegen = intFromLua("ChadHealthRegen");
+	GameController::ChadDamage = intFromLua("ChadDamage");
+	GameController::ChadSpeed = floatFromLua("ChadSpeed");
+	GameController::ChadEffectRecoverySpeed = floatFromLua("ChadEffectRecoverySpeed");
+	//SanicRat
+	GameController::SanicSize = intFromLua("SanicSize");
+	GameController::SanicHealth = intFromLua("SanicHealth");
+	GameController::SanicHealthRegen = intFromLua("SanicHealthRegen");
+	GameController::SanicDamage = intFromLua("SanicDamage");
+	GameController::SanicSpeed = floatFromLua("SanicSpeed");
+	GameController::SanicEffectRecoverySpeed = floatFromLua("SanicEffectRecoverySpeed");
 }
 
 int TowerDefenseScene::intFromLua(std::string pVariableName)
@@ -256,12 +271,12 @@ void TowerDefenseScene::_initializeScene()
 	litMaterial1->AddLight(light2);
 	AbstractMaterial* litMaterial = litMaterial1;
 	TerrainMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-		0);
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
+														   Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
+														   0);
 	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 
 	//add camera first (it will be updated last)
@@ -308,6 +323,7 @@ void TowerDefenseScene::_initializeScene()
 	tex->loadFromFile(config::MGE_TEXTURE_PATH + "bricks.jpg");
 
 	AdvancedSprite* sprite = new AdvancedSprite();
+	sprite->setPosition(0, 32);
 	sprite->addBehaviour(new WASDBehaviour());
 	_world->add(sprite);
 	_uiManager->AddSprite(sprite, tex);

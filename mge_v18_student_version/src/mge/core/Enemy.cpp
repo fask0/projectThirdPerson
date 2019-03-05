@@ -27,6 +27,9 @@ Enemy::Enemy(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::
 	_ignoreTags.push_back(_tag);
 	_ignoreTags.push_back("tower");
 
+
+	_timer = 0;
+
 	GameController::Enemies.push_back(this);
 }
 
@@ -42,6 +45,16 @@ Enemy::~Enemy()
 void Enemy::update(float pStep)
 {
 	GameObject::update(pStep);
+
+	if (_shouldDie) return;
+	if (clock() >= _timer + ((pStep * CLOCKS_PER_SEC) / getSpeed() * 5))
+	{
+		setMesh(_animation[_currentFrame]);
+		_currentFrame++;
+		if (_currentFrame == _animation.size())
+			_currentFrame = 0;
+		_timer = clock();
+	}
 
 	if (_speed == _baseSpeed) return;
 	if (_speed + pStep * _effectRecovery <= _baseSpeed)

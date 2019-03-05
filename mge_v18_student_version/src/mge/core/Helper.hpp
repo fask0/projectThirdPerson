@@ -25,6 +25,7 @@ class Helper
 
 	static glm::vec3 GetRotationFromMatrix(glm::mat4);
 	static void LookAt(GameObject* pLooker, GameObject* pLookedAtter);
+	static void Slerp(GameObject * pSlerper, GameObject * pSlerpatee, float pIncrement);
 
 	private:
 	Helper(const Helper&);

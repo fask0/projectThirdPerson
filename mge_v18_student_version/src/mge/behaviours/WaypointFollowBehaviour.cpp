@@ -48,7 +48,6 @@ void WaypointFollowBehaviour::update(float pStep)
 		_owner->Kill();
 		return;
 	}
-	_enemyOwner = dynamic_cast<Enemy*>(_owner);
 	_velocity = _direction * _enemyOwner->getSpeed() * pStep;
 	glm::vec3 oPos = _enemyOwner->getLocalPosition();
 	glm::vec3 distToCurrent = _currentWaypoint->getLocalPosition() - oPos;
@@ -63,8 +62,8 @@ void WaypointFollowBehaviour::update(float pStep)
 			_velocity *= 0.05f;
 		}
 	}
-	else if (glm::abs(distToCurrent.x) <= _enemyOwner->getSpeed() * pStep * 1.1f &&
-		glm::abs(distToCurrent.z) <= _enemyOwner->getSpeed() * pStep * 1.1f)
+	else if (glm::abs(distToCurrent.x) <= _enemyOwner->getSpeed() * pStep * 2.0f &&
+			 glm::abs(distToCurrent.z) <= _enemyOwner->getSpeed() * pStep * 2.0f)
 	{
 		if (_toDo.size() > 1)
 			_currentWaypoint = _toDo[1];
@@ -74,15 +73,16 @@ void WaypointFollowBehaviour::update(float pStep)
 		_done.insert(_done.begin(), _toDo[0]);
 		_toDo.erase(_toDo.begin());
 	}
-	glm::quat eQuat = glm::quat_cast(_enemyOwner->getTransform());
-	glm::quat wpQuat = glm::quat_cast(_dummyTransform->getTransform());
-	_enemyOwner->setTransform(glm::mat4_cast(glm::slerp(eQuat, wpQuat, pStep * 5)));
+
+	Helper::Slerp(_enemyOwner, _dummyTransform, _enemyOwner->getSpeed() * 5 * pStep);
 	_enemyOwner->setLocalPosition(oPos + _velocity);
 }
 
 void WaypointFollowBehaviour::Init()
 {
 	_direction = getDir();
+	_enemyOwner = dynamic_cast<Enemy*>(_owner);
+	Helper::LookAt(_enemyOwner, _currentWaypoint);
 }
 
 glm::vec3 WaypointFollowBehaviour::getDir()

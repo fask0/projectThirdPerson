@@ -11,7 +11,7 @@
 
 #include "mge/materials/AbstractMaterial.hpp"
 
-Mesh* Rat::Mesh;
+std::vector<Mesh*> Rat::Animation;
 AbstractMaterial* Rat::Material;
 
 Rat::Rat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::string pTag)
@@ -28,7 +28,9 @@ Rat::Rat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::stri
 	_speedUp = 0;
 	_slowDown = 0;
 
-	setMesh(Mesh);
+	_animation = Animation;
+	_currentFrame = std::rand() % _animation.size();
+	setMesh(_animation[0]);
 	setMaterial(Material);
 
 	if (_healthRegen > 0)

@@ -10,6 +10,8 @@
 #include "mge/core/GameController.hpp"
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/Rat.hpp"
+#include "mge/core/ChadRat.hpp"
+#include "mge/core/SanicRat.hpp"
 
 #include "mge/behaviours/CollisionBehaviour.hpp"
 
@@ -71,22 +73,28 @@ void EnemySpawner::update(float pStep)
 	if (_currentEnemiesInLane < _size && clock() >= (_lastSpawnTime + _delayBetweenEnemies * CLOCKS_PER_SEC))
 	{
 		Enemy* enemy;
-		//int selectEnemy = std::rand() % 2 + 1;
-		int selectEnemy = 1;
+		int selectEnemy = std::rand() % 3 + 1;
+		std::cout << selectEnemy << std::endl;
 		switch (selectEnemy)
 		{
 			case 1:
 			enemy = new Rat("Rat", getLocalPosition(), _lane);
-			std::cout << "spawning Rat number: " << _currentEnemiesInLane << std::endl;
 			break;
 
 			case 2:
-			//Spawn enemy type 2
-
-			if (_currentEnemiesInLane + enemy->getSize() > _size)
-			{
+			if (_currentEnemiesInLane + GameController::SanicSize <= _size)
+				enemy = new SanicRat("SanicRat", getLocalPosition(), _lane);
+			else
 				enemy = new Rat("Rat", getLocalPosition(), _lane);
-			}
+			break;
+
+			case 3:
+			if (_currentEnemiesInLane + GameController::ChadSize <= _size)
+				enemy = new ChadRat("ChadRat", getLocalPosition(), _lane);
+			else if (_currentEnemiesInLane + GameController::SanicSize <= _size)
+				enemy = new SanicRat("SanicRat", getLocalPosition(), _lane);
+			else
+				enemy = new Rat("Rat", getLocalPosition(), _lane);
 			break;
 		}
 		GameController::World->add(enemy);
