@@ -7,6 +7,7 @@
 #include "mge/core/Mesh.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
+#include "mge/core/ToasterProjectile.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -15,7 +16,7 @@
  */
 class ToasterTower : public Tower
 {
-	public:
+public:
 	ToasterTower();
 	virtual ~ToasterTower();
 
@@ -26,7 +27,9 @@ class ToasterTower : public Tower
 
 	void AddTowerBehaviour() override;
 
-	private:
+	ToasterProjectile* primedProjectile = nullptr;
+
+private:
 	ToasterTower(const ToasterTower&);
 	ToasterTower& operator= (const ToasterTower&);
 };

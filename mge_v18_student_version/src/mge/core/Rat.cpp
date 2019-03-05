@@ -44,11 +44,3 @@ void Rat::update(float pStep)
 {
 	Enemy::update(pStep);
 }
-
-void Rat::OnCollisionEnter(GameObject * pOther)
-{
-	if (pOther->GetTag().compare("toasterProjectile") == 0)
-	{
-		TakeDamage(50);
-	}
-}

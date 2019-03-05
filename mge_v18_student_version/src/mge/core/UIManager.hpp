@@ -19,8 +19,13 @@ public:
 
 private:
 	sf::RenderWindow * _window;
+	sf::Font _font;
+
 	std::vector<AdvancedSprite*> _sprites;
 	std::vector<sf::Texture*> _textures;
+
+	std::vector<sf::Text*> _texts;
+
 
 	UIManager(const UIManager&);
 	UIManager& operator=(const UIManager&);

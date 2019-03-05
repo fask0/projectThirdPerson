@@ -4,7 +4,6 @@
 #include "mge/core/GameController.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/Helper.hpp"
-#include "mge/core/HoneyProjectile.hpp"
 
 ShockTowerBehaviour::ShockTowerBehaviour() : TowerBehaviour()
 {
@@ -47,7 +46,6 @@ void ShockTowerBehaviour::Attack()
 {
 	if (float(clock() - _lastAttackTime) / CLOCKS_PER_SEC >= GameController::ShockAttSpeed)
 	{
-		std::cout << "ting" << std::endl;
 		if (_enemiesInRange)
 		{
 			for each (Enemy* enemy in _allInRangeEnemies)

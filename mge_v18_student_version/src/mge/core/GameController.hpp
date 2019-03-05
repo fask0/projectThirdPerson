@@ -79,17 +79,34 @@ public:
 	static float ToasterRange;
 	static float ToasterAttSpeed;
 	static int ToasterCost;
+	static int ToasterDamage;
 	//Honey tower
 	static float HoneyRange;
 	static float HoneyAttSpeed;
 	static int HoneyCost;
-	//MouseTrap tower
-	static float MouseTrapRange;
-	static int MouseTrapCost;
+	static int HoneySlowAmount;
 	//Shock tower
 	static float ShockRange;
 	static float ShockAttSpeed;
 	static int ShockCost;
+	static float ShockDamage;
+	//Ice tower
+	static float IceRange;
+	static float IceAttSpeed;
+	static float IceFreezeTime;
+	static int IceCost;
+	static int IceDamage;
+	//Magnifying glass tower
+	static float MagnifyingRange;
+	static float MagnifyingFireDamage;
+	static float MagnifyingFireRate;
+	static float MagnifyingFireDuration;
+	static int MagnifyingCost;
+	//Sniper tower
+	static float SniperRange;
+	static float SniperAttSpeed;
+	static int SniperCost;
+	static int SniperDamage;
 
 	//Enemies
 	//Rat

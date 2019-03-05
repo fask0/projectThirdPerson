@@ -35,7 +35,7 @@ public:
 	float getSpeed();
 	int getSize();
 
-	int RatKillValue = 3;
+	int KillValue = 3;
 
 protected:
 	Waypoint::Lane _lane;

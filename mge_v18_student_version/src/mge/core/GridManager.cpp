@@ -21,8 +21,10 @@
 
 #include "mge/core/ToasterTower.hpp"
 #include "mge/core/HoneyTower.hpp"
-#include "mge/core/MouseTrapTower.hpp"
 #include "mge/core/ShockTower.hpp"
+#include "mge/core/SniperTower.hpp"
+#include "mge/core/IceTower.hpp"
+#include "mge/core/MagnifyingGlassTower.hpp"
 
 GridManager::GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow* pWindow, World* pWorld) : GameObject("GridManager", glm::vec3(0, 0, 0)), _window(pWindow), _world(pWorld)
 {
@@ -32,7 +34,7 @@ GridManager::GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow
 		std::cout << obj->getName() << std::endl;
 	}
 	material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
-	selectedMaterial = new LitSelectedTextureMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"));
+	selectedMaterial = new LitSelectedTextureMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "bg.png"));
 	selectedMaterial->SetMixIntensity(0.5f);
 	_currentMoney = GameController::StartingMoney;
 	GameController::GridManager = this;
@@ -51,7 +53,7 @@ void GridManager::update(float pStep)
 	}
 	else
 	{
-		if (_currentMoney > _tower->GetCost())
+		if (_currentMoney >= _tower->GetCost())
 		{
 			selectedMaterial->SetColliding(false);
 		}
@@ -69,19 +71,20 @@ void GridManager::CheckIfMouseOverTower()
 	bool mousingOverTower = false;
 	for each (Tower* tower in _placedTowers)
 	{
+		glm::mat4 transform = tower->getTransform();
+		float xScale = glm::sqrt(transform[0][0] * transform[0][0] + transform[0][1] * transform[0][1] + transform[0][2] * transform[0][2]);
+		float yScale = glm::sqrt(transform[1][0] * transform[1][0] + transform[1][1] * transform[1][1] + transform[1][2] * transform[1][2]);
+		float zScale = glm::sqrt(transform[2][0] * transform[2][0] + transform[2][1] * transform[2][1] + transform[2][2] * transform[2][2]);
+
 		Camera* _camera = _world->getMainCamera();
 		glm::vec3 normalizedDiff = _camera->rayCastNormalizedDiffVec();
 
-		glm::vec3 cameraToPlane = tower->getWorldPosition() - _camera->getWorldPosition();
+		glm::vec3 cameraToPlane = (tower->getWorldPosition() + glm::vec3(0, yScale, 0)) - _camera->getWorldPosition();
 		glm::vec3 parallel = glm::dot(cameraToPlane, normalizedDiff) * normalizedDiff;
 		glm::vec3 perpendicular = cameraToPlane - parallel;
 
 		float distance = glm::length(perpendicular);
-
-		glm::mat4 transform = tower->getTransform();
-		float xScale = glm::sqrt(transform[0][0] * transform[0][0] + transform[0][1] * transform[0][1] + transform[0][2] * transform[0][2]);
-		float zScale = glm::sqrt(transform[2][0] * transform[2][0] + transform[2][1] * transform[2][1] + transform[2][2] * transform[2][2]);
-		if (distance < glm::min(xScale, zScale))
+		if (distance < glm::max(xScale, zScale) * 2)
 		{
 			if (_mouseOverTower != nullptr && _mouseOverTower != _selectedTower)
 				_mouseOverTower->ResetMaterial();
@@ -124,12 +127,20 @@ void GridManager::SpecificTowerSelection(sf::Event pEvent)
 		_tower = new HoneyTower();
 		break;
 	case sf::Keyboard::Key::Num3:
-		towerMesh = MouseTrapTower::Mesh;
-		_tower = new MouseTrapTower();
-		break;
-	case sf::Keyboard::Key::Num4:
 		towerMesh = ShockTower::Mesh;
 		_tower = new ShockTower();
+		break;
+	case sf::Keyboard::Key::Num4:
+		towerMesh = IceTower::Mesh;
+		_tower = new IceTower();
+		break;
+	case sf::Keyboard::Key::Num5:
+		towerMesh = MagnifyingGlassTower::Mesh;
+		_tower = new MagnifyingGlassTower();
+		break;
+	case sf::Keyboard::Key::Num6:
+		towerMesh = SniperTower::Mesh;
+		_tower = new SniperTower();
 		break;
 	}
 
@@ -154,7 +165,9 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 		if (pEvent.key.code == sf::Keyboard::Key::Num1 ||
 			pEvent.key.code == sf::Keyboard::Key::Num2 ||
 			pEvent.key.code == sf::Keyboard::Key::Num3 ||
-			pEvent.key.code == sf::Keyboard::Key::Num4)
+			pEvent.key.code == sf::Keyboard::Key::Num4 ||
+			pEvent.key.code == sf::Keyboard::Key::Num5 ||
+			pEvent.key.code == sf::Keyboard::Key::Num6)
 		{
 			if (_tower != nullptr)
 			{
@@ -256,6 +269,25 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 			_selectedTower = nullptr;
 		}
 		break;
+	case sf::Keyboard::Key::S:
+		if (_selectedTower != nullptr)
+		{
+			_currentMoney += _selectedTower->GetCost();
+			for (int i = 0; i < _placedTowers.size(); i++)
+			{
+				if (_placedTowers[i] == _selectedTower)
+				{
+					if (dynamic_cast<ToasterTower*>(_placedTowers[i]))
+						dynamic_cast<ToasterTower*>(_placedTowers[i]);
+					_placedTowers[i]->Kill();
+					_placedTowers.erase(_placedTowers.begin() + i);
+					break;
+				}
+			}
+			dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
+			_selectedTower->ResetMaterial();
+			_selectedTower = nullptr;
+		}
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{

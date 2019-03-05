@@ -10,7 +10,7 @@
 
 class Rat : public Enemy
 {
-	public:
+public:
 	static Mesh* Mesh;
 	static AbstractMaterial* Material;
 
@@ -21,5 +21,4 @@ class Rat : public Enemy
 	~Rat();
 
 	virtual void update(float pStep);
-	void OnCollisionEnter(GameObject* pOther) override;
 };

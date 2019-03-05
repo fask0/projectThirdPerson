@@ -8,8 +8,20 @@
 EffectBehaviour::EffectBehaviour(Effect pEffectType, int pPotency, int pDuration, float pDotRate)
 	: AbstractBehaviour(), _effect(pEffectType), _effectPotency(pPotency), _duration(pDuration), _dotRate(pDotRate)
 {
-	_timeElapsed = 0;
 	_isOwnerAffected = false;
+
+	switch (pEffectType)
+	{
+	case EffectBehaviour::SpeedUp:
+		_timeElapsed = clock();
+		break;
+	case EffectBehaviour::SlowDown:
+		_timeElapsed = clock();
+		break;
+	default:
+		_timeElapsed = 0;
+		break;
+	}
 }
 
 EffectBehaviour::~EffectBehaviour()

@@ -46,8 +46,10 @@
 #include "mge/core/EnemySpawner.hpp"
 #include "mge/core/ToasterTower.hpp"
 #include "mge/core/HoneyTower.hpp"
-#include "mge/core/MouseTrapTower.hpp"
 #include "mge/core/ShockTower.hpp"
+#include "mge/core/IceTower.hpp"
+#include "mge/core/MagnifyingGlassTower.hpp"
+#include "mge/core/SniperTower.hpp"
 
 #include "mge/core/UIManager.hpp"
 #include "mge/core/AdvancedSprite.hpp"
@@ -131,45 +133,37 @@ void TowerDefenseScene::initializeLua()
 
 	GameController::StartingMoney = intFromLua("StartingMoney");
 	//Toaster tower
-	lua_getglobal(lua, "ToasterRange");
-	GameController::ToasterRange = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "ToasterAttSpeed");
-	GameController::ToasterAttSpeed = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "ToasterCost");
-	GameController::ToasterCost = lua_tointeger(lua, -1);
-	lua_pop(lua, -1);
-
+	GameController::ToasterRange = floatFromLua("ToasterRange");
+	GameController::ToasterAttSpeed = floatFromLua("ToasterAttSpeed");
+	GameController::ToasterDamage = intFromLua("ToasterDamage");
+	GameController::ToasterCost = intFromLua("ToasterCost");
 	//Honey tower
-	lua_getglobal(lua, "HoneyRange");
-	GameController::HoneyRange = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "HoneyAttSpeed");
-	GameController::HoneyAttSpeed = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "HoneyCost");
-	GameController::HoneyCost = lua_tointeger(lua, -1);
-	lua_pop(lua, -1);
-
-	//MouseTrap tower
-	lua_getglobal(lua, "MouseTrapRange");
-	GameController::MouseTrapRange = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "MouseTrapCost");
-	GameController::MouseTrapCost = lua_tointeger(lua, -1);
-	lua_pop(lua, -1);
-
+	GameController::HoneyRange = floatFromLua("HoneyRange");
+	GameController::HoneyAttSpeed = floatFromLua("HoneyAttSpeed");
+	GameController::HoneyCost = intFromLua("HoneyCost");
+	GameController::HoneySlowAmount = intFromLua("HoneySlowAmount");
 	//Shock tower
-	lua_getglobal(lua, "ShockRange");
-	GameController::ShockRange = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "ShockAttSpeed");
-	GameController::ShockAttSpeed = lua_tonumber(lua, -1);
-	lua_pop(lua, -1);
-	lua_getglobal(lua, "ShockCost");
-	GameController::ShockCost = lua_tointeger(lua, -1);
-	lua_pop(lua, -1);
+	GameController::ShockRange = floatFromLua("ShockRange");
+	GameController::ShockAttSpeed = floatFromLua("ShockAttSpeed");
+	GameController::ShockCost = intFromLua("ShockCost");
+	GameController::ShockDamage = floatFromLua("ShockDamage");
+	//Ice tower
+	GameController::IceRange = floatFromLua("IceRange");
+	GameController::IceAttSpeed = floatFromLua("IceAttSpeed");
+	GameController::IceFreezeTime = floatFromLua("IceFreezeTime");
+	GameController::IceCost = intFromLua("IceCost");
+	GameController::IceDamage = intFromLua("IceDamage");
+	//Magnifying glass tower
+	GameController::MagnifyingRange = floatFromLua("MagnifyingRange");
+	GameController::MagnifyingFireDamage = floatFromLua("MagnifyingFireDamage");
+	GameController::MagnifyingFireRate = floatFromLua("MagnifyingFireRate");
+	GameController::MagnifyingFireDuration = floatFromLua("MagnifyingFireDuration");
+	GameController::MagnifyingCost = intFromLua("MagnifyingCost");
+	//Sniper tower
+	GameController::SniperRange = floatFromLua("SniperRange");
+	GameController::SniperAttSpeed = floatFromLua("SniperAttSpeed");
+	GameController::SniperCost = intFromLua("SniperCost");
+	GameController::SniperDamage = intFromLua("SniperDamage");
 
 	//Rats
 	GameController::RatSize = intFromLua("RatSize");
@@ -308,6 +302,7 @@ void TowerDefenseScene::_initializeScene()
 	tex->loadFromFile(config::MGE_TEXTURE_PATH + "bricks.jpg");
 
 	AdvancedSprite* sprite = new AdvancedSprite();
+	sprite->setPosition(0, 100);
 	sprite->addBehaviour(new WASDBehaviour());
 	_world->add(sprite);
 	_uiManager->AddSprite(sprite, tex);

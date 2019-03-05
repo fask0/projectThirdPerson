@@ -11,20 +11,20 @@
  */
 class ToasterTowerBehaviour : public TowerBehaviour
 {
-	public:
+public:
 	ToasterTowerBehaviour();
 	virtual ~ToasterTowerBehaviour();
 	virtual void update(float pStep);
 
-	private:
+private:
 	//Methods
 	void CheckForEnemies();
 	void Rotate();
 	void Attack();
 	//Variables
 	bool _enemiesInRange;
-	bool _isProjectileCreated;
 	Enemy* _furthestEnemy;
+	bool _isProjectileCreated;
 	ToasterProjectile* _projectile;
 	clock_t _lastAttackTime;
 };

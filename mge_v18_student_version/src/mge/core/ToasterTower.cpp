@@ -17,6 +17,10 @@ ToasterTower::ToasterTower() : Tower("Toaster Tower")
 ToasterTower::~ToasterTower()
 {
 	//dtor
+	if (primedProjectile != nullptr)
+	{
+		delete(primedProjectile);
+	}
 	Tower::~Tower();
 }
 

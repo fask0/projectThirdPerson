@@ -11,7 +11,7 @@ WindowHeight = 1080;
 --DelayBetweenEnemies       --How much time between each enemy (in seconds)
 --------------------------------------------------------------------------------------
 --Lane One
-LaneOneBaseSize = 2;
+LaneOneBaseSize = 20;
 LaneOneSizeGrowthFrequency = 1;
 LaneOneEnemyScalingPercentage = 10;
 LaneOneDelayBetweenEnemies = 1.0;
@@ -36,22 +36,42 @@ LaneFourDelayBetweenEnemies = 1.0;
 StartingMoney = 50;
 --Toaster tower (basic shooting tower)
 ToasterRange = 6;
-ToasterAttSpeed = 1;
+ToasterAttSpeed = 0.75;
 ToasterCost = 20;
+ToasterDamage = 25;
 
---Honey tower (slows enemies)
+--Honey tower (Slows enemies)
 HoneyRange = 5;
 HoneyAttSpeed = 5;
 HoneyCost = 30;
-
---MouseTrap tower (Crushes enemies in front of it, activated once per round)
-MouseTrapRange = 2;
-MouseTrapCost = 30;
+HoneySlowAmount = 50;
 
 --Shock tower (Shocks enemies within certain range dealing AoE damage)
 ShockRange = 4;
 ShockAttSpeed = 0.25;
 ShockCost = 50;
+ShockDamage = 5;
+
+--Ice tower (Crushes enemies in front of it, activated once per round)
+IceRange = 5;
+IceAttSpeed = 0.25;
+IceFreezeTime = 1;
+IceCost = 40;
+IceDamage = 5;
+
+--Magnifying glass tower
+MagnifyingRange = 0;
+MagnifyingFireDamage = 5;
+MagnifyingFireRate = 1;
+MagnifyingFireDuration = 5;
+MagnifyingCost = 35;
+
+--Sniper tower
+SniperRange = 10;
+SniperAttSpeed = 3;
+SniperCost = 45;
+SniperDamage = 150;
+
 
 ---------------------------------------------------------------------------------------
 ----------------------------------------Enemies----------------------------------------
