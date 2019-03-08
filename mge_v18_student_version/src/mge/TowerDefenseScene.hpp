@@ -13,7 +13,7 @@ class DebugHud;
 
 class TowerDefenseScene : public AbstractGame
 {
-	public:
+public:
 	TowerDefenseScene();
 	virtual ~TowerDefenseScene();
 
@@ -21,18 +21,17 @@ class TowerDefenseScene : public AbstractGame
 	virtual void initialize();
 
 	//Lua global variables
-	bool Debug;
 	int WindowHeight;
 	int WindowWidth;
 
-	protected:
+protected:
 	//override so we can construct the actual scene
 	virtual void _initializeScene();
 
 	//override render to render the hud as well.
 	virtual void _render();
 
-	private:
+private:
 	DebugHud* _hud;                   //hud display
 	UIManager* _uiManager;
 	Camera* _camera;
@@ -41,6 +40,8 @@ class TowerDefenseScene : public AbstractGame
 	void _updateHud();
 	void updateUIElements();
 	void initializeLua();
+	void initializeSingletons();
+	void inintialize2Dobjects();
 
 	int intFromLua(std::string pVariableName);
 	float floatFromLua(std::string pVariableName);

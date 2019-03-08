@@ -1,12 +1,11 @@
-#include "glm.hpp"
-
-#include "LitTextureMaterial.hpp"
-#include "mge/config.hpp"
-#include "mge/core/GameObject.hpp"
-#include "mge/core/Mesh.hpp"
-#include "mge/core/ShaderProgram.hpp"
-#include "mge/core/Texture.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/core/ShaderProgram.hpp"
+#include "mge/core/GameObject.hpp"
+#include "mge/core/Texture.hpp"
+#include "mge/core/Mesh.hpp"
+#include "mge/config.hpp"
+#include "LitTextureMaterial.hpp"
+#include "glm.hpp"
 
 LitTextureMaterial::LitTextureMaterial(Texture* pDiffuseTexture) :_diffuseTexture(pDiffuseTexture)
 {

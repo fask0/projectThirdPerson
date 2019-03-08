@@ -1,16 +1,10 @@
-#ifndef LITMATERIAL_HPP
-#define LITMATERIAL_HPP
-
-#include "GL/glew.h"
+#pragma once
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/core/Light.hpp"
+#include "GL/glew.h"
 
 class ShaderProgram;
 
-/**
- * This is about the simplest material we can come up with, it demonstrates how to
- * render a single color material without caching, passing in all the matrices we require separately.
- */
 class LitMaterial : public AbstractMaterial
 {
 public:
@@ -31,9 +25,6 @@ private:
 
 	std::vector<Light*> _lights;
 
-	//this one is unique per instance of color material
 	glm::vec3 _diffuseColor;
 	Light *_light;
 };
-
-#endif // LitMaterial_HPP

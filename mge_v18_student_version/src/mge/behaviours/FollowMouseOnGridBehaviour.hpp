@@ -1,14 +1,9 @@
-#ifndef FOLLOWMOUSEONGRIDBEHAVIOUR_HPP
-#define FOLLOWMOUSEONGRIDBEHAVIOUR_HPP
-
-#include "mge/behaviours/AbstractBehaviour.hpp"
-#include "mge/materials/LitTextureGridMaterial.hpp"
+#pragma once
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
+#include "mge/materials/LitTextureGridMaterial.hpp"
+#include "mge/behaviours/AbstractBehaviour.hpp"
 #include "glm.hpp"
 
-/**
- * Simply rotates the object around its origin with a fixed speed.
- */
 class FollowMouseOnGridBehaviour : public AbstractBehaviour
 {
 public:
@@ -22,5 +17,3 @@ private:
 	LitTextureGridMaterial* _material = nullptr;
 	LitDynamicTextureGridMaterial* _materialDynamic = nullptr;
 };
-
-#endif // ROTATINGBEHAVIOUR_HPP

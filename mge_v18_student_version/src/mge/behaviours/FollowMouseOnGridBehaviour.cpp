@@ -1,13 +1,10 @@
 #include "mge/behaviours/FollowMouseOnGridBehaviour.hpp"
-#include "mge/core/GameObject.hpp"
 #include "mge/materials/LitTextureGridMaterial.hpp"
 #include "mge/materials/LitSelectedTextureMaterial.hpp"
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include "mge/core/GameController.hpp"
+#include "mge/core/GameObject.hpp"
 #include "glm.hpp"
 
-#include "mge/core/GameController.hpp"
 
 
 FollowMouseOnGridBehaviour::FollowMouseOnGridBehaviour(LitTextureGridMaterial* pMaterial) : AbstractBehaviour(), _material(pMaterial)
@@ -31,14 +28,16 @@ void FollowMouseOnGridBehaviour::update(float pstep)
 	if (_material != nullptr)
 	{
 		float gSize = _material->getGridSize();
-		glm::vec3 pos = (glm::floor(_material->getMousePos() / gSize) * gSize) + glm::vec3(gSize / 2, /*-yScale / 2*/0, gSize / 2);
+		glm::vec3 pos = (glm::floor(_material->getMousePos() / gSize) * gSize) + glm::vec3(gSize / 2, 0, gSize / 2);
+		pos.y = 0.05f;
 		_owner->setLocalPosition(pos);
 		_material->SetTowerPos(pos);
 	}
 	else
 	{
 		float gSize = _materialDynamic->getGridSize();
-		glm::vec3 pos = (glm::floor(_materialDynamic->getMousePos() / gSize) * gSize) + glm::vec3(gSize / 2, /*-yScale / 2*/0, gSize / 2);
+		glm::vec3 pos = (glm::floor(_materialDynamic->getMousePos() / gSize) * gSize) + glm::vec3(gSize / 2, 0, gSize / 2);
+		pos.y = 0.05f;
 		_owner->setLocalPosition(pos);
 		_materialDynamic->SetTowerPos(pos);
 		_materialDynamic->setColliding(_owner->isColliding);

@@ -14,7 +14,7 @@ class ShaderProgram;
  */
 class LitDynamicTextureGridMaterial : public AbstractMaterial
 {
-	public:
+public:
 	LitDynamicTextureGridMaterial(Light *light, bool pHideGrid = false);
 	virtual ~LitDynamicTextureGridMaterial();
 

@@ -1,9 +1,8 @@
-#include <iostream>
-#include <time.h>
-
 #include "mge/behaviours/EffectBehaviour.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Enemy.hpp"
+#include <iostream>
+#include <time.h>
 
 EffectBehaviour::EffectBehaviour(Effect pEffectType, int pPotency, int pDuration, float pDotRate)
 	: AbstractBehaviour(), _effect(pEffectType), _effectPotency(pPotency), _duration(pDuration), _dotRate(pDotRate)

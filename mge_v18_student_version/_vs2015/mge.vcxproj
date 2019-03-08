@@ -178,10 +178,7 @@
     <ClInclude Include="..\src\mge\behaviours\HoneyTowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\IceProjectileBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\IceTowerBehaviour.hpp" />
-    <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\MagnifyingGlassTowerBehaviour.hpp" />
-    <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp" />
-    <ClInclude Include="..\src\mge\behaviours\CameraOrbitBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\ShockTowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\SniperTowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\ToasterProjectileBehaviour.hpp" />
@@ -231,10 +228,8 @@
     <ClInclude Include="..\src\mge\materials\LitSelectedTextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\LitTextureGridMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\LitTextureMaterial.hpp" />
-    <ClInclude Include="..\src\mge\materials\TerrainMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\TextureGridMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
-    <ClInclude Include="..\src\mge\materials\WobbleMaterial.hpp" />
     <ClInclude Include="..\src\mge\TowerDefenseScene.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
   </ItemGroup>
@@ -249,10 +244,7 @@
     <ClCompile Include="..\src\mge\behaviours\HoneyTowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\IceProjectileBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\IceTowerBehaviour.cpp" />
-    <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\MagnifyingGlassTowerBehaviour.cpp" />
-    <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp" />
-    <ClCompile Include="..\src\mge\behaviours\CameraOrbitBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\ShockTowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\SniperTowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\ToasterProjectileBehaviour.cpp" />
@@ -301,10 +293,8 @@
     <ClCompile Include="..\src\mge\materials\LitSelectedTextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\LitTextureGridMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\LitTextureMaterial.cpp" />
-    <ClCompile Include="..\src\mge\materials\TerrainMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TextureGridMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
-    <ClCompile Include="..\src\mge\materials\WobbleMaterial.cpp" />
     <ClCompile Include="..\src\mge\TowerDefenseScene.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
   </ItemGroup>

@@ -1,21 +1,15 @@
-#ifndef COLLISIONBEHAVIOUR_HPP
-#define COLLISIONBEHAVIOUR_HPP
-
+#pragma once
+#include "mge/behaviours/AbstractBehaviour.hpp"
+#include "mge/materials/AbstractMaterial.hpp"
+#include "mge/materials/ColorMaterial.hpp"
+#include "mge/core/Mesh.hpp"
+#include "glm.hpp"
 #include <iostream>
 #include <vector>
 
-#include "mge/core/Mesh.hpp"
-
-#include "mge/materials/AbstractMaterial.hpp"
-#include "mge/materials/ColorMaterial.hpp"
-
-#include "mge/behaviours/AbstractBehaviour.hpp"
-
-#include "glm.hpp"
-
 class CollisionBehaviour : public AbstractBehaviour
 {
-	public:
+public:
 	enum ColliderType
 	{
 		BoxCollider,
@@ -48,12 +42,10 @@ class CollisionBehaviour : public AbstractBehaviour
 	void removeCollision(CollisionBehaviour* pOther);
 	std::vector<CollisionBehaviour*> _behavioursInCollision;
 
-	protected:
+protected:
 	glm::vec3 _boundaries;
 	float _radius;
 	GameObject* _collider;
 	AbstractMaterial* _material;
 	Mesh* _mesh;
 };
-
-#endif // !COLLISIONBEHAVIOUR_HPP

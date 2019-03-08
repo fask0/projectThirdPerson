@@ -1,11 +1,10 @@
-#include "glm.hpp"
-
 #include "LitSelectedTextureMaterial.hpp"
-#include "mge/config.hpp"
-#include "mge/core/GameObject.hpp"
-#include "mge/core/Mesh.hpp"
 #include "mge/core/ShaderProgram.hpp"
+#include "mge/core/GameObject.hpp"
 #include "mge/core/Texture.hpp"
+#include "mge/core/Mesh.hpp"
+#include "mge/config.hpp"
+#include "glm.hpp"
 
 LitSelectedTextureMaterial::LitSelectedTextureMaterial(Light *light, Texture* pDiffuseTexture) :_diffuseTexture(pDiffuseTexture), _light(light), _mixIntesity(0.0f)
 {
