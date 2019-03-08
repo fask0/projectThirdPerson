@@ -1,3 +1,4 @@
+#include <iostream>
 #include "glm.hpp"
 
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
@@ -7,33 +8,29 @@
 #include "mge/core/ShaderProgram.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/core/Level.hpp"
 
-ShaderProgram* LitDynamicTextureGridMaterial::_shader = NULL;
-
-LitDynamicTextureGridMaterial::LitDynamicTextureGridMaterial(Light *light, Texture * pDiffuseTexture, bool pHideGrid)
-	: _diffuseTexture(pDiffuseTexture), _light(light)
+LitDynamicTextureGridMaterial::LitDynamicTextureGridMaterial(Light *light, bool pHideGrid)
+	: _light(light)
 {
 	//every time we create an instance of LitMaterial we check if the corresponding shader has already been loaded
 	_hideGrid = pHideGrid;
 	_gridShowing = false;
-	_lazyInitializeShader();
+	initShader();
 }
 
-void LitDynamicTextureGridMaterial::_lazyInitializeShader()
+void LitDynamicTextureGridMaterial::initShader()
 {
-	//this shader contains everything the material can do (it can render something in 3d using a single color)
-	if (!_shader)
-	{
-		_shader = new ShaderProgram();
-		_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "litDynamicTextureGrid.vs");
-		_shader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "litDynamicTextureGrid.fs");
-		_shader->finalize();
-	}
+	_shader = new ShaderProgram();
+	_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "litDynamicTextureGrid.vs");
+	_shader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "litDynamicTextureGrid.fs");
+	_shader->finalize();
 }
 
 LitDynamicTextureGridMaterial::~LitDynamicTextureGridMaterial()
 {
 	//dtor
+	delete _shader;
 }
 
 void LitDynamicTextureGridMaterial::setDiffuseTexture(Texture* pDiffuseTexture)
@@ -66,7 +63,7 @@ void LitDynamicTextureGridMaterial::render(World* pWorld, Mesh* pMesh, const glm
 
 	//Light stuff 2
 	glUniform3fv(_shader->getUniformLocation("dirLight.lightCol"), 1, glm::value_ptr(_light->_color));
-	glUniform3fv(_shader->getUniformLocation("dirLight.lightRot"), 1, glm::value_ptr(_light->getTransform()[1]));
+	glUniform3fv(_shader->getUniformLocation("dirLight.lightPos"), 1, glm::value_ptr(_light->getLocalPosition()));
 
 	////Light stuff
 	for (int i = 0; i < _lights.size(); i++)

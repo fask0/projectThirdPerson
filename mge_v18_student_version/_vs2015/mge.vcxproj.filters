@@ -158,6 +158,15 @@
     <ClCompile Include="..\src\mge\core\ChadRat.cpp">
       <Filter>Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\core\Level.cpp">
+      <Filter>Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\TableLevel.cpp">
+      <Filter>Levels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\TutorialLevel.cpp">
+      <Filter>Levels</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -318,8 +327,14 @@
     <ClInclude Include="..\src\mge\core\ChadRat.hpp">
       <Filter>Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\core\ShadowFrameBuffer.hpp">
-      <Filter>Shadows</Filter>
+    <ClInclude Include="..\src\mge\core\Level.hpp">
+      <Filter>Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\TableLevel.hpp">
+      <Filter>Levels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\TutorialLevel.hpp">
+      <Filter>Levels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -343,6 +358,9 @@
     </Filter>
     <Filter Include="Behaviours\TowerBehaviours\TowerProjectileBehaviours">
       <UniqueIdentifier>{3e4e924a-61ce-4ffd-b0e3-3122adc53c12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Levels">
+      <UniqueIdentifier>{a2260da2-e866-45c6-a35c-6bfd24f73e1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -48,7 +48,7 @@ void AbstractGame::initialize(int _windowWidth, int _windowHeight)
 void AbstractGame::_initializeWindow()
 {
 	std::cout << "Initializing window..." << std::endl;
-	_window = new sf::RenderWindow(sf::VideoMode(800, 600), "My Game!", sf::Style::Default, sf::ContextSettings(24, 8, 0, 3, 3));
+	_window = new sf::RenderWindow(sf::VideoMode(800, 600), "yer mum!", sf::Style::Default, sf::ContextSettings(24, 8, 0, 3, 3));
 	//_window->setVerticalSyncEnabled(true);
 	GameController::Window = _window;
 	std::cout << "Window initialized." << std::endl << std::endl;
@@ -57,7 +57,7 @@ void AbstractGame::_initializeWindow()
 void AbstractGame::_initializeWindow(int _windowWidth, int _windowHeight)
 {
 	std::cout << "Initializing window..." << std::endl;
-	_window = new sf::RenderWindow(sf::VideoMode(_windowWidth, _windowHeight), "My Game!", sf::Style::Default, sf::ContextSettings(24, 8, 0, 3, 3));
+	_window = new sf::RenderWindow(sf::VideoMode(_windowWidth, _windowHeight), "yer mum!", sf::Style::Default, sf::ContextSettings(24, 8, 0, 3, 3));
 	//_window->setVerticalSyncEnabled(true);
 	std::cout << "Window initialized." << std::endl << std::endl;
 }
@@ -208,7 +208,7 @@ void AbstractGame::_processEvents()
 			break;
 		}
 
-		if (gridManager)
+		if (gridManager != nullptr)
 			gridManager->InputDetection(event);
 		if (GameController::CameraBehaviour)
 			GameController::CameraBehaviour->Scroll(event);

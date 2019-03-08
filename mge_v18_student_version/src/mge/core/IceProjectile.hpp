@@ -3,6 +3,7 @@
 
 #include <string>
 #include "mge/core/GameObject.hpp"
+#include "mge/core/Texture.hpp"
 #include <time.h>
 
 /**
@@ -12,23 +13,24 @@
  */
 class IceProjectile : public GameObject
 {
-public:
+	public:
 	IceProjectile(glm::mat4 pTransform);
 
 	virtual ~IceProjectile();
 	void update(float pStep) override;
 
 	void OnCollisionEnter(GameObject* pOther) override;
+	bool SkipCollisionCheck() override;
 
 	static Mesh* Mesh;
-	static AbstractMaterial* Material;
+	static Texture* Texture;
 
-protected:
+	protected:
 	IceProjectile(const IceProjectile&);
 	IceProjectile& operator= (const IceProjectile&);
 	clock_t _spawnTime;
 	glm::vec3 _spawnPos;
-private:
+	private:
 	bool _hasHitEnemy = false;
 };
 

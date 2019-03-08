@@ -16,7 +16,7 @@ class Renderer;
  */
 class AbstractGame
 {
-public:
+	public:
 
 	AbstractGame();
 	virtual ~AbstractGame();
@@ -29,7 +29,7 @@ public:
 
 	void SetGridManager(GridManager* pGridManager);
 
-protected:
+	protected:
 
 	//methods above delegate behaviour to the methods below so that you can override it in a subclass
 
@@ -60,10 +60,10 @@ protected:
 	World* _world;              //the root game object that represents our scene
 	float _fps;                 //stores the real fps
 
-private:
+	private:
 	AbstractGame(const AbstractGame&);
 	AbstractGame& operator=(const AbstractGame&);
-	GridManager* gridManager;
+	GridManager* gridManager = nullptr;
 };
 
 #endif // ABSTRACTGAME_HPP

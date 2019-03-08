@@ -3,6 +3,7 @@
 
 #include <string>
 #include "mge/core/GameObject.hpp"
+#include "mge/core/Texture.hpp"
 #include <time.h>
 
 /**
@@ -20,9 +21,10 @@ class ToasterProjectile : public GameObject
 	void update(float pStep) override;
 
 	void OnCollisionEnter(GameObject* pOther) override;
+	bool SkipCollisionCheck() override;
 
 	static Mesh* Mesh;
-	static AbstractMaterial* Material;
+	static Texture* Texture;
 
 	void Shoot();
 

@@ -7,8 +7,6 @@
 #include "mge/core/ShaderProgram.hpp"
 #include "mge/core/Texture.hpp"
 
-ShaderProgram* LitSelectedTextureMaterial::_shader = NULL;
-
 LitSelectedTextureMaterial::LitSelectedTextureMaterial(Light *light, Texture* pDiffuseTexture) :_diffuseTexture(pDiffuseTexture), _light(light), _mixIntesity(0.0f)
 {
 	//every time we create an instance of LitMaterial we check if the corresponding shader has already been loaded
@@ -18,18 +16,16 @@ LitSelectedTextureMaterial::LitSelectedTextureMaterial(Light *light, Texture* pD
 void LitSelectedTextureMaterial::_lazyInitializeShader()
 {
 	//this shader contains everything the material can do (it can render something in 3d using a single color)
-	if (!_shader)
-	{
-		_shader = new ShaderProgram();
-		_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "litSelectedTexture.vs");
-		_shader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "litSelectedTexture.fs");
-		_shader->finalize();
-	}
+	_shader = new ShaderProgram();
+	_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "litSelectedTexture.vs");
+	_shader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "litSelectedTexture.fs");
+	_shader->finalize();
 }
 
 LitSelectedTextureMaterial::~LitSelectedTextureMaterial()
 {
 	//dtor
+	delete _shader;
 }
 
 

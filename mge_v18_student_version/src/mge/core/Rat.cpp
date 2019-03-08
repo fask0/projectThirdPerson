@@ -1,18 +1,21 @@
 #include <iostream>
 #include <vector>
 
+#include "mge/behaviours/EffectBehaviour.hpp"
+
 #include "mge/core/Rat.hpp"
 #include "mge/core/Enemy.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Mesh.hpp"
 #include "mge/core/GameController.hpp"
-#include "mge/behaviours/EffectBehaviour.hpp"
 #include "mge/core/ToasterProjectile.hpp"
+#include "mge/core/Texture.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
+#include "mge/materials/LitTextureMaterial.hpp"
 
 std::vector<Mesh*> Rat::Animation;
-AbstractMaterial* Rat::Material;
+Texture* Rat::Texture;
 
 Rat::Rat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::string pTag)
 	: Enemy(pName, pPosition, pLane, pTag)
@@ -31,7 +34,7 @@ Rat::Rat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::stri
 	_animation = Animation;
 	_currentFrame = std::rand() % _animation.size();
 	setMesh(_animation[0]);
-	setMaterial(Material);
+	setMaterial(new LitTextureMaterial(Texture));
 
 	if (_healthRegen > 0)
 		addBehaviour(new EffectBehaviour(EffectBehaviour::HealOverTime, _healthRegen, -1));

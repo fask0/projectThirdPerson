@@ -2,16 +2,18 @@
 #include "mge/core/Tower.hpp"
 #include "mge/core/GameController.hpp"
 #include "mge/behaviours/ToasterTowerBehaviour.hpp"
+#include "mge/materials/LitTextureMaterial.hpp"
 
 Mesh* ToasterTower::Mesh;
-AbstractMaterial* ToasterTower::Material;
+Texture* ToasterTower::Texture;
 
 ToasterTower::ToasterTower() : Tower("Toaster Tower")
 {
 	_range = GameController::ToasterRange;
 	_attSpeed = GameController::ToasterAttSpeed;
 	_cost = GameController::ToasterCost;
-	_material = Material;
+	_material = new LitTextureMaterial(Texture);
+	rotate(glm::radians(90.0f), glm::vec3(0, 1, 0));
 }
 
 ToasterTower::~ToasterTower()

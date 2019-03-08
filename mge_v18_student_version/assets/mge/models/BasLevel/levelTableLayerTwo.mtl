@@ -1,0 +1,15 @@
+newmtl HoneyPot
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\BasLevel\HoneyPot.png
+illum 2
+
+newmtl Fan
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\BasLevel\Fan.png
+illum 2
+
+newmtl MouseTrap
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\BasLevel\MouseTrap.png
+illum 2
+

@@ -7,6 +7,7 @@
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/Tower.hpp"
+#include "mge/core/Level.hpp"
 #include "mge/materials/LitSelectedTextureMaterial.hpp"
 #include "mge/materials/TextureGridMaterial.hpp"
 #include "mge/materials/LitTextureGridMaterial.hpp"
@@ -19,8 +20,8 @@
  */
 class GridManager : public GameObject
 {
-public:
-	GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow* pWindow, World* pWorld);
+	public:
+	GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow* pWindow, Level* pLevel);
 
 	virtual ~GridManager();
 
@@ -29,10 +30,10 @@ public:
 
 	int _currentMoney;
 
-private:
+	private:
 	std::vector<GameObject*> _gridObjects;
 	sf::RenderWindow* _window;
-	World* _world;
+	Level* _level;
 
 	//Tower variables
 	LitSelectedTextureMaterial* selectedMaterial;
@@ -50,7 +51,7 @@ private:
 	void ResetMouseOverAndSelected();
 	void ResetAllTowerMaterials();
 
-private:
+	private:
 	GridManager(const GridManager&);
 	GridManager& operator= (const GridManager&);
 

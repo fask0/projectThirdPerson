@@ -1,0 +1,69 @@
+newmtl Olives
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Olives.png
+illum 2
+
+newmtl Toothpicks
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Toothpicks.png
+illum 2
+
+newmtl CheeseyBites
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\CheeseyBites.png
+illum 2
+
+newmtl BigO'Cheesy
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\BigO'Cheesy.png
+illum 2
+
+newmtl Flatcheese
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Flatcheese.png
+illum 2
+
+newmtl Lvl1Cheese
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Lvl1Cheese.png
+illum 2
+
+newmtl Cheese Cube
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Cheese Cube.png
+illum 2
+
+newmtl Lvl1topcheese
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Lvl1topcheese.png
+illum 2
+
+newmtl Flag
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Flag.png
+illum 2
+
+newmtl MouseTexture 20
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\MouseTexture.png
+illum 2
+
+newmtl MouseTexture 19
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\MouseTexture.png
+illum 2
+
+newmtl Default-Material
+Kd 1 1 1
+illum 2
+
+newmtl Chair
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\ChairTextures.png
+illum 2
+
+newmtl PathTextureTest2
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\PathTextureTest2.png
+illum 2
+

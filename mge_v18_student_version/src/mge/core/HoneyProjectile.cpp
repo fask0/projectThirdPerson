@@ -11,15 +11,15 @@
 #include <time.h>
 
 Mesh* HoneyProjectile::Mesh;
-AbstractMaterial* HoneyProjectile::Material;
+Texture* HoneyProjectile::Texture;
 
 HoneyProjectile::HoneyProjectile(glm::mat4 pTransform, float pDiff) : GameObject("HoneyProjectile")
 {
-	_tag = "honeyProjectile";
+	_tag = "projectile";
 
 	_ignoreTags.push_back(_tag);
 	_ignoreTags.push_back("tower");
-	_ignoreTags.push_back("toasterProjectile");
+	_ignoreTags.push_back("emptyCollider");
 
 	/*CollisionBehaviour* colBehaviour = new CollisionBehaviour(1, true);
 	addBehaviour(colBehaviour);
@@ -30,7 +30,7 @@ HoneyProjectile::HoneyProjectile(glm::mat4 pTransform, float pDiff) : GameObject
 
 	addBehaviour(new HoneyProjectileBehaviour(pDiff));
 	setMesh(Mesh);
-	setMaterial(Material);
+	setMaterial(new LitTextureMaterial(Texture));
 
 	_spawnTime = clock();
 	_spawnPos = getLocalPosition();
@@ -68,4 +68,9 @@ void HoneyProjectile::OnCollisionExit(GameObject * pOther)
 {
 	dynamic_cast<Enemy*>(pOther)->setSlowDown(0);
 	enemiesCollidingWith.erase(enemiesCollidingWith.begin());
+}
+
+bool HoneyProjectile::SkipCollisionCheck()
+{
+	return false;
 }

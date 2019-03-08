@@ -53,14 +53,14 @@ EnemySpawner::EnemySpawner(std::string pName, glm::vec3 pPosition, Waypoint::Lan
 		break;
 	}
 
-	GameController::SpawnPointsInLevel.push_back(this);
+	GameController::SpawnPoints.push_back(this);
 }
 
 EnemySpawner::~EnemySpawner()
 {
-	for (int i = 0; i < GameController::SpawnPointsInLevel.size(); ++i)
-		if (GameController::SpawnPointsInLevel[i] == this)
-			GameController::SpawnPointsInLevel.erase(GameController::SpawnPointsInLevel.begin() + i);
+	for (int i = 0; i < GameController::SpawnPoints.size(); ++i)
+		if (GameController::SpawnPoints[i] == this)
+			GameController::SpawnPoints.erase(GameController::SpawnPoints.begin() + i);
 
 	GameObject::~GameObject();
 }
@@ -74,7 +74,6 @@ void EnemySpawner::update(float pStep)
 	{
 		Enemy* enemy;
 		int selectEnemy = std::rand() % 3 + 1;
-		std::cout << selectEnemy << std::endl;
 		switch (selectEnemy)
 		{
 			case 1:
@@ -97,7 +96,7 @@ void EnemySpawner::update(float pStep)
 				enemy = new Rat("Rat", getLocalPosition(), _lane);
 			break;
 		}
-		GameController::World->add(enemy);
+		GameController::CurrentLevel->add(enemy);
 		_currentEnemiesInLane += enemy->getSize();
 
 		if (_currentEnemiesInLane >= _size)

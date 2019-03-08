@@ -43,9 +43,10 @@ class CollisionBehaviour : public AbstractBehaviour
 	bool isTrigger;
 	ColliderType colliderType;
 
-	std::vector<CollisionBehaviour*>* getCollisions();
+	std::vector<CollisionBehaviour*> getCollisions();
 	bool checkCollision(CollisionBehaviour* pOther);
 	void removeCollision(CollisionBehaviour* pOther);
+	std::vector<CollisionBehaviour*> _behavioursInCollision;
 
 	protected:
 	glm::vec3 _boundaries;
@@ -53,7 +54,6 @@ class CollisionBehaviour : public AbstractBehaviour
 	GameObject* _collider;
 	AbstractMaterial* _material;
 	Mesh* _mesh;
-	std::vector<CollisionBehaviour*> _behavioursInCollision;
 };
 
 #endif // !COLLISIONBEHAVIOUR_HPP

@@ -3,7 +3,7 @@ Kd 1 1 1
 map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\IceTower.png
 illum 2
 
-newmtl MouseTexture 7
+newmtl MouseTexture 22
 Kd 1 1 1
 map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\MouseTexture.png
 illum 2

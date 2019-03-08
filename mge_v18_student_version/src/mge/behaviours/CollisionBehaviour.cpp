@@ -44,24 +44,21 @@ CollisionBehaviour::CollisionBehaviour(float pRadius, bool pIsTrigger, glm::vec3
 
 CollisionBehaviour::~CollisionBehaviour()
 {
-	for (unsigned i = 0; i < CollisionManager::collisionBehaviours.size(); i++)
+	for (int i = 0; i < CollisionManager::collisionBehaviours.size(); i++)
 	{
 		if (CollisionManager::collisionBehaviours[i] == this)
 		{
 			CollisionManager::collisionBehaviours.erase(CollisionManager::collisionBehaviours.begin() + i);
-			for (auto &b : _behavioursInCollision)
+			for (int j = 0; j < _behavioursInCollision.size(); ++j)
 			{
-				int index = 0;
-				for (auto &col : b->_behavioursInCollision)
+				for (int k = 0; k < _behavioursInCollision[j]->_behavioursInCollision.size(); ++k)
 				{
-					if (col == this)
+					if (_behavioursInCollision[j]->_behavioursInCollision[k] == this)
 					{
-						b->getCollisions()->erase(b->getCollisions()->begin() + index);
+						_behavioursInCollision[j]->_behavioursInCollision.erase(_behavioursInCollision[j]->_behavioursInCollision.begin() + k);
 					}
-					index++;
 				}
 			}
-			return;
 		}
 	}
 
@@ -158,9 +155,9 @@ void CollisionBehaviour::DrawCollider()
 	_owner->add(_collider);
 }
 
-std::vector<CollisionBehaviour*>* CollisionBehaviour::getCollisions()
+std::vector<CollisionBehaviour*> CollisionBehaviour::getCollisions()
 {
-	return &_behavioursInCollision;
+	return _behavioursInCollision;
 }
 
 bool CollisionBehaviour::checkCollision(CollisionBehaviour* pOther)

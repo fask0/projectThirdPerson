@@ -13,7 +13,7 @@
  */
 class HoneyProjectile : public GameObject
 {
-public:
+	public:
 	HoneyProjectile(glm::mat4 pTransform, float pDiff);
 
 	virtual ~HoneyProjectile();
@@ -22,11 +22,12 @@ public:
 
 	void OnCollisionEnter(GameObject* pOther) override;
 	void OnCollisionExit(GameObject* pOther) override;
+	bool SkipCollisionCheck() override;
 
 	static Mesh* Mesh;
-	static AbstractMaterial* Material;
+	static Texture* Texture;
 
-protected:
+	protected:
 	HoneyProjectile(const HoneyProjectile&);
 	HoneyProjectile& operator= (const HoneyProjectile&);
 	clock_t _spawnTime;

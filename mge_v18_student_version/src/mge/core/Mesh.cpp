@@ -76,7 +76,7 @@ Mesh::~Mesh()
  */
 Mesh* Mesh::load(std::string pFileName)
 {
-	std::cout << "Loading " << pFileName << ".obj...";
+	std::cout << "Loading " << pFileName << ".obj..." << std::endl;
 
 	Mesh* mesh = new Mesh();
 	mesh->materials = mesh->getMTLinfo(pFileName);
@@ -128,11 +128,8 @@ Mesh* Mesh::load(std::string pFileName)
 				{
 					if (mat.compare(mesh->materialNamesArray[i]) == 0)
 					{
-						if (mat.compare(mesh->meshTextures[i]->getPath()))
-						{
-							mesh->objectTextures.push_back(mesh->meshTextures[i]);
-							break;
-						}
+						mesh->objectTextures.push_back(mesh->meshTextures[i]);
+						break;
 					}
 				}
 			}
@@ -201,7 +198,6 @@ Mesh* Mesh::load(std::string pFileName)
 					{
 						col = new GameObject("Collider", pos);
 						col->SetTag("emptyCollider");
-
 						CollisionBehaviour* objectCollider = new CollisionBehaviour(glm::vec3(glm::max(vOne.x, vTwo.x) - glm::min(vOne.x, vTwo.x),
 																							  glm::max(vOne.y, vTwo.y) - glm::min(vOne.y, vTwo.y),
 																							  glm::max(vOne.z, vTwo.z) - glm::min(vOne.z, vTwo.z)), true);
@@ -338,7 +334,7 @@ int Mesh::getMTLinfo(std::string pFileName)
 	inMTL.open(pFileName + ".mtl");
 	if (!inMTL.good())
 	{
-		std::cout << "Could not open: " + pFileName + ".mtl";
+		std::cout << "Could not open: " + pFileName + ".mtl" << std::endl;;
 		inMTL.close();
 		return 0;
 	}
@@ -370,9 +366,10 @@ void Mesh::extractMTLinfo(Mesh* pMesh, std::string pFileName, std::string * pMat
 
 	std::ifstream inMTL;
 	inMTL.open(pFileName + ".mtl");
+	std::cout << "Trying to open: " + pFileName + ".mtl" << std::endl;
 	if (!inMTL.good())
 	{
-		std::cout << "Could not open: " + pFileName + ".mtl";
+		std::cout << "Could not open: " + pFileName + ".mtl" << std::endl;
 		inMTL.close();
 		return;
 	}
@@ -419,7 +416,7 @@ int Mesh::getOBJinfo(std::string pFileName)
 	inOBJ.open(pFileName + ".obj");
 	if (!inOBJ.good())
 	{
-		std::cout << "Could not open " + pFileName + ".obj";
+		std::cout << "Could not open " + pFileName + ".obj" << std::endl;
 		inOBJ.close();
 		return 0;
 	}

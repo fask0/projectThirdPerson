@@ -29,6 +29,7 @@ void CollisionManager::update(float pStep)
 	{
 		collider = collisionBehaviours[i];
 		GameObject* colOwner = collider->getOwner();
+		if (colOwner->SkipCollisionCheck()) continue;
 
 		glm::vec3 colliderMax = collider->GetMax();
 		glm::vec3 colliderMin = collider->GetMin();
@@ -38,12 +39,11 @@ void CollisionManager::update(float pStep)
 		{
 			case CollisionBehaviour::BoxCollider:
 			{
-				for (int j = i + 1; j < collisionBehaviours.size(); ++j)
+				for (int j = 0; j < collisionBehaviours.size(); ++j)
 				{
 					other = collisionBehaviours[j];
 					GameObject* oOwner = other->getOwner();
-
-					if (oOwner->SkipCollisionCheck() ||
+					if (collider == other ||
 						colOwner->IgnoreCollision(oOwner) ||
 						oOwner->IgnoreCollision(colOwner)) continue;
 
@@ -62,9 +62,9 @@ void CollisionManager::update(float pStep)
 								other->ResolveCollision(collider, colOwner, oOwner->getLastPosition());
 
 								if (!collider->checkCollision(other))
-									collider->getCollisions()->push_back(other);
+									collider->_behavioursInCollision.push_back(other);
 								if (!other->checkCollision(collider))
-									other->getCollisions()->push_back(collider);
+									other->_behavioursInCollision.push_back(collider);
 							}
 							else if (collider->checkCollision(other))
 							{
@@ -96,9 +96,9 @@ void CollisionManager::update(float pStep)
 								other->ResolveCollision(collider, colOwner, oOwner->getLastPosition());
 
 								if (!collider->checkCollision(other))
-									collider->getCollisions()->push_back(other);
+									collider->_behavioursInCollision.push_back(other);
 								if (!other->checkCollision(collider))
-									other->getCollisions()->push_back(collider);
+									other->_behavioursInCollision.push_back(collider);
 							}
 							else if (collider->checkCollision(other))
 							{
@@ -117,12 +117,12 @@ void CollisionManager::update(float pStep)
 
 			case CollisionBehaviour::SphereCollider:
 			{
-				for (int j = i + 1;j < collisionBehaviours.size(); ++j)
+				for (int j = 0; j < collisionBehaviours.size(); ++j)
 				{
 					other = collisionBehaviours[j];
 					GameObject* oOwner = other->getOwner();
 
-					if (oOwner->SkipCollisionCheck() ||
+					if (collider == other ||
 						colOwner->IgnoreCollision(oOwner) ||
 						oOwner->IgnoreCollision(colOwner)) continue;
 
@@ -148,9 +148,9 @@ void CollisionManager::update(float pStep)
 								other->ResolveCollision(collider, colOwner, oOwner->getLastPosition());
 
 								if (!collider->checkCollision(other))
-									collider->getCollisions()->push_back(other);
+									collider->_behavioursInCollision.push_back(other);
 								if (!other->checkCollision(collider))
-									other->getCollisions()->push_back(collider);
+									other->_behavioursInCollision.push_back(collider);
 							}
 							else if (collider->checkCollision(other))
 							{
@@ -178,9 +178,9 @@ void CollisionManager::update(float pStep)
 								other->ResolveCollision(collider, colOwner, oOwner->getLastPosition());
 
 								if (!collider->checkCollision(other))
-									collider->getCollisions()->push_back(other);
+									collider->_behavioursInCollision.push_back(other);
 								if (!other->checkCollision(collider))
-									other->getCollisions()->push_back(collider);
+									other->_behavioursInCollision.push_back(collider);
 							}
 							else if (collider->checkCollision(other))
 							{

@@ -220,98 +220,32 @@ bool TowerDefenseScene::boolFromLua(std::string pVariableName)
 void TowerDefenseScene::_initializeScene()
 {
 	GameController* gameController = new GameController();
+	GameController::TowerDefenseScene = this;
 	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
 	_world->add(colManager);
 
+	//UI
 	std::cout << "Initializing 2D layer" << std::endl;
 	_uiManager = new UIManager(_window);
 	std::cout << "2D layer initialized." << std::endl;
-	//MESHES
-	//load a bunch of meshes we will be using throughout this demo
-	//each mesh only has to be loaded once, but can be used multiple times:
-	//F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-	//Mesh* newPlaneMesh = Mesh::load(config::MGE_MODEL_PATH + "unityexport2");
-	Mesh* planeMeshDefault = Mesh::load(config::MGE_MODEL_PATH + "plane");
-	Mesh* teapotS = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth");
-	Mesh* cylinderS = Mesh::load(config::MGE_MODEL_PATH + "cylinder_smooth");
-	Mesh* sphere1 = Mesh::load(config::MGE_MODEL_PATH + "sphere1");
-	Mesh* sphere2 = Mesh::load(config::MGE_MODEL_PATH + "sphere2");
-	Mesh* sphere3 = Mesh::load(config::MGE_MODEL_PATH + "sphere3");
-	Mesh* sphere4 = Mesh::load(config::MGE_MODEL_PATH + "sphere4");
-	Mesh* monkeyHeadS = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth");
 
 	//Directional
 	Light* light = new Light("light", glm::vec3(0, 10, 0), glm::vec3(0.9f, 1.0f, 0.8f), 10.0f, 30.0f, Light::Directional);
-
-	//SpotLight
-	Light* light2 = new Light("light2", glm::vec3(0, 10, 0), glm::vec3(0, 0, 1), 10.0f, 30.0f, Light::Spotlight);
 	light->rotate(glm::radians(-110.0f), glm::vec3(1, 0, 0));
 	light->rotate(glm::radians(-45.0f), glm::vec3(0, 1, 0));
-	light2->rotate(glm::radians(180.0f), glm::vec3(1, 0, 0));
-
-	light->addBehaviour(new RotatingBehaviour());
-
 	_world->add(light);
-	_world->add(light2);
 
 	gameController->Init();
 
 	//SCENE SETUP
-
-	TextureGridMaterial* gridMaterial = new TextureGridMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
-	//LitTextureGridMaterial* litTextureGridMaterial = new LitTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
-	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(0, 0, 1, 1));
-	LitMaterial* litMaterial1 = new LitMaterial(light, glm::vec3(0.9f, 0.9f, 0.9f));
-	litMaterial1->AddLight(light2);
-	AbstractMaterial* litMaterial = litMaterial1;
-	TerrainMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-														   0);
-	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
-
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
 	camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
-	camera->addBehaviour(new CameraMovementBehaviour(-17, 17, -17, 17, 10, 50, _window, camera->getLocalPosition(), 1.0f, 10.0f));
+	camera->addBehaviour(new CameraMovementBehaviour(-30, 30, -30, 30, 10, 20, _window, camera->getLocalPosition(), 1.0f, 10.0f));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 
-	//////////////////////////////////////////Level//////////////////////////////////////////
-	//add the floor
-	LitDynamicTextureGridMaterial* layerOneMaterial = new LitDynamicTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
-	LitDynamicTextureGridMaterial* layerTwoMaterial = new LitDynamicTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"), true);
-	Mesh* layerOneMesh = Mesh::load(config::MGE_MODEL_PATH + "BasLevel/layerOne");
-	Mesh* layerTwoMesh = Mesh::load(config::MGE_MODEL_PATH + "BasLevel/layerTwo");
-	GameObject* layerOneObj = new GameObject("plane", glm::vec3(0, 0, 0));
-	GameObject* layerTwoObj = new GameObject("plane", glm::vec3(0, 0, 0));
-	layerOneObj->setMesh(layerOneMesh);
-	layerOneObj->setMaterial(layerOneMaterial);
-	layerTwoObj->setMesh(layerTwoMesh);
-	layerTwoObj->setMaterial(layerTwoMaterial);
-
-	if (layerOneMesh->collidersInMesh.size() > 0)
-		for (auto &i : layerOneMesh->collidersInMesh)
-			_world->add(i);
-	if (layerTwoMesh->collidersInMesh.size() > 0)
-		for (auto &i : layerOneMesh->collidersInMesh)
-			_world->add(i);
-
-	_world->add(layerOneObj);
-	_world->add(layerTwoObj);
-	////////////////////////////////////////////////////////////////////////////////////////
-
-	GameController::GridObjects.push_back(layerOneObj);
-	GridManager* gridManager = new GridManager(GameController::GridObjects, _window, _world);
-	_world->add(gridManager);
-	SetGridManager(gridManager);
-
-	_plane = layerOneObj;
 	_camera = camera;
-	_matD = layerOneMaterial;
 
 	sf::Texture* tex = new sf::Texture();
 	tex->loadFromFile(config::MGE_TEXTURE_PATH + "bricks.jpg");
@@ -327,24 +261,32 @@ void TowerDefenseScene::_render()
 {
 	AbstractGame::_render();
 
-	glm::vec3 normalizedDiff = _camera->rayCastNormalizedDiffVec();
+	if (GameController::MainPlane != NULL)
+	{
+		glm::vec3 normalizedDiff = _camera->rayCastNormalizedDiffVec();
+		glm::vec3 cameraToPlane = GameController::MainPlane->getWorldPosition() - _camera->getWorldPosition();
+		glm::vec3 parallel = glm::dot(cameraToPlane, normalizedDiff) * normalizedDiff;
+		glm::vec3 perpendicular = cameraToPlane - parallel;
 
-	glm::vec3 cameraToPlane = _plane->getWorldPosition() - _camera->getWorldPosition();
-	glm::vec3 parallel = glm::dot(cameraToPlane, normalizedDiff) * normalizedDiff;
-	glm::vec3 perpendicular = cameraToPlane - parallel;
+		float distance = glm::length(perpendicular);
 
-	float distance = glm::length(perpendicular);
+		float planeCamYDiff = _camera->getWorldPosition().y - GameController::MainPlane->getWorldPosition().y;
+		float multiplyValue = planeCamYDiff / normalizedDiff.y;
+		glm::vec3 thingy = (normalizedDiff * fabs(multiplyValue));
+		glm::vec3 planePos = _camera->getWorldPosition() + thingy;
 
-	float planeCamYDiff = _camera->getWorldPosition().y - _plane->getWorldPosition().y;
-	float multiplyValue = planeCamYDiff / normalizedDiff.y;
-	glm::vec3 thingy = (normalizedDiff * fabs(multiplyValue));
-	glm::vec3 planePos = _camera->getWorldPosition() + thingy;
-
-	_matD->setHighlightArea(planePos);
+		GameController::MainPlaneMaterial->setHighlightArea(planePos);
+	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
-		for (int i = 0; i < GameController::SpawnPointsInLevel.size(); ++i)
-			GameController::SpawnPointsInLevel[i]->initializeWave();
+	{
+		GameController::LoadNextLevel();
+	}
+	if (GameController::CurrentLevel != NULL && sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+	{
+		for (int i = 0; i < GameController::CurrentLevel->getEnemySpawnPoints().size(); ++i)
+			GameController::CurrentLevel->getEnemySpawnPoints()[i]->initializeWave();
+	}
 
 	_updateHud();
 	updateUIElements();

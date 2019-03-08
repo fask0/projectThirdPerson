@@ -5,6 +5,7 @@
 
 #include "mge/core/Enemy.hpp"
 #include "mge/core/Mesh.hpp"
+#include "mge/core/Texture.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 
@@ -12,7 +13,7 @@ class Rat : public Enemy
 {
 	public:
 	static std::vector<Mesh*> Animation;
-	static AbstractMaterial* Material;
+	static Texture* Texture;
 
 	Rat(std::string pName = "Rat",
 		glm::vec3 pPosition = glm::vec3(0, 0, 0),

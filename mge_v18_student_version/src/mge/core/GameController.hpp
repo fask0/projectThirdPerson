@@ -12,9 +12,11 @@
 #include "mge/core/Camera.hpp"
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/Enemy.hpp"
+#include "mge/core/Level.hpp"
 #include "mge/core/UIManager.hpp"
 #include "mge/core/EnemySpawner.hpp"
 #include "mge/core/GridManager.hpp"
+#include "mge/TowerDefenseScene.hpp"
 
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 
@@ -33,18 +35,25 @@ class GameController : public GameObject
 	void Init();
 
 	static std::vector<Light*> Lights;
+	static std::vector<Level*> Levels;
 	static std::vector<Enemy*> Enemies;
 	static std::vector<GameObject*> GameObjects;
 	static std::vector<GameObject*> GridObjects;
-	static std::vector<EnemySpawner*> SpawnPointsInLevel;
-	static std::vector<Waypoint*> WaypointsInLevel;
+	static std::vector<EnemySpawner*> SpawnPoints;
+	static std::vector<Waypoint*> Waypoints;
 
+	static TowerDefenseScene* TowerDefenseScene;
 	static Camera* MainCamera;
 	static CameraMovementBehaviour* CameraBehaviour;
 	static World* World;
 	static sf::RenderWindow* Window;
 	static UIManager* UIManager;
 	static GridManager* GridManager;
+	static Level* CurrentLevel;
+	static GameObject* MainPlane;
+	static LitDynamicTextureGridMaterial* MainPlaneMaterial;
+
+	static bool IsGamePaused;
 
 	//--Lua variables
 	static bool Debug;
@@ -131,6 +140,12 @@ class GameController : public GameObject
 	static float SanicSpeed;
 	static float SanicEffectRecoverySpeed;
 	//--End of Lua variables
+
+	static void LoadLevel(int pLevel);
+	static void LoadNextLevel();
+	static void ReplayLevel();
+
+	static void SetUpLevels();
 
 	private:
 	GameController(const GameController&);

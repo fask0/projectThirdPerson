@@ -58,7 +58,7 @@ void ToasterTowerBehaviour::Attack()
 		if (!_isProjectileCreated)
 		{
 			_projectile = new ToasterProjectile(_owner->getTransform());
-			GameController::World->add(_projectile);
+			GameController::CurrentLevel->add(_projectile);
 			_isProjectileCreated = true;
 			dynamic_cast<ToasterTower*>(_owner)->primedProjectile = _projectile;
 		}

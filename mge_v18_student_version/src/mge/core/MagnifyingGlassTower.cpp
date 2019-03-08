@@ -2,6 +2,7 @@
 #include "mge/core/Tower.hpp"
 #include "mge/core/GameController.hpp"
 #include "mge/behaviours/MagnifyingGlassTowerBehaviour.hpp"
+#include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 
 Mesh* MagnifyingGlassTower::Mesh;
 AbstractMaterial* MagnifyingGlassTower::Material;
@@ -11,7 +12,7 @@ MagnifyingGlassTower::MagnifyingGlassTower() : Tower("Magnifying Glass Tower")
 	_range = GameController::MagnifyingRange;
 	_attSpeed = 0;
 	_cost = GameController::MagnifyingCost;
-	_material = Material;
+	_material = new LitDynamicTextureGridMaterial(GameController::Lights[0], true);
 }
 
 MagnifyingGlassTower::~MagnifyingGlassTower()

@@ -4,7 +4,7 @@
 
 struct DirLight{
 	vec3 lightCol;
-	vec3 lightRot;
+	vec3 lightPos;
 };
 
 struct SpotLight{
@@ -42,28 +42,33 @@ uniform float range;
 uniform bool isColliding;
 
 //Dynamic object loading stuff
-#define NR_OF_TEXTURES 60
+#define NR_OF_TEXTURES 100
 uniform sampler2D textures[NR_OF_TEXTURES];
 uniform int splitter[NR_OF_TEXTURES];
 in int index;
 
-vec3 CalcDirLight(DirLight _dirLight, vec3 normal)
+vec4 CalcDirLight(DirLight _dirLight, vec3 normal)
 {
 	vec3 norm = normalize(normal);
-	vec3 lightDir = -_dirLight.lightRot;
-	float diff = max(dot(norm, lightDir), 0.0f);
-	vec3 diffuse = diff * _dirLight.lightCol;
+    vec3 lightDir = normalize(_dirLight.lightPos);
+    float diff = max(dot(norm, lightDir), 0.0f);
+    vec3 diffuse = diff * _dirLight.lightCol;
 
-	vec3 result = (ambientColor + diffuse) * vec3(texture(textures[0],texCoord));
-	for(int i = 0; i < NR_OF_TEXTURES; i++)
-	{
-		if(splitter[i] != 0 && vertexID >= splitter[i])
-		{
-			result = (ambientColor + diffuse) * vec3(texture(textures[i],texCoord));
-		}
-	}
+    int iToUse = 0;
+    for(int i = 0; i < NR_OF_TEXTURES; i++)
+    {
+        if(splitter[i] != 0 && vertexID >= splitter[i])
+        {
+            iToUse = i;
+        }
+    }
 
-	return result;	
+    vec4 color = vec4(texture(textures[iToUse],texCoord));
+
+    //Shadow                   
+    vec4 result = (vec4((ambientColor + diffuse), 1.0) * color);
+
+	return result;
 }
 
 vec3 CalcSpotLight(SpotLight _spotLight, vec3 normal, vec3 fragPos)
@@ -92,16 +97,14 @@ vec3 CalcSpotLight(SpotLight _spotLight, vec3 normal, vec3 fragPos)
 
 void main( void ) {
 
-	vec3 result = vec3(0, 0, 0);
+	vec4 result = vec4(0, 0, 0, 0);
 
 	result += CalcDirLight(dirLight, Normal);
 
-	for(int i = 0; i < NR_SPOT_LIGHTS; i++)
-		result += CalcSpotLight(spotLights[i], Normal, FragPos);
+	// for(int i = 0; i < NR_SPOT_LIGHTS; i++)
+	// 	result += CalcSpotLight(spotLights[i], Normal, FragPos);
 
-	fragment_color = vec4(result, 1.0f);		
-
-
+	fragment_color = result;		
 
 	//GRID
 	if(gridVisible)

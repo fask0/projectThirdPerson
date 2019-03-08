@@ -11,16 +11,15 @@
 #include <time.h>
 
 Mesh* IceProjectile::Mesh;
-AbstractMaterial* IceProjectile::Material;
+Texture* IceProjectile::Texture;
 
 IceProjectile::IceProjectile(glm::mat4 pTransform) : GameObject("IceProjectile")
 {
-	_tag = "iceProjectile";
+	_tag = "projectile";
 
 	_ignoreTags.push_back(_tag);
 	_ignoreTags.push_back("tower");
-	_ignoreTags.push_back("honeyProjectile");
-	_ignoreTags.push_back("toasterProjectile");
+	_ignoreTags.push_back("emptyCollider");
 
 	CollisionBehaviour* colBehaviour = new CollisionBehaviour(1, true);
 	addBehaviour(colBehaviour);
@@ -31,7 +30,7 @@ IceProjectile::IceProjectile(glm::mat4 pTransform) : GameObject("IceProjectile")
 
 	addBehaviour(new IceProjectileBehaviour());
 	setMesh(Mesh);
-	setMaterial(Material);
+	setMaterial(new LitTextureMaterial(Texture));
 
 	_spawnTime = clock();
 	_spawnPos = getLocalPosition();
@@ -49,7 +48,7 @@ void IceProjectile::update(float pStep)
 	GameObject::update(pStep);
 
 	if (_shouldDie) return;
-	if (glm::vec3(_spawnPos - getLocalPosition()).length() > GameController::IceRange)
+	if (clock() >= _spawnTime + 1 * CLOCKS_PER_SEC)
 	{
 		delete(this);
 	}
@@ -67,4 +66,9 @@ void IceProjectile::OnCollisionEnter(GameObject * pOther)
 		Kill();
 		_hasHitEnemy = true;
 	}
+}
+
+bool IceProjectile::SkipCollisionCheck()
+{
+	return false;
 }

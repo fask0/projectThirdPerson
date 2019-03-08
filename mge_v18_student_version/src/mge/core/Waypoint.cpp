@@ -12,7 +12,7 @@ Waypoint::Waypoint(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane,
 	_ignoreTags.push_back(_tag);
 	_ignoreTags.push_back("tower");
 
-	GameController::WaypointsInLevel.push_back(this);
+	GameController::Waypoints.push_back(this);
 }
 
 Waypoint::~Waypoint()

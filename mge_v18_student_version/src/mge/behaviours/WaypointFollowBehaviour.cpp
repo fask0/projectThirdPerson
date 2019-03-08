@@ -17,10 +17,9 @@
 WaypointFollowBehaviour::WaypointFollowBehaviour(Waypoint::Lane pLane)
 	: AbstractBehaviour()
 {
-	for (int i = 0; i < GameController::WaypointsInLevel.size(); ++i)
-		if (GameController::WaypointsInLevel[i]->getLane() == pLane)
-			_toDo.push_back(GameController::WaypointsInLevel[i]);
-
+	for (int i = 0; i < GameController::CurrentLevel->getWaypoints().size(); ++i)
+		if (GameController::CurrentLevel->getWaypoints()[i]->getLane() == pLane)
+			_toDo.push_back(GameController::CurrentLevel->getWaypoints()[i]);
 	struct
 	{
 		bool operator()(Waypoint* wp1, Waypoint* wp2)
@@ -62,8 +61,8 @@ void WaypointFollowBehaviour::update(float pStep)
 			_velocity *= 0.05f;
 		}
 	}
-	else if (glm::abs(distToCurrent.x) <= _enemyOwner->getSpeed() * pStep * 2.0f &&
-			 glm::abs(distToCurrent.z) <= _enemyOwner->getSpeed() * pStep * 2.0f)
+	else if (glm::abs(distToCurrent.x) <= _enemyOwner->getSpeed() * pStep * 3 &&
+			 glm::abs(distToCurrent.z) <= _enemyOwner->getSpeed() * pStep * 3)
 	{
 		if (_toDo.size() > 1)
 			_currentWaypoint = _toDo[1];

@@ -14,7 +14,7 @@ class ShaderProgram;
  */
 class LitTextureMaterial : public AbstractMaterial
 {
-public:
+	public:
 	LitTextureMaterial(Texture* pDiffuseTexture);
 	virtual ~LitTextureMaterial();
 
@@ -23,11 +23,11 @@ public:
 	//in rgb values
 	void setDiffuseTexture(Texture* pDiffuseTexture);
 
-private:
+	private:
 	//all the static properties are shared between instances of LitMaterial
 	//note that they are all PRIVATE, we do not expose this static info to the outside world
-	static ShaderProgram* _shader;
-	static void _lazyInitializeShader();
+	ShaderProgram* _shader;
+	void initShader();
 
 	//this one is unique per instance of material
 	Texture* _diffuseTexture;

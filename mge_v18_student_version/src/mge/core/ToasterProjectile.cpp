@@ -10,15 +10,15 @@
 #include <time.h>
 
 Mesh* ToasterProjectile::Mesh;
-AbstractMaterial* ToasterProjectile::Material;
+Texture* ToasterProjectile::Texture;
 
 ToasterProjectile::ToasterProjectile(glm::mat4 pTransform) : GameObject("ToasterProjectile")
 {
-	_tag = "toasterProjectile";
+	_tag = "projectile";
 
 	_ignoreTags.push_back(_tag);
 	_ignoreTags.push_back("tower");
-	_ignoreTags.push_back("honeyProjectile");
+	_ignoreTags.push_back("emptyCollider");
 
 	CollisionBehaviour* colBehaviour = new CollisionBehaviour(1, true);
 	addBehaviour(colBehaviour);
@@ -29,7 +29,7 @@ ToasterProjectile::ToasterProjectile(glm::mat4 pTransform) : GameObject("Toaster
 
 	addBehaviour(new ToasterProjectileBehaviour());
 	setMesh(Mesh);
-	setMaterial(Material);
+	setMaterial(new LitTextureMaterial(Texture));
 
 	_spawnTime = clock();
 	_spawnPos = getLocalPosition();
@@ -49,7 +49,7 @@ void ToasterProjectile::update(float pStep)
 	GameObject::update(pStep);
 
 	if (_shouldDie) return;
-	if (glm::vec3(_spawnPos - getLocalPosition()).length() > GameController::ToasterRange)
+	if (clock() >= _spawnTime + 3 * CLOCKS_PER_SEC)
 	{
 		delete(this);
 	}
@@ -62,6 +62,11 @@ void ToasterProjectile::OnCollisionEnter(GameObject * pOther)
 		dynamic_cast<Enemy*>(pOther)->TakeDamage(GameController::ToasterDamage);
 	}
 	Kill();
+}
+
+bool ToasterProjectile::SkipCollisionCheck()
+{
+	return false;
 }
 
 void ToasterProjectile::Shoot()

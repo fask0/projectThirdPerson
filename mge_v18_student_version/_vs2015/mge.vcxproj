@@ -205,6 +205,7 @@
     <ClInclude Include="..\src\mge\core\IceProjectile.hpp" />
     <ClInclude Include="..\src\mge\core\IceTower.hpp" />
     <ClInclude Include="..\src\mge\core\ChadRat.hpp" />
+    <ClInclude Include="..\src\mge\core\Level.hpp" />
     <ClInclude Include="..\src\mge\core\Light.hpp" />
     <ClInclude Include="..\src\mge\core\MagnifyingGlassTower.hpp" />
     <ClInclude Include="..\src\mge\core\Mesh.hpp" />
@@ -212,13 +213,14 @@
     <ClInclude Include="..\src\mge\core\Renderer.hpp" />
     <ClInclude Include="..\src\mge\core\SanicRat.hpp" />
     <ClInclude Include="..\src\mge\core\ShaderProgram.hpp" />
-    <ClInclude Include="..\src\mge\core\ShadowFrameBuffer.hpp" />
     <ClInclude Include="..\src\mge\core\ShockTower.hpp" />
     <ClInclude Include="..\src\mge\core\SniperTower.hpp" />
+    <ClInclude Include="..\src\mge\core\TableLevel.hpp" />
     <ClInclude Include="..\src\mge\core\ToasterProjectile.hpp" />
     <ClInclude Include="..\src\mge\core\ToasterTower.hpp" />
     <ClInclude Include="..\src\mge\core\Texture.hpp" />
     <ClInclude Include="..\src\mge\core\Tower.hpp" />
+    <ClInclude Include="..\src\mge\core\TutorialLevel.hpp" />
     <ClInclude Include="..\src\mge\core\UIManager.hpp" />
     <ClInclude Include="..\src\mge\core\Waypoint.hpp" />
     <ClInclude Include="..\src\mge\core\World.hpp" />
@@ -273,6 +275,7 @@
     <ClCompile Include="..\src\mge\core\ChadRat.cpp" />
     <ClCompile Include="..\src\mge\core\IceProjectile.cpp" />
     <ClCompile Include="..\src\mge\core\IceTower.cpp" />
+    <ClCompile Include="..\src\mge\core\Level.cpp" />
     <ClCompile Include="..\src\mge\core\Light.cpp" />
     <ClCompile Include="..\src\mge\core\MagnifyingGlassTower.cpp" />
     <ClCompile Include="..\src\mge\core\Mesh.cpp" />
@@ -282,10 +285,12 @@
     <ClCompile Include="..\src\mge\core\ShaderProgram.cpp" />
     <ClCompile Include="..\src\mge\core\ShockTower.cpp" />
     <ClCompile Include="..\src\mge\core\SniperTower.cpp" />
+    <ClCompile Include="..\src\mge\core\TableLevel.cpp" />
     <ClCompile Include="..\src\mge\core\ToasterProjectile.cpp" />
     <ClCompile Include="..\src\mge\core\ToasterTower.cpp" />
     <ClCompile Include="..\src\mge\core\Texture.cpp" />
     <ClCompile Include="..\src\mge\core\Tower.cpp" />
+    <ClCompile Include="..\src\mge\core\TutorialLevel.cpp" />
     <ClCompile Include="..\src\mge\core\UIManager.cpp" />
     <ClCompile Include="..\src\mge\core\Waypoint.cpp" />
     <ClCompile Include="..\src\mge\core\World.cpp" />

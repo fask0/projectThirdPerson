@@ -57,7 +57,7 @@ void HoneyTowerBehaviour::Attack()
 		{
 			glm::vec3 diff = (_owner->getLocalPosition() - _furthestEnemy->getLocalPosition());
 			_projectile = new HoneyProjectile(_owner->getTransform(), glm::sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z));
-			GameController::World->add(_projectile);
+			GameController::CurrentLevel->add(_projectile);
 			_lastAttackTime = clock();
 		}
 	}

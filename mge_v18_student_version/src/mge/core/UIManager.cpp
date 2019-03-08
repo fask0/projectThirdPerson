@@ -61,7 +61,7 @@ void UIManager::Draw()
 		{
 			_texts[i]->setFont(_font);
 			sf::Text text = *_texts[i];
-			if (i == 0)
+			if (i == 0 && GameController::GridManager != NULL)
 				text.setString(text.getString() + std::to_string(GameController::GridManager->_currentMoney));
 
 			glActiveTexture(GL_TEXTURE0);

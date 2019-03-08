@@ -24,8 +24,7 @@ GameObject::GameObject(const std::string& pName, const glm::vec3& pPosition)
 GameObject::~GameObject()
 {
 	//detach all children
-	std::cout << "GC running on:" << _name << std::endl;
-
+	std::cout << "GC running on: " << _name;
 	removeAllBehaviours();
 	_parent->remove(this);
 
@@ -35,7 +34,9 @@ GameObject::~GameObject()
 		remove(child);
 		delete child;
 	}
-	std::cout << "Deleted " << _name << std::endl;
+	if (!dynamic_cast<LitSelectedTextureMaterial*>(_material))
+		delete _material;
+	std::cout << " | Deleted: " << _name << std::endl;
 	//do not forget to delete behaviour, material, mesh, collider manually if required!
 }
 
@@ -305,7 +306,7 @@ void GameObject::OnCollisionExit(GameObject* pOther)
 
 bool GameObject::SkipCollisionCheck()
 {
-	return false;
+	return true;
 }
 
 bool GameObject::IgnoreCollision(GameObject * pOther)

@@ -6,6 +6,7 @@
 #include "mge/core/Tower.hpp"
 #include "mge/core/Mesh.hpp"
 
+#include "mge/core/Texture.hpp"
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/core/ToasterProjectile.hpp"
 
@@ -16,20 +17,20 @@
  */
 class ToasterTower : public Tower
 {
-public:
+	public:
 	ToasterTower();
 	virtual ~ToasterTower();
 
 	void update(float pStep) override;
 
 	static Mesh* Mesh;
-	static AbstractMaterial* Material;
+	static Texture* Texture;
 
 	void AddTowerBehaviour() override;
 
 	ToasterProjectile* primedProjectile = nullptr;
 
-private:
+	private:
 	ToasterTower(const ToasterTower&);
 	ToasterTower& operator= (const ToasterTower&);
 };

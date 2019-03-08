@@ -22,10 +22,6 @@ class Enemy : public GameObject
 
 	virtual void update(float pStep) override;
 
-	virtual void OnCollisionEnter(GameObject* pOther) override;
-	virtual void OnCollisionStay(GameObject* pOther) override;
-	virtual void OnCollisionExit(GameObject* pOther) override;
-
 	void Knockback(float pForce);
 	void Heal(int pHealth);
 	void TakeDamage(int pDamage);

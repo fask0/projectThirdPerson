@@ -8,29 +8,25 @@
 #include "mge/core/Texture.hpp"
 #include "mge/core/GameController.hpp"
 
-ShaderProgram* LitTextureMaterial::_shader = NULL;
-
 LitTextureMaterial::LitTextureMaterial(Texture* pDiffuseTexture) :_diffuseTexture(pDiffuseTexture)
 {
 	//every time we create an instance of LitMaterial we check if the corresponding shader has already been loaded
-	_lazyInitializeShader();
+	initShader();
 }
 
-void LitTextureMaterial::_lazyInitializeShader()
+void LitTextureMaterial::initShader()
 {
 	//this shader contains everything the material can do (it can render something in 3d using a single color)
-	if (!_shader)
-	{
-		_shader = new ShaderProgram();
-		_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "litTexture.vs");
-		_shader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "litTexture.fs");
-		_shader->finalize();
-	}
+	_shader = new ShaderProgram();
+	_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "litTexture.vs");
+	_shader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "litTexture.fs");
+	_shader->finalize();
 }
 
 LitTextureMaterial::~LitTextureMaterial()
 {
 	//dtor
+	delete _shader;
 }
 
 
@@ -78,5 +74,4 @@ void LitTextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pMo
 		_shader->getAttribLocation("normal"),
 		_shader->getAttribLocation("uv")
 	);
-
 }

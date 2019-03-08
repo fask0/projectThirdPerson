@@ -13,7 +13,6 @@ class DebugHud;
 
 class TowerDefenseScene : public AbstractGame
 {
-
 	public:
 	TowerDefenseScene();
 	virtual ~TowerDefenseScene();
@@ -37,9 +36,6 @@ class TowerDefenseScene : public AbstractGame
 	DebugHud* _hud;                   //hud display
 	UIManager* _uiManager;
 	Camera* _camera;
-	GameObject* _plane;
-	LitTextureGridMaterial* _mat;
-	LitDynamicTextureGridMaterial* _matD;
 	lua_State* lua;
 
 	void _updateHud();

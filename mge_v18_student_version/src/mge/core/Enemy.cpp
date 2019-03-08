@@ -14,6 +14,8 @@ Enemy::Enemy(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::
 	: GameObject(pName, pPosition), _lane(pLane)
 {
 	_tag = pTag;
+	_ignoreTags.push_back(_tag);
+	_ignoreTags.push_back("tower");
 
 	WaypointFollowBehaviour* wpBehaviour = new WaypointFollowBehaviour(pLane);
 	addBehaviour(wpBehaviour);
@@ -24,12 +26,7 @@ Enemy::Enemy(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::
 	if (GameController::DrawColliders)
 		colBehaviour->DrawCollider();
 
-	_ignoreTags.push_back(_tag);
-	_ignoreTags.push_back("tower");
-
-
 	_timer = 0;
-
 	GameController::Enemies.push_back(this);
 }
 
@@ -61,18 +58,6 @@ void Enemy::update(float pStep)
 		_speed += pStep * _effectRecovery;
 	else if (_speed - pStep * _effectRecovery >= _baseSpeed)
 		_speed -= pStep * _effectRecovery;
-}
-
-void Enemy::OnCollisionEnter(GameObject * pOther)
-{
-}
-
-void Enemy::OnCollisionStay(GameObject * pOther)
-{
-}
-
-void Enemy::OnCollisionExit(GameObject * pOther)
-{
 }
 
 void Enemy::Knockback(float pForce)

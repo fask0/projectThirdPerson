@@ -9,6 +9,7 @@
 #include "mge/behaviours/CameraMovementBehaviour.hpp"
 #include "mge/behaviours/CollisionBehaviour.hpp"
 #include "mge/config.hpp"
+#include "mge/core/Texture.hpp"
 #include "mge/materials/LitTextureMaterial.hpp"
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 
@@ -23,6 +24,12 @@
 #include "mge/core/HoneyProjectile.hpp"
 #include "mge/core/IceProjectile.hpp"
 
+#include "mge/core/Level.hpp"
+#include "mge/core/TableLevel.hpp"
+#include "mge/core/TutorialLevel.hpp"
+
+#include "mge/TowerDefenseScene.hpp"
+
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/EnemySpawner.hpp"
 
@@ -32,18 +39,25 @@
 #include "mge/core/SanicRat.hpp"
 
 std::vector<Light*> GameController::Lights;
+std::vector<Level*> GameController::Levels;
 std::vector<Enemy*> GameController::Enemies;
 std::vector<GameObject*> GameController::GameObjects;
 std::vector<GameObject*> GameController::GridObjects;
-std::vector<EnemySpawner*> GameController::SpawnPointsInLevel;
-std::vector<Waypoint*> GameController::WaypointsInLevel;
+std::vector<EnemySpawner*> GameController::SpawnPoints;
+std::vector<Waypoint*> GameController::Waypoints;
 
+TowerDefenseScene* GameController::TowerDefenseScene;
 Camera* GameController::MainCamera;
 CameraMovementBehaviour* GameController::CameraBehaviour;
 World* GameController::World;
 sf::RenderWindow* GameController::Window;
 UIManager* GameController::UIManager;
 GridManager* GameController::GridManager;
+Level* GameController::CurrentLevel;
+GameObject* GameController::MainPlane;
+LitDynamicTextureGridMaterial* GameController::MainPlaneMaterial;
+
+bool GameController::IsGamePaused;
 
 //--Lua variables
 bool GameController::Debug = false;
@@ -141,39 +155,106 @@ GameController::~GameController()
 
 void GameController::Init()
 {
+	SetUpLevels();
 	SetTowerVariables();
 	SetUpEnemies();
 }
 
+void GameController::LoadLevel(int pLevel)
+{
+	CurrentLevel->reset();
+	CurrentLevel = nullptr;
+	if (pLevel >= Levels.size())
+	{
+		//Load win level/screen
+		return;
+	}
+	CurrentLevel = Levels[pLevel];
+	CurrentLevel->Init();
+	World->add(CurrentLevel);
+}
+
+void GameController::LoadNextLevel()
+{
+	if (CurrentLevel == nullptr)
+	{
+		CurrentLevel = Levels[0];
+		std::cout << "Loading level: " + CurrentLevel->getName() + "...\n";
+		CurrentLevel->Init();
+		World->add(CurrentLevel);
+		return;
+	}
+
+	for (int i = 0; i < Levels.size(); ++i)
+	{
+		if (Levels[i] == CurrentLevel)
+		{
+			CurrentLevel->reset();
+			if (i + 1 < Levels.size())
+			{
+				CurrentLevel = Levels[i + 1];
+				std::cout << "Loading level: " + CurrentLevel->getName() + "...\n";
+				CurrentLevel->Init();
+				World->add(CurrentLevel);
+				return;
+			}
+			else
+			{
+				//Load win level/screen
+				CurrentLevel = Levels[0];
+				std::cout << "Congratz! You've gone through all the levels\nResetting...\nLoading level: " + CurrentLevel->getName() + "...\n";
+				CurrentLevel->Init();
+				World->add(CurrentLevel);
+				return;
+			}
+		}
+	}
+}
+
+void GameController::ReplayLevel()
+{
+	for (int i = 0; i < Levels.size(); ++i)
+	{
+		if (Levels[i] == CurrentLevel)
+		{
+			CurrentLevel->reset();
+			CurrentLevel = nullptr;
+			CurrentLevel = Levels[i];
+			CurrentLevel->Init();
+			World->add(CurrentLevel);
+			return;
+		}
+	}
+}
+
+void GameController::SetUpLevels()
+{
+	TutorialLevel* l0 = new TutorialLevel("TutotialLevel", glm::vec3(0, 0, 0), 2);
+	TableLevel* l1 = new TableLevel("TableLevel", glm::vec3(0, 0, 0), 4);
+}
+
 void GameController::SetTowerVariables()
 {
-	AbstractMaterial* mat;
-
 	ToasterProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
-	ToasterProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife 1.png"));
+	ToasterProjectile::Texture = Texture::load(config::MGE_TEXTURE_PATH + "knife.png");
 	HoneyProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
-	HoneyProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife 1.png"));
+	HoneyProjectile::Texture = Texture::load(config::MGE_TEXTURE_PATH + "knife.png");
 	IceProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
-	IceProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife 1.png"));
+	IceProjectile::Texture = Texture::load(config::MGE_TEXTURE_PATH + "knife.png");
 
 	//Slingshot tower
 	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/ToasterTower");
-	ToasterTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "toaster 1.png"));
+	ToasterTower::Texture = Texture::load(config::MGE_TEXTURE_PATH + "toaster.png");
 	//Honey tower
 	HoneyTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTower");
-	HoneyTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"), true);
 	//Shock tower
 	ShockTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/AoETower");
-	ShockTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"), true);
 	//Ice tower
-	IceTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/MouseTrap");
-	IceTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"), true);
+	IceTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/IceTower");
 	//Magnifying glass tower
-	MagnifyingGlassTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/MouseTrap");
-	MagnifyingGlassTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"), true);
+	MagnifyingGlassTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/IceTower");
 	//Sniper tower
-	SniperTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/MouseTrap");
-	SniperTower::Material = new LitDynamicTextureGridMaterial(Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"), true);
+	SniperTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/SniperTower");
 }
 
 void GameController::SetUpEnemies()
@@ -189,7 +270,7 @@ void GameController::SetUpEnemies()
 	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie3"));
 	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie4"));
 	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie5"));
-	Rat::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemies/incel.png"));
+	Rat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "incel.png");
 	//ChadRat
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad0"));
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad1"));
@@ -197,7 +278,7 @@ void GameController::SetUpEnemies()
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad3"));
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad4"));
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad5"));
-	ChadRat::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemies/chad_texture.png"));
+	ChadRat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "chad_texture.png");
 	//SanicRat
 	//SanicRat::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Enemies/fastboi");
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi0"));
@@ -206,5 +287,5 @@ void GameController::SetUpEnemies()
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi3"));
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi4"));
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi5"));
-	SanicRat::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "Enemies/fastboi_texture.png"));
+	SanicRat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "fastboi_texture.png");
 }

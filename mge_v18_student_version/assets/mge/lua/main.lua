@@ -1,5 +1,5 @@
 Debug = true;
-DrawColliders = true;
+DrawColliders = false;
 WindowWidth = 1920;
 WindowHeight = 1080;
 

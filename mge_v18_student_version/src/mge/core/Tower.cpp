@@ -14,13 +14,18 @@ Tower::Tower(std::string pName, glm::vec3 pPosition, float pRange, AbstractMater
 	: GameObject(pName, pPosition), _range(pRange), _material(pMaterial), isPlaced(false)
 {
 	_tag = "tower";
-	_material = new LitSelectedTextureMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "diffuse2.jpg"));
-	for (int i = 1; i < GameController::Lights.size(); i++)
+	_ignoreTags.push_back("enemy");
+	rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
+	if (dynamic_cast<LitSelectedTextureMaterial*>(_material))
 	{
-		dynamic_cast<LitSelectedTextureMaterial*>(_material)->AddLight(GameController::Lights[1]);
+		for (int i = 1; i < GameController::Lights.size(); i++)
+		{
+			dynamic_cast<LitSelectedTextureMaterial*>(_material)->AddLight(GameController::Lights[1]);
+		}
 	}
 	setMaterial(_material);
-	dynamic_cast<LitSelectedTextureMaterial*>(_material)->SetMixIntensity(0.0f);
+	if (dynamic_cast<LitSelectedTextureMaterial*>(_material))
+		dynamic_cast<LitSelectedTextureMaterial*>(_material)->SetMixIntensity(0.0f);
 
 	float xScale = glm::sqrt(getTransform()[0][0] * getTransform()[0][0] + getTransform()[0][1] * getTransform()[0][1] + getTransform()[0][2] * getTransform()[0][2]);
 	float yScale = glm::sqrt(getTransform()[1][0] * getTransform()[1][0] + getTransform()[1][1] * getTransform()[1][1] + getTransform()[1][2] * getTransform()[1][2]);

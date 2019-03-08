@@ -14,7 +14,7 @@ class ShaderProgram;
  */
 class LitSelectedTextureMaterial : public AbstractMaterial
 {
-public:
+	public:
 	LitSelectedTextureMaterial(Light *light, Texture* pDiffuseTexture);
 	virtual ~LitSelectedTextureMaterial();
 
@@ -26,11 +26,11 @@ public:
 	void SetMixIntensity(float pIntensity);
 	void SetColliding(bool pIsColliding);
 
-private:
+	private:
 	//all the static properties are shared between instances of LitMaterial
 	//note that they are all PRIVATE, we do not expose this static info to the outside world
-	static ShaderProgram* _shader;
-	static void _lazyInitializeShader();
+	ShaderProgram* _shader;
+	void _lazyInitializeShader();
 
 	std::vector<Light*> _lights;
 

@@ -61,7 +61,7 @@ void IceTowerBehaviour::Attack()
 		if (_enemiesInRange)
 		{
 			_projectile = new IceProjectile(_owner->getTransform());
-			GameController::World->add(_projectile);
+			GameController::CurrentLevel->add(_projectile);
 			_lastAttackTime = clock();
 		}
 	}

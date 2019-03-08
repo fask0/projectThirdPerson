@@ -1,0 +1,27 @@
+newmtl Light
+Kd 1 1 1
+Tr 0.5963855
+d 0.4036145
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\Light.png
+illum 2
+
+newmtl Magnifying_glass
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\MagnifyingGlass.png
+illum 2
+
+newmtl Can
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\Can.png
+illum 2
+
+newmtl Glass
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\Glass.png
+illum 2
+
+newmtl Mirror
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\Mirror.png
+illum 2
+
