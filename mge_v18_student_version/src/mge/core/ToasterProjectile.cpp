@@ -10,17 +10,14 @@
 #include <time.h>
 
 Mesh* ToasterProjectile::Mesh;
-Texture* ToasterProjectile::Texture;
+LitTextureMaterial* ToasterProjectile::Material;
 
 ToasterProjectile::ToasterProjectile(glm::mat4 pTransform) : GameObject("ToasterProjectile")
 {
 	_tag = "projectile";
-
 	_ignoreTags.push_back(_tag);
-	_ignoreTags.push_back("tower");
-	_ignoreTags.push_back("emptyCollider");
 
-	CollisionBehaviour* colBehaviour = new CollisionBehaviour(1, true);
+	CollisionBehaviour* colBehaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, 1, true);
 	addBehaviour(colBehaviour);
 	if (GameController::DrawColliders)
 		colBehaviour->DrawCollider();
@@ -29,7 +26,7 @@ ToasterProjectile::ToasterProjectile(glm::mat4 pTransform) : GameObject("Toaster
 
 	addBehaviour(new ToasterProjectileBehaviour());
 	setMesh(Mesh);
-	setMaterial(new LitTextureMaterial(Texture));
+	setMaterial(Material);
 
 	_spawnTime = clock();
 	_spawnPos = getLocalPosition();

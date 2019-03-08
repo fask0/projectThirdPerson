@@ -15,7 +15,7 @@ MagnifyingGlassTower::MagnifyingGlassTower() : Tower("Magnifying Glass Tower")
 	_attSpeed = 0;
 	_cost = GameController::MagnifyingCost;
 	_material = new LitDynamicTextureGridMaterial(GameController::Lights[0], true);
-_tag = "magnifyingGlassTower";
+	_tag = "magnifyingGlassTower";
 }
 
 MagnifyingGlassTower::~MagnifyingGlassTower()
@@ -34,7 +34,7 @@ void MagnifyingGlassTower::update(float pStep)
 void MagnifyingGlassTower::AddTowerBehaviour()
 {
 	//addBehaviour(new MagnifyingGlassTowerBehaviour());
-	CollisionBehaviour* behaviour = new CollisionBehaviour(glm::vec3(5, 1, 1), true, glm::vec3(5, 0, 0));
+	CollisionBehaviour* behaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, glm::vec3(5, 1, 1), true, glm::vec3(5, 0, 0));
 	addBehaviour(behaviour);
 	if (GameController::DrawColliders)
 		behaviour->DrawCollider();

@@ -11,26 +11,23 @@
 #include <time.h>
 
 Mesh* HoneyProjectile::Mesh;
-Texture* HoneyProjectile::Texture;
+LitTextureMaterial* HoneyProjectile::Material;
 
 HoneyProjectile::HoneyProjectile(glm::mat4 pTransform, float pDiff) : GameObject("HoneyProjectile")
 {
 	_tag = "projectile";
-
 	_ignoreTags.push_back(_tag);
-	_ignoreTags.push_back("tower");
-	_ignoreTags.push_back("emptyCollider");
 
-	/*CollisionBehaviour* colBehaviour = new CollisionBehaviour(1, true);
-	addBehaviour(colBehaviour);
-	if (GameController::DrawColliders)
-		colBehaviour->DrawCollider();*/
+	//CollisionBehaviour* colBehaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, 1, true);
+	//addBehaviour(colBehaviour);
+	//if (GameController::DrawColliders)
+	//	colBehaviour->DrawCollider();
 
 	setTransform(pTransform);
 
 	addBehaviour(new HoneyProjectileBehaviour(pDiff));
 	setMesh(Mesh);
-	setMaterial(new LitTextureMaterial(Texture));
+	setMaterial(Material);
 
 	_spawnTime = clock();
 	_spawnPos = getLocalPosition();
@@ -67,7 +64,8 @@ void HoneyProjectile::OnCollisionEnter(GameObject * pOther)
 void HoneyProjectile::OnCollisionExit(GameObject * pOther)
 {
 	dynamic_cast<Enemy*>(pOther)->setSlowDown(0);
-	enemiesCollidingWith.erase(enemiesCollidingWith.begin());
+	if (enemiesCollidingWith.size() != 0)
+		enemiesCollidingWith.erase(enemiesCollidingWith.begin());
 }
 
 bool HoneyProjectile::SkipCollisionCheck()

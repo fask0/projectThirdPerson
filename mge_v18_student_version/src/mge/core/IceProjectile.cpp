@@ -11,17 +11,14 @@
 #include <time.h>
 
 Mesh* IceProjectile::Mesh;
-Texture* IceProjectile::Texture;
+LitTextureMaterial* IceProjectile::Material;
 
 IceProjectile::IceProjectile(glm::mat4 pTransform) : GameObject("IceProjectile")
 {
 	_tag = "projectile";
-
 	_ignoreTags.push_back(_tag);
-	_ignoreTags.push_back("tower");
-	_ignoreTags.push_back("emptyCollider");
 
-	CollisionBehaviour* colBehaviour = new CollisionBehaviour(1, true);
+	CollisionBehaviour* colBehaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, 1, true);
 	addBehaviour(colBehaviour);
 	if (GameController::DrawColliders)
 		colBehaviour->DrawCollider();
@@ -30,7 +27,7 @@ IceProjectile::IceProjectile(glm::mat4 pTransform) : GameObject("IceProjectile")
 
 	addBehaviour(new IceProjectileBehaviour());
 	setMesh(Mesh);
-	setMaterial(new LitTextureMaterial(Texture));
+	setMaterial(Material);
 
 	_spawnTime = clock();
 	_spawnPos = getLocalPosition();

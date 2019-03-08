@@ -221,8 +221,8 @@ void TowerDefenseScene::_initializeScene()
 {
 	GameController* gameController = new GameController();
 	GameController::TowerDefenseScene = this;
-	//CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
-	//_world->add(colManager);
+	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
+	_world->add(colManager);
 
 	//UI
 	std::cout << "Initializing 2D layer" << std::endl;

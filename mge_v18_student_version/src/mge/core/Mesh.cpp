@@ -198,7 +198,8 @@ Mesh* Mesh::load(std::string pFileName)
 					{
 						col = new GameObject("Collider", pos);
 						col->SetTag("emptyCollider");
-						CollisionBehaviour* objectCollider = new CollisionBehaviour(glm::vec3(glm::max(vOne.x, vTwo.x) - glm::min(vOne.x, vTwo.x),
+						CollisionBehaviour* objectCollider = new CollisionBehaviour(CollisionBehaviour::Tower,
+																					glm::vec3(glm::max(vOne.x, vTwo.x) - glm::min(vOne.x, vTwo.x),
 																							  glm::max(vOne.y, vTwo.y) - glm::min(vOne.y, vTwo.y),
 																							  glm::max(vOne.z, vTwo.z) - glm::min(vOne.z, vTwo.z)), true);
 						col->addBehaviour(objectCollider);
@@ -334,7 +335,6 @@ int Mesh::getMTLinfo(std::string pFileName)
 	inMTL.open(pFileName + ".mtl");
 	if (!inMTL.good())
 	{
-		std::cout << "Could not open: " + pFileName + ".mtl" << std::endl;;
 		inMTL.close();
 		return 0;
 	}
@@ -366,10 +366,8 @@ void Mesh::extractMTLinfo(Mesh* pMesh, std::string pFileName, std::string * pMat
 
 	std::ifstream inMTL;
 	inMTL.open(pFileName + ".mtl");
-	std::cout << "Trying to open: " + pFileName + ".mtl" << std::endl;
 	if (!inMTL.good())
 	{
-		std::cout << "Could not open: " + pFileName + ".mtl" << std::endl;
 		inMTL.close();
 		return;
 	}

@@ -21,12 +21,11 @@ HoneyProjectileBehaviour::~HoneyProjectileBehaviour()
 
 void HoneyProjectileBehaviour::update(float pStep)
 {
-
 	if (_owner->getLocalPosition().y < 0 && !_reachedDestination)
 	{
 		_reachedDestination = true;
 		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x, 0.0f, _owner->getLocalPosition().z));
-		CollisionBehaviour* behaviour = new CollisionBehaviour(2.0f, true);
+		CollisionBehaviour* behaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, 2.0f, true);
 		_owner->addBehaviour(behaviour);
 		behaviour->DrawCollider();
 	}

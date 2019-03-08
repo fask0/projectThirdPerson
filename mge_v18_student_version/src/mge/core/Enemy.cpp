@@ -15,16 +15,15 @@ Enemy::Enemy(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::
 {
 	_tag = pTag;
 	_ignoreTags.push_back(_tag);
-	_ignoreTags.push_back("tower");
 
 	WaypointFollowBehaviour* wpBehaviour = new WaypointFollowBehaviour(pLane);
 	addBehaviour(wpBehaviour);
 	wpBehaviour->Init();
 
-	//CollisionBehaviour* colBehaviour = new CollisionBehaviour(0.5f, false, glm::vec3(0, 0.25f, 0));
-	//addBehaviour(colBehaviour);
-	//if (GameController::DrawColliders)
-	//	colBehaviour->DrawCollider();
+	CollisionBehaviour* colBehaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, 0.5f, false, glm::vec3(0, 0.25f, 0));
+	addBehaviour(colBehaviour);
+	if (GameController::DrawColliders)
+		colBehaviour->DrawCollider();
 
 	_timer = 0;
 	GameController::Enemies.push_back(this);

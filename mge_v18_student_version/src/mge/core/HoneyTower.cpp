@@ -24,7 +24,6 @@ HoneyTower::~HoneyTower()
 void HoneyTower::update(float pStep)
 {
 	//rayCast();
-
 	GameObject::update(pStep);
 }
 

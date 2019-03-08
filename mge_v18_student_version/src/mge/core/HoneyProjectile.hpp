@@ -5,6 +5,7 @@
 #include "mge/core/GameObject.hpp"
 #include <time.h>
 #include "mge/core/Enemy.hpp"
+#include "mge/materials/LitTextureMaterial.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -25,7 +26,7 @@ class HoneyProjectile : public GameObject
 	bool SkipCollisionCheck() override;
 
 	static Mesh* Mesh;
-	static Texture* Texture;
+	static LitTextureMaterial* Material;
 
 	protected:
 	HoneyProjectile(const HoneyProjectile&);

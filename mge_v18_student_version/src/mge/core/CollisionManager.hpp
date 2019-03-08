@@ -12,7 +12,8 @@
 class CollisionManager : public GameObject
 {
 	public:
-	static std::vector<CollisionBehaviour*> collisionBehaviours;
+	static std::vector<CollisionBehaviour*> projectileCollisions;
+	static std::vector<CollisionBehaviour*> towerCollisions;
 
 	CollisionManager(const std::string& aName = nullptr, const glm::vec3& aPosition = glm::vec3(0, 0, 0));
 	virtual ~CollisionManager();

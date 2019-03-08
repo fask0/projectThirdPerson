@@ -62,7 +62,7 @@ void GridManager::update(float pStep)
 		}
 		else
 		{
-			//selectedMaterial->SetColliding(true);
+			selectedMaterial->SetColliding(true);
 			_tower->isPlaced = true;
 		}
 	}

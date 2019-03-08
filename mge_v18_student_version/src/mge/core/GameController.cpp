@@ -240,15 +240,15 @@ void GameController::SetUpLevels()
 void GameController::SetTowerVariables()
 {
 	ToasterProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
-	ToasterProjectile::Texture = Texture::load(config::MGE_TEXTURE_PATH + "knife.png");
+	ToasterProjectile::Material = new  LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife.png"));
 	HoneyProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
-	HoneyProjectile::Texture = Texture::load(config::MGE_TEXTURE_PATH + "knife.png");
+	HoneyProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife.png"));
 	IceProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
-	IceProjectile::Texture = Texture::load(config::MGE_TEXTURE_PATH + "knife.png");
+	IceProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife.png"));
 
 	//Slingshot tower
 	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/ToasterTower");
-	ToasterTower::Texture = Texture::load(config::MGE_TEXTURE_PATH + "toaster.png");
+	ToasterTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "toaster.png"));
 	//Honey tower
 	HoneyTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTower");
 	//Shock tower
@@ -274,7 +274,7 @@ void GameController::SetUpEnemies()
 	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie3"));
 	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie4"));
 	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie5"));
-	Rat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "incel.png");
+	Rat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "Normie.png");
 	Rat::Material = new LitTextureMaterial(Rat::Texture);
 	//ChadRat
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad0"));
@@ -283,7 +283,7 @@ void GameController::SetUpEnemies()
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad3"));
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad4"));
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad5"));
-	ChadRat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "chad_texture.png");
+	ChadRat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "ChadTexture.png");
 	ChadRat::Material = new LitTextureMaterial(ChadRat::Texture);
 	//SanicRat
 	//SanicRat::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Enemies/fastboi");
@@ -293,6 +293,6 @@ void GameController::SetUpEnemies()
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi3"));
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi4"));
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi5"));
-	SanicRat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "fastboi_texture.png");
+	SanicRat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "FastBoi.png");
 	SanicRat::Material = new LitTextureMaterial(SanicRat::Texture);
 }

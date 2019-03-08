@@ -15,7 +15,7 @@
  */
 class MagnifyingGlassTower : public Tower
 {
-public:
+	public:
 	MagnifyingGlassTower();
 	virtual ~MagnifyingGlassTower();
 
@@ -28,7 +28,7 @@ public:
 
 	void OnCollisionEnter(GameObject* pOther) override;
 
-private:
+	private:
 	MagnifyingGlassTower(const MagnifyingGlassTower&);
 	MagnifyingGlassTower& operator= (const MagnifyingGlassTower&);
 };

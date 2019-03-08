@@ -16,10 +16,15 @@
 Mesh* CollisionBehaviour::BoxMesh;
 Mesh* CollisionBehaviour::SphereMesh;
 
-CollisionBehaviour::CollisionBehaviour(glm::vec3 pBoundaries, bool pIsTrigger, glm::vec3 pOffset)
+CollisionBehaviour::CollisionBehaviour(EntityRelation pRelation, glm::vec3 pBoundaries, bool pIsTrigger, glm::vec3 pOffset)
 	: AbstractBehaviour()
 {
-	CollisionManager::collisionBehaviours.push_back(this);
+	if (pRelation == EntityRelation::Tower)
+		CollisionManager::towerCollisions.push_back(this);
+	else
+		CollisionManager::projectileCollisions.push_back(this);
+
+	entityRelation = pRelation;
 	colliderType = BoxCollider;
 	_boundaries = pBoundaries;
 	isTrigger = pIsTrigger;
@@ -29,10 +34,14 @@ CollisionBehaviour::CollisionBehaviour(glm::vec3 pBoundaries, bool pIsTrigger, g
 	_mesh = BoxMesh;
 }
 
-CollisionBehaviour::CollisionBehaviour(float pRadius, bool pIsTrigger, glm::vec3 pOffset)
+CollisionBehaviour::CollisionBehaviour(EntityRelation pRelation, float pRadius, bool pIsTrigger, glm::vec3 pOffset)
 	: AbstractBehaviour()
 {
-	CollisionManager::collisionBehaviours.push_back(this);
+	if (pRelation == EntityRelation::Tower)
+		CollisionManager::towerCollisions.push_back(this);
+	else
+		CollisionManager::projectileCollisions.push_back(this);
+	entityRelation = pRelation;
 	colliderType = SphereCollider;
 	_radius = pRadius;
 	isTrigger = pIsTrigger;
@@ -44,18 +53,41 @@ CollisionBehaviour::CollisionBehaviour(float pRadius, bool pIsTrigger, glm::vec3
 
 CollisionBehaviour::~CollisionBehaviour()
 {
-	for (int i = 0; i < CollisionManager::collisionBehaviours.size(); i++)
+	if (entityRelation == EntityRelation::Tower)
 	{
-		if (CollisionManager::collisionBehaviours[i] == this)
+		for (int i = 0; i < CollisionManager::towerCollisions.size(); i++)
 		{
-			CollisionManager::collisionBehaviours.erase(CollisionManager::collisionBehaviours.begin() + i);
-			for (int j = 0; j < _behavioursInCollision.size(); ++j)
+			if (CollisionManager::towerCollisions[i] == this)
 			{
-				for (int k = 0; k < _behavioursInCollision[j]->_behavioursInCollision.size(); ++k)
+				CollisionManager::towerCollisions.erase(CollisionManager::towerCollisions.begin() + i);
+				for (int j = 0; j < _behavioursInCollision.size(); ++j)
 				{
-					if (_behavioursInCollision[j]->_behavioursInCollision[k] == this)
+					for (int k = 0; k < _behavioursInCollision[j]->_behavioursInCollision.size(); ++k)
 					{
-						_behavioursInCollision[j]->_behavioursInCollision.erase(_behavioursInCollision[j]->_behavioursInCollision.begin() + k);
+						if (_behavioursInCollision[j]->_behavioursInCollision[k] == this)
+						{
+							_behavioursInCollision[j]->_behavioursInCollision.erase(_behavioursInCollision[j]->_behavioursInCollision.begin() + k);
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		for (int i = 0; i < CollisionManager::projectileCollisions.size(); i++)
+		{
+			if (CollisionManager::projectileCollisions[i] == this)
+			{
+				CollisionManager::projectileCollisions.erase(CollisionManager::projectileCollisions.begin() + i);
+				for (int j = 0; j < _behavioursInCollision.size(); ++j)
+				{
+					for (int k = 0; k < _behavioursInCollision[j]->_behavioursInCollision.size(); ++k)
+					{
+						if (_behavioursInCollision[j]->_behavioursInCollision[k] == this)
+						{
+							_behavioursInCollision[j]->_behavioursInCollision.erase(_behavioursInCollision[j]->_behavioursInCollision.begin() + k);
+						}
 					}
 				}
 			}

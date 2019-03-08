@@ -41,10 +41,11 @@ class LitDynamicTextureGridMaterial : public AbstractMaterial
 	float getLineThiccness();
 	void setRange(float range);
 	float getRange();
+	bool isGridShowing() { return _gridShowing; }
 	glm::vec3 getMousePos();
 	glm::vec3 getTowerPos();
 
-private:
+	private:
 	//all the static properties are shared between instances of LitMaterial
 	//note that they are all PRIVATE, we do not expose this static info to the outside world
 	ShaderProgram* _shader;

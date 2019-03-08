@@ -6,8 +6,7 @@
 #include "mge/core/Tower.hpp"
 #include "mge/core/Mesh.hpp"
 
-#include "mge/core/Texture.hpp"
-#include "mge/materials/AbstractMaterial.hpp"
+#include "mge/materials/LitTextureMaterial.hpp"
 #include "mge/core/ToasterProjectile.hpp"
 
 /**
@@ -24,7 +23,7 @@ class ToasterTower : public Tower
 	void update(float pStep) override;
 
 	static Mesh* Mesh;
-	static Texture* Texture;
+	static LitTextureMaterial* Material;
 
 	void AddTowerBehaviour() override;
 

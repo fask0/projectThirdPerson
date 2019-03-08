@@ -8,6 +8,7 @@
 #include "mge/core/EnemySpawner.hpp"
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/core/CollisionManager.hpp"
 #include "mge/core/GridManager.hpp"
 
 #include "glm.hpp"
@@ -89,4 +90,6 @@ void Level::reset()
 		delete child;
 	}
 	_parent->remove(this);
+	CollisionManager::projectileCollisions.clear();
+	CollisionManager::towerCollisions.clear();
 }

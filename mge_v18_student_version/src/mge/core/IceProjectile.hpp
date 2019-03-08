@@ -3,7 +3,7 @@
 
 #include <string>
 #include "mge/core/GameObject.hpp"
-#include "mge/core/Texture.hpp"
+#include "mge/materials/LitTextureMaterial.hpp"
 #include <time.h>
 
 /**
@@ -23,7 +23,7 @@ class IceProjectile : public GameObject
 	bool SkipCollisionCheck() override;
 
 	static Mesh* Mesh;
-	static Texture* Texture;
+	static LitTextureMaterial* Material;
 
 	protected:
 	IceProjectile(const IceProjectile&);

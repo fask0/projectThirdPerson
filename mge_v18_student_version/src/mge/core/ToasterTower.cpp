@@ -5,14 +5,14 @@
 #include "mge/materials/LitTextureMaterial.hpp"
 
 Mesh* ToasterTower::Mesh;
-Texture* ToasterTower::Texture;
+LitTextureMaterial* ToasterTower::Material;
 
 ToasterTower::ToasterTower() : Tower("Toaster Tower")
 {
 	_range = GameController::ToasterRange;
 	_attSpeed = GameController::ToasterAttSpeed;
 	_cost = GameController::ToasterCost;
-	_material = new LitTextureMaterial(Texture);
+	_material = Material;
 	rotate(glm::radians(90.0f), glm::vec3(0, 1, 0));
 }
 
