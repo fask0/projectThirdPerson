@@ -1,10 +1,10 @@
-#ifndef LITTEXTUREMATERIAL_HPP
-#define LITTEXTUREMATERIAL_HPP
+#pragma once 
 
 #include "GL/glew.h"
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/core/Light.hpp"
+//#include "mge/config.hpp"
 
 class ShaderProgram;
 
@@ -22,15 +22,30 @@ public:
 
 	//in rgb values
 	void setDiffuseTexture(Texture* pDiffuseTexture);
+	static ShaderProgram* _shader;
+
+	bool _settingDiffuseTextureManually = false;
+	unsigned int _depthMap;
+	float _nearPlane = 0.1f;
+	float _farPlane = 1000.0f;
 
 private:
 	//all the static properties are shared between instances of LitMaterial
 	//note that they are all PRIVATE, we do not expose this static info to the outside world
-	static ShaderProgram* _shader;
 	static void _lazyInitializeShader();
 
 	//this one is unique per instance of material
 	Texture* _diffuseTexture;
 };
 
-#endif // LitMaterial_HPP
+class DebugTextureMaterial : public LitTextureMaterial
+{
+private:
+	ShaderProgram* m_shader;
+
+public:
+	DebugTextureMaterial(Texture* pDiffuseTexture);
+	virtual ~DebugTextureMaterial() { delete m_shader; }
+
+	virtual void render(World* pWorld, Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
+};

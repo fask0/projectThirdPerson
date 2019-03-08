@@ -318,9 +318,7 @@
     <ClInclude Include="..\src\mge\core\ChadRat.hpp">
       <Filter>Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\core\ShadowFrameBuffer.hpp">
-      <Filter>Shadows</Filter>
-    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ShadowFrameBuffer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Behaviours">

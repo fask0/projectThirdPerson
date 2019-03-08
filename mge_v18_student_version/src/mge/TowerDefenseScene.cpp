@@ -240,20 +240,17 @@ void TowerDefenseScene::_initializeScene()
 	Mesh* sphere4 = Mesh::load(config::MGE_MODEL_PATH + "sphere4");
 	Mesh* monkeyHeadS = Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth");
 
+	glm::vec3 cameraPosition = glm::vec3(0, 16, 0);
+	glm::vec3 lightPosition = glm::vec3(0, 25, -19);
 	//Directional
-	Light* light = new Light("light", glm::vec3(0, 10, 0), glm::vec3(0.9f, 1.0f, 0.8f), 10.0f, 30.0f, Light::Directional);
-
-	//SpotLight
-	Light* light2 = new Light("light2", glm::vec3(0, 10, 0), glm::vec3(0, 0, 1), 10.0f, 30.0f, Light::Spotlight);
-	light->rotate(glm::radians(-110.0f), glm::vec3(1, 0, 0));
-	light->rotate(glm::radians(-45.0f), glm::vec3(0, 1, 0));
-	light2->rotate(glm::radians(180.0f), glm::vec3(1, 0, 0));
-
-	light->addBehaviour(new RotatingBehaviour());
-
+	//glm::vec3(-2.0f, 4.0f, -1.0f)
+	//-17.0f, 6.0f, -17.0f
+	Light* light = new Light("light", lightPosition, glm::vec3(0.9f, 1.0f, 0.8f), 10.0f, 30.0f, Light::Directional);
+	light->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
+	//light->rotate(45, glm::vec3(1, 0, 0));
+	//light->rotate(45, glm::vec3(0, 1, 0));
 	_world->add(light);
-	_world->add(light2);
-
+	light->addBehaviour(new WASDBehaviour());
 	gameController->Init();
 
 	//SCENE SETUP
@@ -262,21 +259,21 @@ void TowerDefenseScene::_initializeScene()
 	//LitTextureGridMaterial* litTextureGridMaterial = new LitTextureGridMaterial(GameController::Lights[0], Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
 	AbstractMaterial* blueMaterial = new ColorMaterial(glm::vec4(0, 0, 1, 1));
 	LitMaterial* litMaterial1 = new LitMaterial(light, glm::vec3(0.9f, 0.9f, 0.9f));
-	litMaterial1->AddLight(light2);
 	AbstractMaterial* litMaterial = litMaterial1;
 	TerrainMaterial* terrainMaterial = new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "splatmap.png"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
-														   Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
-														   0);
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse1.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "water.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse3.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "diffuse4.jpg"),
+		Texture::load(config::MGE_TEXTURE_PATH + "heightmap.png"),
+		0);
 	LitTextureMaterial* litTextureMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.jpg"));
 
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
 	camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
-	camera->addBehaviour(new CameraMovementBehaviour(-17, 17, -17, 17, 10, 50, _window, camera->getLocalPosition(), 1.0f, 10.0f));
+	camera->addBehaviour(new CameraMovementBehaviour(-30, 30, -17, 17, 1, 50, _window, camera->getLocalPosition(), 1.0f, 10.0f));
+	//camera->setTransform(glm::lookAt(camera->getLocalPosition(), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 

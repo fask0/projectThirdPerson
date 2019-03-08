@@ -1,5 +1,5 @@
 Debug = true;
-DrawColliders = true;
+DrawColliders = false;
 WindowWidth = 1920;
 WindowHeight = 1080;
 
@@ -61,9 +61,9 @@ IceDamage = 5;
 
 --Magnifying glass tower
 MagnifyingRange = 0;
-MagnifyingFireDamage = 5;
+MagnifyingFireDamage = 10;
 MagnifyingFireRate = 1;
-MagnifyingFireDuration = 5;
+MagnifyingFireDuration = 10;
 MagnifyingCost = 35;
 
 --Sniper tower

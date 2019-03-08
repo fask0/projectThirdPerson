@@ -25,7 +25,7 @@
  */
 class GameController : public GameObject
 {
-	public:
+public:
 	GameController();
 
 	virtual ~GameController();
@@ -132,7 +132,11 @@ class GameController : public GameObject
 	static float SanicEffectRecoverySpeed;
 	//--End of Lua variables
 
-	private:
+	//Testing vars
+	static glm::mat4* lightSpaceMatrix;
+	static unsigned int shadowMap;
+
+private:
 	GameController(const GameController&);
 	GameController& operator= (const GameController&);
 

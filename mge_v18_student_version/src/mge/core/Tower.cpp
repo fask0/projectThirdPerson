@@ -26,7 +26,7 @@ Tower::Tower(std::string pName, glm::vec3 pPosition, float pRange, AbstractMater
 	float yScale = glm::sqrt(getTransform()[1][0] * getTransform()[1][0] + getTransform()[1][1] * getTransform()[1][1] + getTransform()[1][2] * getTransform()[1][2]);
 	float zScale = glm::sqrt(getTransform()[2][0] * getTransform()[2][0] + getTransform()[2][1] * getTransform()[2][1] + getTransform()[2][2] * getTransform()[2][2]);
 
-	addBehaviour(new CollisionBehaviour(glm::vec3(xScale * 0.99f, yScale, zScale * 0.99f), true));
+	addBehaviour(new CollisionBehaviour(glm::vec3(xScale * 1.25f, yScale, zScale * 1.25f), true, glm::vec3(0, yScale / 2, 0)));
 	std::cout << _name << " " << _tag << " spawn" << std::endl;
 }
 

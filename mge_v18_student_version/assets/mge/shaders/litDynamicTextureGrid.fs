@@ -4,7 +4,7 @@
 
 struct DirLight{
 	vec3 lightCol;
-	vec3 lightRot;
+	vec3 lightPos;
 };
 
 struct SpotLight{
@@ -26,6 +26,7 @@ in vec3 ambientColor;
 in vec3 FragPos;
 in vec2 texCoord;
 flat in int vertexID;
+in vec4 FragPosLightSpace;
 
 out vec4 fragment_color;
 
@@ -41,28 +42,64 @@ uniform float lineThiccness;
 uniform float range;
 uniform bool isColliding;
 
+uniform sampler2D shadowMap;
 //Dynamic object loading stuff
 #define NR_OF_TEXTURES 60
 uniform sampler2D textures[NR_OF_TEXTURES];
 uniform int splitter[NR_OF_TEXTURES];
 in int index;
 
+float ShadowCalculation(vec4 fragPosLightSpace)
+{
+    // perform perspective divide
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    // transform to [0,1] range
+    projCoords = projCoords * 0.5 + 0.5;
+    // get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
+    float closestDepth = texture(shadowMap, projCoords.xy).r; 
+    // get depth of current fragment from light's perspective
+    float currentDepth = projCoords.z;
+    // check whether current frag pos is in shadow
+	//float bias = max(0.05 * (1.0 - dot(Normal, dirLight.lightPos)), 0.005);
+	float bias = 0.00001f;
+
+	float shadow = 0.0;
+    vec2 texelSize = 1.0 / textureSize(shadowMap, 0);
+    for(int x = -1; x <= 1; ++x)
+    {
+        for(int y = -1; y <= 1; ++y)
+        {
+            float pcfDepth = texture(shadowMap, projCoords.xy + vec2(x, y) * texelSize).r; 
+            shadow += currentDepth - bias > pcfDepth  ? 0.8 : 0.0;        
+        }    
+    }
+    shadow /= 9.0;
+
+	if(projCoords.z > 1.0)
+        shadow = 0.0;
+    
+    return shadow;
+}
+
 vec3 CalcDirLight(DirLight _dirLight, vec3 normal)
 {
 	vec3 norm = normalize(normal);
-	vec3 lightDir = -_dirLight.lightRot;
+	vec3 lightDir = normalize(_dirLight.lightPos);
 	float diff = max(dot(norm, lightDir), 0.0f);
 	vec3 diffuse = diff * _dirLight.lightCol;
 
-	vec3 result = (ambientColor + diffuse) * vec3(texture(textures[0],texCoord));
+	int iToUse = 0;
 	for(int i = 0; i < NR_OF_TEXTURES; i++)
 	{
 		if(splitter[i] != 0 && vertexID >= splitter[i])
 		{
-			result = (ambientColor + diffuse) * vec3(texture(textures[i],texCoord));
+			iToUse = i;
 		}
 	}
 
+	vec3 color = vec3(texture(textures[iToUse],texCoord));  
+
+	vec3 result = ((ambientColor + diffuse) * color);
 	return result;	
 }
 
@@ -78,14 +115,15 @@ vec3 CalcSpotLight(SpotLight _spotLight, vec3 normal, vec3 fragPos)
 	float intensity = clamp((theta - _spotLight.outerCutOff) / epsilon, 0.0, 1.0);
 	diffuse *= intensity;
 
-	vec3 result = (ambientColor + diffuse) * vec3(texture(textures[0],texCoord));
+	int iToUse = 0;
 	for(int i = 0; i < NR_OF_TEXTURES; i++)
 	{
 		if(splitter[i] != 0 && vertexID >= splitter[i])
 		{
-			result = (ambientColor + diffuse) * vec3(texture(textures[i],texCoord));
+			iToUse = i;
 		}
 	}
+	vec3 result = (ambientColor + diffuse) * vec3(texture(textures[iToUse],texCoord));
 
 	return result;
 }
@@ -96,12 +134,13 @@ void main( void ) {
 
 	result += CalcDirLight(dirLight, Normal);
 
-	for(int i = 0; i < NR_SPOT_LIGHTS; i++)
-		result += CalcSpotLight(spotLights[i], Normal, FragPos);
-
+	// for(int i = 0; i < NR_SPOT_LIGHTS; i++)
+	// 	result += CalcSpotLight(spotLights[i], Normal, FragPos);
+	 
+	float shadow = ShadowCalculation(FragPosLightSpace);
+	result = result * (1.0f - shadow);
 	fragment_color = vec4(result, 1.0f);		
-
-
+	//fragment_color = vec4(shadow);
 
 	//GRID
 	if(gridVisible)

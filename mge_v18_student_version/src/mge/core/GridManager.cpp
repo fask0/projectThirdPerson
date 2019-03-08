@@ -51,17 +51,6 @@ void GridManager::update(float pStep)
 	{
 		CheckIfMouseOverTower();
 	}
-	else
-	{
-		if (_currentMoney >= _tower->GetCost())
-		{
-			selectedMaterial->SetColliding(false);
-		}
-		else
-		{
-			selectedMaterial->SetColliding(true);
-		}
-	}
 
 	GameObject::update(pStep);
 }

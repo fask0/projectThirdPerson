@@ -5,6 +5,8 @@
 #include <GL/glew.h>
 #include <string>
 #include "mge/core/GridManager.hpp"
+#include "mge/core/ShaderProgram.hpp"
+#include "mge/materials/LitTextureMaterial.hpp"
 
 class World;
 class Renderer;
@@ -42,6 +44,8 @@ protected:
 	virtual void _initializeGlew();
 	//create our own custom renderer instance
 	virtual void _initializeRenderer();
+	//create depth map
+	virtual void _initializeShadowMap();
 	//initialize a scene root to which we can attach/add objects
 	virtual void _initializeWorld();
 
@@ -60,10 +64,20 @@ protected:
 	World* _world;              //the root game object that represents our scene
 	float _fps;                 //stores the real fps
 
+	//Shadow map variables
+	const unsigned int SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;
+	unsigned int depthMapFBO;
+	unsigned int depthMap;
+
 private:
 	AbstractGame(const AbstractGame&);
 	AbstractGame& operator=(const AbstractGame&);
 	GridManager* gridManager;
+
+	ShaderProgram* _debugQuadShader;
+	ShaderProgram* _shadowMapShader;
+
+	LitTextureMaterial* material;
 };
 
 #endif // ABSTRACTGAME_HPP

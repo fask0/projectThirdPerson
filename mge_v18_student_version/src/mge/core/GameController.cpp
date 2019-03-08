@@ -30,6 +30,7 @@
 #include "mge/core/Rat.hpp"
 #include "mge/core/ChadRat.hpp"
 #include "mge/core/SanicRat.hpp"
+#include "mge/core/Light.hpp"
 
 std::vector<Light*> GameController::Lights;
 std::vector<Enemy*> GameController::Enemies;
@@ -130,6 +131,9 @@ int GameController::SanicDamage;
 float GameController::SanicSpeed;
 float GameController::SanicEffectRecoverySpeed;
 //--End of Lua variables
+
+unsigned int GameController::shadowMap;
+glm::mat4* GameController::lightSpaceMatrix;
 
 GameController::GameController() : GameObject("GameController", glm::vec3(0.0f, 0.0f, 0.0f))
 {

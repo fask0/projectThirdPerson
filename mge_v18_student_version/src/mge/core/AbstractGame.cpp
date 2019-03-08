@@ -5,6 +5,15 @@
 #include "mge/core/World.hpp"
 #include "mge/core/GridManager.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/core/GameObject.hpp"
+#include "mge/core/Light.hpp"
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include "mge/core/ShaderProgram.hpp"
+#include "mge/config.hpp"
 
 AbstractGame::AbstractGame() :_window(NULL), _renderer(NULL), _world(NULL), _fps(0)
 {
@@ -26,6 +35,7 @@ void AbstractGame::initialize()
 	_printVersionInfo();
 	_initializeGlew();
 	_initializeRenderer();
+	_initializeShadowMap();
 	_initializeWorld();
 	_initializeScene();
 	std::cout << std::endl << "Engine initialized." << std::endl << std::endl;
@@ -38,6 +48,7 @@ void AbstractGame::initialize(int _windowWidth, int _windowHeight)
 	_printVersionInfo();
 	_initializeGlew();
 	_initializeRenderer();
+	_initializeShadowMap();
 	_initializeWorld();
 	_initializeScene();
 	_window->setKeyRepeatEnabled(false);
@@ -57,7 +68,7 @@ void AbstractGame::_initializeWindow()
 void AbstractGame::_initializeWindow(int _windowWidth, int _windowHeight)
 {
 	std::cout << "Initializing window..." << std::endl;
-	_window = new sf::RenderWindow(sf::VideoMode(_windowWidth, _windowHeight), "My Game!", sf::Style::Default, sf::ContextSettings(24, 8, 0, 3, 3));
+	_window = new sf::RenderWindow(sf::VideoMode(_windowWidth, _windowHeight), "My Game!", sf::Style::Default, sf::ContextSettings(24, 8, 4, 3, 3));
 	//_window->setVerticalSyncEnabled(true);
 	std::cout << "Window initialized." << std::endl << std::endl;
 }
@@ -102,6 +113,42 @@ void AbstractGame::_initializeRenderer()
 	std::cout << "Renderer done." << std::endl << std::endl;
 }
 
+void AbstractGame::_initializeShadowMap()
+{
+	_debugQuadShader = new ShaderProgram();
+	_debugQuadShader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "DebugQuadDepth.vs");
+	_debugQuadShader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "DebugQuadDepth.fs");
+	_debugQuadShader->finalize();
+
+	_shadowMapShader = new ShaderProgram();
+	_shadowMapShader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "ShadowMappingDepth.vs");
+	_shadowMapShader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "ShadowMappingDepth.fs");
+	_shadowMapShader->finalize();
+
+	glGenFramebuffers(1, &depthMapFBO);
+	// create depth texture
+	glGenTextures(1, &depthMap);
+	glBindTexture(GL_TEXTURE_2D, depthMap);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	float borderColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+	// attach depth texture as FBO's depth buffer
+	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
+	glDrawBuffer(GL_NONE);
+	glReadBuffer(GL_NONE);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	//_debugQuadShader->use();
+	//glUniform1i(_debugQuadShader->getUniformLocation("depthMap"), 0);
+
+	material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "bricks.png"));
+}
+
 void AbstractGame::_initializeWorld()
 {
 	//setup the world
@@ -120,7 +167,7 @@ void AbstractGame::run()
 	float timeSinceLastFPSCalculation = 0;
 
 	//settings to make sure the update loop runs at 60 fps
-	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
+	sf::Time timePerFrame = sf::seconds(1.0f / 240.0f);
 	sf::Clock updateClock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
@@ -168,8 +215,81 @@ void AbstractGame::_update(float pStep)
 	_world->update(pStep);
 }
 
+unsigned int quadVAO = 0;
+unsigned int quadVBO;
+void renderQuad()
+{
+	if (quadVAO == 0)
+	{
+		float quadVertices[] = {
+			// positions        // texture Coords
+			-1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+			-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+			 1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
+			 1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+		};
+		// setup plane VAO
+		glGenVertexArrays(1, &quadVAO);
+		glGenBuffers(1, &quadVBO);
+		glBindVertexArray(quadVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	}
+	glBindVertexArray(quadVAO);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glBindVertexArray(0);
+}
+
 void AbstractGame::_render()
 {
+	//Create shadow depth map
+	glm::mat4 lightProjection, lightView, lightModel;
+	glm::mat4 lightSpaceMatrix = glm::mat4(1.0);
+	Camera* camera = GameController::MainCamera;
+	Light* light = GameController::Lights[0];
+	float near_plane = 0.25f, far_plane = camera->getLocalPosition().y * 2;
+
+	//Save camera transform
+	glm::mat4 transform = camera->getTransform();
+
+	//Translate camera to lights position
+	camera->setLocalPosition(light->getLocalPosition());
+	camera->setTransform(glm::inverse(glm::lookAt(camera->getLocalPosition(), glm::vec3(), glm::vec3(0, 1, 0))));
+	lightSpaceMatrix = camera->getProjection() * glm::inverse(camera->getWorldTransform());
+	GameController::lightSpaceMatrix = &lightSpaceMatrix;
+
+	// render scene from light's point of view
+	_debugQuadShader->use();
+	glUniform1f(_debugQuadShader->getUniformLocation("near_plane"), near_plane);
+	glUniform1f(_debugQuadShader->getUniformLocation("far_plane"), far_plane);
+
+	glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
+	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	_renderer->render(_world);
+
+	//Reset camera back to original position
+	camera->setTransform(transform);
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	// reset viewport
+	glViewport(0, 0, GameController::Window->getSize().x, GameController::Window->getSize().y);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// render Depth map to quad for visual debugging
+	// ---------------------------------------------
+	//dynamic_cast<DebugTextureMaterial*>(GameController::plane->getMaterial())->_nearPlane = near_plane;
+	//dynamic_cast<DebugTextureMaterial*>(GameController::plane->getMaterial())->_farPlane = far_plane;
+	//dynamic_cast<DebugTextureMaterial*>(GameController::plane->getMaterial())->_depthMap = depthMap;
+	GameController::shadowMap = depthMap;
+
+	//Render world
 	_renderer->render(_world);
 }
 
@@ -189,22 +309,22 @@ void AbstractGame::_processEvents()
 
 		switch (event.type)
 		{
-			case sf::Event::Closed:
+		case sf::Event::Closed:
 			exit = true;
 			break;
-			case sf::Event::KeyPressed:
+		case sf::Event::KeyPressed:
 			/*if (event.key.code == sf::Keyboard::Escape)
 			{
 				exit = true;
 			}*/
 			break;
-			case sf::Event::Resized:
+		case sf::Event::Resized:
 			//would be better to move this to the renderer
 			//this version implements nonconstrained match viewport scaling
 			glViewport(0, 0, event.size.width, event.size.height);
 			break;
 
-			default:
+		default:
 			break;
 		}
 

@@ -49,9 +49,10 @@ void ToasterProjectile::update(float pStep)
 	GameObject::update(pStep);
 
 	if (_shouldDie) return;
-	if (glm::vec3(_spawnPos - getLocalPosition()).length() > GameController::ToasterRange)
+	glm::vec3 diff = _spawnPos - getLocalPosition();
+	if (diff.x * diff.x + diff.y * diff.y + diff.z * diff.z > (GameController::ToasterRange * GameController::ToasterRange) * 3)
 	{
-		delete(this);
+		Kill();
 	}
 }
 

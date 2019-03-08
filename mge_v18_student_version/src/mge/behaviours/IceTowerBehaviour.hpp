@@ -27,6 +27,7 @@ private:
 	clock_t _lastAttackTime;
 	bool _isProjectileCreated;
 	IceProjectile* _projectile;
+	GameObject* _dummyObj;
 
 	std::vector<Enemy*> _allInRangeEnemies;
 };

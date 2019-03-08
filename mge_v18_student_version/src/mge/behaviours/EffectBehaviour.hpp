@@ -20,9 +20,9 @@ public:
 	~EffectBehaviour();
 
 	virtual void update(float pStep);
+	Effect _effect;
 
 private:
-	Effect _effect;
 	Enemy* _enemyOwner;
 
 	int _effectPotency;
