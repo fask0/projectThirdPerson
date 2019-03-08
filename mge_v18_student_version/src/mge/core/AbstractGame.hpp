@@ -65,7 +65,7 @@ protected:
 	float _fps;                 //stores the real fps
 
 	//Shadow map variables
-	const unsigned int SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;
+	const unsigned int SHADOW_WIDTH = 8192, SHADOW_HEIGHT = 8192;
 	unsigned int depthMapFBO;
 	unsigned int depthMap;
 
