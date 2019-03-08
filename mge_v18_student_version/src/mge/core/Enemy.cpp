@@ -21,10 +21,10 @@ Enemy::Enemy(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::
 	addBehaviour(wpBehaviour);
 	wpBehaviour->Init();
 
-	CollisionBehaviour* colBehaviour = new CollisionBehaviour(0.5f, false, glm::vec3(0, 0.25f, 0));
-	addBehaviour(colBehaviour);
-	if (GameController::DrawColliders)
-		colBehaviour->DrawCollider();
+	//CollisionBehaviour* colBehaviour = new CollisionBehaviour(0.5f, false, glm::vec3(0, 0.25f, 0));
+	//addBehaviour(colBehaviour);
+	//if (GameController::DrawColliders)
+	//	colBehaviour->DrawCollider();
 
 	_timer = 0;
 	GameController::Enemies.push_back(this);

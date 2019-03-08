@@ -37,6 +37,7 @@
 #include "mge/core/Rat.hpp"
 #include "mge/core/ChadRat.hpp"
 #include "mge/core/SanicRat.hpp"
+#include "mge/core/Light.hpp"
 
 std::vector<Light*> GameController::Lights;
 std::vector<Level*> GameController::Levels;
@@ -144,6 +145,9 @@ int GameController::SanicDamage;
 float GameController::SanicSpeed;
 float GameController::SanicEffectRecoverySpeed;
 //--End of Lua variables
+
+unsigned int GameController::shadowMap;
+glm::mat4* GameController::lightSpaceMatrix;
 
 GameController::GameController() : GameObject("GameController", glm::vec3(0.0f, 0.0f, 0.0f))
 {
@@ -271,6 +275,7 @@ void GameController::SetUpEnemies()
 	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie4"));
 	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie5"));
 	Rat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "incel.png");
+	Rat::Material = new LitTextureMaterial(Rat::Texture);
 	//ChadRat
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad0"));
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad1"));
@@ -279,6 +284,7 @@ void GameController::SetUpEnemies()
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad4"));
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad5"));
 	ChadRat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "chad_texture.png");
+	ChadRat::Material = new LitTextureMaterial(ChadRat::Texture);
 	//SanicRat
 	//SanicRat::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Enemies/fastboi");
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi0"));
@@ -288,4 +294,5 @@ void GameController::SetUpEnemies()
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi4"));
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi5"));
 	SanicRat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "fastboi_texture.png");
+	SanicRat::Material = new LitTextureMaterial(SanicRat::Texture);
 }

@@ -26,6 +26,8 @@ public:
 
 	void AddTowerBehaviour() override;
 
+	void OnCollisionEnter(GameObject* pOther) override;
+
 private:
 	MagnifyingGlassTower(const MagnifyingGlassTower&);
 	MagnifyingGlassTower& operator= (const MagnifyingGlassTower&);

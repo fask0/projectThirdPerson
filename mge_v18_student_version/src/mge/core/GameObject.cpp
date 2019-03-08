@@ -34,8 +34,12 @@ GameObject::~GameObject()
 		remove(child);
 		delete child;
 	}
-	if (!dynamic_cast<LitSelectedTextureMaterial*>(_material))
+	if (_material != nullptr && dynamic_cast<LitDynamicTextureGridMaterial*>(_material))
+	{
 		delete _material;
+		_material = nullptr;
+	}
+
 	std::cout << " | Deleted: " << _name << std::endl;
 	//do not forget to delete behaviour, material, mesh, collider manually if required!
 }

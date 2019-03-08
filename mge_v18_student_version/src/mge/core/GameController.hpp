@@ -27,7 +27,7 @@
  */
 class GameController : public GameObject
 {
-	public:
+public:
 	GameController();
 
 	virtual ~GameController();
@@ -146,6 +146,9 @@ class GameController : public GameObject
 	static void ReplayLevel();
 
 	static void SetUpLevels();
+	//Testing vars
+	static glm::mat4* lightSpaceMatrix;
+	static unsigned int shadowMap;
 
 	private:
 	GameController(const GameController&);

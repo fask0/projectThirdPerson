@@ -7,12 +7,13 @@
 #include "mge/core/Mesh.hpp"
 #include "mge/core/Texture.hpp"
 
-#include "mge/materials/AbstractMaterial.hpp"
+#include "mge/materials/LitTextureMaterial.hpp"
 
 class Rat : public Enemy
 {
 	public:
 	static std::vector<Mesh*> Animation;
+	static LitTextureMaterial* Material;
 	static Texture* Texture;
 
 	Rat(std::string pName = "Rat",

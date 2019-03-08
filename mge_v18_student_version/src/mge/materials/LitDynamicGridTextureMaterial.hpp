@@ -44,7 +44,7 @@ class LitDynamicTextureGridMaterial : public AbstractMaterial
 	glm::vec3 getMousePos();
 	glm::vec3 getTowerPos();
 
-	private:
+private:
 	//all the static properties are shared between instances of LitMaterial
 	//note that they are all PRIVATE, we do not expose this static info to the outside world
 	ShaderProgram* _shader;
@@ -62,7 +62,7 @@ class LitDynamicTextureGridMaterial : public AbstractMaterial
 	bool _isColliding;
 	bool _hideGrid;
 	float _gridSize = 1;
-	float _lineThiccness = 0.03f;
+	float _lineThiccness = 0.05f;
 	float _range = 0;
 	glm::vec3 _mousePos;
 	glm::vec3 _towerPos;

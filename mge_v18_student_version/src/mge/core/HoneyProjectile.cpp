@@ -54,7 +54,7 @@ void HoneyProjectile::update(float pStep)
 			enemy->setSlowDown(0);
 		}
 		enemiesCollidingWith.clear();
-		delete(this);
+		Kill();
 	}
 }
 

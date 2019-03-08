@@ -29,8 +29,7 @@ ToasterTower::~ToasterTower()
 void ToasterTower::update(float pStep)
 {
 	//rayCast();
-
-	GameObject::update(pStep);
+	Tower::update(pStep);
 }
 
 void ToasterTower::AddTowerBehaviour()

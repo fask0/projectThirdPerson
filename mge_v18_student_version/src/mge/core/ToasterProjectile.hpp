@@ -34,6 +34,7 @@ class ToasterProjectile : public GameObject
 	clock_t _spawnTime;
 	glm::vec3 _spawnPos;
 	bool _isShooting;
+	bool _onToaster = true;
 };
 
 #endif // CAMERA_HPP

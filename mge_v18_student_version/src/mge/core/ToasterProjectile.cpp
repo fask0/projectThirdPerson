@@ -49,9 +49,10 @@ void ToasterProjectile::update(float pStep)
 	GameObject::update(pStep);
 
 	if (_shouldDie) return;
-	if (clock() >= _spawnTime + 3 * CLOCKS_PER_SEC)
+	glm::vec3 diff = _spawnPos - getLocalPosition();
+	if (diff.x * diff.x + diff.y * diff.y + diff.z * diff.z > (GameController::ToasterRange * GameController::ToasterRange) * 3)
 	{
-		delete(this);
+		Kill();
 	}
 }
 
@@ -66,10 +67,11 @@ void ToasterProjectile::OnCollisionEnter(GameObject * pOther)
 
 bool ToasterProjectile::SkipCollisionCheck()
 {
-	return false;
+	return _onToaster;
 }
 
 void ToasterProjectile::Shoot()
 {
 	_isShooting = true;
+	_onToaster = false;
 }

@@ -57,12 +57,12 @@ void GridManager::update(float pStep)
 	{
 		if (_currentMoney >= _tower->GetCost())
 		{
-			selectedMaterial->SetColliding(false);
+			//selectedMaterial->SetColliding(false);
 			_tower->isPlaced = false;
 		}
 		else
 		{
-			selectedMaterial->SetColliding(true);
+			//selectedMaterial->SetColliding(true);
 			_tower->isPlaced = true;
 		}
 	}

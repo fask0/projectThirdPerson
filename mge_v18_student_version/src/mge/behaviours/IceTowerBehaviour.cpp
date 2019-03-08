@@ -10,6 +10,7 @@ IceTowerBehaviour::IceTowerBehaviour() : TowerBehaviour()
 {
 	//ctor
 	_lastAttackTime = clock();
+	_dummyObj = new GameObject("dummyObj", glm::vec3(0, 0, 0));
 }
 
 IceTowerBehaviour::~IceTowerBehaviour()

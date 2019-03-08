@@ -327,6 +327,7 @@
     <ClInclude Include="..\src\mge\core\ChadRat.hpp">
       <Filter>Enemies</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="..\src\mge\core\Level.hpp">
       <Filter>Levels</Filter>
     </ClInclude>
@@ -336,6 +337,9 @@
     <ClInclude Include="..\src\mge\core\TutorialLevel.hpp">
       <Filter>Levels</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="..\src\mge\core\ShadowFrameBuffer.hpp" />
+>>>>>>> 8d01192a8f28947cdaa928887dfac5b005f94673
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Behaviours">

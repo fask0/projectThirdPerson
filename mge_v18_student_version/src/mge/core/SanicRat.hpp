@@ -8,12 +8,13 @@
 #include "mge/core/Mesh.hpp"
 #include "mge/core/Texture.hpp"
 
-#include "mge/materials/AbstractMaterial.hpp"
+#include "mge/materials/LitTextureMaterial.hpp"
 
 class SanicRat : public Enemy
 {
 	public:
 	static std::vector<Mesh*> Animation;
+	static LitTextureMaterial* Material;
 	static Texture* Texture;
 
 	SanicRat(std::string pName = "Rat",

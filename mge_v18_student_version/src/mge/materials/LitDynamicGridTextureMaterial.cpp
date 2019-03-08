@@ -56,10 +56,15 @@ void LitDynamicTextureGridMaterial::render(World* pWorld, Mesh* pMesh, const glm
 		glUniform1i(_shader->getUniformLocation("splitter[" + std::to_string(i) + "]"), pMesh->objectVertexIndex[i]);
 	}
 
+	glActiveTexture(GL_TEXTURE0 + pMesh->objectTextures.size());
+	glBindTexture(GL_TEXTURE_2D, GameController::shadowMap);
+	glUniform1i(_shader->getUniformLocation("shadowMap"), pMesh->objectTextures.size());
+
 	//pass in all MVP matrices separately
 	glUniformMatrix4fv(_shader->getUniformLocation("projectionMatrix"), 1, GL_FALSE, glm::value_ptr(pProjectionMatrix));
 	glUniformMatrix4fv(_shader->getUniformLocation("viewMatrix"), 1, GL_FALSE, glm::value_ptr(pViewMatrix));
 	glUniformMatrix4fv(_shader->getUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(pModelMatrix));
+	glUniformMatrix4fv(_shader->getUniformLocation("lightSpaceMatrix"), 1, GL_FALSE, glm::value_ptr(*GameController::lightSpaceMatrix));
 
 	//Light stuff 2
 	glUniform3fv(_shader->getUniformLocation("dirLight.lightCol"), 1, glm::value_ptr(_light->_color));

@@ -221,27 +221,33 @@ void TowerDefenseScene::_initializeScene()
 {
 	GameController* gameController = new GameController();
 	GameController::TowerDefenseScene = this;
-	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
-	_world->add(colManager);
+	//CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
+	//_world->add(colManager);
 
 	//UI
 	std::cout << "Initializing 2D layer" << std::endl;
 	_uiManager = new UIManager(_window);
 	std::cout << "2D layer initialized." << std::endl;
 
+	glm::vec3 cameraPosition = glm::vec3(0, 16, 0);
+	glm::vec3 lightPosition = glm::vec3(0, 25, -19);
 	//Directional
-	Light* light = new Light("light", glm::vec3(0, 10, 0), glm::vec3(0.9f, 1.0f, 0.8f), 10.0f, 30.0f, Light::Directional);
-	light->rotate(glm::radians(-110.0f), glm::vec3(1, 0, 0));
-	light->rotate(glm::radians(-45.0f), glm::vec3(0, 1, 0));
+	//glm::vec3(-2.0f, 4.0f, -1.0f)
+	//-17.0f, 6.0f, -17.0f
+	Light* light = new Light("light", lightPosition, glm::vec3(0.9f, 1.0f, 0.8f), 10.0f, 30.0f, Light::Directional);
+	light->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
+	//light->rotate(45, glm::vec3(1, 0, 0));
+	//light->rotate(45, glm::vec3(0, 1, 0));
 	_world->add(light);
-
+	light->addBehaviour(new WASDBehaviour());
 	gameController->Init();
 
 	//SCENE SETUP
 	//add camera first (it will be updated last)
 	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
 	camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
-	camera->addBehaviour(new CameraMovementBehaviour(-30, 30, -30, 30, 10, 20, _window, camera->getLocalPosition(), 1.0f, 10.0f));
+	camera->addBehaviour(new CameraMovementBehaviour(-30, 30, -17, 17, 1, 50, _window, camera->getLocalPosition(), 1.0f, 10.0f));
+	//camera->setTransform(glm::lookAt(camera->getLocalPosition(), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
 	_world->add(camera);
 	_world->setMainCamera(camera);
 

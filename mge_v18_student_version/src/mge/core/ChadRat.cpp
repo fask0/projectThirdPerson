@@ -15,6 +15,7 @@
 #include "mge/materials/LitTextureMaterial.hpp"
 
 std::vector<Mesh*> ChadRat::Animation;
+LitTextureMaterial* ChadRat::Material;
 Texture* ChadRat::Texture;
 
 ChadRat::ChadRat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::string pTag)
@@ -34,7 +35,7 @@ ChadRat::ChadRat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, s
 	_animation = Animation;
 	_currentFrame = std::rand() % _animation.size();
 	setMesh(_animation[0]);
-	setMaterial(new LitTextureMaterial(Texture));
+	setMaterial(Material);
 
 	if (_healthRegen > 0)
 		addBehaviour(new EffectBehaviour(EffectBehaviour::HealOverTime, _healthRegen, -1));

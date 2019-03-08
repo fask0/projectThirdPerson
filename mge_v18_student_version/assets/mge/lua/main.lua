@@ -11,17 +11,17 @@ WindowHeight = 1080;
 --DelayBetweenEnemies       --How much time between each enemy (in seconds)
 --------------------------------------------------------------------------------------
 --Lane One
-LaneOneBaseSize = 20;
+LaneOneBaseSize = 60;
 LaneOneSizeGrowthFrequency = 1;
 LaneOneEnemyScalingPercentage = 10;
 LaneOneDelayBetweenEnemies = 1;
 --Lane Two
-LaneTwoBaseSize = 20;
+LaneTwoBaseSize = 60;
 LaneTwoSizeGrowthFrequency = 1;
 LaneTwoEnemyScalingPercentage = 10;
 LaneTwoDelayBetweenEnemies = 1.0;
 --Lane Three
-LaneThreeBaseSize = 20;
+LaneThreeBaseSize = 60;
 LaneThreeSizeGrowthFrequency = 1;
 LaneThreeEnemyScalingPercentage = 10;
 LaneThreeDelayBetweenEnemies = 1.0;
@@ -33,7 +33,7 @@ LaneFourDelayBetweenEnemies = 1.0;
 --------------------------------------------------------------------------------------
 ----------------------------------------Towers----------------------------------------
 --------------------------------------------------------------------------------------
-StartingMoney = 50;
+StartingMoney = 5000000;
 --Toaster tower (basic shooting tower)
 ToasterRange = 6;
 ToasterAttSpeed = 0.75;
@@ -61,9 +61,9 @@ IceDamage = 5;
 
 --Magnifying glass tower
 MagnifyingRange = 0;
-MagnifyingFireDamage = 5;
+MagnifyingFireDamage = 10;
 MagnifyingFireRate = 1;
-MagnifyingFireDuration = 5;
+MagnifyingFireDuration = 10;
 MagnifyingCost = 35;
 
 --Sniper tower

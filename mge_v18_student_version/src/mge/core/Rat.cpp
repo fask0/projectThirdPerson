@@ -15,6 +15,7 @@
 #include "mge/materials/LitTextureMaterial.hpp"
 
 std::vector<Mesh*> Rat::Animation;
+LitTextureMaterial* Rat::Material;
 Texture* Rat::Texture;
 
 Rat::Rat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::string pTag)
@@ -34,7 +35,7 @@ Rat::Rat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::stri
 	_animation = Animation;
 	_currentFrame = std::rand() % _animation.size();
 	setMesh(_animation[0]);
-	setMaterial(new LitTextureMaterial(Texture));
+	setMaterial(Material);
 
 	if (_healthRegen > 0)
 		addBehaviour(new EffectBehaviour(EffectBehaviour::HealOverTime, _healthRegen, -1));

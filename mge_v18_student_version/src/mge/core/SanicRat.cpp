@@ -16,6 +16,7 @@
 #include "mge/materials/LitTextureMaterial.hpp"
 
 std::vector<Mesh*> SanicRat::Animation;
+LitTextureMaterial* SanicRat::Material;
 Texture* SanicRat::Texture;
 
 SanicRat::SanicRat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::string pTag)
@@ -35,7 +36,7 @@ SanicRat::SanicRat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane,
 	_animation = Animation;
 	_currentFrame = std::rand() % _animation.size();
 	setMesh(_animation[0]);
-	setMaterial(new LitTextureMaterial(Texture));
+	setMaterial(Material);
 
 	if (_healthRegen > 0)
 		addBehaviour(new EffectBehaviour(EffectBehaviour::HealOverTime, _healthRegen, -1));
