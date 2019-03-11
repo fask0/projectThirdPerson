@@ -12,6 +12,7 @@
 #include "mge/materials/TextureGridMaterial.hpp"
 #include "mge/materials/LitTextureGridMaterial.hpp"
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
+#include <time.h>
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -20,7 +21,7 @@
  */
 class GridManager : public GameObject
 {
-	public:
+public:
 	GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow* pWindow, Level* pLevel);
 
 	virtual ~GridManager();
@@ -30,7 +31,10 @@ class GridManager : public GameObject
 
 	int _currentMoney;
 
-	private:
+	void PauseTowerPlacement();
+	void SelectTower(int pTowerNumber);
+
+private:
 	std::vector<GameObject*> _gridObjects;
 	sf::RenderWindow* _window;
 	Level* _level;
@@ -51,11 +55,14 @@ class GridManager : public GameObject
 	void ResetMouseOverAndSelected();
 	void ResetAllTowerMaterials();
 
-	private:
 	GridManager(const GridManager&);
 	GridManager& operator= (const GridManager&);
 
 	void SpecificTowerSelection(sf::Event pEvent);
+
+	//Pausing placement
+	bool _canPlaceTower = true;
+	clock_t _startPauseTime;
 };
 
 #endif // CAMERA_HPP

@@ -58,6 +58,8 @@ public:
 	//--Lua variables
 	static bool Debug;
 	static bool DrawColliders;
+	static int MaxHealth;
+	static int CurrentHealth;
 
 	//Level
 	//Spawners and Scaling
@@ -150,7 +152,7 @@ public:
 	static glm::mat4* lightSpaceMatrix;
 	static unsigned int shadowMap;
 
-	private:
+private:
 	GameController(const GameController&);
 	GameController& operator= (const GameController&);
 

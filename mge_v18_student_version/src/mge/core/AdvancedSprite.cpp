@@ -4,8 +4,7 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/core/GameController.hpp"
 
-
-AdvancedSprite::AdvancedSprite() : sf::Sprite(), GameObject("Advanced Sprite")
+AdvancedSprite::AdvancedSprite(sf::Texture* pTexture) : sf::Sprite(), GameObject("Advanced Sprite"), Texture(pTexture), StartTexture(pTexture), IsBeingHoveredOver(false)
 {
 }
 
@@ -66,4 +65,5 @@ void AdvancedSprite::update(float pStep)
 			}
 		}
 	}
+	GameObject::update(pStep);
 }

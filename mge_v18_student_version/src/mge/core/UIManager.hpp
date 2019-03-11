@@ -15,14 +15,15 @@ public:
 	virtual ~UIManager();
 	void Draw();
 
-	void AddSprite(AdvancedSprite* pSprite, sf::Texture* pTexture);
+	void AddSprite(AdvancedSprite* pSprite);
+	void AddText(sf::Text* pText);
+
+	std::vector<AdvancedSprite*> _sprites;
+	std::vector<sf::Texture*> _textures;
 
 private:
 	sf::RenderWindow * _window;
 	sf::Font _font;
-
-	std::vector<AdvancedSprite*> _sprites;
-	std::vector<sf::Texture*> _textures;
 
 	std::vector<sf::Text*> _texts;
 
