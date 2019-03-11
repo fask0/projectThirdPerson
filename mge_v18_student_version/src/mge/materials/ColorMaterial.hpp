@@ -1,8 +1,6 @@
-#ifndef COLORMATERIAL_HPP
-#define COLORMATERIAL_HPP
-
-#include "GL/glew.h"
+#pragma once
 #include "mge/materials/AbstractMaterial.hpp"
+#include "GL/glew.h"
 
 class ShaderProgram;
 
@@ -12,7 +10,7 @@ class ShaderProgram;
  */
 class ColorMaterial : public AbstractMaterial
 {
-	public:
+public:
 	ColorMaterial(glm::vec4 pColor = glm::vec4(1, 0, 0, 1));
 	virtual ~ColorMaterial();
 
@@ -21,7 +19,7 @@ class ColorMaterial : public AbstractMaterial
 	//in rgb values
 	void setDiffuseColor(glm::vec4 pDiffuseColor);
 
-	private:
+private:
 	//all the static properties are shared between instances of ColorMaterial
 	//note that they are all PRIVATE, we do not expose this static info to the outside world
 	static ShaderProgram* _shader;
@@ -30,5 +28,3 @@ class ColorMaterial : public AbstractMaterial
 	//this one is unique per instance of color material
 	glm::vec4 _diffuseColor;
 };
-
-#endif // COLORMATERIAL_HPP

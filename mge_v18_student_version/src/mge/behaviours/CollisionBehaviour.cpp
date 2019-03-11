@@ -1,17 +1,12 @@
+#include "mge/behaviours/CollisionBehaviour.hpp"
+#include "mge/core/CollisionManager.hpp"
+#include "mge/materials/AbstractMaterial.hpp"
+#include "mge/materials/ColorMaterial.hpp"
+#include "mge/core/Mesh.hpp"
+#include "mge/config.hpp"
 #include <iostream>
 #include <vector>
 #include <string>
-
-#include "mge/core/Mesh.hpp"
-
-#include "mge/materials/AbstractMaterial.hpp"
-#include "mge/materials/ColorMaterial.hpp"
-
-#include "mge/behaviours/CollisionBehaviour.hpp"
-
-#include "mge/core/CollisionManager.hpp"
-
-#include "mge/config.hpp"
 
 Mesh* CollisionBehaviour::BoxMesh;
 Mesh* CollisionBehaviour::SphereMesh;
@@ -111,31 +106,31 @@ void CollisionBehaviour::ResolveCollision(CollisionBehaviour* pOtherCollider, Ga
 {
 	switch (colliderType)
 	{
-		case BoxCollider:
-		{
-			if (!checkCollision(pOtherCollider))
-				_owner->OnCollisionEnter(pOtherOwner);
-			if (_owner == NULL)
-				_owner->OnCollisionStay(pOtherOwner);
+	case BoxCollider:
+	{
+		if (!checkCollision(pOtherCollider))
+			_owner->OnCollisionEnter(pOtherOwner);
+		if (_owner == NULL)
+			_owner->OnCollisionStay(pOtherOwner);
 
-			if (_owner == NULL || isTrigger || pOtherCollider->isTrigger) return;
+		if (_owner == NULL || isTrigger || pOtherCollider->isTrigger) return;
 
-			_owner->setLocalPosition(pLastPos);
-		}
-		break;
+		_owner->setLocalPosition(pLastPos);
+	}
+	break;
 
-		case SphereCollider:
-		{
-			if (!checkCollision(pOtherCollider))
-				_owner->OnCollisionEnter(pOtherOwner);
-			if (_owner == NULL)
-				_owner->OnCollisionStay(pOtherOwner);
+	case SphereCollider:
+	{
+		if (!checkCollision(pOtherCollider))
+			_owner->OnCollisionEnter(pOtherOwner);
+		if (_owner == NULL)
+			_owner->OnCollisionStay(pOtherOwner);
 
-			if (_owner == NULL || isTrigger || pOtherCollider->isTrigger) return;
+		if (_owner == NULL || isTrigger || pOtherCollider->isTrigger) return;
 
-			_owner->setLocalPosition(pLastPos);
-		}
-		break;
+		_owner->setLocalPosition(pLastPos);
+	}
+	break;
 	}
 }
 
@@ -169,17 +164,17 @@ void CollisionBehaviour::DrawCollider()
 {
 	switch (colliderType)
 	{
-		case CollisionBehaviour::BoxCollider:
-		{
-			_collider->scale(_boundaries * 0.5f);
-		}
-		break;
+	case CollisionBehaviour::BoxCollider:
+	{
+		_collider->scale(_boundaries * 0.5f);
+	}
+	break;
 
-		case CollisionBehaviour::SphereCollider:
-		{
-			_collider->scale(glm::vec3(1, 1, 1) * _radius);
-		}
-		break;
+	case CollisionBehaviour::SphereCollider:
+	{
+		_collider->scale(glm::vec3(1, 1, 1) * _radius);
+	}
+	break;
 	}
 
 	_collider->setMesh(_mesh);

@@ -1,7 +1,5 @@
 #pragma once
-
 #include "mge/behaviours/AbstractBehaviour.hpp"
-
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Enemy.hpp"
 

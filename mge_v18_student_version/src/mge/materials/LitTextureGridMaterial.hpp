@@ -1,10 +1,8 @@
-#ifndef LITTEXTUREGRIDMATERIAL_HPP
-#define LITTEXTUREGRIDMATERIAL_HPP
-
-#include "GL/glew.h"
+#pragma once
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/core/Light.hpp"
+#include "GL/glew.h"
 
 class ShaderProgram;
 
@@ -64,5 +62,3 @@ private:
 	glm::vec3 _mousePos;
 	glm::vec3 _towerPos;
 };
-
-#endif // LitMaterial_HPP

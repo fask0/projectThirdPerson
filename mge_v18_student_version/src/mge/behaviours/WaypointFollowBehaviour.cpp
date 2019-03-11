@@ -1,18 +1,15 @@
-#include <iostream>
-#include <algorithm>
-#include <vector>
-
 #include "mge/behaviours/WaypointFollowBehaviour.hpp"
 #include "mge/behaviours/AbstractBehaviour.hpp"
-
 #include "mge/core/GameController.hpp"
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/WaypointManager.hpp"
 #include "mge/core/Enemy.hpp"
 #include "mge/core/Helper.hpp"
 #include "mge/core/GameObject.hpp"
-
 #include "glm.hpp"
+#include <iostream>
+#include <algorithm>
+#include <vector>
 
 WaypointFollowBehaviour::WaypointFollowBehaviour(Waypoint::Lane pLane)
 	: AbstractBehaviour()
@@ -62,7 +59,7 @@ void WaypointFollowBehaviour::update(float pStep)
 		}
 	}
 	else if (glm::abs(distToCurrent.x) <= _enemyOwner->getSpeed() * pStep * 3 &&
-			 glm::abs(distToCurrent.z) <= _enemyOwner->getSpeed() * pStep * 3)
+		glm::abs(distToCurrent.z) <= _enemyOwner->getSpeed() * pStep * 3)
 	{
 		if (_toDo.size() > 1)
 			_currentWaypoint = _toDo[1];

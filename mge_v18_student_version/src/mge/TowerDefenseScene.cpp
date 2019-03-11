@@ -1,58 +1,25 @@
 #include "TowerDefenseScene.hpp"
-#include <iostream>
-#include <string>
 
-#include "glm.hpp"
-
-#include "mge/core/Renderer.hpp"
-
-#include "mge/core/LineSegment.hpp"
-#include "mge/core/Mesh.hpp"
-#include "mge/core/World.hpp"
-#include "mge/core/Texture.hpp"
-#include "mge/core/Light.hpp"
-#include "mge/core/Camera.hpp"
-#include "mge/core/GameObject.hpp"
 #include "mge/core/CollisionManager.hpp"
+#include "mge/core/GameController.hpp"
+#include "mge/core/AdvancedSprite.hpp"
 #include "mge/core/GridManager.hpp"
-#include "mge/core/Enemy.hpp"
-#include "mge/core/Rat.hpp"
+#include "mge/core/GameObject.hpp"
+#include "mge/core/UIManager.hpp"
+#include "mge/core/Texture.hpp"
+#include "mge/core/Camera.hpp"
+#include "mge/core/Light.hpp"
 
-#include "mge/materials/AbstractMaterial.hpp"
-#include "mge/materials/ColorMaterial.hpp"
-#include "mge/materials/TextureMaterial.hpp"
-#include "mge/materials/WobbleMaterial.hpp"
-#include "mge/materials/LitMaterial.hpp"
-#include "mge/materials/TerrainMaterial.hpp"
-#include "mge/materials/TextureGridMaterial.hpp"
-#include "mge/materials/LitTextureMaterial.hpp"
-#include "mge/materials/LitTextureGridMaterial.hpp"
-#include "mge/materials//LitDynamicGridTextureMaterial.hpp"
-
-#include "mge/behaviours/RotatingBehaviour.hpp"
-#include "mge/behaviours/KeysBehaviour.hpp"
-#include "mge/behaviours/WASDBehaviour.hpp"
-#include "mge/behaviours/CameraOrbitBehaviour.hpp"
-#include "mge/behaviours/CollisionBehaviour.hpp"
 #include "mge/behaviours/CameraMovementBehaviour.hpp"
-#include "mge/behaviours/WaypointFollowBehaviour.hpp"
+#include "mge/behaviours/WASDBehaviour.hpp"
 
 #include "mge/util/DebugHud.hpp"
-#include "mge/core/GameController.hpp"
-
 #include "mge/config.hpp"
 #include "Lua/lua.hpp"
+#include "glm.hpp"
 
-#include "mge/core/EnemySpawner.hpp"
-#include "mge/core/ToasterTower.hpp"
-#include "mge/core/HoneyTower.hpp"
-#include "mge/core/ShockTower.hpp"
-#include "mge/core/IceTower.hpp"
-#include "mge/core/MagnifyingGlassTower.hpp"
-#include "mge/core/SniperTower.hpp"
-
-#include "mge/core/UIManager.hpp"
-#include "mge/core/AdvancedSprite.hpp"
+#include <iostream>
+#include <string>
 
 TowerDefenseScene::TowerDefenseScene() :AbstractGame(), _hud(0)
 {
@@ -84,30 +51,14 @@ void TowerDefenseScene::initializeLua()
 	luaL_openlibs(lua);
 	luaL_loadfile(lua, (config::MGE_LUA_PATH + "main.lua").c_str());
 
-	std::cout << "Lua State created" << std::endl;
-
 	//Run
 	lua_call(lua, 0, 0);
 
 	//Set vars
-	lua_getglobal(lua, "Debug");
-	Debug = lua_toboolean(lua, -1);
-	GameController::Debug = Debug;
-	lua_pop(lua, -1);
-	std::cout << "Debug set" << std::endl;
-
-	lua_getglobal(lua, "DrawColliders");
-	GameController::DrawColliders = lua_toboolean(lua, -1);
-	lua_pop(lua, -1);
-
-	lua_getglobal(lua, "WindowHeight");
-	WindowHeight = lua_tointeger(lua, -1);
-	lua_pop(lua, -1);
-
-	lua_getglobal(lua, "WindowWidth");
-	WindowWidth = lua_tointeger(lua, -1);
-	lua_pop(lua, -1);
-	std::cout << "Windowsize set" << std::endl;
+	GameController::DrawColliders = boolFromLua("DrawColliders");
+	GameController::Debug = boolFromLua("Debug");
+	WindowHeight = intFromLua("WindowHeight");
+	WindowWidth = intFromLua("WindowWidth");
 
 	//Level
 	//Lane A
@@ -187,6 +138,8 @@ void TowerDefenseScene::initializeLua()
 	GameController::SanicDamage = intFromLua("SanicDamage");
 	GameController::SanicSpeed = floatFromLua("SanicSpeed");
 	GameController::SanicEffectRecoverySpeed = floatFromLua("SanicEffectRecoverySpeed");
+
+	std::cout << "All Lua variables initialized." << std::endl;
 }
 
 int TowerDefenseScene::intFromLua(std::string pVariableName)
@@ -216,49 +169,50 @@ bool TowerDefenseScene::boolFromLua(std::string pVariableName)
 	return b;
 }
 
+void TowerDefenseScene::initializeSingletons()
+{
+	GameController* gameController = new GameController();
+	gameController->Init();
+	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
+	_world->add(colManager);
+	GameController::TowerDefenseScene = this;
+	_uiManager = new UIManager(_window);
+}
+
 //build the game _world
 void TowerDefenseScene::_initializeScene()
 {
-	GameController* gameController = new GameController();
-	GameController::TowerDefenseScene = this;
-	CollisionManager* colManager = new CollisionManager("collisionManager", glm::vec3(0, 0, 0));
-	_world->add(colManager);
+	//Initialize all the singletons in the scene
+	initializeSingletons();
 
-	//UI
-	std::cout << "Initializing 2D layer" << std::endl;
-	_uiManager = new UIManager(_window);
-	std::cout << "2D layer initialized." << std::endl;
+	//add camera first (it will be updated last)
+	_camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
+	_camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
+	_camera->addBehaviour(new CameraMovementBehaviour(-30, 30, -17, 17, 1, 50, _window, _camera->getLocalPosition(), 1.0f, 10.0f));
+	_world->add(_camera);
+	_world->setMainCamera(_camera);
 
-	glm::vec3 cameraPosition = glm::vec3(0, 16, 0);
-	glm::vec3 lightPosition = glm::vec3(0, 25, -19);
-	//Directional
-	//glm::vec3(-2.0f, 4.0f, -1.0f)
-	//-17.0f, 6.0f, -17.0f
-	Light* light = new Light("light", lightPosition, glm::vec3(0.9f, 1.0f, 0.8f), 10.0f, 30.0f, Light::Directional);
-	light->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
-	//light->rotate(45, glm::vec3(1, 0, 0));
-	//light->rotate(45, glm::vec3(0, 1, 0));
+	//add light to the scene
+	Light* light = new Light("light", glm::vec3(0, 40, -19), glm::vec3(0.9f, 1.0f, 0.8f), 10.0f, 30.0f, Light::Directional);
 	_world->add(light);
 	light->addBehaviour(new WASDBehaviour());
-	gameController->Init();
 
-	//SCENE SETUP
-	//add camera first (it will be updated last)
-	Camera* camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
-	camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
-	camera->addBehaviour(new CameraMovementBehaviour(-30, 30, -17, 17, 1, 50, _window, camera->getLocalPosition(), 1.0f, 10.0f));
-	//camera->setTransform(glm::lookAt(camera->getLocalPosition(), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0)));
-	_world->add(camera);
-	_world->setMainCamera(camera);
+	//Initialize all the 2D objects in the scene
+	inintialize2Dobjects();
+}
 
-	_camera = camera;
-
+void TowerDefenseScene::inintialize2Dobjects()
+{
+	//Load texture
 	sf::Texture* tex = new sf::Texture();
 	tex->loadFromFile(config::MGE_TEXTURE_PATH + "bricks.jpg");
 
+	//Create sprite
 	AdvancedSprite* sprite = new AdvancedSprite();
 	sprite->setPosition(0, 64);
 	sprite->addBehaviour(new WASDBehaviour());
+
+	//Add sprite to world and UImanager
 	_world->add(sprite);
 	_uiManager->AddSprite(sprite, tex);
 }

@@ -1,15 +1,10 @@
 #include "mge/behaviours/CameraMovementBehaviour.hpp"
+#include "mge/core/GameController.hpp"
 #include "mge/core/GameObject.hpp"
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <SFML/Window/Mouse.hpp>
+#include "mge/core/Helper.hpp"
 #include <SFML/Graphics.hpp>
 #include <glm.hpp>
-#include "mge/core/GameController.hpp"
-#include "glm/ext.hpp"
-#include "glm/gtx/quaternion.hpp"
-#include "mge/core/Helper.hpp"
 
 CameraMovementBehaviour::CameraMovementBehaviour(float pXMinLockPos, float pXMaxLockPos, float pZMinLockPos, float pZMaxLockPos, float pMinHeight, float pMaxHeight, sf::RenderWindow* pWindow, glm::vec3 pStartPos, float pMinMovementSpeed, float pMaxMovementSpeed)
 	: AbstractBehaviour(), _startPos(pStartPos), _renderWindow(pWindow), _xMinLockPos(pXMinLockPos), _xMaxLockPos(pXMaxLockPos), _zMinLockPos(pZMinLockPos), _zMaxLockPos(pZMaxLockPos), _minHeight(pMinHeight), _maxHeight(pMaxHeight), _minMovementSpeed(pMinMovementSpeed), _maxMovementSpeed(pMaxMovementSpeed)

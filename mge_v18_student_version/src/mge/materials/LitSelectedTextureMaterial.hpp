@@ -1,10 +1,8 @@
-#ifndef LITSELECTEDTEXTUREMATERIAL_HPP
-#define LITSELECTEDTEXTUREMATERIAL_HPP
-
-#include "GL/glew.h"
+#pragma once
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/core/Light.hpp"
+#include "GL/glew.h"
 
 class ShaderProgram;
 
@@ -14,7 +12,7 @@ class ShaderProgram;
  */
 class LitSelectedTextureMaterial : public AbstractMaterial
 {
-	public:
+public:
 	LitSelectedTextureMaterial(Light *light, Texture* pDiffuseTexture);
 	virtual ~LitSelectedTextureMaterial();
 
@@ -26,7 +24,7 @@ class LitSelectedTextureMaterial : public AbstractMaterial
 	void SetMixIntensity(float pIntensity);
 	void SetColliding(bool pIsColliding);
 
-	private:
+private:
 	//all the static properties are shared between instances of LitMaterial
 	//note that they are all PRIVATE, we do not expose this static info to the outside world
 	ShaderProgram* _shader;
@@ -40,5 +38,3 @@ class LitSelectedTextureMaterial : public AbstractMaterial
 	float _mixIntesity;
 	bool _isColliding = false;
 };
-
-#endif // LitMaterial_HPP

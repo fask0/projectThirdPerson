@@ -1,10 +1,9 @@
-#include "glm.hpp"
-
-#include "ColorMaterial.hpp"
-#include "mge/config.hpp"
-#include "mge/core/GameObject.hpp"
-#include "mge/core/Mesh.hpp"
 #include "mge/core/ShaderProgram.hpp"
+#include "mge/core/GameObject.hpp"
+#include "ColorMaterial.hpp"
+#include "mge/core/Mesh.hpp"
+#include "mge/config.hpp"
+#include "glm.hpp"
 
 ShaderProgram* ColorMaterial::_shader = NULL;
 

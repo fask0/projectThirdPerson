@@ -1,20 +1,14 @@
 #pragma once 
-
-#include "GL/glew.h"
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/core/Light.hpp"
-//#include "mge/config.hpp"
+#include "GL/glew.h"
 
 class ShaderProgram;
 
-/**
- * This is about the simplest material we can come up with, it demonstrates how to
- * render a single color material without caching, passing in all the matrices we require separately.
- */
 class LitTextureMaterial : public AbstractMaterial
 {
-	public:
+public:
 	LitTextureMaterial(Texture* pDiffuseTexture);
 	virtual ~LitTextureMaterial();
 
@@ -28,22 +22,21 @@ class LitTextureMaterial : public AbstractMaterial
 	float _nearPlane = 0.1f;
 	float _farPlane = 1000.0f;
 
-	private:
+private:
 	//all the static properties are shared between instances of LitMaterial
 	//note that they are all PRIVATE, we do not expose this static info to the outside world
 	ShaderProgram* _shader;
 	void initShader();
 
-	//this one is unique per instance of material
 	Texture* _diffuseTexture;
 };
 
 class DebugTextureMaterial : public LitTextureMaterial
 {
-	private:
+private:
 	ShaderProgram* m_shader;
 
-	public:
+public:
 	DebugTextureMaterial(Texture* pDiffuseTexture);
 	virtual ~DebugTextureMaterial() { delete m_shader; }
 

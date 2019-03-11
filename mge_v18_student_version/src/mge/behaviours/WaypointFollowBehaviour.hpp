@@ -1,27 +1,22 @@
-#ifndef WAYPOINTFOLLOWBEHAVIOUT_HPP
-#define WAYPOINTFOLLOWBEHAVIOUT_HPP
-
-#include <iostream>
-#include <vector>
-
+#pragma once
 #include "mge/behaviours/AbstractBehaviour.hpp"
-
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Enemy.hpp"
-
 #include "glm.hpp"
+#include <iostream>
+#include <vector>
 
 class WaypointFollowBehaviour : public AbstractBehaviour
 {
-	public:
+public:
 	WaypointFollowBehaviour(Waypoint::Lane pLane);
 	virtual ~WaypointFollowBehaviour();
 	virtual void update(float pStep);
 
 	void Init();
 
-	private:
+private:
 	glm::vec3 _direction;
 	glm::vec3 _velocity;
 
@@ -33,5 +28,3 @@ class WaypointFollowBehaviour : public AbstractBehaviour
 
 	glm::vec3 getDir();
 };
-
-#endif // !WAYPOINTFOLLOWBEHAVIOUT_HPP

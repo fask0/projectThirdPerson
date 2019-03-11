@@ -1,10 +1,9 @@
-#include "glm.hpp"
-
-#include "LitMaterial.hpp"
-#include "mge/config.hpp"
+#include "mge/core/ShaderProgram.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Mesh.hpp"
-#include "mge/core/ShaderProgram.hpp"
+#include "LitMaterial.hpp"
+#include "mge/config.hpp"
+#include "glm.hpp"
 
 ShaderProgram* LitMaterial::_shader = NULL;
 
