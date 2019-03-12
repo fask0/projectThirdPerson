@@ -15,16 +15,23 @@ SwitchSpriteOnHoverBehaviour::~SwitchSpriteOnHoverBehaviour()
 
 void SwitchSpriteOnHoverBehaviour::update(float pstep)
 {
+	if (_advancedOwner == nullptr)
+		_advancedOwner = dynamic_cast<AdvancedSprite*>(_owner);
+
+	if (SwitchTexture)
+		_advancedOwner->Texture = _switchTexture;
+	else
+		_advancedOwner->Texture = _advancedOwner->StartTexture;
 }
 
 void SwitchSpriteOnHoverBehaviour::On2DMouseEnter()
 {
-	dynamic_cast<AdvancedSprite*>(_owner)->Texture = _switchTexture;
+	SwitchTexture = true;
 	AbstractBehaviour::On2DMouseEnter();
 }
 
 void SwitchSpriteOnHoverBehaviour::On2DMouseExit()
 {
-	dynamic_cast<AdvancedSprite*>(_owner)->Texture = dynamic_cast<AdvancedSprite*>(_owner)->StartTexture;
+	SwitchTexture = false;
 	AbstractBehaviour::On2DMouseExit();
 }

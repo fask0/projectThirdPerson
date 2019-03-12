@@ -204,7 +204,7 @@ void TowerDefenseScene::_initializeScene()
 	light->addBehaviour(new WASDBehaviour());
 
 	//Initialize all the 2D objects in the scene
-	inintialize2Dobjects();
+	//inintialize2Dobjects();
 }
 
 void TowerDefenseScene::inintialize2Dobjects()
@@ -216,6 +216,10 @@ void TowerDefenseScene::inintialize2Dobjects()
 	//Icon textures
 	sf::Texture* menuIcon = new sf::Texture();
 	menuIcon->loadFromFile(config::MGE_SPRITES_PATH + "menu_button.png");
+	sf::Texture* menuIconSel = new sf::Texture();
+	menuIconSel->loadFromFile(config::MGE_SPRITES_PATH + "menu_button_sel.png");
+	sf::Texture* disgustingIcon = new sf::Texture();
+	disgustingIcon->loadFromFile(config::MGE_SPRITES_PATH + "disgustingness.png");
 	sf::Texture* toasterIcon = new sf::Texture();
 	toasterIcon->loadFromFile(config::MGE_SPRITES_PATH + "toaster_icon_colour0.png");
 	sf::Texture* toasterIconSel = new sf::Texture();
@@ -310,6 +314,7 @@ void TowerDefenseScene::inintialize2Dobjects()
 	std::vector<AdvancedSprite*> menuSprites;
 	AdvancedSprite* menuSprite = new AdvancedSprite(menuIcon);
 	menuSprite->setPosition(64, WindowHeight - menuIcon->getSize().y - 64);
+	menuSprite->addBehaviour(new SwitchSpriteOnHoverBehaviour(menuIconSel));
 	AdvancedSprite* toasterSprite = new AdvancedSprite(toasterIcon);
 	toasterSprite->setPosition(64 + toasterIcon->getSize().x, WindowHeight - toasterIcon->getSize().y - 64 - ((menuIcon->getSize().y - toasterIcon->getSize().y) / 2));
 	toasterSprite->addBehaviour(new SwitchSpriteOnHoverBehaviour(toasterIconSel));
@@ -343,7 +348,7 @@ void TowerDefenseScene::inintialize2Dobjects()
 	menuSprite->addBehaviour(new MenuOnHoverBehaviour(menuSprites));
 
 	//Add sprites to world and UImanager
-	//Coin
+	//CoinF
 	_world->add(coin);
 	_uiManager->AddSprite(coin);
 	//Healthbar

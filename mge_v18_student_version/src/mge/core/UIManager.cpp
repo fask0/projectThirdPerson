@@ -19,12 +19,6 @@ UIManager::UIManager(sf::RenderWindow * pWindow) : _window(pWindow)
 	assert(_window != NULL);
 	GameController::UIManager = this;
 	_font.loadFromFile(config::MGE_SPRITES_PATH + "CREABBB_.TTF");
-
-	//sf::Text* text = new sf::Text("Test123", sf::Font());
-	//text->setString("Money: ");
-	//text->setPosition(10, 25);
-	//text->setCharacterSize(16);
-	//_texts.push_back(text);
 }
 
 UIManager::~UIManager()

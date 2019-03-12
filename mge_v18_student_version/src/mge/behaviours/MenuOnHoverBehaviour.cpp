@@ -1,3 +1,4 @@
+#include "mge/behaviours/SwitchSpriteOnHoverBehaviour.hpp"
 #include "mge/behaviours/MenuOnHoverBehaviour.hpp"
 #include "mge/core/AdvancedSprite.hpp"
 #include "mge/core/GameObject.hpp"
@@ -26,10 +27,12 @@ void MenuOnHoverBehaviour::update(float pstep)
 	MenuIsExtended = atleastOneBeingHoveredOver;
 	if (MenuIsExtended)
 	{
+		dynamic_cast<SwitchSpriteOnHoverBehaviour*>(_owner->getBehaviours()[0])->SwitchTexture = true;
 		Extend();
 	}
 	else
 	{
+		dynamic_cast<SwitchSpriteOnHoverBehaviour*>(_owner->getBehaviours()[0])->SwitchTexture = false;
 		Retract();
 	}
 }
@@ -39,13 +42,13 @@ void MenuOnHoverBehaviour::Extend()
 	int offset = 24;
 	for (int i = 0; i < menuItems.size(); i++)
 	{
-		if (menuItems[i]->getPosition().x < dynamic_cast<AdvancedSprite*>(_owner)->getPosition().x + ((i + 1) * menuItems[0]->getGlobalBounds().width) + offset - i)
+		if (menuItems[i]->getPosition().x < dynamic_cast<AdvancedSprite*>(_owner)->getPosition().x + ((i + 1) * menuItems[1]->getGlobalBounds().width) + offset - i)
 		{
 			menuItems[i]->setPosition(menuItems[i]->getPosition().x + 8.0f, menuItems[i]->getPosition().y);
 		}
 		else
 		{
-			menuItems[i]->setPosition(dynamic_cast<AdvancedSprite*>(_owner)->getPosition().x + ((i + 1) * menuItems[0]->getGlobalBounds().width) + offset - i, menuItems[i]->getPosition().y);
+			menuItems[i]->setPosition(dynamic_cast<AdvancedSprite*>(_owner)->getPosition().x + ((i + 1) * menuItems[1]->getGlobalBounds().width) + offset - i, menuItems[i]->getPosition().y);
 		}
 	}
 }
