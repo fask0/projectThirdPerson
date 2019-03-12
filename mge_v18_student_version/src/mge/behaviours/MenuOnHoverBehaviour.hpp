@@ -19,6 +19,6 @@ private:
 	AdvancedSprite* _advancedOwner;
 	bool MenuIsExtended;
 
-	void Extend();
-	void Retract();
+	void Extend(float pStep);
+	void Retract(float pStep);
 };

@@ -61,7 +61,14 @@ Level* GameController::CurrentLevel;
 GameObject* GameController::MainPlane;
 LitDynamicTextureGridMaterial* GameController::MainPlaneMaterial;
 
+int GameController::WindowWidth;
+int GameController::WindowHeight;
+
 bool GameController::IsGamePaused;
+
+//--Healthbars
+Mesh* GameController::HealthBarMesh;
+AbstractMaterial* GameController::HealthBarMaterial;
 
 //--Lua variables
 bool GameController::Debug = false;

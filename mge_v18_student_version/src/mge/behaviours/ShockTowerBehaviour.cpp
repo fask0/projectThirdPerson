@@ -41,6 +41,8 @@ void ShockTowerBehaviour::CheckForEnemies()
 			_allInRangeEnemies.push_back(enemy);
 		}
 	}
+
+	dynamic_cast<ShockTower*>(_owner)->_enemiesInRange = _enemiesInRange;
 }
 
 void ShockTowerBehaviour::Attack()

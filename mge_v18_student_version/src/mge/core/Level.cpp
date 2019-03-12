@@ -40,7 +40,7 @@ void Level::Init()
 	_waypoints.clear();
 	_layers.clear();
 	GameController::GridObjects.clear();
-	GameController::MainCamera->setLocalPosition(glm::vec3(0, 15, 0));
+	GameController::MainCamera->setLocalPosition(glm::vec3(0, 35, 0));
 	GameController::CameraBehaviour->SetBounds(_minX, _maxX, _minZ, _maxZ);
 
 	inintialize2Dobjects();
@@ -194,7 +194,7 @@ void Level::inintialize2Dobjects()
 	sf::Text* coinsText = new sf::Text();
 	sf::Font font = sf::Font();
 	font.loadFromFile(config::MGE_SPRITES_PATH + "CREABBB_.TTF");
-	coinsText->setFillColor(sf::Color::White);
+	coinsText->setFillColor(sf::Color(48, 52, 55, 255));
 	coinsText->setPosition(GameController::Window->getSize().x - 164, GameController::Window->getSize().y - coinIcon->getSize().y - 80);
 	coinsText->setFont(font);
 
@@ -262,8 +262,8 @@ void Level::inintialize2Dobjects()
 	this->add(batterySprite);
 	GameController::UIManager->AddSprite(sniperSprite);
 	GameController::UIManager->AddSprite(magnifyingGlassSprite);
-	GameController::UIManager->AddSprite(iceSprite);
 	GameController::UIManager->AddSprite(batterySprite);
+	GameController::UIManager->AddSprite(iceSprite);
 	GameController::UIManager->AddSprite(honeySprite);
 	GameController::UIManager->AddSprite(toasterSprite);
 	GameController::UIManager->AddSprite(menuSprite);

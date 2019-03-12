@@ -1,0 +1,64 @@
+﻿  TowerDefenseScene.cpp
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(163): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(295): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(300): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(300): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(307): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(315): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(318): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(323): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(328): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(333): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(338): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(343): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(402): warning C4018: '<': signed/unsigned mismatch
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_settop referenced in function "private: bool __thiscall TowerDefenseScene::boolFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?boolFromLua@TowerDefenseScene@@AAE_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_tonumber referenced in function "private: float __thiscall TowerDefenseScene::floatFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?floatFromLua@TowerDefenseScene@@AAEMV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_tointeger referenced in function "private: int __thiscall TowerDefenseScene::intFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?intFromLua@TowerDefenseScene@@AAEHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_toboolean referenced in function "private: bool __thiscall TowerDefenseScene::boolFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?boolFromLua@TowerDefenseScene@@AAE_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_getfield referenced in function "private: bool __thiscall TowerDefenseScene::boolFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?boolFromLua@TowerDefenseScene@@AAE_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_call referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _luaL_openlibs referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _luaL_loadfile referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _luaL_newstate referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
+debug_static_exe/mge.exe : fatal error LNK1120: 9 unresolved externals

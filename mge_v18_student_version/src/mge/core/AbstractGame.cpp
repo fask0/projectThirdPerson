@@ -7,6 +7,7 @@
 #include "mge/core/GameController.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Light.hpp"
+#include "mge/core/Enemy.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -167,7 +168,7 @@ void AbstractGame::run()
 	float timeSinceLastFPSCalculation = 0;
 
 	//settings to make sure the update loop runs at 60 fps
-	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
+	sf::Time timePerFrame = sf::seconds(1.0f / 70.0f);
 	sf::Clock updateClock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 
@@ -271,6 +272,10 @@ void AbstractGame::_render()
 	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	for each (Enemy* enemy in GameController::Enemies)
+	{
+		enemy->_children.clear();
+	}
 	_renderer->render(_world);
 
 	//Reset camera back to original position
@@ -290,6 +295,11 @@ void AbstractGame::_render()
 	GameController::shadowMap = depthMap;
 
 	//Render world
+	for each (Enemy* enemy in GameController::Enemies)
+	{
+		enemy->add(enemy->_healthBarBackground);
+		enemy->add(enemy->_healthBar);
+	}
 	_renderer->render(_world);
 }
 

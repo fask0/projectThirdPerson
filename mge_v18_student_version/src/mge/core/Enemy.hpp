@@ -10,6 +10,7 @@
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/Mesh.hpp"
 #include "mge/core/SoundEffects.hpp"
+#include "mge/core/Texture.hpp"
 
 class Enemy : public GameObject
 {
@@ -41,6 +42,8 @@ class Enemy : public GameObject
 	int getDamage() { return _damage; }
 
 	int KillValue = 3;
+	GameObject* _healthBar;
+	GameObject* _healthBarBackground;
 
 	protected:
 	std::vector<SoundEffect*> _deathSFX;

@@ -17,6 +17,8 @@
 #include "mge/core/EnemySpawner.hpp"
 #include "mge/core/GridManager.hpp"
 #include "mge/TowerDefenseScene.hpp"
+#include "mge/core/Mesh.hpp"
+#include "mge/materials/AbstractMaterial.hpp"
 
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 
@@ -53,7 +55,14 @@ public:
 	static GameObject* MainPlane;
 	static LitDynamicTextureGridMaterial* MainPlaneMaterial;
 
+	static int WindowWidth;
+	static int WindowHeight;
+
 	static bool IsGamePaused;
+
+	//--Health bar
+	static Mesh* HealthBarMesh;
+	static AbstractMaterial* HealthBarMaterial;
 
 	//--Lua variables
 	static bool Debug;

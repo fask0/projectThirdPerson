@@ -18,9 +18,14 @@
 #include "mge/behaviours/WASDBehaviour.hpp"
 
 #include "mge/util/DebugHud.hpp"
-#include "mge/config.hpp"
 #include "Lua/lua.hpp"
+#include "mge/config.hpp"
 #include "glm.hpp"
+#include "mge/core/Mesh.hpp"
+#include "mge/core/Texture.hpp"
+#include "mge/materials/AbstractMaterial.hpp"
+
+#include "mge/materials/TextureMaterial.hpp"
 
 #include <iostream>
 #include <string>
@@ -44,6 +49,10 @@ void TowerDefenseScene::initialize()
 	std::cout << "HUD initialized." << std::endl << std::endl;
 
 	GameController::World = _world;
+	Mesh* _healthBarMesh = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth.obj");
+	GameController::HealthBarMesh = _healthBarMesh;
+	Texture* _healthBarTexture = Texture::load(config::MGE_TEXTURE_PATH + "HealthBarTexture.png");
+	GameController::HealthBarMaterial = new TextureMaterial(_healthBarTexture);
 }
 
 void TowerDefenseScene::initializeLua()
@@ -65,6 +74,8 @@ void TowerDefenseScene::initializeLua()
 	GameController::CurrentHealth = GameController::MaxHealth;
 	WindowHeight = intFromLua("WindowHeight");
 	WindowWidth = intFromLua("WindowWidth");
+	GameController::WindowWidth = WindowWidth;
+	GameController::WindowHeight = WindowHeight;
 
 	//Level
 	//Lane A
@@ -192,9 +203,9 @@ void TowerDefenseScene::_initializeScene()
 	initializeSingletons();
 
 	//add camera first (it will be updated last)
-	_camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
+	_camera = new Camera(_window, "camera", glm::vec3(0, 35, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
 	_camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
-	_camera->addBehaviour(new CameraMovementBehaviour(-30, 30, -17, 17, 10, 20, _window, _camera->getLocalPosition(), 1.0f, 10.0f));
+	_camera->addBehaviour(new CameraMovementBehaviour(-30, 30, -17, 17, 10, 35, _window, _camera->getLocalPosition(), 1.0f, 20.0f));
 	_world->add(_camera);
 	_world->setMainCamera(_camera);
 

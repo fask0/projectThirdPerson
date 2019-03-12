@@ -16,6 +16,10 @@ std::vector<SoundEffect*> Enemy::BurnSFX;
 std::vector<SoundEffect*> Enemy::FreezeSFX;
 std::vector<SoundEffect*> Enemy::HoneySlowSFX;
 
+#include "mge/materials/TextureMaterial.hpp"
+
+#include "mge/config.hpp"
+
 Enemy::Enemy(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::string pTag)
 	: GameObject(pName, pPosition), _lane(pLane)
 {
@@ -35,6 +39,17 @@ Enemy::Enemy(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::
 
 		_timer = 0;
 	GameController::Enemies.push_back(this);
+
+	_healthBar = new GameObject("HealthBar", glm::vec3(0.2f, 2, 0));
+	_healthBar->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane"));
+	_healthBar->scale(glm::vec3(0.1f, 0.03f, 0.75f));
+	_healthBar->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "HealthBarTexture.png")));
+	_healthBarBackground = new GameObject("HealthBarBackground", glm::vec3(0.2f, 1.98f, 0));
+	_healthBarBackground->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane"));
+	_healthBarBackground->scale(glm::vec3(0.15f, 0.03f, 0.8f));
+	_healthBarBackground->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "HealthBarTextureBackground.png")));
+	add(_healthBar);
+	add(_healthBarBackground);
 }
 
 Enemy::~Enemy()
@@ -53,6 +68,8 @@ Enemy::~Enemy()
 void Enemy::update(float pStep)
 {
 	GameObject::update(pStep);
+	//Healthbar stuff
+	//_healthBar->setTransform(glm::inverse(glm::lookAt(_healthBar->getLocalPosition(), GameController::MainCamera->getLocalPosition(), glm::vec3(0, 1, 0))));
 
 	if (_shouldDie) return;
 	if (clock() >= _timer + ((pStep * CLOCKS_PER_SEC) / getSpeed() * 5))
@@ -69,6 +86,7 @@ void Enemy::update(float pStep)
 		_speed += pStep * _effectRecovery;
 	else if (_speed - pStep * _effectRecovery >= _baseSpeed)
 		_speed -= pStep * _effectRecovery;
+
 }
 
 void Enemy::OnCollisionEnter(GameObject* pOther)
@@ -114,7 +132,10 @@ void Enemy::Heal(int pHealth)
 
 void Enemy::TakeDamage(int pDamage)
 {
+	float percentage = 1.0f - (float(pDamage) / float(_health));
 	_health -= pDamage;
+
+	_healthBar->scale(glm::vec3(1, 1, percentage));
 
 	if (_health > 0) return;
 	GameController::GridManager->_currentMoney += KillValue;

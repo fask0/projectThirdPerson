@@ -20,7 +20,7 @@
  */
 class ShockTower : public Tower
 {
-	public:
+public:
 	ShockTower();
 	virtual ~ShockTower();
 
@@ -33,8 +33,9 @@ class ShockTower : public Tower
 
 	void AddTowerBehaviour() override;
 	void PlayAttackSound();
+	bool _enemiesInRange = false;
 
-	private:
+private:
 	ShockTower(const ShockTower&);
 	ShockTower& operator= (const ShockTower&);
 

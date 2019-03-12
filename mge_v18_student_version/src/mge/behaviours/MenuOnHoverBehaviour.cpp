@@ -28,23 +28,27 @@ void MenuOnHoverBehaviour::update(float pstep)
 	if (MenuIsExtended)
 	{
 		dynamic_cast<SwitchSpriteOnHoverBehaviour*>(_owner->getBehaviours()[0])->SwitchTexture = true;
-		Extend();
+		Extend(pstep);
 	}
 	else
 	{
 		dynamic_cast<SwitchSpriteOnHoverBehaviour*>(_owner->getBehaviours()[0])->SwitchTexture = false;
-		Retract();
+		Retract(pstep);
 	}
 }
 
-void MenuOnHoverBehaviour::Extend()
+void MenuOnHoverBehaviour::Extend(float pStep)
 {
 	int offset = 24;
 	for (int i = 0; i < menuItems.size(); i++)
 	{
 		if (menuItems[i]->getPosition().x < dynamic_cast<AdvancedSprite*>(_owner)->getPosition().x + ((i + 1) * menuItems[1]->getGlobalBounds().width) + offset - i)
 		{
-			menuItems[i]->setPosition(menuItems[i]->getPosition().x + 8.0f, menuItems[i]->getPosition().y);
+			menuItems[i]->setPosition(menuItems[i]->getPosition().x + (1200.0f * pStep), menuItems[i]->getPosition().y);
+			if (menuItems[i]->getPosition().x > dynamic_cast<AdvancedSprite*>(_owner)->getPosition().x + ((i + 1) * menuItems[1]->getGlobalBounds().width) + offset - i)
+			{
+				menuItems[i]->setPosition(dynamic_cast<AdvancedSprite*>(_owner)->getPosition().x + ((i + 1) * menuItems[1]->getGlobalBounds().width) + offset - i, menuItems[i]->getPosition().y);
+			}
 		}
 		else
 		{
@@ -53,14 +57,18 @@ void MenuOnHoverBehaviour::Extend()
 	}
 }
 
-void MenuOnHoverBehaviour::Retract()
+void MenuOnHoverBehaviour::Retract(float pStep)
 {
 	int offset = 10;
 	for (int i = 0; i < menuItems.size(); i++)
 	{
 		if (menuItems[i]->getPosition().x > dynamic_cast<AdvancedSprite*>(_owner)->getPosition().x + offset)
 		{
-			menuItems[i]->setPosition(menuItems[i]->getPosition().x - 8.0f, menuItems[i]->getPosition().y);
+			menuItems[i]->setPosition(menuItems[i]->getPosition().x - (1200.0f * pStep), menuItems[i]->getPosition().y);
+			if (menuItems[i]->getPosition().x < dynamic_cast<AdvancedSprite*>(_owner)->getPosition().x + offset)
+			{
+				menuItems[i]->setPosition(dynamic_cast<AdvancedSprite*>(_owner)->getPosition().x + offset, menuItems[i]->getPosition().y);
+			}
 		}
 		else
 		{
