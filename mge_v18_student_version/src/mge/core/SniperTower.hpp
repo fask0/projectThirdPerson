@@ -5,6 +5,7 @@
 
 #include "mge/core/Tower.hpp"
 #include "mge/core/Mesh.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 
@@ -15,7 +16,7 @@
  */
 class SniperTower : public Tower
 {
-public:
+	public:
 	SniperTower();
 	virtual ~SniperTower();
 
@@ -23,10 +24,12 @@ public:
 
 	static Mesh* Mesh;
 	static AbstractMaterial* Material;
+	static std::vector<SoundEffect*> SFX;
 
 	void AddTowerBehaviour() override;
+	void PlayAttackSound();
 
-private:
+	private:
 	SniperTower(const SniperTower&);
 	SniperTower& operator= (const SniperTower&);
 };

@@ -4,6 +4,7 @@
 #include "mge/core/GameController.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/Helper.hpp"
+#include "mge/core/SniperTower.hpp"
 
 SniperTowerBehaviour::SniperTowerBehaviour() : TowerBehaviour()
 {
@@ -56,6 +57,7 @@ void SniperTowerBehaviour::Attack()
 		if (_enemiesInRange)
 		{
 			_allInRangeEnemies[0]->TakeDamage(GameController::SniperDamage);
+			dynamic_cast<SniperTower*>(_owner)->PlayAttackSound();
 			_lastAttackTime = clock();
 		}
 	}

@@ -15,13 +15,11 @@ LitTextureMaterial* HoneyProjectile::Material;
 
 HoneyProjectile::HoneyProjectile(glm::mat4 pTransform, float pDiff) : GameObject("HoneyProjectile")
 {
-	_tag = "projectile";
+	_tag = "honeyProjectile";
 	_ignoreTags.push_back(_tag);
-
-	//CollisionBehaviour* colBehaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, 1, true);
-	//addBehaviour(colBehaviour);
-	//if (GameController::DrawColliders)
-	//	colBehaviour->DrawCollider();
+	_ignoreTags.push_back("toasterProjectile");
+	_ignoreTags.push_back("iceProjectile");
+	_ignoreTags.push_back("magnifyingGlassTower");
 
 	setTransform(pTransform);
 

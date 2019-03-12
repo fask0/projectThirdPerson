@@ -59,6 +59,7 @@ void HoneyTowerBehaviour::Attack()
 			glm::vec3 diff = (_owner->getLocalPosition() - _furthestEnemy->getLocalPosition());
 			_projectile = new HoneyProjectile(dynamic_cast<HoneyTower*>(_owner)->getMouse()->getTransform(), glm::sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z));
 			GameController::CurrentLevel->add(_projectile);
+			dynamic_cast<HoneyTower*>(_owner)->PlayAttackSound();
 			_lastAttackTime = clock();
 		}
 	}

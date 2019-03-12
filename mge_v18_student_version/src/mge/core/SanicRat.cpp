@@ -11,10 +11,12 @@
 #include "mge/core/GameController.hpp"
 #include "mge/core/ToasterProjectile.hpp"
 #include "mge/core/Texture.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/materials/LitTextureMaterial.hpp"
 
+std::vector<SoundEffect*> SanicRat::SFX;
 std::vector<Mesh*> SanicRat::Animation;
 LitTextureMaterial* SanicRat::Material;
 Texture* SanicRat::Texture;
@@ -37,6 +39,8 @@ SanicRat::SanicRat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane,
 	_currentFrame = std::rand() % _animation.size();
 	setMesh(_animation[0]);
 	setMaterial(Material);
+
+	_deathSFX = SFX;
 
 	if (_healthRegen > 0)
 		addBehaviour(new EffectBehaviour(EffectBehaviour::HealOverTime, _healthRegen, -1));

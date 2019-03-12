@@ -9,6 +9,12 @@
 #include "mge/core/Enemy.hpp"
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/GameController.hpp"
+#include "mge/core/SoundEffects.hpp"
+
+std::vector<SoundEffect*> Enemy::CutSFX;
+std::vector<SoundEffect*> Enemy::BurnSFX;
+std::vector<SoundEffect*> Enemy::FreezeSFX;
+std::vector<SoundEffect*> Enemy::HoneySlowSFX;
 
 Enemy::Enemy(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::string pTag)
 	: GameObject(pName, pPosition), _lane(pLane)
@@ -25,7 +31,9 @@ Enemy::Enemy(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::
 	if (GameController::DrawColliders)
 		colBehaviour->DrawCollider();
 
-	_timer = 0;
+	if (pName.compare(""))
+
+		_timer = 0;
 	GameController::Enemies.push_back(this);
 }
 
@@ -34,6 +42,12 @@ Enemy::~Enemy()
 	for (int i = 0; i < GameController::Enemies.size(); ++i)
 		if (GameController::Enemies[i] == this)
 			GameController::Enemies.erase(GameController::Enemies.begin() + i);
+
+	if (_health <= 0)
+	{
+		int rnd = rand() % _deathSFX.size();
+		_deathSFX[rnd]->PlaySoundEffect();
+	}
 }
 
 void Enemy::update(float pStep)
@@ -55,6 +69,34 @@ void Enemy::update(float pStep)
 		_speed += pStep * _effectRecovery;
 	else if (_speed - pStep * _effectRecovery >= _baseSpeed)
 		_speed -= pStep * _effectRecovery;
+}
+
+void Enemy::OnCollisionEnter(GameObject* pOther)
+{
+	if (pOther->GetTag().compare("toasterProjectile") == 0)
+	{
+		int rnd = rand() % CutSFX.size();
+		if (CutSFX[rnd]->GetSound().getStatus() != sf::Sound::Playing)
+			CutSFX[rnd]->PlaySoundEffect();
+	}
+	else if (pOther->GetTag().compare("iceProjectile") == 0)
+	{
+		int rnd = rand() % FreezeSFX.size();
+		if (FreezeSFX[rnd]->GetSound().getStatus() != sf::Sound::Playing)
+			FreezeSFX[rnd]->PlaySoundEffect();
+	}
+	else if (pOther->GetTag().compare("honeyProjectile") == 0)
+	{
+		int rnd = rand() % HoneySlowSFX.size();
+		if (HoneySlowSFX[rnd]->GetSound().getStatus() != sf::Sound::Playing)
+			HoneySlowSFX[rnd]->PlaySoundEffect();
+	}
+	else if (pOther->GetTag().compare("magnifyingGlassTower") == 0)
+	{
+		int rnd = rand() % BurnSFX.size();
+		if (BurnSFX[rnd]->GetSound().getStatus() != sf::Sound::Playing)
+			BurnSFX[rnd]->PlaySoundEffect();
+	}
 }
 
 void Enemy::Knockback(float pForce)
@@ -95,6 +137,7 @@ void Enemy::slowDown(float pSlowDownPercent)
 
 void Enemy::setSlowDown(float pSlowDownPercent)
 {
+	if (this == nullptr) return;
 	_slowDown = pSlowDownPercent;
 }
 

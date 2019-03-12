@@ -9,6 +9,7 @@
 #include "mge/core/Tower.hpp"
 #include "mge/core/Mesh.hpp"
 #include "mge/core/GameObject.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 
@@ -28,8 +29,10 @@ class ShockTower : public Tower
 	static Mesh* MainMesh;
 	static std::vector<Mesh*> Animations;
 	static AbstractMaterial* AnimationMaterial;
+	static std::vector<SoundEffect*> SFX;
 
 	void AddTowerBehaviour() override;
+	void PlayAttackSound();
 
 	private:
 	ShockTower(const ShockTower&);

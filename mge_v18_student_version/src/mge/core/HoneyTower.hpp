@@ -8,6 +8,7 @@
 #include "mge/core/Tower.hpp"
 #include "mge/core/Mesh.hpp"
 #include "mge/core/GameObject.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 
@@ -28,9 +29,12 @@ class HoneyTower : public Tower
 	static Mesh* MouseMesh;
 	static AbstractMaterial* MainMaterial;
 	static AbstractMaterial* MouseMaterial;
+	static std::vector<SoundEffect*> SFX;
 
 	GameObject* getMouse() { return _mouse; }
 	void AddTowerBehaviour() override;
+
+	void PlayAttackSound();
 
 	private:
 	HoneyTower(const HoneyTower&);

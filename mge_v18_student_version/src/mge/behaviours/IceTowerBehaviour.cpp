@@ -63,6 +63,7 @@ void IceTowerBehaviour::Attack()
 		{
 			_projectile = new IceProjectile(_owner->getTransform());
 			GameController::CurrentLevel->add(_projectile);
+			dynamic_cast<IceTower*>(_owner)->PlayAttackSound();
 			_lastAttackTime = clock();
 		}
 	}

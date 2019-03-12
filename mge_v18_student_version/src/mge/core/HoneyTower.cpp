@@ -3,6 +3,7 @@
 #include "mge/core/GameController.hpp"
 #include "mge/behaviours/HoneyTowerBehaviour.hpp"
 #include "mge/materials/LitTextureMaterial.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 #include "glm.hpp"
 #include "mge/config.hpp"
@@ -11,6 +12,7 @@ Mesh* HoneyTower::MainMesh;
 Mesh* HoneyTower::MouseMesh;
 AbstractMaterial* HoneyTower::MainMaterial;
 AbstractMaterial* HoneyTower::MouseMaterial;
+std::vector<SoundEffect*> HoneyTower::SFX;
 
 HoneyTower::HoneyTower() : Tower("Honey Tower")
 {
@@ -51,4 +53,16 @@ void HoneyTower::update(float pStep)
 void HoneyTower::AddTowerBehaviour()
 {
 	addBehaviour(new HoneyTowerBehaviour());
+}
+
+void HoneyTower::PlayAttackSound()
+{
+	for (int i = 0; i < SFX.size(); ++i)
+	{
+		if (SFX[i]->GetSound().getStatus() != sf::Sound::Playing)
+		{
+			SFX[i]->PlaySoundEffect();
+			break;
+		}
+	}
 }

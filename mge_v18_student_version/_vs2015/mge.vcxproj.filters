@@ -177,6 +177,8 @@
     <ClCompile Include="..\src\mge\behaviours\HealthBarBehaviour.cpp">
       <Filter>Behaviours\2DBehaviours</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\core\AudioManager.cpp" />
+    <ClCompile Include="..\src\mge\core\SoundEffects.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -356,6 +358,8 @@
     <ClInclude Include="..\src\mge\behaviours\HealthBarBehaviour.hpp">
       <Filter>Behaviours\2DBehaviours</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\core\AudioManager.hpp" />
+    <ClInclude Include="..\src\mge\core\SoundEffects.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Materials">

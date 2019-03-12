@@ -7,12 +7,14 @@
 #include "mge/core/Enemy.hpp"
 #include "mge/core/Mesh.hpp"
 #include "mge/core/Texture.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 #include "mge/materials/LitTextureMaterial.hpp"
 
 class SanicRat : public Enemy
 {
 	public:
+	static std::vector<SoundEffect*> SFX;
 	static std::vector<Mesh*> Animation;
 	static LitTextureMaterial* Material;
 	static Texture* Texture;

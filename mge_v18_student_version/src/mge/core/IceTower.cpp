@@ -3,9 +3,11 @@
 #include "mge/core/GameController.hpp"
 #include "mge/behaviours/IceTowerBehaviour.hpp"
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 Mesh* IceTower::Mesh;
 AbstractMaterial* IceTower::Material;
+std::vector<SoundEffect*> IceTower::SFX;
 
 IceTower::IceTower() : Tower("Ice Tower")
 {
@@ -30,4 +32,16 @@ void IceTower::update(float pStep)
 void IceTower::AddTowerBehaviour()
 {
 	addBehaviour(new IceTowerBehaviour());
+}
+
+void IceTower::PlayAttackSound()
+{
+	for (int i = 0; i < SFX.size(); ++i)
+	{
+		if (SFX[i]->GetSound().getStatus() != sf::Sound::Playing)
+		{
+			SFX[i]->PlaySoundEffect();
+			break;
+		}
+	}
 }

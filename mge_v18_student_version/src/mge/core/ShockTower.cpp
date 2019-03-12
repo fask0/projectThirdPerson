@@ -8,12 +8,14 @@
 #include "mge/behaviours/ToasterTowerBehaviour.hpp"
 #include "mge/behaviours/ShockTowerBehaviour.hpp"
 #include "mge/materials/LitTextureMaterial.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 #include "mge/config.hpp"
 
 Mesh* ShockTower::MainMesh;
 std::vector<Mesh*> ShockTower::Animations;
 AbstractMaterial* ShockTower::AnimationMaterial;
+std::vector<SoundEffect*> ShockTower::SFX;
 
 ShockTower::ShockTower() : Tower("Shock Tower")
 {
@@ -50,4 +52,16 @@ void ShockTower::update(float pStep)
 void ShockTower::AddTowerBehaviour()
 {
 	addBehaviour(new ShockTowerBehaviour());
+}
+
+void ShockTower::PlayAttackSound()
+{
+	for (int i = 0; i < SFX.size(); ++i)
+	{
+		if (SFX[i]->GetSound().getStatus() != sf::Sound::Playing)
+		{
+			SFX[i]->PlaySoundEffect();
+			break;
+		}
+	}
 }

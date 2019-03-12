@@ -5,9 +5,11 @@
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 #include "mge/behaviours/CollisionBehaviour.hpp"
 #include "mge/behaviours/EffectBehaviour.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 Mesh* MagnifyingGlassTower::Mesh;
 AbstractMaterial* MagnifyingGlassTower::Material;
+std::vector<SoundEffect*> MagnifyingGlassTower::SFX;
 
 MagnifyingGlassTower::MagnifyingGlassTower() : Tower("Magnifying Glass Tower")
 {
@@ -37,6 +39,18 @@ void MagnifyingGlassTower::AddTowerBehaviour()
 	addBehaviour(behaviour);
 	if (GameController::DrawColliders)
 		behaviour->DrawCollider();
+}
+
+void MagnifyingGlassTower::PlayAttackSound()
+{
+	for (int i = 0; i < SFX.size(); ++i)
+	{
+		if (SFX[i]->GetSound().getStatus() != sf::Sound::Playing)
+		{
+			SFX[i]->PlaySoundEffect();
+			break;
+		}
+	}
 }
 
 void MagnifyingGlassTower::OnCollisionEnter(GameObject* pOther)

@@ -68,6 +68,7 @@ void ToasterTowerBehaviour::Attack()
 			_projectile->Shoot();
 			_lastAttackTime = clock();
 			_isProjectileCreated = false;
+			dynamic_cast<ToasterTower*>(_owner)->PlayAttackSound();
 			dynamic_cast<ToasterTower*>(_owner)->primedProjectile = nullptr;
 		}
 	}

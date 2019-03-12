@@ -9,10 +9,15 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/Mesh.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 class Enemy : public GameObject
 {
-public:
+	public:
+	static std::vector<SoundEffect*> CutSFX;
+	static std::vector<SoundEffect*> BurnSFX;
+	static std::vector<SoundEffect*> FreezeSFX;
+	static std::vector<SoundEffect*> HoneySlowSFX;
 	Enemy(
 		std::string pName = "Enemy",
 		glm::vec3 pPosition = glm::vec3(0, 0, 0),
@@ -21,6 +26,8 @@ public:
 	~Enemy();
 
 	virtual void update(float pStep) override;
+
+	void OnCollisionEnter(GameObject* pOther) override;
 
 	void Knockback(float pForce);
 	void Heal(int pHealth);
@@ -35,7 +42,8 @@ public:
 
 	int KillValue = 3;
 
-protected:
+	protected:
+	std::vector<SoundEffect*> _deathSFX;
 	Waypoint::Lane _lane;
 	int _size;
 	int _health;

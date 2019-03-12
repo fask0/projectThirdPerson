@@ -5,6 +5,7 @@
 
 #include "mge/core/Tower.hpp"
 #include "mge/core/Mesh.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/core/IceProjectile.hpp"
@@ -16,7 +17,7 @@
  */
 class IceTower : public Tower
 {
-public:
+	public:
 	IceTower();
 	virtual ~IceTower();
 
@@ -24,11 +25,13 @@ public:
 
 	static Mesh* Mesh;
 	static AbstractMaterial* Material;
+	static std::vector<SoundEffect*> SFX;
 
 	void AddTowerBehaviour() override;
+	void PlayAttackSound();
 
 	IceProjectile* primedProjectile = nullptr;
-private:
+	private:
 	IceTower(const IceTower&);
 	IceTower& operator= (const IceTower&);
 };

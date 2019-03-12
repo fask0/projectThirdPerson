@@ -4,6 +4,7 @@
 #include "mge/core/GameController.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/Helper.hpp"
+#include "mge/core/MagnifyingGlassTower.hpp"
 
 MagnifyingGlassTowerBehaviour::MagnifyingGlassTowerBehaviour() : TowerBehaviour()
 {
@@ -50,6 +51,7 @@ void MagnifyingGlassTowerBehaviour::Attack()
 			{
 				enemy->TakeDamage(5);
 			}
+			dynamic_cast<MagnifyingGlassTower*>(_owner)->PlayAttackSound();
 			_lastAttackTime = clock();
 		}
 	}

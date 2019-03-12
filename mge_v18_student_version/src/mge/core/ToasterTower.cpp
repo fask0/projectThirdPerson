@@ -3,9 +3,11 @@
 #include "mge/core/GameController.hpp"
 #include "mge/behaviours/ToasterTowerBehaviour.hpp"
 #include "mge/materials/LitTextureMaterial.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 Mesh* ToasterTower::Mesh;
 LitTextureMaterial* ToasterTower::Material;
+std::vector<SoundEffect*> ToasterTower::SFX;
 
 ToasterTower::ToasterTower() : Tower("Toaster Tower")
 {
@@ -34,4 +36,16 @@ void ToasterTower::update(float pStep)
 void ToasterTower::AddTowerBehaviour()
 {
 	addBehaviour(new ToasterTowerBehaviour());
+}
+
+void ToasterTower::PlayAttackSound()
+{
+	for (int i = 0; i < SFX.size(); ++i)
+	{
+		if (SFX[i]->GetSound().getStatus() != sf::Sound::Playing)
+		{
+			SFX[i]->PlaySoundEffect();
+			break;
+		}
+	}
 }

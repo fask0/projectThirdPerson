@@ -5,6 +5,7 @@
 
 #include "mge/core/Tower.hpp"
 #include "mge/core/Mesh.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 
@@ -23,8 +24,10 @@ class MagnifyingGlassTower : public Tower
 
 	static Mesh* Mesh;
 	static AbstractMaterial* Material;
+	static std::vector<SoundEffect*> SFX;
 
 	void AddTowerBehaviour() override;
+	void PlayAttackSound();
 
 	void OnCollisionEnter(GameObject* pOther) override;
 

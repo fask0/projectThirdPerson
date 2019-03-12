@@ -15,8 +15,11 @@ LitTextureMaterial* IceProjectile::Material;
 
 IceProjectile::IceProjectile(glm::mat4 pTransform) : GameObject("IceProjectile")
 {
-	_tag = "projectile";
+	_tag = "iceProjectile";
 	_ignoreTags.push_back(_tag);
+	_ignoreTags.push_back("toasterProjectile");
+	_ignoreTags.push_back("honeyProjectile");
+	_ignoreTags.push_back("magnifyingGlassTower");
 
 	CollisionBehaviour* colBehaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, 1, true);
 	addBehaviour(colBehaviour);

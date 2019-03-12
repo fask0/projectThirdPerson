@@ -4,6 +4,7 @@
 #include "mge/core/GameController.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/Helper.hpp"
+#include "mge/core/ShockTower.hpp"
 
 ShockTowerBehaviour::ShockTowerBehaviour() : TowerBehaviour()
 {
@@ -52,6 +53,7 @@ void ShockTowerBehaviour::Attack()
 			{
 				enemy->TakeDamage(5);
 			}
+			dynamic_cast<ShockTower*>(_owner)->PlayAttackSound();
 			_lastAttackTime = clock();
 		}
 	}

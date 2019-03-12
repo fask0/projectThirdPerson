@@ -3,9 +3,11 @@
 #include "mge/core/GameController.hpp"
 #include "mge/behaviours/SniperTowerBehaviour.hpp"
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 Mesh* SniperTower::Mesh;
 AbstractMaterial* SniperTower::Material;
+std::vector<SoundEffect*> SniperTower::SFX;
 
 SniperTower::SniperTower() : Tower("Sniper Tower")
 {
@@ -29,4 +31,16 @@ void SniperTower::update(float pStep)
 void SniperTower::AddTowerBehaviour()
 {
 	addBehaviour(new SniperTowerBehaviour());
+}
+
+void SniperTower::PlayAttackSound()
+{
+	for (int i = 0; i < SFX.size(); ++i)
+	{
+		if (SFX[i]->GetSound().getStatus() != sf::Sound::Playing)
+		{
+			SFX[i]->PlaySoundEffect();
+			break;
+		}
+	}
 }

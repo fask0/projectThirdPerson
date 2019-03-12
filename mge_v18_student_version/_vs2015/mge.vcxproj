@@ -126,7 +126,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32sd.lib;sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-audio-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;jpeg.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lua51.lib;lua5.1.lib;glew32sd.lib;sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-audio-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;jpeg.lib;winmm.lib;gdi32.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release Dynamic|Win32'">
@@ -196,6 +196,7 @@
     <ClInclude Include="..\src\mge\config.hpp" />
     <ClInclude Include="..\src\mge\core\AbstractGame.hpp" />
     <ClInclude Include="..\src\mge\core\AdvancedSprite.hpp" />
+    <ClInclude Include="..\src\mge\core\AudioManager.hpp" />
     <ClInclude Include="..\src\mge\core\CollisionManager.hpp" />
     <ClInclude Include="..\src\mge\core\Camera.hpp" />
     <ClInclude Include="..\src\mge\core\Enemy.hpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="..\src\mge\core\ShaderProgram.hpp" />
     <ClInclude Include="..\src\mge\core\ShockTower.hpp" />
     <ClInclude Include="..\src\mge\core\SniperTower.hpp" />
+    <ClInclude Include="..\src\mge\core\SoundEffects.hpp" />
     <ClInclude Include="..\src\mge\core\TableLevel.hpp" />
     <ClInclude Include="..\src\mge\core\ToasterProjectile.hpp" />
     <ClInclude Include="..\src\mge\core\ToasterTower.hpp" />
@@ -266,6 +268,7 @@
     <ClCompile Include="..\src\mge\behaviours\WaypointFollowBehaviour.cpp" />
     <ClCompile Include="..\src\mge\core\AbstractGame.cpp" />
     <ClCompile Include="..\src\mge\core\AdvancedSprite.cpp" />
+    <ClCompile Include="..\src\mge\core\AudioManager.cpp" />
     <ClCompile Include="..\src\mge\core\Camera.cpp" />
     <ClCompile Include="..\src\mge\core\CollisionManager.cpp" />
     <ClCompile Include="..\src\mge\core\Enemy.cpp" />
@@ -290,6 +293,7 @@
     <ClCompile Include="..\src\mge\core\ShaderProgram.cpp" />
     <ClCompile Include="..\src\mge\core\ShockTower.cpp" />
     <ClCompile Include="..\src\mge\core\SniperTower.cpp" />
+    <ClCompile Include="..\src\mge\core\SoundEffects.cpp" />
     <ClCompile Include="..\src\mge\core\TableLevel.cpp" />
     <ClCompile Include="..\src\mge\core\ToasterProjectile.cpp" />
     <ClCompile Include="..\src\mge\core\ToasterTower.cpp" />

@@ -40,6 +40,8 @@
 #include "mge/core/SanicRat.hpp"
 #include "mge/core/Light.hpp"
 
+#include "mge/core/SoundEffects.hpp"
+
 std::vector<Light*> GameController::Lights;
 std::vector<Level*> GameController::Levels;
 std::vector<Enemy*> GameController::Enemies;
@@ -253,6 +255,9 @@ void GameController::SetTowerVariables()
 	//Slingshot tower
 	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/ToasterTower");
 	ToasterTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "toaster.png"));
+	ToasterTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/ToasterTower/ToasterKnifeTow01.wav", SoundEffect::SFX));
+	ToasterTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/ToasterTower/ToasterKnifeTow02.wav", SoundEffect::SFX));
+	ToasterTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/ToasterTower/ToasterKnifeTow03.wav", SoundEffect::SFX));
 	//Honey tower
 	HoneyTower::MainMesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTower");
 	HoneyTower::MouseMesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTowerMouse");
@@ -265,12 +270,22 @@ void GameController::SetTowerVariables()
 	ShockTower::Animations.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/AoETowerAnimations2"));
 	ShockTower::Animations.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/AoETowerAnimations3"));
 	ShockTower::AnimationMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "AoEBattery.png"));
+	ShockTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/AoETower/BatteryTow01.wav", SoundEffect::SFX));
+	ShockTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/AoETower/BatteryTow02.wav", SoundEffect::SFX));
+	ShockTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/AoETower/BatteryTow03.wav", SoundEffect::SFX));
 	//Ice tower
 	IceTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/IceTower");
+	IceTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/IceTower/IceThrow01.wav", SoundEffect::SFX));
+	IceTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/IceTower/IceThrow02.wav", SoundEffect::SFX));
+	IceTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/IceTower/IceThrow03.wav", SoundEffect::SFX));
 	//Magnifying glass tower
 	MagnifyingGlassTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/MagnifyingGlassTower");
 	//Sniper tower
 	SniperTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/SniperTower");
+	SniperTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/SniperTower/SniperSpit01.wav", SoundEffect::SFX));
+	SniperTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/SniperTower/SniperSpit02.wav", SoundEffect::SFX));
+	SniperTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/SniperTower/SniperSpit03.wav", SoundEffect::SFX));
+	SniperTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/SniperTower/SniperSpit04.wav", SoundEffect::SFX));
 }
 
 void GameController::SetUpEnemies()
@@ -288,6 +303,9 @@ void GameController::SetUpEnemies()
 	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie5"));
 	Rat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "Normie.png");
 	Rat::Material = new LitTextureMaterial(Rat::Texture);
+	Rat::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Normie/NormRatDeath01.wav", SoundEffect::SFX));
+	Rat::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Normie/NormRatDeath02.wav", SoundEffect::SFX));
+	Rat::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Normie/NormRatDeath03.wav", SoundEffect::SFX));
 	//ChadRat
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad0"));
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad1"));
@@ -297,6 +315,9 @@ void GameController::SetUpEnemies()
 	ChadRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Chad/chad5"));
 	ChadRat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "ChadTexture.png");
 	ChadRat::Material = new LitTextureMaterial(ChadRat::Texture);
+	ChadRat::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Chad/BuffRatDeath02.wav", SoundEffect::SFX));
+	ChadRat::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Chad/BuffRatDeath03.wav", SoundEffect::SFX));
+	ChadRat::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Chad/BuffRatDeath04.wav", SoundEffect::SFX));
 	//SanicRat
 	//SanicRat::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Enemies/fastboi");
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi0"));
@@ -307,4 +328,25 @@ void GameController::SetUpEnemies()
 	SanicRat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/FastBoi/fastboi5"));
 	SanicRat::Texture = Texture::load(config::MGE_TEXTURE_PATH + "FastBoi.png");
 	SanicRat::Material = new LitTextureMaterial(SanicRat::Texture);
+	SanicRat::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/FastBoi/FastRatDeath01.wav", SoundEffect::SFX));
+	SanicRat::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/FastBoi/FastRatDeath02.wav", SoundEffect::SFX));
+	SanicRat::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/FastBoi/FastRatDeath03.wav", SoundEffect::SFX));
+
+	//Mutual Sounds
+	Enemy::CutSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/KnifeCut/RatCutKnife01.wav", SoundEffect::SFX));
+	Enemy::CutSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/KnifeCut/RatCutKnife02.wav", SoundEffect::SFX));
+	Enemy::CutSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/KnifeCut/RatCutKnife03.wav", SoundEffect::SFX));
+	Enemy::BurnSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/Burning/Burn01.wav", SoundEffect::SFX));
+	Enemy::BurnSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/Burning/Burn02.wav", SoundEffect::SFX));
+	Enemy::BurnSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/Burning/Burn03.wav", SoundEffect::SFX));
+	Enemy::BurnSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/Burning/Burn04.wav", SoundEffect::SFX));
+	Enemy::FreezeSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/Freeze/RatFrozen01.wav", SoundEffect::SFX));
+	Enemy::FreezeSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/Freeze/RatFrozen02.wav", SoundEffect::SFX));
+	Enemy::FreezeSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/Freeze/RatFrozen03.wav", SoundEffect::SFX));
+	Enemy::FreezeSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/Freeze/RatFrozen04.wav", SoundEffect::SFX));
+	Enemy::HoneySlowSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/HoneySlow/RatSquelch01.wav", SoundEffect::SFX));
+	Enemy::HoneySlowSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/HoneySlow/RatSquelch02.wav", SoundEffect::SFX));
+	Enemy::HoneySlowSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/HoneySlow/RatSquelch03.wav", SoundEffect::SFX));
+	Enemy::HoneySlowSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/HoneySlow/RatSquelch04.wav", SoundEffect::SFX));
+	Enemy::HoneySlowSFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Enemies/Mutual/HoneySlow/RatSquelch05.wav", SoundEffect::SFX));
 }

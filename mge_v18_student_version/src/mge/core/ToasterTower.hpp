@@ -5,6 +5,7 @@
 
 #include "mge/core/Tower.hpp"
 #include "mge/core/Mesh.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 #include "mge/materials/LitTextureMaterial.hpp"
 #include "mge/core/ToasterProjectile.hpp"
@@ -24,10 +25,12 @@ class ToasterTower : public Tower
 
 	static Mesh* Mesh;
 	static LitTextureMaterial* Material;
+	static std::vector<SoundEffect*> SFX;
 
 	void AddTowerBehaviour() override;
 
 	ToasterProjectile* primedProjectile = nullptr;
+	void PlayAttackSound();
 
 	private:
 	ToasterTower(const ToasterTower&);
