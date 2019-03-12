@@ -109,6 +109,7 @@ void CameraMovementBehaviour::Scroll(sf::Event pEvent)
 			if (_ownerPosition.y > _minHeight)
 			{
 				_owner->translate(glm::vec3(0, 0, -pEvent.mouseWheel.delta));
+				_owner->rotate(glm::radians(float(pEvent.mouseWheel.delta)), glm::vec3(1, 0, 0));
 			}
 		}
 		else
@@ -116,6 +117,7 @@ void CameraMovementBehaviour::Scroll(sf::Event pEvent)
 			if (_ownerPosition.y < _maxHeight)
 			{
 				_owner->translate(glm::vec3(0, 0, -pEvent.mouseWheel.delta));
+				_owner->rotate(glm::radians(float(pEvent.mouseWheel.delta)), glm::vec3(1, 0, 0));
 			}
 		}
 	}

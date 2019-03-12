@@ -5,7 +5,7 @@
 
 class CameraMovementBehaviour : public AbstractBehaviour
 {
-	public:
+public:
 	CameraMovementBehaviour(float pXMinLockPos, float pXMaxLockPos, float pZMinLockPos, float pZMaxLockPos, float pMinHeight, float pMaxHeight, sf::RenderWindow* pWindow, glm::vec3 pStartPos = glm::vec3(0, 0, 0), float pMinMovementSpeed = 5, float pMaxMovementSpeed = 20);
 	virtual ~CameraMovementBehaviour();
 
@@ -13,8 +13,9 @@ class CameraMovementBehaviour : public AbstractBehaviour
 	void Move(float pStep);
 	void Scroll(sf::Event pEvent);
 	void SetBounds(float pXmin, float pXmax, float pZmin, float pZmax);
+	glm::vec4 GetBounds() { return glm::vec4(_xMinLockPos + 5, _xMaxLockPos - 5, _zMinLockPos + 5, _zMaxLockPos - 5); }
 
-	private:
+private:
 	//Contructor variables
 	sf::RenderWindow* _renderWindow;
 	glm::vec3 _startPos;

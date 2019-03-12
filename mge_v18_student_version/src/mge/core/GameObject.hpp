@@ -15,7 +15,7 @@ class Mesh;
  */
 class GameObject
 {
-	public:
+public:
 	GameObject(const std::string& pName = nullptr, const glm::vec3& pPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~GameObject();
 
@@ -91,15 +91,15 @@ class GameObject
 	int _gameControllerIndex;
 
 	void Kill();
+	std::vector<GameObject*> _children;
 
-	protected:
+protected:
 	std::string _name;
 	glm::vec3 _lastPosition;
 	glm::mat4 _transform;
 	std::string _tag;
 
 	GameObject* _parent;
-	std::vector<GameObject*> _children;
 
 	Mesh* _mesh;
 	AbstractBehaviour* _behaviour;
@@ -118,7 +118,7 @@ class GameObject
 
 	bool _shouldDie;
 
-	private:
+private:
 	GameObject(const GameObject&);
 	GameObject& operator= (const GameObject&);
 };

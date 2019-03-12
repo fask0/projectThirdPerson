@@ -37,13 +37,20 @@ void ShockTower::update(float pStep)
 	GameObject::update(pStep);
 
 	if (_shouldDie || !isPlaced) return;
-	if (clock() >= _timer + 0.1f * CLOCKS_PER_SEC)
+	if (_enemiesInRange)
 	{
-		_aoeModel->setMesh(Animations[_currentFrame]);
-		_currentFrame++;
-		if (_currentFrame == Animations.size())
-			_currentFrame = 0;
-		_timer = clock();
+		if (clock() >= _timer + 0.1f * CLOCKS_PER_SEC)
+		{
+			_aoeModel->setMesh(Animations[_currentFrame]);
+			_currentFrame++;
+			if (_currentFrame == Animations.size())
+				_currentFrame = 0;
+			_timer = clock();
+		}
+	}
+	else
+	{
+		_aoeModel->setMesh(nullptr);
 	}
 }
 

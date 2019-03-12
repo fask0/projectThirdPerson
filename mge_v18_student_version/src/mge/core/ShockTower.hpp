@@ -19,7 +19,7 @@
  */
 class ShockTower : public Tower
 {
-	public:
+public:
 	ShockTower();
 	virtual ~ShockTower();
 
@@ -30,8 +30,9 @@ class ShockTower : public Tower
 	static AbstractMaterial* AnimationMaterial;
 
 	void AddTowerBehaviour() override;
+	bool _enemiesInRange = false;
 
-	private:
+private:
 	ShockTower(const ShockTower&);
 	ShockTower& operator= (const ShockTower&);
 

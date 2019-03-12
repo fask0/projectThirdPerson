@@ -9,6 +9,8 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/Mesh.hpp"
+#include "mge/core/Mesh.hpp"
+#include "mge/core/Texture.hpp"
 
 class Enemy : public GameObject
 {
@@ -34,6 +36,8 @@ public:
 	int getDamage() { return _damage; }
 
 	int KillValue = 3;
+	GameObject* _healthBar;
+	GameObject* _healthBarBackground;
 
 protected:
 	Waypoint::Lane _lane;

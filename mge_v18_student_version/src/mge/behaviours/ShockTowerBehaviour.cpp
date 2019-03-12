@@ -4,6 +4,7 @@
 #include "mge/core/GameController.hpp"
 #include "mge/core/World.hpp"
 #include "mge/core/Helper.hpp"
+#include "mge/core/ShockTower.hpp"
 
 ShockTowerBehaviour::ShockTowerBehaviour() : TowerBehaviour()
 {
@@ -40,6 +41,8 @@ void ShockTowerBehaviour::CheckForEnemies()
 			_allInRangeEnemies.push_back(enemy);
 		}
 	}
+
+	dynamic_cast<ShockTower*>(_owner)->_enemiesInRange = _enemiesInRange;
 }
 
 void ShockTowerBehaviour::Attack()

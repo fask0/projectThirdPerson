@@ -85,7 +85,7 @@ float ShadowCalculation(vec4 fragPosLightSpace)
 vec4 CalcDirLight(DirLight _dirLight, vec3 normal)
 {
 	vec3 norm = normalize(normal);
-	vec3 lightDir = normalize(_dirLight.lightPos);
+	vec3 lightDir = normalize(_dirLight.lightPos - FragPos);
 	float diff = max(dot(norm, lightDir), 0.0f);
 	vec3 diffuse = diff * _dirLight.lightCol;
 
