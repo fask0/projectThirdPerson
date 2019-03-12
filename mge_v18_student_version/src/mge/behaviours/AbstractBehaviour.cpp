@@ -1,4 +1,5 @@
 #include "AbstractBehaviour.hpp"
+#include "mge/core/AdvancedSprite.hpp"
 #include <iostream>
 
 AbstractBehaviour::AbstractBehaviour() :_owner(nullptr) {}
@@ -20,18 +21,22 @@ GameObject* AbstractBehaviour::getOwner()
 
 void AbstractBehaviour::On2DMouseEnter()
 {
-	std::cout << "Enter" << std::endl;
+	if (dynamic_cast<AdvancedSprite*>(_owner))
+	{
+		dynamic_cast<AdvancedSprite*>(_owner)->IsBeingHoveredOver = true;
+	}
 }
 void AbstractBehaviour::On2DMouseExit()
 {
-	std::cout << "Exit" << std::endl;
+	if (dynamic_cast<AdvancedSprite*>(_owner))
+	{
+		dynamic_cast<AdvancedSprite*>(_owner)->IsBeingHoveredOver = false;
+	}
 }
 void AbstractBehaviour::On2DMouseOver()
 {
-	std::cout << "Over" << std::endl;
 }
 void AbstractBehaviour::On2DMouseClick()
 {
-	std::cout << "Click" << std::endl;
 }
 

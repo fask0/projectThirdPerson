@@ -165,6 +165,18 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\FridgeLevel.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\SwitchSpriteOnHoverBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\MenuOnHoverBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\TowerIconBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\HealthBarBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -332,6 +344,18 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\FridgeLevel.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\SwitchSpriteOnHoverBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\MenuOnHoverBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\TowerIconBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\HealthBarBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Materials">
@@ -357,6 +381,9 @@
     </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{66bf2b00-0a57-45f0-a9b1-fe5baf733130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviours\2DBehaviours">
+      <UniqueIdentifier>{f81dc1fb-36b5-42c2-9807-198c78259039}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

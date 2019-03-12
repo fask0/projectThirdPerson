@@ -41,6 +41,7 @@ void WaypointFollowBehaviour::update(float pStep)
 {
 	if (_toDo.size() == 0)
 	{
+		GameController::CurrentHealth -= _enemyOwner->getDamage();
 		_owner->Kill();
 		return;
 	}

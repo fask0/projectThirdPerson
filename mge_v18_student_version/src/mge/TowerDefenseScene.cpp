@@ -10,7 +10,11 @@
 #include "mge/core/Camera.hpp"
 #include "mge/core/Light.hpp"
 
+#include "mge/behaviours/SwitchSpriteOnHoverBehaviour.hpp"
 #include "mge/behaviours/CameraMovementBehaviour.hpp"
+#include "mge/behaviours/MenuOnHoverBehaviour.hpp"
+#include "mge/behaviours/TowerIconBehaviour.hpp"
+#include "mge/behaviours/HealthBarBehaviour.hpp"
 #include "mge/behaviours/WASDBehaviour.hpp"
 
 #include "mge/util/DebugHud.hpp"
@@ -57,6 +61,8 @@ void TowerDefenseScene::initializeLua()
 	//Set vars
 	GameController::DrawColliders = boolFromLua("DrawColliders");
 	GameController::Debug = boolFromLua("Debug");
+	GameController::MaxHealth = intFromLua("MaxHealth");
+	GameController::CurrentHealth = GameController::MaxHealth;
 	WindowHeight = intFromLua("WindowHeight");
 	WindowWidth = intFromLua("WindowWidth");
 
@@ -198,23 +204,173 @@ void TowerDefenseScene::_initializeScene()
 	light->addBehaviour(new WASDBehaviour());
 
 	//Initialize all the 2D objects in the scene
-	inintialize2Dobjects();
+	//inintialize2Dobjects();
 }
 
 void TowerDefenseScene::inintialize2Dobjects()
 {
-	//Load texture
-	sf::Texture* tex = new sf::Texture();
-	tex->loadFromFile(config::MGE_TEXTURE_PATH + "bricks.jpg");
+	//Load textures
+	//Coin texture
+	sf::Texture* coinIcon = new sf::Texture();
+	coinIcon->loadFromFile(config::MGE_SPRITES_PATH + "coin.png");
+	//Icon textures
+	sf::Texture* menuIcon = new sf::Texture();
+	menuIcon->loadFromFile(config::MGE_SPRITES_PATH + "menu_button.png");
+	sf::Texture* menuIconSel = new sf::Texture();
+	menuIconSel->loadFromFile(config::MGE_SPRITES_PATH + "menu_button_sel.png");
+	sf::Texture* disgustingIcon = new sf::Texture();
+	disgustingIcon->loadFromFile(config::MGE_SPRITES_PATH + "disgustingness.png");
+	sf::Texture* toasterIcon = new sf::Texture();
+	toasterIcon->loadFromFile(config::MGE_SPRITES_PATH + "toaster_icon_colour0.png");
+	sf::Texture* toasterIconSel = new sf::Texture();
+	toasterIconSel->loadFromFile(config::MGE_SPRITES_PATH + "toaster_icon_colour_sel0.png");
+	sf::Texture* honeyIcon = new sf::Texture();
+	honeyIcon->loadFromFile(config::MGE_SPRITES_PATH + "honey_icon_colour.png");
+	sf::Texture* honeyIconSel = new sf::Texture();
+	honeyIconSel->loadFromFile(config::MGE_SPRITES_PATH + "honey_icon_colour_sel.png");
+	sf::Texture* iceIcon = new sf::Texture();
+	iceIcon->loadFromFile(config::MGE_SPRITES_PATH + "ice_icon_colour.png");
+	sf::Texture* iceIconSel = new sf::Texture();
+	iceIconSel->loadFromFile(config::MGE_SPRITES_PATH + "ice_icon_sel.png");
+	sf::Texture* batteryIcon = new sf::Texture();
+	batteryIcon->loadFromFile(config::MGE_SPRITES_PATH + "battery_icon_colour.png");
+	sf::Texture* batteryIconSel = new sf::Texture();
+	batteryIconSel->loadFromFile(config::MGE_SPRITES_PATH + "battery_icon_sel.png");
+	sf::Texture* magnifyingGlassIcon = new sf::Texture();
+	magnifyingGlassIcon->loadFromFile(config::MGE_SPRITES_PATH + "magnifying_glass_colour.png");
+	sf::Texture* magnifyingGlassIconSel = new sf::Texture();
+	magnifyingGlassIconSel->loadFromFile(config::MGE_SPRITES_PATH + "magnifying_glass_sel.png");
+	sf::Texture* sniperIcon = new sf::Texture();
+	sniperIcon->loadFromFile(config::MGE_SPRITES_PATH + "peas_icon_colour.png");
+	sf::Texture* sniperIconSel = new sf::Texture();
+	sniperIconSel->loadFromFile(config::MGE_SPRITES_PATH + "peas_icon_sel.png");
+	//Healthbar textures
+	std::vector<sf::Texture*> healthBarSprites;
+	sf::Texture* healthBarTexture0 = new sf::Texture();
+	sf::Texture* healthBarTexture1 = new sf::Texture();
+	sf::Texture* healthBarTexture2 = new sf::Texture();
+	sf::Texture* healthBarTexture3 = new sf::Texture();
+	sf::Texture* healthBarTexture4 = new sf::Texture();
+	sf::Texture* healthBarTexture5 = new sf::Texture();
+	sf::Texture* healthBarTexture6 = new sf::Texture();
+	sf::Texture* healthBarTexture7 = new sf::Texture();
+	sf::Texture* healthBarTexture8 = new sf::Texture();
+	sf::Texture* healthBarTexture9 = new sf::Texture();
+	healthBarTexture0->loadFromFile(config::MGE_SPRITES_PATH + "cheese_bar.png");
+	healthBarTexture1->loadFromFile(config::MGE_SPRITES_PATH + "cheese_bar1.png");
+	healthBarTexture2->loadFromFile(config::MGE_SPRITES_PATH + "cheese_bar2.png");
+	healthBarTexture3->loadFromFile(config::MGE_SPRITES_PATH + "cheese_bar3.png");
+	healthBarTexture4->loadFromFile(config::MGE_SPRITES_PATH + "cheese_bar4.png");
+	healthBarTexture5->loadFromFile(config::MGE_SPRITES_PATH + "cheese_bar5.png");
+	healthBarTexture6->loadFromFile(config::MGE_SPRITES_PATH + "cheese_bar6.png");
+	healthBarTexture7->loadFromFile(config::MGE_SPRITES_PATH + "cheese_bar7.png");
+	healthBarTexture8->loadFromFile(config::MGE_SPRITES_PATH + "cheese_bar8.png");
+	healthBarTexture9->loadFromFile(config::MGE_SPRITES_PATH + "cheese_bar9.png");
+	healthBarSprites.push_back(healthBarTexture9);
+	healthBarSprites.push_back(healthBarTexture8);
+	healthBarSprites.push_back(healthBarTexture7);
+	healthBarSprites.push_back(healthBarTexture6);
+	healthBarSprites.push_back(healthBarTexture5);
+	healthBarSprites.push_back(healthBarTexture4);
+	healthBarSprites.push_back(healthBarTexture3);
+	healthBarSprites.push_back(healthBarTexture2);
+	healthBarSprites.push_back(healthBarTexture1);
+	//Description textures
+	sf::Texture* toasterDescription = new sf::Texture();
+	sf::Texture* honeyDescription = new sf::Texture();
+	sf::Texture* iceDescription = new sf::Texture();
+	sf::Texture* magnifyingGlassDescription = new sf::Texture();
+	sf::Texture* sniperDescription = new sf::Texture();
+	sf::Texture* batteryDescription = new sf::Texture();
+	toasterDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/toaster_description.png");
+	honeyDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/honey_description.png");
+	iceDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/ice_description.png");
+	magnifyingGlassDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/magnifying_glass_description.png");
+	sniperDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/sniper_description.png");
+	batteryDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/battery_description.png");
 
-	//Create sprite
-	AdvancedSprite* sprite = new AdvancedSprite();
-	sprite->setPosition(64, WindowHeight - tex->getSize().y - 64);
-	sprite->addBehaviour(new WASDBehaviour());
+	//------//
+	// Coin //
+	//------//
+	AdvancedSprite* coin = new AdvancedSprite(coinIcon);
+	coin->setPosition(WindowWidth - coinIcon->getSize().x - 172, WindowHeight - coinIcon->getSize().y - 80);
+	sf::Text* coinsText = new sf::Text();
+	sf::Font font = sf::Font();
+	font.loadFromFile(config::MGE_SPRITES_PATH + "CREABBB_.TTF");
+	coinsText->setFillColor(sf::Color::White);
+	coinsText->setPosition(WindowWidth - 164, WindowHeight - coinIcon->getSize().y - 80);
+	coinsText->setFont(font);
 
-	//Add sprite to world and UImanager
-	_world->add(sprite);
-	_uiManager->AddSprite(sprite, tex);
+	//------------//
+	// Health Bar //
+	//------------//
+	AdvancedSprite* healthBar = new AdvancedSprite(healthBarTexture0);
+	healthBar->setPosition(WindowWidth - healthBarTexture0->getSize().x - 64, WindowHeight - healthBarTexture0->getSize().y - 96 - coinIcon->getSize().y - 8);
+	healthBar->addBehaviour(new HealthBarBehaviour(healthBarSprites));
+
+	//-------------//
+	// Tower Icons //
+	//-------------//
+	std::vector<AdvancedSprite*> menuSprites;
+	AdvancedSprite* menuSprite = new AdvancedSprite(menuIcon);
+	menuSprite->setPosition(64, WindowHeight - menuIcon->getSize().y - 64);
+	menuSprite->addBehaviour(new SwitchSpriteOnHoverBehaviour(menuIconSel));
+	AdvancedSprite* toasterSprite = new AdvancedSprite(toasterIcon);
+	toasterSprite->setPosition(64 + toasterIcon->getSize().x, WindowHeight - toasterIcon->getSize().y - 64 - ((menuIcon->getSize().y - toasterIcon->getSize().y) / 2));
+	toasterSprite->addBehaviour(new SwitchSpriteOnHoverBehaviour(toasterIconSel));
+	toasterSprite->addBehaviour(new TowerIconBehaviour(1, toasterDescription));
+	menuSprites.push_back(toasterSprite);
+	AdvancedSprite* honeySprite = new AdvancedSprite(honeyIcon);
+	honeySprite->setPosition(64 + toasterIcon->getSize().x * 2, WindowHeight - toasterIcon->getSize().y - 64 - ((menuIcon->getSize().y - toasterIcon->getSize().y) / 2));
+	honeySprite->addBehaviour(new SwitchSpriteOnHoverBehaviour(honeyIconSel));
+	honeySprite->addBehaviour(new TowerIconBehaviour(2, honeyDescription));
+	menuSprites.push_back(honeySprite);
+	AdvancedSprite* iceSprite = new AdvancedSprite(iceIcon);
+	iceSprite->setPosition(64 + toasterIcon->getSize().x * 3, WindowHeight - toasterIcon->getSize().y - 64 - ((menuIcon->getSize().y - toasterIcon->getSize().y) / 2));
+	iceSprite->addBehaviour(new SwitchSpriteOnHoverBehaviour(iceIconSel));
+	iceSprite->addBehaviour(new TowerIconBehaviour(4, iceDescription));
+	menuSprites.push_back(iceSprite);
+	AdvancedSprite* batterySprite = new AdvancedSprite(batteryIcon);
+	batterySprite->setPosition(64 + toasterIcon->getSize().x * 4, WindowHeight - toasterIcon->getSize().y - 64 - ((menuIcon->getSize().y - toasterIcon->getSize().y) / 2));
+	batterySprite->addBehaviour(new SwitchSpriteOnHoverBehaviour(batteryIconSel));
+	batterySprite->addBehaviour(new TowerIconBehaviour(3, batteryDescription));
+	menuSprites.push_back(batterySprite);
+	AdvancedSprite* magnifyingGlassSprite = new AdvancedSprite(magnifyingGlassIcon);
+	magnifyingGlassSprite->setPosition(64 + toasterIcon->getSize().x * 5, WindowHeight - toasterIcon->getSize().y - 64 - ((menuIcon->getSize().y - toasterIcon->getSize().y) / 2));
+	magnifyingGlassSprite->addBehaviour(new SwitchSpriteOnHoverBehaviour(magnifyingGlassIconSel));
+	magnifyingGlassSprite->addBehaviour(new TowerIconBehaviour(5, magnifyingGlassDescription));
+	menuSprites.push_back(magnifyingGlassSprite);
+	AdvancedSprite* sniperSprite = new AdvancedSprite(sniperIcon);
+	sniperSprite->setPosition(64 + toasterIcon->getSize().x * 6, WindowHeight - toasterIcon->getSize().y - 64 - ((menuIcon->getSize().y - toasterIcon->getSize().y) / 2));
+	sniperSprite->addBehaviour(new SwitchSpriteOnHoverBehaviour(sniperIconSel));
+	sniperSprite->addBehaviour(new TowerIconBehaviour(6, sniperDescription));
+	menuSprites.push_back(sniperSprite);
+	menuSprite->addBehaviour(new MenuOnHoverBehaviour(menuSprites));
+
+	//Add sprites to world and UImanager
+	//CoinF
+	_world->add(coin);
+	_uiManager->AddSprite(coin);
+	//Healthbar
+	_world->add(healthBar);
+	_uiManager->AddSprite(healthBar);
+	//Icons
+	_world->add(menuSprite);
+	_world->add(magnifyingGlassSprite);
+	_world->add(sniperSprite);
+	_world->add(toasterSprite);
+	_world->add(honeySprite);
+	_world->add(iceSprite);
+	_world->add(batterySprite);
+	_uiManager->AddSprite(sniperSprite);
+	_uiManager->AddSprite(magnifyingGlassSprite);
+	_uiManager->AddSprite(iceSprite);
+	_uiManager->AddSprite(batterySprite);
+	_uiManager->AddSprite(honeySprite);
+	_uiManager->AddSprite(toasterSprite);
+	_uiManager->AddSprite(menuSprite);
+	//Texts
+	_uiManager->AddText(coinsText);
 }
 
 void TowerDefenseScene::_render()

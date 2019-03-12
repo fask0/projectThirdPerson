@@ -18,14 +18,7 @@ UIManager::UIManager(sf::RenderWindow * pWindow) : _window(pWindow)
 {
 	assert(_window != NULL);
 	GameController::UIManager = this;
-	_font.loadFromFile(config::MGE_FONT_PATH + "arial.ttf");
-
-	sf::Text* text = new sf::Text("Test123", sf::Font());
-	text->setString("Money: ");
-	text->setPosition(10, 25);
-	text->setCharacterSize(16);
-	text->setFillColor(sf::Color::White);
-	_texts.push_back(text);
+	_font.loadFromFile(config::MGE_SPRITES_PATH + "CREABBB_.TTF");
 }
 
 UIManager::~UIManager()
@@ -33,10 +26,14 @@ UIManager::~UIManager()
 	//dtor
 }
 
-void UIManager::AddSprite(AdvancedSprite* pSprite, sf::Texture* pTexture)
+void UIManager::AddSprite(AdvancedSprite* pSprite)
 {
 	_sprites.push_back(pSprite);
-	_textures.push_back(pTexture);
+}
+
+void UIManager::AddText(sf::Text* pText)
+{
+	_texts.push_back(pText);
 }
 
 void UIManager::Draw()
@@ -49,7 +46,7 @@ void UIManager::Draw()
 		_window->pushGLStates();
 		for (int i = 0; i < _sprites.size(); i++)
 		{
-			_sprites[i]->setTexture(*_textures[i]);
+			_sprites[i]->setTexture(*_sprites[i]->Texture);
 			_window->draw(*_sprites[i]);
 		}
 		_window->popGLStates();

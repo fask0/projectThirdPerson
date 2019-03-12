@@ -67,6 +67,12 @@ void GridManager::update(float pStep)
 		}
 	}
 
+	//Pausement stuff
+	if (clock() >= _startPauseTime + 1 * CLOCKS_PER_SEC)
+	{
+		_canPlaceTower = true;
+	}
+
 	GameObject::update(pStep);
 }
 
@@ -237,7 +243,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
-		if (_tower != nullptr && !_tower->isColliding && _currentMoney >= _tower->GetCost())
+		if (_tower != nullptr && !_tower->isColliding && _currentMoney >= _tower->GetCost() && _canPlaceTower)
 		{
 			//_tower->removeBehaviour(_tower->getBehaviours()[1]);
 			std::vector<AbstractBehaviour*> list = _tower->getBehaviours();
@@ -382,4 +388,77 @@ void GridManager::GridControls(sf::Event pEvent)
 			break;
 		}
 	}
+}
+
+
+void GridManager::SelectTower(int pTowerNumber)
+{
+	if (_canPlaceTower)
+	{
+		if (_tower != nullptr)
+		{
+			_level->remove(_tower);
+			delete(_tower);
+		}
+		else
+		{
+			if (_gridObjects.size() > 0)
+			{
+				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setGrid(true);
+				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(true);
+				std::cout << "Toggled Grid" << std::endl;
+			}
+		}
+
+		ResetMouseOverAndSelected();
+
+		FollowMouseOnGridBehaviour* behaviour = new FollowMouseOnGridBehaviour(material);
+		Mesh* towerMesh;
+
+		switch (pTowerNumber)
+		{
+			case 1:
+			towerMesh = ToasterTower::Mesh;
+			_tower = new ToasterTower();
+			break;
+			case 2:
+			towerMesh = HoneyTower::MainMesh;
+			_tower = new HoneyTower();
+			break;
+			case 3:
+			towerMesh = ShockTower::MainMesh;
+			_tower = new ShockTower();
+			break;
+			case 4:
+			towerMesh = IceTower::Mesh;
+			_tower = new IceTower();
+			break;
+			case 5:
+			towerMesh = MagnifyingGlassTower::Mesh;
+			_tower = new MagnifyingGlassTower();
+			break;
+			case 6:
+			towerMesh = SniperTower::Mesh;
+			_tower = new SniperTower();
+			break;
+		}
+
+		//After tower has been specified
+		if (_gridObjects.size() > 0)
+		{
+			dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRange(_tower->GetRange());
+		}
+		_tower->scale(glm::vec3(0.5f, 0.5f, 0.5f));
+		_tower->setMesh(towerMesh);
+
+		_tower->setMaterial(selectedMaterial);
+		_tower->addBehaviour(behaviour);
+		_level->add(_tower);
+	}
+}
+
+void GridManager::PauseTowerPlacement()
+{
+	_startPauseTime = clock();
+	_canPlaceTower = false;
 }

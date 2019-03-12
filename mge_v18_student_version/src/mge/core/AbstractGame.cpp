@@ -309,22 +309,22 @@ void AbstractGame::_processEvents()
 
 		switch (event.type)
 		{
-			case sf::Event::Closed:
+		case sf::Event::Closed:
 			exit = true;
 			break;
-			case sf::Event::KeyPressed:
+		case sf::Event::KeyPressed:
 			/*if (event.key.code == sf::Keyboard::Escape)
 			{
 				exit = true;
 			}*/
 			break;
-			case sf::Event::Resized:
+		case sf::Event::Resized:
 			//would be better to move this to the renderer
 			//this version implements nonconstrained match viewport scaling
 			glViewport(0, 0, event.size.width, event.size.height);
 			break;
 
-			default:
+		default:
 			break;
 		}
 

@@ -2,51 +2,18 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\mge\core\AbstractGame.cpp" />
     <ClCompile Include="..\src\mge\core\AdvancedSprite.cpp" />
-    <ClCompile Include="..\src\mge\core\Camera.cpp" />
     <ClCompile Include="..\src\mge\core\CollisionManager.cpp" />
+    <ClCompile Include="..\src\mge\core\EnemySpawner.cpp" />
     <ClCompile Include="..\src\mge\core\GameController.cpp" />
-    <ClCompile Include="..\src\mge\core\GameObject.cpp" />
     <ClCompile Include="..\src\mge\core\GridManager.cpp" />
     <ClCompile Include="..\src\mge\core\Helper.cpp" />
-    <ClCompile Include="..\src\mge\core\Light.cpp" />
-    <ClCompile Include="..\src\mge\core\Mesh.cpp" />
-    <ClCompile Include="..\src\mge\core\Renderer.cpp" />
-    <ClCompile Include="..\src\mge\core\ShaderProgram.cpp" />
-    <ClCompile Include="..\src\mge\core\Texture.cpp" />
+    <ClCompile Include="..\src\mge\core\Level.cpp" />
+    <ClCompile Include="..\src\mge\core\TableLevel.cpp" />
+    <ClCompile Include="..\src\mge\core\TutorialLevel.cpp" />
     <ClCompile Include="..\src\mge\core\UIManager.cpp" />
     <ClCompile Include="..\src\mge\core\Waypoint.cpp" />
-    <ClCompile Include="..\src\mge\core\World.cpp" />
     <ClCompile Include="..\src\mge\TowerDefenseScene.cpp" />
-    <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
-    <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\CameraMovementBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\CameraOrbitBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\CollisionBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\RotatingBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\TowerBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\WASDBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\WaypointFollowBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mge\materials\AbstractMaterial.cpp">
       <Filter>Materials</Filter>
     </ClCompile>
@@ -68,28 +35,25 @@
     <ClCompile Include="..\src\mge\materials\LitTextureMaterial.cpp">
       <Filter>Materials</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\materials\TerrainMaterial.cpp">
-      <Filter>Materials</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mge\materials\TextureGridMaterial.cpp">
       <Filter>Materials</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp">
       <Filter>Materials</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\materials\WobbleMaterial.cpp">
-      <Filter>Materials</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\KeysBehaviour.cpp">
-      <Filter>Behaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\Rat.cpp">
-      <Filter>Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\mge\core\HoneyTower.cpp">
       <Filter>Towers</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\core\IceTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\MagnifyingGlassTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\mge\core\ShockTower.cpp">
+      <Filter>Towers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\SniperTower.cpp">
       <Filter>Towers</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\ToasterTower.cpp">
@@ -98,44 +62,26 @@
     <ClCompile Include="..\src\mge\core\Tower.cpp">
       <Filter>Towers</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\core\Enemy.cpp">
-      <Filter>Enemies</Filter>
+    <ClCompile Include="..\src\mge\behaviours\AbstractBehaviour.cpp">
+      <Filter>Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\core\EnemySpawner.cpp">
-      <Filter>Enemies</Filter>
+    <ClCompile Include="..\src\mge\behaviours\CameraMovementBehaviour.cpp">
+      <Filter>Behaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\CollisionBehaviour.cpp">
+      <Filter>Behaviours</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\behaviours\EffectBehaviour.cpp">
       <Filter>Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\core\MagnifyingGlassTower.cpp">
-      <Filter>Towers</Filter>
+    <ClCompile Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.cpp">
+      <Filter>Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\core\SniperTower.cpp">
-      <Filter>Towers</Filter>
+    <ClCompile Include="..\src\mge\behaviours\WASDBehaviour.cpp">
+      <Filter>Behaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\core\IceTower.cpp">
-      <Filter>Towers</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\HoneyProjectile.cpp">
-      <Filter>Towers\Projectiles</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\core\ToasterProjectile.cpp">
-      <Filter>Towers\Projectiles</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\HoneyTowerBehaviour.cpp">
-      <Filter>Behaviours\TowerBehaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\ShockTowerBehaviour.cpp">
-      <Filter>Behaviours\TowerBehaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\ToasterTowerBehaviour.cpp">
-      <Filter>Behaviours\TowerBehaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\ToasterProjectileBehaviour.cpp">
-      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mge\behaviours\HoneyProjectileBehaviour.cpp">
-      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
+    <ClCompile Include="..\src\mge\behaviours\WaypointFollowBehaviour.cpp">
+      <Filter>Behaviours</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\behaviours\IceTowerBehaviour.cpp">
       <Filter>Behaviours\TowerBehaviours</Filter>
@@ -143,70 +89,113 @@
     <ClCompile Include="..\src\mge\behaviours\MagnifyingGlassTowerBehaviour.cpp">
       <Filter>Behaviours\TowerBehaviours</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\ShockTowerBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\mge\behaviours\SniperTowerBehaviour.cpp">
       <Filter>Behaviours\TowerBehaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\core\IceProjectile.cpp">
-      <Filter>Towers\Projectiles</Filter>
+    <ClCompile Include="..\src\mge\behaviours\ToasterTowerBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\TowerBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\HoneyTowerBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\HoneyProjectileBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\behaviours\IceProjectileBehaviour.cpp">
       <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\mge\core\SanicRat.cpp">
-      <Filter>Enemies</Filter>
+    <ClCompile Include="..\src\mge\behaviours\ToasterProjectileBehaviour.cpp">
+      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\HoneyProjectile.cpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\IceProjectile.cpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\ToasterProjectile.cpp">
+      <Filter>Towers\Projectiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\ChadRat.cpp">
       <Filter>Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\core\Enemy.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Rat.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\SanicRat.cpp">
+      <Filter>Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\AbstractGame.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Camera.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\util\DebugHud.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\GameObject.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Light.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Mesh.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Renderer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\ShaderProgram.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\Texture.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\core\World.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="..\src\mge\core\FridgeLevel.cpp" />
+=======
+    <ClCompile Include="..\src\mge\behaviours\SwitchSpriteOnHoverBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\MenuOnHoverBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\TowerIconBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\HealthBarBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
+>>>>>>> abdb6c69bb9d8cc4a71e4c293263fb66a42e26be
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
     <ClInclude Include="..\src\mge\config.hpp" />
-    <ClInclude Include="..\src\mge\core\AbstractGame.hpp" />
     <ClInclude Include="..\src\mge\core\AdvancedSprite.hpp" />
     <ClInclude Include="..\src\mge\core\CollisionManager.hpp" />
-    <ClInclude Include="..\src\mge\core\Camera.hpp" />
+    <ClInclude Include="..\src\mge\core\EnemySpawner.hpp" />
     <ClInclude Include="..\src\mge\core\GameController.hpp" />
-    <ClInclude Include="..\src\mge\core\GameObject.hpp" />
     <ClInclude Include="..\src\mge\core\GridManager.hpp" />
     <ClInclude Include="..\src\mge\core\Helper.hpp" />
-    <ClInclude Include="..\src\mge\core\Light.hpp" />
-    <ClInclude Include="..\src\mge\core\Mesh.hpp" />
-    <ClInclude Include="..\src\mge\core\Renderer.hpp" />
-    <ClInclude Include="..\src\mge\core\ShaderProgram.hpp" />
-    <ClInclude Include="..\src\mge\core\Texture.hpp" />
+    <ClInclude Include="..\src\mge\core\Level.hpp" />
+    <ClInclude Include="..\src\mge\core\TableLevel.hpp" />
+    <ClInclude Include="..\src\mge\core\TutorialLevel.hpp" />
     <ClInclude Include="..\src\mge\core\UIManager.hpp" />
     <ClInclude Include="..\src\mge\core\Waypoint.hpp" />
-    <ClInclude Include="..\src\mge\core\World.hpp" />
     <ClInclude Include="..\src\mge\TowerDefenseScene.hpp" />
-    <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
-    <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\CameraMovementBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\CameraOrbitBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\CollisionBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\RotatingBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\TowerBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\WASDBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\WaypointFollowBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mge\materials\AbstractMaterial.hpp">
       <Filter>Materials</Filter>
     </ClInclude>
@@ -228,74 +217,56 @@
     <ClInclude Include="..\src\mge\materials\LitTextureMaterial.hpp">
       <Filter>Materials</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\materials\TerrainMaterial.hpp">
-      <Filter>Materials</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mge\materials\TextureGridMaterial.hpp">
       <Filter>Materials</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp">
       <Filter>Materials</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\materials\WobbleMaterial.hpp">
-      <Filter>Materials</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\KeysBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\Rat.hpp">
-      <Filter>Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\Tower.hpp">
-      <Filter>Towers</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\mge\core\HoneyTower.hpp">
-      <Filter>Towers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\ShockTower.hpp">
-      <Filter>Towers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\ToasterTower.hpp">
-      <Filter>Towers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\Enemy.hpp">
-      <Filter>Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\EnemySpawner.hpp">
-      <Filter>Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\EffectBehaviour.hpp">
-      <Filter>Behaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\MagnifyingGlassTower.hpp">
-      <Filter>Towers</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\core\SniperTower.hpp">
       <Filter>Towers</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\IceTower.hpp">
       <Filter>Towers</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\core\HoneyProjectile.hpp">
-      <Filter>Towers\Projectiles</Filter>
+    <ClInclude Include="..\src\mge\core\MagnifyingGlassTower.hpp">
+      <Filter>Towers</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\core\ToasterProjectile.hpp">
-      <Filter>Towers\Projectiles</Filter>
+    <ClInclude Include="..\src\mge\core\ShockTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\SniperTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ToasterTower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Tower.hpp">
+      <Filter>Towers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\AbstractBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\CameraMovementBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\CollisionBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\EffectBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\FollowMouseOnGridBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\WASDBehaviour.hpp">
+      <Filter>Behaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\WaypointFollowBehaviour.hpp">
+      <Filter>Behaviours</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\behaviours\HoneyTowerBehaviour.hpp">
       <Filter>Behaviours\TowerBehaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\ShockTowerBehaviour.hpp">
-      <Filter>Behaviours\TowerBehaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\ToasterTowerBehaviour.hpp">
-      <Filter>Behaviours\TowerBehaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\ToasterProjectileBehaviour.hpp">
-      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mge\behaviours\HoneyProjectileBehaviour.hpp">
-      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\behaviours\IceTowerBehaviour.hpp">
       <Filter>Behaviours\TowerBehaviours</Filter>
@@ -303,51 +274,122 @@
     <ClInclude Include="..\src\mge\behaviours\MagnifyingGlassTowerBehaviour.hpp">
       <Filter>Behaviours\TowerBehaviours</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\ShockTowerBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClInclude>
     <ClInclude Include="..\src\mge\behaviours\SniperTowerBehaviour.hpp">
       <Filter>Behaviours\TowerBehaviours</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\core\IceProjectile.hpp">
-      <Filter>Towers\Projectiles</Filter>
+    <ClInclude Include="..\src\mge\behaviours\ToasterTowerBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\TowerBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\HoneyProjectileBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\behaviours\IceProjectileBehaviour.hpp">
       <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\core\SanicRat.hpp">
-      <Filter>Enemies</Filter>
+    <ClInclude Include="..\src\mge\behaviours\ToasterProjectileBehaviour.hpp">
+      <Filter>Behaviours\TowerBehaviours\TowerProjectileBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\HoneyProjectile.hpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\IceProjectile.hpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ToasterProjectile.hpp">
+      <Filter>Towers\Projectiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\ChadRat.hpp">
       <Filter>Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\mge\core\ShadowFrameBuffer.hpp">
-      <Filter>Shadows</Filter>
+    <ClInclude Include="..\src\mge\core\Enemy.hpp">
+      <Filter>Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\core\Rat.hpp">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\SanicRat.hpp">
+      <Filter>Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\AbstractGame.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Camera.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\util\DebugHud.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\GameObject.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Light.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Mesh.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Renderer.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\ShaderProgram.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\Texture.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\core\World.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="..\src\mge\core\FridgeLevel.hpp" />
+=======
+    <ClInclude Include="..\src\mge\behaviours\SwitchSpriteOnHoverBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\MenuOnHoverBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\TowerIconBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\HealthBarBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
+>>>>>>> abdb6c69bb9d8cc4a71e4c293263fb66a42e26be
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Behaviours">
-      <UniqueIdentifier>{28222263-d2b9-4b69-8906-48253722ba23}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Enemies">
-      <UniqueIdentifier>{bcbcbba1-137d-4750-9a83-b09e949b6eec}</UniqueIdentifier>
+    <Filter Include="Materials">
+      <UniqueIdentifier>{b1638d5d-5303-41c0-b414-8ebfeb72852f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Towers">
-      <UniqueIdentifier>{b808c298-fd29-48da-901d-8973a773ea96}</UniqueIdentifier>
+      <UniqueIdentifier>{24bc3f1c-ed85-4518-b74e-4868ec97fc71}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Materials">
-      <UniqueIdentifier>{3d8fa20b-517c-4f75-acff-df122fc65f27}</UniqueIdentifier>
-    </Filter>
-<<<<<<< HEAD
-    <Filter Include="Shadows">
-      <UniqueIdentifier>{eac874d5-ec15-4b39-90cd-50efb5b5e2f7}</UniqueIdentifier>
-=======
-    <Filter Include="Towers\Projectiles">
-      <UniqueIdentifier>{fcc25723-a43b-4d4b-b4de-abcd25663e5d}</UniqueIdentifier>
+    <Filter Include="Behaviours">
+      <UniqueIdentifier>{0d58e3eb-12ce-43ef-bd40-7744087f5ecd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Behaviours\TowerBehaviours">
-      <UniqueIdentifier>{5cc1804d-0d10-47c7-86c6-2cbf0a30ede1}</UniqueIdentifier>
+      <UniqueIdentifier>{c209fc1d-d066-4326-8aa5-70f8d7406a8e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Behaviours\TowerBehaviours\TowerProjectileBehaviours">
-      <UniqueIdentifier>{3e4e924a-61ce-4ffd-b0e3-3122adc53c12}</UniqueIdentifier>
->>>>>>> 56c697b054f6b98a13353fb53277a8f596174202
+      <UniqueIdentifier>{1bb43af7-0cd2-4c68-b11b-3ba10cc57422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Towers\Projectiles">
+      <UniqueIdentifier>{093ade21-9272-4cf2-8eb2-b4f8060f0c82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemies">
+      <UniqueIdentifier>{1d6e7214-86c6-46f5-8d9a-e5e200935bb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{66bf2b00-0a57-45f0-a9b1-fe5baf733130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Behaviours\2DBehaviours">
+      <UniqueIdentifier>{f81dc1fb-36b5-42c2-9807-198c78259039}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

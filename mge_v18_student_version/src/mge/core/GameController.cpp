@@ -64,6 +64,8 @@ bool GameController::IsGamePaused;
 //--Lua variables
 bool GameController::Debug = false;
 bool GameController::DrawColliders;
+int GameController::MaxHealth;
+int GameController::CurrentHealth;
 
 //Level
 //Spawners and Scaling
