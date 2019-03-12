@@ -1,0 +1,74 @@
+newmtl TopCheeseLVL1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Lvl1topcheese.png
+illum 2
+
+newmtl Default-Material
+Kd 1 1 1
+illum 2
+
+newmtl Cheesy_Bites
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\CheeseyBites.png
+illum 2
+
+newmtl MouseTexture 39
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\MouseTexture.png
+illum 2
+
+newmtl Olive2
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Olives.png
+illum 2
+
+newmtl BigO'Cheesy
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\BigO'Cheesy.png
+illum 2
+
+newmtl SideCheese1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Flatcheese.png
+illum 2
+
+newmtl MouseTexture 40
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\MouseTexture.png
+illum 2
+
+newmtl Flag
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Flag.png
+illum 2
+
+newmtl Lvl1cheese
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Lvl1Cheese.png
+illum 2
+
+newmtl Tootpick
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Toothpicks.png
+illum 2
+
+newmtl Path
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\PathTex.png
+illum 2
+
+newmtl lambert1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\FridgeTextures.png
+illum 2
+
+newmtl SideCheese
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\SideCheese.png
+illum 2
+
+newmtl Cheese Cube
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Cheese Cube.png
+illum 2
+

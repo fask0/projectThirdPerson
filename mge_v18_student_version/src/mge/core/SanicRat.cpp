@@ -44,7 +44,6 @@ SanicRat::SanicRat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane,
 
 SanicRat::~SanicRat()
 {
-	Enemy::~Enemy();
 }
 
 void SanicRat::update(float pStep)

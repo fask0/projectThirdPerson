@@ -43,7 +43,6 @@ Rat::Rat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::stri
 
 Rat::~Rat()
 {
-	Enemy::~Enemy();
 }
 
 void Rat::update(float pStep)

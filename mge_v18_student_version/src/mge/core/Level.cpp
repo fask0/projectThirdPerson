@@ -22,7 +22,6 @@ Level::Level(std::string pName, glm::vec3 pPosition, int pLayers)
 
 Level::~Level()
 {
-	GameObject::~GameObject();
 }
 
 void Level::update(float pStep)
@@ -36,6 +35,8 @@ void Level::Init()
 	_waypoints.clear();
 	_layers.clear();
 	GameController::GridObjects.clear();
+	GameController::MainCamera->setLocalPosition(glm::vec3(0, 15, 0));
+	GameController::CameraBehaviour->SetBounds(_minX, _maxX, _minZ, _maxZ);
 	for (int i = 0; i < _layerAmount; ++i)
 	{
 		GameObject* o = new GameObject("layer" + std::to_string(i), glm::vec3(0, 0, 0));

@@ -1,40 +1,11 @@
-newmtl Towel1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Towel.png
-illum 2
-
-newmtl Default-Material
-Kd 1 1 1
-illum 2
-
-newmtl RatTrap1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\RatTrap.png
-illum 2
-
-newmtl PotLid1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\PotLid.png
-illum 2
-
-newmtl WineBottleInside1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\WineBottle.png
-illum 2
-
-newmtl Tomato1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Tomato.png
-illum 2
-
-newmtl Joghurt
+newmtl Joghurt 2
 Kd 1 1 1
 map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Joghurt.png
 illum 2
 
-newmtl WineOutside1
+newmtl Joghurt 3
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\WineGlass.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Joghurt.png
 illum 2
 
 newmtl Spatula1
@@ -47,9 +18,39 @@ Kd 1 1 1
 map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Pot.png
 illum 2
 
-newmtl WineBottleOutside
+newmtl Tomatoes
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\WineBottle.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Tomatoes.png
+illum 2
+
+newmtl Joghurt 1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Joghurt.png
+illum 2
+
+newmtl Tomato1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Tomato.png
+illum 2
+
+newmtl PotLid1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\PotLid.png
+illum 2
+
+newmtl RatTrap1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\RatTrap.png
+illum 2
+
+newmtl WineOutside1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\WineGlass.png
+illum 2
+
+newmtl Towel1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Towel.png
 illum 2
 
 newmtl WIneInside1
@@ -57,13 +58,28 @@ Kd 1 1 1
 map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\WineGlass.png
 illum 2
 
-newmtl Tomatoes
+newmtl Joghurt 4
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Tomatoes.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Joghurt.png
 illum 2
 
 newmtl WineOutside2
 Kd 1 1 1
 map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\WineGlass.png
+illum 2
+
+newmtl Joghurt 5
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Joghurt.png
+illum 2
+
+newmtl Joghurt 6
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Joghurt.png
+illum 2
+
+newmtl Joghurt 7
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Joghurt.png
 illum 2
 

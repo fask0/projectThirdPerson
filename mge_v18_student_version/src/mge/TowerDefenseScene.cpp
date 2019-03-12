@@ -188,7 +188,7 @@ void TowerDefenseScene::_initializeScene()
 	//add camera first (it will be updated last)
 	_camera = new Camera(_window, "camera", glm::vec3(0, 16, 0), glm::perspective(glm::radians(60.0f), float(WindowWidth) / float(WindowHeight), 0.1f, 1000.0f));
 	_camera->rotate(glm::radians(-72.78f), glm::vec3(1, 0, 0));
-	_camera->addBehaviour(new CameraMovementBehaviour(-30, 30, -17, 17, 1, 50, _window, _camera->getLocalPosition(), 1.0f, 10.0f));
+	_camera->addBehaviour(new CameraMovementBehaviour(-30, 30, -17, 17, 10, 20, _window, _camera->getLocalPosition(), 1.0f, 10.0f));
 	_world->add(_camera);
 	_world->setMainCamera(_camera);
 
@@ -209,7 +209,7 @@ void TowerDefenseScene::inintialize2Dobjects()
 
 	//Create sprite
 	AdvancedSprite* sprite = new AdvancedSprite();
-	sprite->setPosition(0, 64);
+	sprite->setPosition(64, WindowHeight - tex->getSize().y - 64);
 	sprite->addBehaviour(new WASDBehaviour());
 
 	//Add sprite to world and UImanager

@@ -387,7 +387,7 @@ void Mesh::extractMTLinfo(Mesh* pMesh, std::string pFileName, std::string * pMat
 			{
 				pMatNames[m] = materialName;
 
-				for (int j = 0; j < 3; ++j)
+				for (int j = 0; j < 4; ++j)
 				{
 					std::getline(inMTL, nextLine);
 					std::string tex = nextLine.substr(0, 2);

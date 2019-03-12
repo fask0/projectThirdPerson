@@ -1,0 +1,21 @@
+﻿  CollisionManager.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(33): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(47): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(125): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(215): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(229): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(307): warning C4018: '<': signed/unsigned mismatch
+  ToasterProjectile.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+  Generating Code...
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_settop referenced in function "private: bool __thiscall TowerDefenseScene::boolFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?boolFromLua@TowerDefenseScene@@AAE_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_tonumber referenced in function "private: float __thiscall TowerDefenseScene::floatFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?floatFromLua@TowerDefenseScene@@AAEMV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_tointeger referenced in function "private: int __thiscall TowerDefenseScene::intFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?intFromLua@TowerDefenseScene@@AAEHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_toboolean referenced in function "private: bool __thiscall TowerDefenseScene::boolFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?boolFromLua@TowerDefenseScene@@AAE_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_getfield referenced in function "private: bool __thiscall TowerDefenseScene::boolFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?boolFromLua@TowerDefenseScene@@AAE_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_call referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _luaL_openlibs referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _luaL_loadfile referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
+TowerDefenseScene.obj : error LNK2019: unresolved external symbol _luaL_newstate referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
+debug_static_exe/mge.exe : fatal error LNK1120: 9 unresolved externals

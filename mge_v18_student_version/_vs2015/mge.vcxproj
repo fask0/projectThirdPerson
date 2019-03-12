@@ -78,6 +78,8 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>debug_dynamic_exe/</OutDir>
     <IntDir>debug_dynamic_build/</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug Static|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -103,6 +105,7 @@
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>../src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -193,6 +196,7 @@
     <ClInclude Include="..\src\mge\core\Camera.hpp" />
     <ClInclude Include="..\src\mge\core\Enemy.hpp" />
     <ClInclude Include="..\src\mge\core\EnemySpawner.hpp" />
+    <ClInclude Include="..\src\mge\core\FridgeLevel.hpp" />
     <ClInclude Include="..\src\mge\core\GameController.hpp" />
     <ClInclude Include="..\src\mge\core\GameObject.hpp" />
     <ClInclude Include="..\src\mge\core\GridManager.hpp" />
@@ -258,6 +262,7 @@
     <ClCompile Include="..\src\mge\core\CollisionManager.cpp" />
     <ClCompile Include="..\src\mge\core\Enemy.cpp" />
     <ClCompile Include="..\src\mge\core\EnemySpawner.cpp" />
+    <ClCompile Include="..\src\mge\core\FridgeLevel.cpp" />
     <ClCompile Include="..\src\mge\core\GameController.cpp" />
     <ClCompile Include="..\src\mge\core\GameObject.cpp" />
     <ClCompile Include="..\src\mge\core\GridManager.cpp" />

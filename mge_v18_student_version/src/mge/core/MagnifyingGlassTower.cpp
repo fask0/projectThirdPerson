@@ -21,7 +21,6 @@ MagnifyingGlassTower::MagnifyingGlassTower() : Tower("Magnifying Glass Tower")
 MagnifyingGlassTower::~MagnifyingGlassTower()
 {
 	//dtor
-	Tower::~Tower();
 }
 
 void MagnifyingGlassTower::update(float pStep)
@@ -34,7 +33,7 @@ void MagnifyingGlassTower::update(float pStep)
 void MagnifyingGlassTower::AddTowerBehaviour()
 {
 	//addBehaviour(new MagnifyingGlassTowerBehaviour());
-	CollisionBehaviour* behaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, glm::vec3(5, 1, 1), true, glm::vec3(5, 0, 0));
+	CollisionBehaviour* behaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, 2, true, glm::vec3(0, 0, -5));
 	addBehaviour(behaviour);
 	if (GameController::DrawColliders)
 		behaviour->DrawCollider();

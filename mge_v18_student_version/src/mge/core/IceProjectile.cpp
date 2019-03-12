@@ -36,7 +36,6 @@ IceProjectile::IceProjectile(glm::mat4 pTransform) : GameObject("IceProjectile")
 IceProjectile::~IceProjectile()
 {
 	//dtor
-	GameObject::~GameObject();
 }
 
 void IceProjectile::update(float pStep)

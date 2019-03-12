@@ -1,10 +1,10 @@
-newmtl MouseTexture 10
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\MouseTexture.png
-illum 2
-
-newmtl AoEBattery
+newmtl AoETowerX
 Kd 1 1 1
 map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\AoEBattery.png
+illum 2
+
+newmtl MouseTexture 41
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\MouseTexture.png
 illum 2
 

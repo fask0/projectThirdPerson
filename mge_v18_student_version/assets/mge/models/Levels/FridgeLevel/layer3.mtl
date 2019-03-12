@@ -1,0 +1,39 @@
+newmtl PeasTower1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\PeasTower.png
+illum 2
+
+newmtl Plate1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Plate.png
+illum 2
+
+newmtl Joghurt
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Joghurt.png
+illum 2
+
+newmtl Tomato1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Tomato.png
+illum 2
+
+newmtl Sausage
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\SausageStraight.png
+illum 2
+
+newmtl RatTrap1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\RatTrap.png
+illum 2
+
+newmtl Default-Material
+Kd 1 1 1
+illum 2
+
+newmtl Tomatoes
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Tomatoes.png
+illum 2
+

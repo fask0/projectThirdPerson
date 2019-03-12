@@ -36,7 +36,6 @@ HoneyProjectile::HoneyProjectile(glm::mat4 pTransform, float pDiff) : GameObject
 HoneyProjectile::~HoneyProjectile()
 {
 	//dtor
-	GameObject::~GameObject();
 }
 
 void HoneyProjectile::update(float pStep)
@@ -48,7 +47,8 @@ void HoneyProjectile::update(float pStep)
 	{
 		for each (Enemy* enemy in enemiesCollidingWith)
 		{
-			enemy->setSlowDown(0);
+			if (enemy != nullptr)
+				enemy->setSlowDown(0);
 		}
 		enemiesCollidingWith.clear();
 		Kill();
@@ -57,12 +57,14 @@ void HoneyProjectile::update(float pStep)
 
 void HoneyProjectile::OnCollisionEnter(GameObject * pOther)
 {
+	if (pOther == nullptr) return;
 	dynamic_cast<Enemy*>(pOther)->setSlowDown(50);
 	enemiesCollidingWith.push_back(dynamic_cast<Enemy*>(pOther));
 }
 
 void HoneyProjectile::OnCollisionExit(GameObject * pOther)
 {
+	if (pOther == nullptr) return;
 	dynamic_cast<Enemy*>(pOther)->setSlowDown(0);
 	if (enemiesCollidingWith.size() != 0)
 		enemiesCollidingWith.erase(enemiesCollidingWith.begin());

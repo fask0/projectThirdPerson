@@ -18,7 +18,6 @@ IceTower::IceTower() : Tower("Ice Tower")
 IceTower::~IceTower()
 {
 	//dtor
-	Tower::~Tower();
 }
 
 void IceTower::update(float pStep)

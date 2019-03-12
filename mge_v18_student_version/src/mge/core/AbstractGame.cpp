@@ -167,7 +167,7 @@ void AbstractGame::run()
 	float timeSinceLastFPSCalculation = 0;
 
 	//settings to make sure the update loop runs at 60 fps
-	sf::Time timePerFrame = sf::seconds(1.0f / 240.0f);
+	sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
 	sf::Clock updateClock;
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 

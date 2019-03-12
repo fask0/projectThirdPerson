@@ -18,13 +18,11 @@ SniperTower::SniperTower() : Tower("Sniper Tower")
 SniperTower::~SniperTower()
 {
 	//dtor
-	Tower::~Tower();
 }
 
 void SniperTower::update(float pStep)
 {
 	//rayCast();
-
 	GameObject::update(pStep);
 }
 

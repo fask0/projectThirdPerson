@@ -164,6 +164,7 @@
     <ClCompile Include="..\src\mge\core\World.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\core\FridgeLevel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -330,6 +331,7 @@
     <ClInclude Include="..\src\mge\core\World.hpp">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\core\FridgeLevel.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Materials">

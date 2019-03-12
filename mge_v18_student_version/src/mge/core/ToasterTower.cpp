@@ -23,7 +23,6 @@ ToasterTower::~ToasterTower()
 	{
 		delete(primedProjectile);
 	}
-	Tower::~Tower();
 }
 
 void ToasterTower::update(float pStep)

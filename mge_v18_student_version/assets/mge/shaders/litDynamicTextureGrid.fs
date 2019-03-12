@@ -136,7 +136,7 @@ void main( void ) {
 	result += CalcDirLight(dirLight, Normal);
 
 	float shadow = ShadowCalculation(FragPosLightSpace);
-	result = result * (1.0f - shadow);
+	result = vec4(vec3(result * (1.0f - shadow)), result[3]);
 	fragment_color = result; 
 
 	//GRID

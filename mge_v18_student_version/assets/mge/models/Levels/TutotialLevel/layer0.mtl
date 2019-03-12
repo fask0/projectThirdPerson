@@ -2,18 +2,8 @@ newmtl Default-Material
 Kd 1 1 1
 illum 2
 
-newmtl Fan
+newmtl Background
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\BasLevel\Fan.png
-illum 2
-
-newmtl IceTower
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\BasLevel\IceTower.png
-illum 2
-
-newmtl lambert1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\BasLevel\FridgeTextures.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\bg.png
 illum 2
 

@@ -1,69 +1,55 @@
-newmtl Olives
+newmtl Plate3
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Olives.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Plate.png
 illum 2
 
-newmtl Toothpicks
+newmtl Butter1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Toothpicks.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Butter.png
 illum 2
 
-newmtl CheeseyBites
+newmtl Avocado1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\CheeseyBites.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Avocado.png
 illum 2
 
-newmtl BigO'Cheesy
+newmtl Fork1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\BigO'Cheesy.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\fork.png
 illum 2
 
-newmtl Flatcheese
+newmtl Cupcake1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Flatcheese.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\CupCake.png
 illum 2
 
-newmtl Lvl1Cheese
+newmtl Coaster1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Lvl1Cheese.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Coaster.png
 illum 2
 
-newmtl Cheese Cube
+newmtl Knife2
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Cheese Cube.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\knife.png
 illum 2
 
-newmtl Lvl1topcheese
+newmtl Lasagna1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Lvl1topcheese.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Lasagna.png
 illum 2
 
-newmtl Flag
+newmtl Cucumber1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Flag.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\Cucumber.png
 illum 2
 
-newmtl MouseTexture 20
+newmtl MayoGlass
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\MouseTexture.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\MayoGlass.png
 illum 2
 
-newmtl MouseTexture 19
+newmtl Table1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\MouseTexture.png
-illum 2
-
-newmtl Default-Material
-Kd 1 1 1
-illum 2
-
-newmtl Chair
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\ChairTextures.png
-illum 2
-
-newmtl PathTextureTest2
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\PathTextureTest2.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TableLevel\DinnerTableLevelTextures.png
 illum 2
 

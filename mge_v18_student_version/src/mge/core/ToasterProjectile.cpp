@@ -36,7 +36,6 @@ ToasterProjectile::ToasterProjectile(glm::mat4 pTransform) : GameObject("Toaster
 ToasterProjectile::~ToasterProjectile()
 {
 	//dtor
-	GameObject::~GameObject();
 }
 
 void ToasterProjectile::update(float pStep)

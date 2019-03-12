@@ -4,6 +4,7 @@
 #include "mge/core/World.hpp"
 #include "mge/core/Helper.hpp"
 #include "mge/core/HoneyProjectile.hpp"
+#include "mge/core/HoneyTower.hpp"
 
 HoneyTowerBehaviour::HoneyTowerBehaviour() : TowerBehaviour()
 {
@@ -45,7 +46,7 @@ void HoneyTowerBehaviour::Rotate()
 {
 	if (_enemiesInRange)
 	{
-		Helper::LookAt(_owner, _furthestEnemy);
+		Helper::LookAt(dynamic_cast<HoneyTower*>(_owner)->getMouse(), _furthestEnemy);
 	}
 }
 
@@ -56,7 +57,7 @@ void HoneyTowerBehaviour::Attack()
 		if (_enemiesInRange)
 		{
 			glm::vec3 diff = (_owner->getLocalPosition() - _furthestEnemy->getLocalPosition());
-			_projectile = new HoneyProjectile(_owner->getTransform(), glm::sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z));
+			_projectile = new HoneyProjectile(dynamic_cast<HoneyTower*>(_owner)->getMouse()->getTransform(), glm::sqrt(diff.x * diff.x + diff.y * diff.y + diff.z * diff.z));
 			GameController::CurrentLevel->add(_projectile);
 			_lastAttackTime = clock();
 		}

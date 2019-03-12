@@ -61,8 +61,6 @@ EnemySpawner::~EnemySpawner()
 	for (int i = 0; i < GameController::SpawnPoints.size(); ++i)
 		if (GameController::SpawnPoints[i] == this)
 			GameController::SpawnPoints.erase(GameController::SpawnPoints.begin() + i);
-
-	GameObject::~GameObject();
 }
 
 void EnemySpawner::update(float pStep)

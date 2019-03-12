@@ -38,17 +38,14 @@ Tower::Tower(std::string pName, glm::vec3 pPosition, float pRange, AbstractMater
 Tower::~Tower()
 {
 	//dtor
-	GameObject::~GameObject();
 }
 
 void Tower::OnCollisionEnter(GameObject* pOther)
 {
-	std::cout << "hit lel" << std::endl;
 }
 
 void Tower::OnCollisionExit(GameObject* pOther)
 {
-	std::cout << "stop lel" << std::endl;
 }
 
 bool Tower::SkipCollisionCheck()
@@ -89,5 +86,4 @@ int Tower::GetCost()
 
 void Tower::AddTowerBehaviour()
 {
-
 }

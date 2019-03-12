@@ -34,8 +34,6 @@ Enemy::~Enemy()
 	for (int i = 0; i < GameController::Enemies.size(); ++i)
 		if (GameController::Enemies[i] == this)
 			GameController::Enemies.erase(GameController::Enemies.begin() + i);
-
-	GameObject::~GameObject();
 }
 
 void Enemy::update(float pStep)

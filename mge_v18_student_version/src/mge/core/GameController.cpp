@@ -27,6 +27,7 @@
 #include "mge/core/Level.hpp"
 #include "mge/core/TableLevel.hpp"
 #include "mge/core/TutorialLevel.hpp"
+#include "mge/core/FridgeLevel.hpp"
 
 #include "mge/TowerDefenseScene.hpp"
 
@@ -233,6 +234,7 @@ void GameController::ReplayLevel()
 
 void GameController::SetUpLevels()
 {
+	FridgeLevel* l2 = new FridgeLevel("FridgeLevel", glm::vec3(0, 0, 0), 4);
 	TutorialLevel* l0 = new TutorialLevel("TutotialLevel", glm::vec3(0, 0, 0), 2);
 	TableLevel* l1 = new TableLevel("TableLevel", glm::vec3(0, 0, 0), 4);
 }
@@ -250,13 +252,21 @@ void GameController::SetTowerVariables()
 	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/ToasterTower");
 	ToasterTower::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "toaster.png"));
 	//Honey tower
-	HoneyTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTower");
+	HoneyTower::MainMesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTower");
+	HoneyTower::MouseMesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTowerMouse");
+	HoneyTower::MainMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "HoneyPot.png"));
+	HoneyTower::MouseMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "MouseTexture.png"));
 	//Shock tower
-	ShockTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/AoETower");
+	ShockTower::MainMesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/AoETower");
+	ShockTower::Animations.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/AoETowerAnimations0"));
+	ShockTower::Animations.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/AoETowerAnimations1"));
+	ShockTower::Animations.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/AoETowerAnimations2"));
+	ShockTower::Animations.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/AoETowerAnimations3"));
+	ShockTower::AnimationMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "AoEBattery.png"));
 	//Ice tower
 	IceTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/IceTower");
 	//Magnifying glass tower
-	MagnifyingGlassTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/IceTower");
+	MagnifyingGlassTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/MagnifyingGlassTower");
 	//Sniper tower
 	SniperTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/SniperTower");
 }

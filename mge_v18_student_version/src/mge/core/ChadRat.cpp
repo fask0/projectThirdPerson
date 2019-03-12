@@ -43,7 +43,6 @@ ChadRat::ChadRat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, s
 
 ChadRat::~ChadRat()
 {
-	Enemy::~Enemy();
 }
 
 void ChadRat::update(float pStep)

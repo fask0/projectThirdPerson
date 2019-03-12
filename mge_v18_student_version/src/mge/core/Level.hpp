@@ -35,4 +35,8 @@ class Level : public GameObject
 	std::vector<GameObject*> _layers;
 	int _layerAmount;
 	int _currentWave = 0;
+	float _minX;
+	float _maxX;
+	float _minZ;
+	float _maxZ;
 };

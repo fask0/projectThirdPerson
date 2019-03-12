@@ -1,10 +1,13 @@
 #ifndef HONEYTOWER_HPP
 #define HONEYTOWER_HPP
 
+#include <iostream>
+#include <vector>
 #include <string>
 
 #include "mge/core/Tower.hpp"
 #include "mge/core/Mesh.hpp"
+#include "mge/core/GameObject.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 
@@ -15,20 +18,25 @@
  */
 class HoneyTower : public Tower
 {
-public:
+	public:
 	HoneyTower();
 	virtual ~HoneyTower();
 
 	void update(float pStep) override;
 
-	static Mesh* Mesh;
-	static AbstractMaterial* Material;
+	static Mesh* MainMesh;
+	static Mesh* MouseMesh;
+	static AbstractMaterial* MainMaterial;
+	static AbstractMaterial* MouseMaterial;
 
+	GameObject* getMouse() { return _mouse; }
 	void AddTowerBehaviour() override;
 
-private:
+	private:
 	HoneyTower(const HoneyTower&);
 	HoneyTower& operator= (const HoneyTower&);
+	GameObject* _mouse = nullptr;
+	bool _isMouseInit = false;
 };
 
 #endif // CAMERA_HPP

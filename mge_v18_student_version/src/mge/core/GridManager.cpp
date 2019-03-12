@@ -127,11 +127,11 @@ void GridManager::SpecificTowerSelection(sf::Event pEvent)
 		_tower = new ToasterTower();
 		break;
 		case sf::Keyboard::Key::Num2:
-		towerMesh = HoneyTower::Mesh;
+		towerMesh = HoneyTower::MainMesh;
 		_tower = new HoneyTower();
 		break;
 		case sf::Keyboard::Key::Num3:
-		towerMesh = ShockTower::Mesh;
+		towerMesh = ShockTower::MainMesh;
 		_tower = new ShockTower();
 		break;
 		case sf::Keyboard::Key::Num4:

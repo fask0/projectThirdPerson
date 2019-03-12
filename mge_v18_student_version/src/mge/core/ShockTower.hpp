@@ -1,10 +1,14 @@
 #ifndef SHOCKTOWER_HPP
 #define SHOCKTOWER_HPP
 
+#include <iostream>
+#include <vector>
 #include <string>
+#include <time.h>
 
 #include "mge/core/Tower.hpp"
 #include "mge/core/Mesh.hpp"
+#include "mge/core/GameObject.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
 
@@ -15,20 +19,25 @@
  */
 class ShockTower : public Tower
 {
-public:
+	public:
 	ShockTower();
 	virtual ~ShockTower();
 
 	void update(float pStep) override;
 
-	static Mesh* Mesh;
-	static AbstractMaterial* Material;
+	static Mesh* MainMesh;
+	static std::vector<Mesh*> Animations;
+	static AbstractMaterial* AnimationMaterial;
 
 	void AddTowerBehaviour() override;
 
-private:
+	private:
 	ShockTower(const ShockTower&);
 	ShockTower& operator= (const ShockTower&);
+
+	GameObject* _aoeModel = nullptr;
+	int _currentFrame = 0;
+	time_t _timer = 0;
 };
 
 #endif // CAMERA_HPP

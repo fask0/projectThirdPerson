@@ -63,30 +63,30 @@ void CameraMovementBehaviour::CalcLockVars()
 void CameraMovementBehaviour::Move(float pStep)
 {
 	float movementSpeed;
-	float diffVar = (_maxMovementSpeed - _minMovementSpeed) / (_windowSize.x / 4);
+	float diffVar = (_maxMovementSpeed - _minMovementSpeed) / (_windowSize.x * 0.2f);
 
 	//Move camera
-	if (_relativeMousePos.x < -(_windowSize.x / 4))
+	if (_relativeMousePos.x < -(_windowSize.x * 0.48f))
 	{
-		movementSpeed = _relativeMousePos.x + (_windowSize.x / 4);
+		movementSpeed = _relativeMousePos.x + (_windowSize.x * 0.2f);
 		movementSpeed = -movementSpeed * diffVar;
 		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x - pStep * movementSpeed, _owner->getLocalPosition().y, _owner->getLocalPosition().z));
 	}
-	if (_relativeMousePos.x > _windowSize.x / 4)
+	if (_relativeMousePos.x > _windowSize.x * 0.48f)
 	{
-		movementSpeed = _relativeMousePos.x - (_windowSize.x / 4);
+		movementSpeed = _relativeMousePos.x - (_windowSize.x * 0.2f);
 		movementSpeed = movementSpeed * diffVar;
 		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x + pStep * movementSpeed, _owner->getLocalPosition().y, _owner->getLocalPosition().z));
 	}
-	if (_relativeMousePos.y < -(_windowSize.y / 4))
+	if (_relativeMousePos.y < -(_windowSize.y * 0.465f))
 	{
-		movementSpeed = _relativeMousePos.y + (_windowSize.y / 4);
+		movementSpeed = _relativeMousePos.y + (_windowSize.y * 0.2f);
 		movementSpeed = -movementSpeed * diffVar;
 		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x, _owner->getLocalPosition().y, _owner->getLocalPosition().z + pStep * movementSpeed));
 	}
-	if (_relativeMousePos.y > _windowSize.y / 4)
+	if (_relativeMousePos.y > _windowSize.y * 0.465f)
 	{
-		movementSpeed = _relativeMousePos.y - (_windowSize.y / 4);
+		movementSpeed = _relativeMousePos.y - (_windowSize.y * 0.2f);
 		movementSpeed = movementSpeed * diffVar;
 		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x, _owner->getLocalPosition().y, _owner->getLocalPosition().z - pStep * movementSpeed));
 	}
@@ -95,7 +95,7 @@ void CameraMovementBehaviour::Move(float pStep)
 	_owner->setLocalPosition(glm::clamp(_owner->getLocalPosition(), glm::vec3(_camMinX, _minHeight, _camMaxZ), glm::vec3(_camMaxX, _maxHeight, _camMinZ)));
 	if (_camMaxX < _camMinX)
 	{
-		float middleX = _xMaxLockPos - ((glm::abs(_xMinLockPos) + glm::abs(_xMaxLockPos)) / 2);
+		float middleX = _xMaxLockPos - ((glm::abs(_xMinLockPos) + glm::abs(_xMaxLockPos)) * 0.5f);
 		_owner->setLocalPosition(glm::vec3(middleX, _owner->getLocalPosition().y, _owner->getLocalPosition().z));
 	}
 }
@@ -119,4 +119,12 @@ void CameraMovementBehaviour::Scroll(sf::Event pEvent)
 			}
 		}
 	}
+}
+
+void CameraMovementBehaviour::SetBounds(float pXmin, float pXmax, float pZmin, float pZmax)
+{
+	_xMinLockPos = pXmin;
+	_xMaxLockPos = pXmax;
+	_zMinLockPos = pZmin;
+	_zMaxLockPos = pZmax;
 }
