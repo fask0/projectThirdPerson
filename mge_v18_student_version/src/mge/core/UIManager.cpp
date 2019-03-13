@@ -38,19 +38,6 @@ void UIManager::AddText(sf::Text* pText)
 
 void UIManager::Draw()
 {
-	//Sprites
-	if (_sprites.size() > 0)
-	{
-		//glDisable( GL_CULL_FACE );
-		glActiveTexture(GL_TEXTURE0);
-		_window->pushGLStates();
-		for (int i = 0; i < _sprites.size(); i++)
-		{
-			_sprites[i]->setTexture(*_sprites[i]->Texture);
-			_window->draw(*_sprites[i]);
-		}
-		_window->popGLStates();
-	}
 	//Text
 	if (_texts.size() > 0)
 	{
@@ -66,5 +53,29 @@ void UIManager::Draw()
 			_window->draw(text);
 			_window->popGLStates();
 		}
+	}
+	//Sprites
+	if (_sprites.size() > 0)
+	{
+		//glDisable( GL_CULL_FACE );
+		glActiveTexture(GL_TEXTURE0);
+		_window->pushGLStates();
+		for (int i = 0; i < _sprites.size(); i++)
+		{
+			if (_sprites[i]->Texture != nullptr)
+			{
+				_sprites[i]->setTexture(*_sprites[i]->Texture);
+				_window->draw(*_sprites[i]);
+			}
+			for (int j = 0; j < _sprites[i]->getChildCount(); j++)
+			{
+				if (dynamic_cast<AdvancedSprite*>(_sprites[i]->getChildAt(j)))
+				{
+					dynamic_cast<AdvancedSprite*>(_sprites[i]->getChildAt(j))->setTexture(*dynamic_cast<AdvancedSprite*>(_sprites[i]->getChildAt(j))->Texture);
+					_window->draw(*dynamic_cast<AdvancedSprite*>(_sprites[i]->getChildAt(j)));
+				}
+			}
+		}
+		_window->popGLStates();
 	}
 }

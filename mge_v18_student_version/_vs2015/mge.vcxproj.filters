@@ -179,6 +179,10 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\core\AudioManager.cpp" />
     <ClCompile Include="..\src\mge\core\SoundEffects.cpp" />
+    <ClCompile Include="..\src\mge\core\MenuManager.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\MenuButtonBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -360,6 +364,10 @@
     </ClInclude>
     <ClInclude Include="..\src\mge\core\AudioManager.hpp" />
     <ClInclude Include="..\src\mge\core\SoundEffects.hpp" />
+    <ClInclude Include="..\src\mge\core\MenuManager.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\MenuButtonBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Materials">

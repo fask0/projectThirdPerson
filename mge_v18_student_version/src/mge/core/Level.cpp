@@ -43,8 +43,6 @@ void Level::Init()
 	GameController::MainCamera->setLocalPosition(glm::vec3(0, 35, 0));
 	GameController::CameraBehaviour->SetBounds(_minX, _maxX, _minZ, _maxZ);
 
-	inintialize2Dobjects();
-
 	for (int i = 0; i < _layerAmount; ++i)
 	{
 		GameObject* o = new GameObject("layer" + std::to_string(i), glm::vec3(0, 0, 0));
@@ -88,15 +86,15 @@ void Level::Init()
 	GridManager* gridManager = new GridManager(GameController::GridObjects, GameController::Window, this);
 	this->add(gridManager);
 	GameController::TowerDefenseScene->SetGridManager(gridManager);
+	inintialize2Dobjects();
 }
 
 void Level::reset()
 {
-	while (_children.size() > 0)
+	for (int i = 0; i < _children.size(); i++)
 	{
-		GameObject* child = _children[0];
-		remove(child);
-		delete child;
+		GameObject* child = _children[i];
+		child->Kill();
 	}
 	_parent->remove(this);
 	CollisionManager::projectileCollisions.clear();

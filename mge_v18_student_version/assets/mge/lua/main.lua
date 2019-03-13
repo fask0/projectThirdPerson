@@ -84,16 +84,16 @@ SniperDamage = 150;
 --EffectRecoverySpeed   --The time it takes to recover from slow down/kockback effects
 ---------------------------------------------------------------------------------------
 --Rat
-RatSize = 1;            
-RatHealth = 100;         
+RatSize = 1;
+RatHealth = 100;
 RatHealthRegen = 0;
 RatDamage = 5;
 RatSpeed = 2;
 RatKillValue = 3;
 RatEffectRecoverySpeed = 2;
 --Chad
-ChadSize = 3;            
-ChadHealth = 300;         
+ChadSize = 3;
+ChadHealth = 300;
 ChadHealthRegen = 0;
 ChadDamage = 5;
 ChadSpeed = 1;
@@ -101,7 +101,7 @@ ChadKillValue = 3;
 ChadEffectRecoverySpeed = 2;
 --Sanic
 SanicSize = 2;
-SanicHealth = 75;         
+SanicHealth = 75;
 SanicHealthRegen = 0;
 SanicDamage = 5;
 SanicSpeed = 4;

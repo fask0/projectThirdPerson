@@ -128,27 +128,27 @@ void GridManager::SpecificTowerSelection(sf::Event pEvent)
 
 	switch (pEvent.key.code)
 	{
-		case sf::Keyboard::Key::Num1:
+	case sf::Keyboard::Key::Num1:
 		towerMesh = ToasterTower::Mesh;
 		_tower = new ToasterTower();
 		break;
-		case sf::Keyboard::Key::Num2:
+	case sf::Keyboard::Key::Num2:
 		towerMesh = HoneyTower::MainMesh;
 		_tower = new HoneyTower();
 		break;
-		case sf::Keyboard::Key::Num3:
+	case sf::Keyboard::Key::Num3:
 		towerMesh = ShockTower::MainMesh;
 		_tower = new ShockTower();
 		break;
-		case sf::Keyboard::Key::Num4:
+	case sf::Keyboard::Key::Num4:
 		towerMesh = IceTower::Mesh;
 		_tower = new IceTower();
 		break;
-		case sf::Keyboard::Key::Num5:
+	case sf::Keyboard::Key::Num5:
 		towerMesh = MagnifyingGlassTower::Mesh;
 		_tower = new MagnifyingGlassTower();
 		break;
-		case sf::Keyboard::Key::Num6:
+	case sf::Keyboard::Key::Num6:
 		towerMesh = SniperTower::Mesh;
 		_tower = new SniperTower();
 		break;
@@ -200,7 +200,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 
 		switch (pEvent.key.code)
 		{
-			case sf::Keyboard::Key::Escape:
+		case sf::Keyboard::Key::Escape:
 			if (_tower != nullptr)
 			{
 				_level->remove(_tower);
@@ -217,7 +217,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 				}
 			}
 			break;
-			case sf::Keyboard::Key::R:
+		case sf::Keyboard::Key::R:
 			if (_tower != nullptr)
 				_tower->Rotate90();
 			break;
@@ -269,7 +269,7 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 {
 	switch (pEvent.key.code)
 	{
-		case sf::Keyboard::Key::Escape:
+	case sf::Keyboard::Key::Escape:
 		if (_selectedTower != nullptr)
 		{
 			if (_gridObjects.size() > 0)
@@ -280,7 +280,7 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 			_selectedTower = nullptr;
 		}
 		break;
-		case sf::Keyboard::Key::S:
+	case sf::Keyboard::Key::S:
 		if (_selectedTower != nullptr)
 		{
 			_currentMoney += _selectedTower->GetCost();
@@ -314,6 +314,16 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->SetTowerPos(_selectedTower->getLocalPosition());
 			}
 		}
+		else
+		{
+			if (_selectedTower != nullptr)
+				_selectedTower->ResetMaterial();
+
+			if (_gridObjects.size() > 0)
+			{
+				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
+			}
+		}
 	}
 }
 
@@ -342,17 +352,17 @@ void GridManager::GridControls(sf::Event pEvent)
 	{
 		switch (pEvent.type)
 		{
-			case sf::Event::KeyPressed:
+		case sf::Event::KeyPressed:
 			switch (pEvent.key.code)
 			{
-				case sf::Keyboard::Key::G:
+			case sf::Keyboard::Key::G:
 				if (_gridObjects.size() > 0)
 				{
 					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->toggleGrid();
 					std::cout << "Toggled Grid" << std::endl;
 				}
 				break;
-				case sf::Keyboard::Key::O:
+			case sf::Keyboard::Key::O:
 				if (_gridObjects.size() > 0)
 				{
 					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -360,7 +370,7 @@ void GridManager::GridControls(sf::Event pEvent)
 					std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
 				}
 				break;
-				case sf::Keyboard::Key::P:
+			case sf::Keyboard::Key::P:
 				if (_gridObjects.size() > 0)
 				{
 					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -368,7 +378,7 @@ void GridManager::GridControls(sf::Event pEvent)
 					std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
 				}
 				break;
-				case sf::Keyboard::Key::K:
+			case sf::Keyboard::Key::K:
 				if (_gridObjects.size() > 0)
 				{
 					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -376,7 +386,7 @@ void GridManager::GridControls(sf::Event pEvent)
 					std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
 				}
 				break;
-				case sf::Keyboard::Key::L:
+			case sf::Keyboard::Key::L:
 				if (_gridObjects.size() > 0)
 				{
 					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -417,27 +427,27 @@ void GridManager::SelectTower(int pTowerNumber)
 
 		switch (pTowerNumber)
 		{
-			case 1:
+		case 1:
 			towerMesh = ToasterTower::Mesh;
 			_tower = new ToasterTower();
 			break;
-			case 2:
+		case 2:
 			towerMesh = HoneyTower::MainMesh;
 			_tower = new HoneyTower();
 			break;
-			case 3:
+		case 3:
 			towerMesh = ShockTower::MainMesh;
 			_tower = new ShockTower();
 			break;
-			case 4:
+		case 4:
 			towerMesh = IceTower::Mesh;
 			_tower = new IceTower();
 			break;
-			case 5:
+		case 5:
 			towerMesh = MagnifyingGlassTower::Mesh;
 			_tower = new MagnifyingGlassTower();
 			break;
-			case 6:
+		case 6:
 			towerMesh = SniperTower::Mesh;
 			_tower = new SniperTower();
 			break;

@@ -8,11 +8,12 @@
 class AdvancedSprite : public sf::Sprite, public GameObject
 {
 public:
+	AdvancedSprite();
 	AdvancedSprite(sf::Texture* pTexture);
 	~AdvancedSprite();
 
 	sf::Texture* StartTexture;
-	sf::Texture* Texture;
+	sf::Texture* Texture = nullptr;
 
 	bool IsBeingHoveredOver;
 

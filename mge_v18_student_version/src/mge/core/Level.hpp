@@ -29,6 +29,8 @@ public:
 	void setWave(int pWave) { _currentWave = pWave; }
 	int getWave() { return _currentWave; };
 
+	void DeleteNextUpdate();
+
 protected:
 	std::vector<EnemySpawner*> _enemySpawnPoints;
 	std::vector<Waypoint*> _waypoints;

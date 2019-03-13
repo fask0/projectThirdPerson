@@ -183,6 +183,7 @@
     <ClInclude Include="..\src\mge\behaviours\IceProjectileBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\IceTowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\MagnifyingGlassTowerBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\MenuButtonBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\MenuOnHoverBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\ShockTowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\SniperTowerBehaviour.hpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="..\src\mge\core\Level.hpp" />
     <ClInclude Include="..\src\mge\core\Light.hpp" />
     <ClInclude Include="..\src\mge\core\MagnifyingGlassTower.hpp" />
+    <ClInclude Include="..\src\mge\core\MenuManager.hpp" />
     <ClInclude Include="..\src\mge\core\Mesh.hpp" />
     <ClInclude Include="..\src\mge\core\Rat.hpp" />
     <ClInclude Include="..\src\mge\core\Renderer.hpp" />
@@ -256,6 +258,7 @@
     <ClCompile Include="..\src\mge\behaviours\IceProjectileBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\IceTowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\MagnifyingGlassTowerBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\MenuButtonBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\MenuOnHoverBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\ShockTowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\SniperTowerBehaviour.cpp" />
@@ -286,6 +289,7 @@
     <ClCompile Include="..\src\mge\core\Level.cpp" />
     <ClCompile Include="..\src\mge\core\Light.cpp" />
     <ClCompile Include="..\src\mge\core\MagnifyingGlassTower.cpp" />
+    <ClCompile Include="..\src\mge\core\MenuManager.cpp" />
     <ClCompile Include="..\src\mge\core\Mesh.cpp" />
     <ClCompile Include="..\src\mge\core\Rat.cpp" />
     <ClCompile Include="..\src\mge\core\Renderer.cpp" />

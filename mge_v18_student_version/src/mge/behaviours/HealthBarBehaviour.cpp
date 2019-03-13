@@ -27,6 +27,5 @@ void HealthBarBehaviour::update(float pstep)
 	if (stage < 9)
 	{
 		dynamic_cast<AdvancedSprite*>(_owner)->Texture = _healthBarStages[stage];
-		dynamic_cast<AdvancedSprite*>(_owner)->setPosition(GameController::Window->getSize().x - _healthBarStages[stage]->getSize().x - 64, dynamic_cast<AdvancedSprite*>(_owner)->getPosition().y);
 	}
 }
