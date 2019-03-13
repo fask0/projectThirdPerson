@@ -18,6 +18,10 @@
 #include "mge/behaviours/FollowMouseOnGridBehaviour.hpp"
 #include "glm.hpp"
 #include "GameController.hpp"
+#include "mge/core/AdvancedSprite.hpp"
+#include "mge/behaviours/MenuOnHoverBehaviour.hpp"
+#include "mge/behaviours/SwitchSpriteOnHoverBehaviour.hpp"
+#include "mge/behaviours/SellTowerBehaviour.hpp"
 
 #include "mge/core/ToasterTower.hpp"
 #include "mge/core/HoneyTower.hpp"
@@ -40,6 +44,8 @@ GridManager::GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow
 	selectedMaterial->SetMixIntensity(0.5f);
 	_currentMoney = GameController::StartingMoney;
 	GameController::GridManager = this;
+
+	InitializeUIElements();
 }
 
 GridManager::~GridManager()
@@ -278,6 +284,8 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 			}
 			_selectedTower->ResetMaterial();
 			_selectedTower = nullptr;
+
+			HideSelectedTowerUIElements();
 		}
 		break;
 	case sf::Keyboard::Key::S:
@@ -298,6 +306,7 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 			dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
 			_selectedTower->ResetMaterial();
 			_selectedTower = nullptr;
+			HideSelectedTowerUIElements();
 		}
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
@@ -313,6 +322,8 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(true);
 				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->SetTowerPos(_selectedTower->getLocalPosition());
 			}
+
+			ShowSelectedTowerUIElements();
 		}
 		else
 		{
@@ -323,6 +334,8 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 			{
 				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
 			}
+
+			HideSelectedTowerUIElements();
 		}
 	}
 }
@@ -471,4 +484,60 @@ void GridManager::PauseTowerPlacement()
 {
 	_startPauseTime = clock();
 	_canPlaceTower = false;
+}
+
+void GridManager::InitializeUIElements()
+{
+	sf::Texture* sellButtonTex = new sf::Texture();
+	sellButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "SellButton.png");
+
+	sf::Texture* sellButtonSelTex = new sf::Texture();
+	sellButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "SellButton_sel.png");
+
+	_sellButton = new AdvancedSprite(sellButtonTex);
+
+	_sellButton->setPosition(sf::Vector2f(GameController::WindowWidth - 64 - sellButtonTex->getSize().x, GameController::WindowHeight - sellButtonTex->getSize().y / 2 - 256));
+	_sellButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(sellButtonSelTex));
+	_sellButton->addBehaviour(new SellTowerBehaviour());
+}
+
+void GridManager::ShowSelectedTowerUIElements()
+{
+	_world->_children.insert(_world->_children.begin(), _sellButton);
+	GameController::UIManager->AddSprite(_sellButton);
+}
+
+void GridManager::HideSelectedTowerUIElements()
+{
+	_world->remove(_sellButton);
+	for (int i = 0; i < GameController::UIManager->_sprites.size(); i++)
+	{
+		if (GameController::UIManager->_sprites[i] == _sellButton)
+		{
+			GameController::UIManager->_sprites.erase(GameController::UIManager->_sprites.begin() + i);
+			i--;
+		}
+	}
+}
+
+void GridManager::SellSelectedTower()
+{
+	if (_selectedTower != nullptr)
+	{
+		_currentMoney += _selectedTower->GetCost();
+		for (int i = 0; i < _placedTowers.size(); i++)
+		{
+			if (_placedTowers[i] == _selectedTower)
+			{
+				if (dynamic_cast<ToasterTower*>(_placedTowers[i]))
+					dynamic_cast<ToasterTower*>(_placedTowers[i]);
+				_placedTowers[i]->Kill();
+				_placedTowers.erase(_placedTowers.begin() + i);
+				break;
+			}
+		}
+		dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
+		_selectedTower->ResetMaterial();
+		_selectedTower = nullptr;
+	}
 }

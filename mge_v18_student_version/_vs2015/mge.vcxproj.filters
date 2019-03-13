@@ -183,6 +183,9 @@
     <ClCompile Include="..\src\mge\behaviours\MenuButtonBehaviour.cpp">
       <Filter>Behaviours\2DBehaviours</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\SellTowerBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -366,6 +369,9 @@
     <ClInclude Include="..\src\mge\core\SoundEffects.hpp" />
     <ClInclude Include="..\src\mge\core\MenuManager.hpp" />
     <ClInclude Include="..\src\mge\behaviours\MenuButtonBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\SellTowerBehaviour.hpp">
       <Filter>Behaviours\2DBehaviours</Filter>
     </ClInclude>
   </ItemGroup>

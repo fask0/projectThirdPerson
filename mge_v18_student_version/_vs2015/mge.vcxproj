@@ -185,6 +185,7 @@
     <ClInclude Include="..\src\mge\behaviours\MagnifyingGlassTowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\MenuButtonBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\MenuOnHoverBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\SellTowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\ShockTowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\SniperTowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\SwitchSpriteOnHoverBehaviour.hpp" />
@@ -260,6 +261,7 @@
     <ClCompile Include="..\src\mge\behaviours\MagnifyingGlassTowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\MenuButtonBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\MenuOnHoverBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\SellTowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\ShockTowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\SniperTowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\SwitchSpriteOnHoverBehaviour.cpp" />

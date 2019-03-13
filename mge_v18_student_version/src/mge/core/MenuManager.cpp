@@ -288,12 +288,12 @@ void MenuManager::initPauseScreen()
 	sf::Texture* backButtonTex = new sf::Texture();
 	backButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/back.png");
 	sf::Texture* resumeButtonTex = new sf::Texture();
-	resumeButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level1.png");
+	resumeButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/resume.png");
 	//Selected button textures
 	sf::Texture* backButtonSelTex = new sf::Texture();
 	backButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/back_sel.png");
 	sf::Texture* resumeButtonSelTex = new sf::Texture();
-	resumeButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level2.png");
+	resumeButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/resume_sel.png");
 
 	//----------------//
 	// Create Sprites //
