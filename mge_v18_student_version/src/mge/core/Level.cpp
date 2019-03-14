@@ -206,7 +206,8 @@ void Level::inintialize2Dobjects()
 	waveText->setString("0 / 15");
 	waveText->setFillColor(sf::Color(48, 52, 55, 255));
 	waveText->setFont(font);
-	waveText->setPosition(GameController::Window->getSize().x / 2 - waveText->getGlobalBounds().width / 2, 32);
+	waveText->setCharacterSize(55);
+	waveText->setPosition(GameController::Window->getSize().x / 2 - waveText->getGlobalBounds().width / 2, 16);
 
 	//------------//
 	// Health Bar //
