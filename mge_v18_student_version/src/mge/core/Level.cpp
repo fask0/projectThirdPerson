@@ -433,3 +433,8 @@ void Level::updateNextWaveButton()
 		}
 	}
 }
+
+glm::vec4 Level::GetBounds()
+{
+	return glm::vec4(_minX + 5, _maxX - 5, _minZ + 5, _maxZ - 5);
+}

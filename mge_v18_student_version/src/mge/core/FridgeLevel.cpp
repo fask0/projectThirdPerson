@@ -12,7 +12,7 @@ FridgeLevel::FridgeLevel(std::string pName, glm::vec3 pPosition, int pLayers)
 	_minX = -25;
 	_maxX = 25;
 	_minZ = -24;
-	_maxZ = 25;
+	_maxZ = 23;
 }
 
 FridgeLevel::~FridgeLevel()

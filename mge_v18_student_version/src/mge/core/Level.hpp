@@ -15,10 +15,10 @@
 
 class Level : public GameObject
 {
-	public:
+public:
 	Level(std::string pName = "Level",
-		  glm::vec3 pPosition = glm::vec3(0, 0, 0),
-		  int pLayers = 0);
+		glm::vec3 pPosition = glm::vec3(0, 0, 0),
+		int pLayers = 0);
 	~Level();
 	virtual void update(float pStep) override;
 
@@ -31,8 +31,9 @@ class Level : public GameObject
 
 	void setWave(int pWave) { _currentWave = pWave; }
 	int getWave() { return _currentWave; };
+	glm::vec4 GetBounds();
 
-	protected:
+protected:
 	std::vector<EnemySpawner*> _enemySpawnPoints;
 	std::vector<Waypoint*> _waypoints;
 	std::vector<GameObject*> _layers;
