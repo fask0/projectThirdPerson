@@ -12,8 +12,12 @@
 #include "mge/core/Rat.hpp"
 #include "mge/core/ChadRat.hpp"
 #include "mge/core/SanicRat.hpp"
+#include "SFML/Graphics.hpp"
 
 #include "mge/behaviours/CollisionBehaviour.hpp"
+#include "mge/behaviours/SwitchSpriteOnHoverBehaviour.hpp"
+
+#include "mge/config.hpp"
 
 EnemySpawner::EnemySpawner(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane)
 	: GameObject(pName, pPosition), _lane(pLane)
@@ -24,28 +28,28 @@ EnemySpawner::EnemySpawner(std::string pName, glm::vec3 pPosition, Waypoint::Lan
 
 	switch (pLane)
 	{
-		case Waypoint::A:
+	case Waypoint::A:
 		_baseSize = GameController::LaneOneBaseSize;
 		_enemyGrowth = GameController::LaneOneSizeGrowthFrequency;
 		_enemyScaling = GameController::LaneOneEnemyScalingPercentage;
 		_delayBetweenEnemies = GameController::LaneOneDelayBetweenEnemies;
 		break;
 
-		case Waypoint::B:
+	case Waypoint::B:
 		_baseSize = GameController::LaneTwoBaseSize;
 		_enemyGrowth = GameController::LaneTwoSizeGrowthFrequency;
 		_enemyScaling = GameController::LaneTwoEnemyScalingPercentage;
 		_delayBetweenEnemies = GameController::LaneTwoDelayBetweenEnemies;
 		break;
 
-		case Waypoint::C:
+	case Waypoint::C:
 		_baseSize = GameController::LaneThreeBaseSize;
 		_enemyGrowth = GameController::LaneThreeSizeGrowthFrequency;
 		_enemyScaling = GameController::LaneThreeEnemyScalingPercentage;
 		_delayBetweenEnemies = GameController::LaneThreeDelayBetweenEnemies;
 		break;
 
-		case Waypoint::D:
+	case Waypoint::D:
 		_baseSize = GameController::LaneFourBaseSize;
 		_enemyGrowth = GameController::LaneFourSizeGrowthFrequency;
 		_enemyScaling = GameController::LaneFourEnemyScalingPercentage;
@@ -67,6 +71,15 @@ void EnemySpawner::update(float pStep)
 {
 	GameObject::update(pStep);
 
+	if (_currentWave > 14 && GameController::Enemies.size() == 0 && !_waveHasStarted)
+	{
+		if (!GameController::MenuManager->GetWinScreenBeingDisplayed())
+		{
+			GameController::MenuManager->CreateMenu(MenuManager::Menu::WinMenu);
+			_currentWave = 0;
+		}
+		return;
+	}
 	if (!_waveHasStarted) return;
 	if (_currentEnemiesInLane < _size && clock() >= (_lastSpawnTime + _delayBetweenEnemies * CLOCKS_PER_SEC))
 	{
@@ -74,18 +87,18 @@ void EnemySpawner::update(float pStep)
 		int selectEnemy = std::rand() % 3 + 1;
 		switch (selectEnemy)
 		{
-			case 1:
+		case 1:
 			enemy = new Rat("Rat", getLocalPosition(), _lane);
 			break;
 
-			case 2:
+		case 2:
 			if (_currentEnemiesInLane + GameController::SanicSize <= _size)
 				enemy = new SanicRat("SanicRat", getLocalPosition(), _lane);
 			else
 				enemy = new Rat("Rat", getLocalPosition(), _lane);
 			break;
 
-			case 3:
+		case 3:
 			if (_currentEnemiesInLane + GameController::ChadSize <= _size)
 				enemy = new ChadRat("ChadRat", getLocalPosition(), _lane);
 			else if (_currentEnemiesInLane + GameController::SanicSize <= _size)

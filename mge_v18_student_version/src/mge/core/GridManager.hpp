@@ -12,6 +12,7 @@
 #include "mge/materials/TextureGridMaterial.hpp"
 #include "mge/materials/LitTextureGridMaterial.hpp"
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
+#include "mge/core/AdvancedSprite.hpp"
 #include <time.h>
 
 /**
@@ -33,6 +34,7 @@ public:
 
 	void PauseTowerPlacement();
 	void SelectTower(int pTowerNumber);
+	void SellSelectedTower();
 
 private:
 	std::vector<GameObject*> _gridObjects;
@@ -54,6 +56,12 @@ private:
 	void TowerSelectionControls(sf::Event pEvent);
 	void ResetMouseOverAndSelected();
 	void ResetAllTowerMaterials();
+
+	void InitializeUIElements();
+	void ShowSelectedTowerUIElements();
+	void HideSelectedTowerUIElements();
+
+	AdvancedSprite* _sellButton;
 
 	GridManager(const GridManager&);
 	GridManager& operator= (const GridManager&);

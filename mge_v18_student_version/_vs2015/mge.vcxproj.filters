@@ -179,11 +179,23 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\core\AudioManager.cpp" />
     <ClCompile Include="..\src\mge\core\SoundEffects.cpp" />
+<<<<<<< HEAD
     <ClCompile Include="..\src\mge\core\CupboardLevel.cpp" />
     <ClCompile Include="..\src\mge\core\LevelOne.cpp" />
     <ClCompile Include="..\src\mge\core\LevelTwo.cpp" />
     <ClCompile Include="..\src\mge\core\SniperTowerProjectile.cpp">
       <Filter>Towers\Projectiles</Filter>
+=======
+    <ClCompile Include="..\src\mge\core\MenuManager.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\MenuButtonBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\SellTowerBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\NextWaveButtonBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+>>>>>>> b43cc4d390f0f8504d73e11ecfad1fb646bfa4ee
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -366,11 +378,23 @@
     </ClInclude>
     <ClInclude Include="..\src\mge\core\AudioManager.hpp" />
     <ClInclude Include="..\src\mge\core\SoundEffects.hpp" />
+<<<<<<< HEAD
     <ClInclude Include="..\src\mge\core\CupboardLevel.hpp" />
     <ClInclude Include="..\src\mge\core\LevelOne.hpp" />
     <ClInclude Include="..\src\mge\core\LevelTwo.hpp" />
     <ClInclude Include="..\src\mge\core\SniperTowerProjectile.hpp">
       <Filter>Towers\Projectiles</Filter>
+=======
+    <ClInclude Include="..\src\mge\core\MenuManager.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\MenuButtonBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\SellTowerBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\NextWaveButtonBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+>>>>>>> b43cc4d390f0f8504d73e11ecfad1fb646bfa4ee
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

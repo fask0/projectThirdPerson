@@ -61,7 +61,8 @@ World* GameController::World;
 sf::RenderWindow* GameController::Window;
 UIManager* GameController::UIManager;
 GridManager* GameController::GridManager;
-Level* GameController::CurrentLevel;
+MenuManager* GameController::MenuManager;
+Level* GameController::CurrentLevel = nullptr;
 GameObject* GameController::MainPlane;
 LitDynamicTextureGridMaterial* GameController::MainPlaneMaterial;
 
@@ -184,8 +185,11 @@ void GameController::Init()
 
 void GameController::LoadLevel(int pLevel)
 {
-	CurrentLevel->reset();
-	CurrentLevel = nullptr;
+	if (CurrentLevel != nullptr)
+	{
+		CurrentLevel->reset();
+		CurrentLevel = nullptr;
+	}
 	if (pLevel >= Levels.size())
 	{
 		//Load win level/screen

@@ -9,7 +9,7 @@ LitTextureMaterial* SniperTowerProjectile::Material;
 SniperTowerProjectile::SniperTowerProjectile(glm::vec3 pPosition, GameObject * pTarget)
 	: GameObject("SniperTowerProjectile", pPosition)
 {
-	_speed = 70;
+	_speed = 100;
 	setMesh(Mesh);
 	setMaterial(Material);
 	_targetPos = new GameObject("pos", pTarget->getLocalPosition());
@@ -25,12 +25,12 @@ SniperTowerProjectile::~SniperTowerProjectile()
 void SniperTowerProjectile::update(float pStep)
 {
 	_dist = _targetPos->getLocalPosition() - getLocalPosition();
+	setLocalPosition(getLocalPosition() + _dir * pStep * _speed);
 	if (glm::abs(_dist.x) <= pStep * _speed &&
 		glm::abs(_dist.z) <= pStep * _speed)
 	{
 		Kill();
 	}
-	setLocalPosition(getLocalPosition() + _dir * pStep * _speed);
 
 	GameObject::update(pStep);
 }

@@ -68,6 +68,7 @@ Enemy::~Enemy()
 
 void Enemy::update(float pStep)
 {
+	distanceValue += getSpeed();
 	GameObject::update(pStep);
 	//Healthbar stuff
 	//_healthBar->setTransform(glm::inverse(glm::lookAt(_healthBar->getLocalPosition(), GameController::MainCamera->getLocalPosition(), glm::vec3(0, 1, 0))));

@@ -18,6 +18,10 @@
 #include "mge/behaviours/FollowMouseOnGridBehaviour.hpp"
 #include "glm.hpp"
 #include "GameController.hpp"
+#include "mge/core/AdvancedSprite.hpp"
+#include "mge/behaviours/MenuOnHoverBehaviour.hpp"
+#include "mge/behaviours/SwitchSpriteOnHoverBehaviour.hpp"
+#include "mge/behaviours/SellTowerBehaviour.hpp"
 
 #include "mge/core/ToasterTower.hpp"
 #include "mge/core/HoneyTower.hpp"
@@ -40,6 +44,8 @@ GridManager::GridManager(std::vector<GameObject*> pGridObjects, sf::RenderWindow
 	selectedMaterial->SetMixIntensity(0.5f);
 	_currentMoney = GameController::StartingMoney;
 	GameController::GridManager = this;
+
+	InitializeUIElements();
 }
 
 GridManager::~GridManager()
@@ -128,15 +134,15 @@ void GridManager::SpecificTowerSelection(sf::Event pEvent)
 
 	switch (pEvent.key.code)
 	{
-		case sf::Keyboard::Key::Num1:
+	case sf::Keyboard::Key::Num1:
 		towerMesh = ToasterTower::Mesh;
 		_tower = new ToasterTower();
 		break;
-		case sf::Keyboard::Key::Num2:
+	case sf::Keyboard::Key::Num2:
 		towerMesh = HoneyTower::MainMesh;
 		_tower = new HoneyTower();
 		break;
-		case sf::Keyboard::Key::Num3:
+	case sf::Keyboard::Key::Num3:
 		towerMesh = ShockTower::MainMesh;
 		_tower = new ShockTower();
 		break;
@@ -144,7 +150,7 @@ void GridManager::SpecificTowerSelection(sf::Event pEvent)
 		towerMesh = IceTower::MainMesh;
 		_tower = new IceTower();
 		break;
-		case sf::Keyboard::Key::Num5:
+	case sf::Keyboard::Key::Num5:
 		towerMesh = MagnifyingGlassTower::Mesh;
 		_tower = new MagnifyingGlassTower();
 		break;
@@ -200,7 +206,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 
 		switch (pEvent.key.code)
 		{
-			case sf::Keyboard::Key::Escape:
+		case sf::Keyboard::Key::Escape:
 			if (_tower != nullptr)
 			{
 				_level->remove(_tower);
@@ -217,7 +223,7 @@ void GridManager::TowerPlacementControls(sf::Event pEvent)
 				}
 			}
 			break;
-			case sf::Keyboard::Key::R:
+		case sf::Keyboard::Key::R:
 			if (_tower != nullptr)
 				_tower->Rotate90();
 			break;
@@ -269,7 +275,7 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 {
 	switch (pEvent.key.code)
 	{
-		case sf::Keyboard::Key::Escape:
+	case sf::Keyboard::Key::Escape:
 		if (_selectedTower != nullptr)
 		{
 			if (_gridObjects.size() > 0)
@@ -278,9 +284,11 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 			}
 			_selectedTower->ResetMaterial();
 			_selectedTower = nullptr;
+
+			HideSelectedTowerUIElements();
 		}
 		break;
-		case sf::Keyboard::Key::S:
+	case sf::Keyboard::Key::S:
 		if (_selectedTower != nullptr)
 		{
 			_currentMoney += _selectedTower->GetCost();
@@ -298,6 +306,7 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 			dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
 			_selectedTower->ResetMaterial();
 			_selectedTower = nullptr;
+			HideSelectedTowerUIElements();
 		}
 	}
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
@@ -313,6 +322,23 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(true);
 				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->SetTowerPos(_selectedTower->getLocalPosition());
 			}
+
+			ShowSelectedTowerUIElements();
+		}
+		else
+		{
+			if (_selectedTower != nullptr)
+				_selectedTower->ResetMaterial();
+
+			if (_tower == nullptr)
+			{
+				if (_gridObjects.size() > 0)
+				{
+					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
+				}
+			}
+
+			HideSelectedTowerUIElements();
 		}
 	}
 }
@@ -342,17 +368,17 @@ void GridManager::GridControls(sf::Event pEvent)
 	{
 		switch (pEvent.type)
 		{
-			case sf::Event::KeyPressed:
+		case sf::Event::KeyPressed:
 			switch (pEvent.key.code)
 			{
-				case sf::Keyboard::Key::G:
+			case sf::Keyboard::Key::G:
 				if (_gridObjects.size() > 0)
 				{
 					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->toggleGrid();
 					std::cout << "Toggled Grid" << std::endl;
 				}
 				break;
-				case sf::Keyboard::Key::O:
+			case sf::Keyboard::Key::O:
 				if (_gridObjects.size() > 0)
 				{
 					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -360,7 +386,7 @@ void GridManager::GridControls(sf::Event pEvent)
 					std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
 				}
 				break;
-				case sf::Keyboard::Key::P:
+			case sf::Keyboard::Key::P:
 				if (_gridObjects.size() > 0)
 				{
 					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -368,7 +394,7 @@ void GridManager::GridControls(sf::Event pEvent)
 					std::cout << "Set grid size to: " + std::to_string(material->getGridSize()) << std::endl;
 				}
 				break;
-				case sf::Keyboard::Key::K:
+			case sf::Keyboard::Key::K:
 				if (_gridObjects.size() > 0)
 				{
 					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -376,7 +402,7 @@ void GridManager::GridControls(sf::Event pEvent)
 					std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
 				}
 				break;
-				case sf::Keyboard::Key::L:
+			case sf::Keyboard::Key::L:
 				if (_gridObjects.size() > 0)
 				{
 					LitDynamicTextureGridMaterial* material = dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial());
@@ -417,15 +443,15 @@ void GridManager::SelectTower(int pTowerNumber)
 
 		switch (pTowerNumber)
 		{
-			case 1:
+		case 1:
 			towerMesh = ToasterTower::Mesh;
 			_tower = new ToasterTower();
 			break;
-			case 2:
+		case 2:
 			towerMesh = HoneyTower::MainMesh;
 			_tower = new HoneyTower();
 			break;
-			case 3:
+		case 3:
 			towerMesh = ShockTower::MainMesh;
 			_tower = new ShockTower();
 			break;
@@ -433,7 +459,7 @@ void GridManager::SelectTower(int pTowerNumber)
 			towerMesh = IceTower::MainMesh;
 			_tower = new IceTower();
 			break;
-			case 5:
+		case 5:
 			towerMesh = MagnifyingGlassTower::Mesh;
 			_tower = new MagnifyingGlassTower();
 			break;
@@ -461,4 +487,60 @@ void GridManager::PauseTowerPlacement()
 {
 	_startPauseTime = clock();
 	_canPlaceTower = false;
+}
+
+void GridManager::InitializeUIElements()
+{
+	sf::Texture* sellButtonTex = new sf::Texture();
+	sellButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "SellButton.png");
+
+	sf::Texture* sellButtonSelTex = new sf::Texture();
+	sellButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "SellButton_sel.png");
+
+	_sellButton = new AdvancedSprite(sellButtonTex);
+
+	_sellButton->setPosition(sf::Vector2f(GameController::WindowWidth - 64 - sellButtonTex->getSize().x, GameController::WindowHeight - sellButtonTex->getSize().y / 2 - 256));
+	_sellButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(sellButtonSelTex));
+	_sellButton->addBehaviour(new SellTowerBehaviour());
+}
+
+void GridManager::ShowSelectedTowerUIElements()
+{
+	_world->_children.insert(_world->_children.begin(), _sellButton);
+	GameController::UIManager->AddSprite(_sellButton);
+}
+
+void GridManager::HideSelectedTowerUIElements()
+{
+	_world->remove(_sellButton);
+	for (int i = 0; i < GameController::UIManager->_sprites.size(); i++)
+	{
+		if (GameController::UIManager->_sprites[i] == _sellButton)
+		{
+			GameController::UIManager->_sprites.erase(GameController::UIManager->_sprites.begin() + i);
+			i--;
+		}
+	}
+}
+
+void GridManager::SellSelectedTower()
+{
+	if (_selectedTower != nullptr)
+	{
+		_currentMoney += _selectedTower->GetCost();
+		for (int i = 0; i < _placedTowers.size(); i++)
+		{
+			if (_placedTowers[i] == _selectedTower)
+			{
+				if (dynamic_cast<ToasterTower*>(_placedTowers[i]))
+					dynamic_cast<ToasterTower*>(_placedTowers[i]);
+				_placedTowers[i]->Kill();
+				_placedTowers.erase(_placedTowers.begin() + i);
+				break;
+			}
+		}
+		dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
+		_selectedTower->ResetMaterial();
+		_selectedTower = nullptr;
+	}
 }

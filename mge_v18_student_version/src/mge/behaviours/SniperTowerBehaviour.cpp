@@ -27,7 +27,7 @@ void SniperTowerBehaviour::update(float pStep)
 void SniperTowerBehaviour::CheckForEnemies()
 {
 	_enemiesInRange = false;
-	_allInRangeEnemies.clear();
+	float furthestDistance = 0;
 
 	if (GameController::Enemies.size() == 0) return;
 	for each (Enemy* enemy in GameController::Enemies)
@@ -37,8 +37,11 @@ void SniperTowerBehaviour::CheckForEnemies()
 			GameController::SniperRange * GameController::SniperRange)
 		{
 			_enemiesInRange = true;
-			_furthestEnemy = enemy;
-			_allInRangeEnemies.push_back(enemy);
+			if (enemy->distanceValue > furthestDistance)
+			{
+				_furthestEnemy = enemy;
+				furthestDistance = enemy->distanceValue;
+			}
 		}
 	}
 }
@@ -47,7 +50,7 @@ void SniperTowerBehaviour::Rotate()
 {
 	if (_enemiesInRange)
 	{
-		Helper::LookAt(dynamic_cast<SniperTower*>(_owner)->getMouse(), _allInRangeEnemies[0]);
+		Helper::LookAt(dynamic_cast<SniperTower*>(_owner)->getMouse(), _furthestEnemy);
 	}
 }
 
@@ -57,9 +60,9 @@ void SniperTowerBehaviour::Attack()
 	{
 		if (_enemiesInRange)
 		{
-			SniperTowerProjectile* projectile = new SniperTowerProjectile(_owner->getLocalPosition() + glm::vec3(0, 1.7f, 0), _allInRangeEnemies[0]);
+			SniperTowerProjectile* projectile = new SniperTowerProjectile(_owner->getLocalPosition() + glm::vec3(0, 1.7f, 0), _furthestEnemy);
 			GameController::CurrentLevel->add(projectile);
-			_allInRangeEnemies[0]->TakeDamage(GameController::SniperDamage);
+			_furthestEnemy->TakeDamage(GameController::SniperDamage);
 			dynamic_cast<SniperTower*>(_owner)->PlayAttackSound();
 			_lastAttackTime = clock();
 		}

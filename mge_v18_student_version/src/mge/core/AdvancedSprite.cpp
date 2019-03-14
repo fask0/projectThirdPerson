@@ -4,6 +4,11 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/core/GameController.hpp"
 
+
+AdvancedSprite::AdvancedSprite() : sf::Sprite(), GameObject("Advanced Sprite")
+{
+}
+
 AdvancedSprite::AdvancedSprite(sf::Texture* pTexture) : sf::Sprite(), GameObject("Advanced Sprite"), Texture(pTexture), StartTexture(pTexture), IsBeingHoveredOver(false)
 {
 }
@@ -15,6 +20,7 @@ AdvancedSprite::~AdvancedSprite()
 
 void AdvancedSprite::update(float pStep)
 {
+	GameObject::update(pStep);
 	if (GameController::Window != nullptr)
 	{
 		sf::FloatRect spriteBoundaries = sf::Sprite::getGlobalBounds();
@@ -65,5 +71,4 @@ void AdvancedSprite::update(float pStep)
 			}
 		}
 	}
-	GameObject::update(pStep);
 }

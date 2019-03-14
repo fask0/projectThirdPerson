@@ -19,6 +19,8 @@
 #include "mge/TowerDefenseScene.hpp"
 #include "mge/core/Mesh.hpp"
 #include "mge/materials/AbstractMaterial.hpp"
+#include "mge/core/MenuManager.hpp"
+#include "mge/core/EnemySpawner.hpp"
 
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 
@@ -51,6 +53,7 @@ class GameController : public GameObject
 	static sf::RenderWindow* Window;
 	static UIManager* UIManager;
 	static GridManager* GridManager;
+	static MenuManager* MenuManager;
 	static Level* CurrentLevel;
 	static GameObject* MainPlane;
 	static LitDynamicTextureGridMaterial* MainPlaneMaterial;
