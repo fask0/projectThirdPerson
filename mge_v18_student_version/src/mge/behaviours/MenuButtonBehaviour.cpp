@@ -2,6 +2,7 @@
 #include "mge/core/AdvancedSprite.hpp"
 #include "mge/core/GameObject.hpp"
 #include <SFML/Graphics.hpp>
+#include "mge/core/EnemySpawner.hpp"
 #include <chrono>
 #include <thread>
 
@@ -43,6 +44,9 @@ void MenuButtonBehaviour::On2DMouseClick()
 			{
 				GameController::CurrentLevel->_children.clear();
 				GameController::UIManager->_sprites.clear();
+				GameController::UIManager->_texts.clear();
+				GameController::CurrentHealth = GameController::MaxHealth;
+				GameController::GridManager->_currentMoney = GameController::StartingMoney;
 				GameController::Enemies.clear();
 				for each (EnemySpawner* spawner in GameController::SpawnPoints)
 				{

@@ -38,9 +38,14 @@ void MenuManager::ClearMenus()
 			GameController::UIManager->_sprites[i] == _loadingScreen ||
 			GameController::UIManager->_sprites[i] == _pauseScreen)
 		{
-			GameController::World->remove(GameController::UIManager->_sprites[i]);
 			GameController::UIManager->_sprites.erase(GameController::UIManager->_sprites.begin() + i);
-			i--;
+		}
+	}
+	for (int i = 0; i < GameController::World->_children.size(); i++)
+	{
+		if (dynamic_cast<AdvancedSprite*>(GameController::World->_children[i]))
+		{
+			GameController::World->remove(GameController::World->_children[i]);
 		}
 	}
 }
@@ -133,9 +138,9 @@ void MenuManager::initMainMenu()
 	exitButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(exitButtonSelTex));
 	exitButton->addBehaviour(new MenuButtonBehaviour(Menu::None, false));
 	//Set positions
-	startButton->setPosition(sf::Vector2f(160, 384));
+	startButton->setPosition(sf::Vector2f(160, 416));
 	levelSelectButton->setPosition(sf::Vector2f(160, 512));
-	exitButton->setPosition(sf::Vector2f(160, 640));
+	exitButton->setPosition(sf::Vector2f(160, 608));
 	//Add to main menu
 	_mainMenu->add(startButton);
 	_mainMenu->add(levelSelectButton);
@@ -149,6 +154,13 @@ void MenuManager::initLevelSelectMenu()
 	//---------------//
 	sf::Texture* menuTex = new sf::Texture();
 	menuTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/LevelSelectScreen.png");
+	//Images
+	sf::Texture* kitchenTex = new sf::Texture();
+	kitchenTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/kitchenRounded.png");
+	sf::Texture* fridgeTex = new sf::Texture();
+	fridgeTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/FridgeRounded.png");
+	sf::Texture* tableTex = new sf::Texture();
+	tableTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/DiningTableRounded.png");
 	//Button textures
 	sf::Texture* backButtonTex = new sf::Texture();
 	backButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/back.png");
@@ -184,7 +196,10 @@ void MenuManager::initLevelSelectMenu()
 	// Create Sprites //
 	//----------------//
 	_levelSelectMenu = new AdvancedSprite(menuTex);
-	std::vector<AdvancedSprite*> menuThings;
+	//Images
+	AdvancedSprite* kitchenImage = new AdvancedSprite(kitchenTex);
+	AdvancedSprite* fridgeImage = new AdvancedSprite(fridgeTex);
+	AdvancedSprite* tableImage = new AdvancedSprite(tableTex);
 	//Buttons
 	AdvancedSprite* backButton = new AdvancedSprite(backButtonTex);
 	AdvancedSprite* level1Button = new AdvancedSprite(level1ButtonTex);
@@ -193,16 +208,12 @@ void MenuManager::initLevelSelectMenu()
 	AdvancedSprite* level4Button = new AdvancedSprite(level4ButtonTex);
 	AdvancedSprite* level5Button = new AdvancedSprite(level5ButtonTex);
 	AdvancedSprite* level6Button = new AdvancedSprite(level6ButtonTex);
-	menuThings.push_back(level2Button);
-	menuThings.push_back(level3Button);
 	//Add behaviours
 	backButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(backButtonSelTex));
 	backButton->addBehaviour(new MenuButtonBehaviour(Menu::MainMenu));
 	level1Button->addBehaviour(new SwitchSpriteOnHoverBehaviour(level1ButtonSelTex));
 	level1Button->addBehaviour(new MenuButtonBehaviour(Menu::LoadingScreen, 0));
 	//Hover menu -----------------
-	level1Button->addBehaviour(new MenuOnHoverBehaviour(menuThings));
-
 	level2Button->addBehaviour(new SwitchSpriteOnHoverBehaviour(level2ButtonSelTex));
 	level2Button->addBehaviour(new MenuButtonBehaviour(Menu::LoadingScreen, 1));
 	level3Button->addBehaviour(new SwitchSpriteOnHoverBehaviour(level3ButtonSelTex));
@@ -214,13 +225,16 @@ void MenuManager::initLevelSelectMenu()
 	level6Button->addBehaviour(new SwitchSpriteOnHoverBehaviour(level6ButtonSelTex));
 	level6Button->addBehaviour(new MenuButtonBehaviour(Menu::LoadingScreen, 5));
 	//Set positions
-	backButton->setPosition(sf::Vector2f(64, GameController::WindowHeight - 64 - backButtonTex->getSize().y));
-	level1Button->setPosition(sf::Vector2f(360 + 420 - level1ButtonTex->getSize().x, 400));
-	level2Button->setPosition(sf::Vector2f(720 + 420 - level2ButtonTex->getSize().x, 400));
-	level3Button->setPosition(sf::Vector2f(1080 + 420 - level3ButtonTex->getSize().x, 400));
-	level4Button->setPosition(sf::Vector2f(360 + 420 - level4ButtonTex->getSize().x, 700));
-	level5Button->setPosition(sf::Vector2f(720 + 420 - level5ButtonTex->getSize().x, 700));
-	level6Button->setPosition(sf::Vector2f(1080 + 420 - level6ButtonTex->getSize().x, 700));
+	backButton->setPosition(sf::Vector2f(GameController::WindowWidth - 64 - backButtonTex->getSize().x, GameController::WindowHeight - 64 - backButtonTex->getSize().y));
+	level1Button->setPosition(sf::Vector2f(550 + 135 - kitchenTex->getSize().x / 2 - level1ButtonTex->getSize().x / 2, 600));
+	level2Button->setPosition(sf::Vector2f(550 + 135 - kitchenTex->getSize().x / 2 - level2ButtonTex->getSize().x / 2, 688));
+	level3Button->setPosition(sf::Vector2f(550 + 135 - kitchenTex->getSize().x / 2 - level3ButtonTex->getSize().x / 2, 776));
+	level4Button->setPosition(sf::Vector2f(550 + 135 - kitchenTex->getSize().x / 2 - level4ButtonTex->getSize().x / 2, 864));
+	level5Button->setPosition(sf::Vector2f(1100 + 135 - fridgeTex->getSize().x / 2 - level5ButtonTex->getSize().x / 2, 600));
+	level6Button->setPosition(sf::Vector2f(1650 + 135 - tableTex->getSize().x / 2 - level6ButtonTex->getSize().x / 2, 600));
+	kitchenImage->setPosition(sf::Vector2f(550 + 135 - kitchenTex->getSize().x, 64));
+	fridgeImage->setPosition(sf::Vector2f(1100 + 135 - fridgeTex->getSize().x, 64));
+	tableImage->setPosition(sf::Vector2f(1650 + 135 - tableTex->getSize().x, 64));
 	//Add to main menu
 	_levelSelectMenu->add(backButton);
 	_levelSelectMenu->add(level1Button);
@@ -229,6 +243,10 @@ void MenuManager::initLevelSelectMenu()
 	_levelSelectMenu->add(level4Button);
 	_levelSelectMenu->add(level5Button);
 	_levelSelectMenu->add(level6Button);
+
+	_levelSelectMenu->add(kitchenImage);
+	_levelSelectMenu->add(fridgeImage);
+	_levelSelectMenu->add(tableImage);
 }
 
 void MenuManager::initWinMenu()
@@ -245,7 +263,7 @@ void MenuManager::initWinMenu()
 	backButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(backButtonSelTex));
 	backButton->addBehaviour(new MenuButtonBehaviour(Menu::MainMenu));
 	//Set positions
-	backButton->setPosition(sf::Vector2f(GameController::WindowWidth / 2 - backButtonTex->getSize().x / 2, GameController::WindowHeight - 64 - backButtonTex->getSize().y));
+	backButton->setPosition(GameController::WindowWidth - 64 - backButtonTex->getSize().x, GameController::WindowHeight - 64 - backButtonTex->getSize().y);
 
 	sf::Texture* winScreenTex = new sf::Texture();
 	winScreenTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/Win.png");
@@ -268,7 +286,7 @@ void MenuManager::initLoseMenu()
 	backButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(backButtonSelTex));
 	backButton->addBehaviour(new MenuButtonBehaviour(Menu::MainMenu));
 	//Set positions
-	backButton->setPosition(sf::Vector2f(GameController::WindowWidth / 2 - backButtonTex->getSize().x / 2, GameController::WindowHeight - 64 - backButtonTex->getSize().y));
+	backButton->setPosition(sf::Vector2f(GameController::WindowWidth - 64 - backButtonTex->getSize().x, GameController::WindowHeight - 64 - backButtonTex->getSize().y));
 
 	sf::Texture* loseScreenTex = new sf::Texture();
 	loseScreenTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/Lose.png");

@@ -4,6 +4,7 @@
 #include "mge/behaviours/IceTowerBehaviour.hpp"
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 #include "mge/core/SoundEffects.hpp"
+#include "mge/Behaviours/CollisionBehaviour.hpp"
 
 Mesh* IceTower::MainMesh;
 Mesh* IceTower::MouseMesh;
@@ -17,6 +18,14 @@ IceTower::IceTower() : Tower("Ice Tower")
 	_attSpeed = GameController::IceAttSpeed;
 	_cost = GameController::IceCost;
 	_material = MainMaterial;
+
+	removeAllBehaviours();
+
+	float xScale = glm::sqrt(getTransform()[0][0] * getTransform()[0][0] + getTransform()[0][1] * getTransform()[0][1] + getTransform()[0][2] * getTransform()[0][2]);
+	float yScale = glm::sqrt(getTransform()[1][0] * getTransform()[1][0] + getTransform()[1][1] * getTransform()[1][1] + getTransform()[1][2] * getTransform()[1][2]);
+	float zScale = glm::sqrt(getTransform()[2][0] * getTransform()[2][0] + getTransform()[2][1] * getTransform()[2][1] + getTransform()[2][2] * getTransform()[2][2]);
+
+	addBehaviour(new CollisionBehaviour(CollisionBehaviour::Tower, glm::vec3(xScale * 1.5f, yScale, zScale * 1.5f), true, glm::vec3(0, yScale / 2, 0)));
 }
 
 IceTower::~IceTower()

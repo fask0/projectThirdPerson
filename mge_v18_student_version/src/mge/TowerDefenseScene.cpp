@@ -217,7 +217,6 @@ void TowerDefenseScene::inintialize2Dobjects()
 
 	_cursor = new AdvancedSprite(_normalCursorTex);
 	_cursor->setPosition(sf::Vector2f(sf::Mouse::getPosition(*_window).x, sf::Mouse::getPosition(*_window).y));	_uiManager->AddSprite(_cursor);
-	//_cursor->setScale(0.75f, 0.75f);
 }
 
 void TowerDefenseScene::_render()
