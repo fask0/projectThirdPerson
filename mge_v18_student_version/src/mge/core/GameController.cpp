@@ -67,6 +67,8 @@ GameObject* GameController::MainPlane;
 LitDynamicTextureGridMaterial* GameController::MainPlaneMaterial;
 SoundEffect* GameController::MainMenuMusic;
 SoundEffect* GameController::GameplayMusic;
+SoundEffect* GameController::UIClick;
+SoundEffect* GameController::WaveAlarm;
 
 glm::mat4 GameController::InitialCameraTransform;
 
@@ -280,6 +282,8 @@ void GameController::SetUpLevels()
 
 	MainMenuMusic = new SoundEffect(config::MGE_SOUNDS_PATH + "MainMenuSong.wav", SoundEffect::Music);
 	GameplayMusic = new SoundEffect(config::MGE_SOUNDS_PATH + "GameplaySong.wav", SoundEffect::Music);
+	UIClick = new SoundEffect(config::MGE_SOUNDS_PATH + "UIClick.wav", SoundEffect::SFX);
+	WaveAlarm = new SoundEffect(config::MGE_SOUNDS_PATH + "WaveAlarm.wav", SoundEffect::SFX);
 }
 
 void GameController::SetTowerVariables()

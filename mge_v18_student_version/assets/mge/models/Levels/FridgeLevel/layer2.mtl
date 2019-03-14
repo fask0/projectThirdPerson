@@ -1,10 +1,11 @@
+newmtl MilkBottleOutside1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\MilkBottle.png
+illum 2
+
 newmtl Eggs1
 Kd 1 1 1
 map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Eggs.png
-illum 2
-
-newmtl Default-Material
-Kd 1 1 1
 illum 2
 
 newmtl Avocado1
@@ -12,14 +13,13 @@ Kd 1 1 1
 map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Avocado.png
 illum 2
 
+newmtl Default-Material
+Kd 1 1 1
+illum 2
+
 newmtl Grapes1
 Kd 1 1 1
 map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\Grapes.png
-illum 2
-
-newmtl MilkBottleOutside1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\FridgeLevel\MilkBottle.png
 illum 2
 
 newmtl Butter1

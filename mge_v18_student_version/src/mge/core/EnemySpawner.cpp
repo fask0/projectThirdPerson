@@ -171,6 +171,9 @@ void EnemySpawner::initializeWave()
 	if (_currentWave % _enemyGrowth == 0)
 		_size = _baseSize * (1 + _enemyScaling * 0.01f * _currentWave);
 
+	if (GameController::WaveAlarm->GetSound().getStatus() != sf::Sound::Playing)
+		GameController::WaveAlarm->Play();
+
 	_lastSpawnTime = 0;
 	_currentEnemiesInLane = 0;
 	_currentWave++;

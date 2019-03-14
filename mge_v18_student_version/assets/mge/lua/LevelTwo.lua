@@ -5,22 +5,22 @@
 --EnemyScalingPercentage    --The increasing amount of enemies
 --DelayBetweenEnemies       --How much time between each enemy (in seconds)
 --------------------------------------------------------------------------------------
-StartingMoney = 50;
+StartingMoney = 60;
 --Lane One
 LaneOneNormieFromWave = 0;
-LaneOneSanicFromWave = 0;
-LaneOneChadFromWave = 0;
-LaneOneBaseSize = 60;
-LaneOneSizeGrowthFrequency = 1;
-LaneOneEnemyScalingPercentage = 10;
-LaneOneDelayBetweenEnemies = 1;
+LaneOneSanicFromWave = 6;
+LaneOneChadFromWave = 3;
+LaneOneBaseSize = 10;
+LaneOneSizeGrowthFrequency = 2;
+LaneOneEnemyScalingPercentage = 20;
+LaneOneDelayBetweenEnemies = 1.0;
 --Lane Two
 LaneTwoNormieFromWave = 0;
 LaneTwoSanicFromWave = 0;
-LaneTwoChadFromWave = 0;
-LaneTwoBaseSize = 60;
-LaneTwoSizeGrowthFrequency = 1;
-LaneTwoEnemyScalingPercentage = 10;
+LaneTwoChadFromWave = 25;
+LaneTwoBaseSize = 70;
+LaneTwoSizeGrowthFrequency = 10;
+LaneTwoEnemyScalingPercentage = 40;
 LaneTwoDelayBetweenEnemies = 1.0;
 --Lane Three
 LaneTreeNormieFromWave = 0;
@@ -38,3 +38,5 @@ LaneFourBaseSize = 20;
 LaneFourSizeGrowthFrequency = 1;
 LaneFourEnemyScalingPercentage = 10;
 LaneFourDelayBetweenEnemies = 1.0;
+
+-- 20 waves fam

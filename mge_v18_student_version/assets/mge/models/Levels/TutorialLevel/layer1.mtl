@@ -1,164 +1,174 @@
-newmtl SideCheese3
+newmtl MilkBottleOutside1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Flatcheese.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\MilkBottle.png
 illum 2
 
-newmtl PanUV
+newmtl knife 4
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\PanUV.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\knife.png
 illum 2
 
-newmtl Cheesy_Bites1
+newmtl Bowl1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\CheeseyBites.png
-illum 2
-
-newmtl MouseTexture 33
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\MouseTexture.png
-illum 2
-
-newmtl TopCheeseLVL2
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Lvl1topcheese.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\BowlBig.png
 illum 2
 
 newmtl Default-Material
 Kd 1 1 1
 illum 2
 
-newmtl SideCheese2
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\SideCheese.png
-illum 2
-
-newmtl Meat_Steak
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Meat_Steak.png
-illum 2
-
-newmtl Spatula1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Spatula.png
-illum 2
-
-newmtl Spoon1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\spoon.png
-illum 2
-
-newmtl MouseTexture 31
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\MouseTexture.png
-illum 2
-
-newmtl Apple1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Apple.png
-illum 2
-
-newmtl Cheese Cube
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Cheese Cube.png
-illum 2
-
-newmtl Mug1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\mug.png
-illum 2
-
 newmtl Fork1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\fork.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\fork.png
 illum 2
 
-newmtl Pear1
+newmtl MouseTexture 33
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Pear.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\MouseTexture.png
 illum 2
 
-newmtl Avocado1
+newmtl TopCheeseLVL2
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Avocado.png
-illum 2
-
-newmtl RatTrap1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\RatTrap.png
-illum 2
-
-newmtl Soda_Can_Material
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Can.png
-illum 2
-
-newmtl Eggs
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Eggs.png
-illum 2
-
-newmtl Bowl
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\BowlBig.png
-illum 2
-
-newmtl BigO'Cheesy
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\BigO'Cheesy.png
-illum 2
-
-newmtl Olive3
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Olives.png
-illum 2
-
-newmtl Flag1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Flag.png
-illum 2
-
-newmtl Lvl1cheese1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Lvl1Cheese.png
-illum 2
-
-newmtl Grapes1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Grapes.png
-illum 2
-
-newmtl Plate1
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Plate.png
-illum 2
-
-newmtl MouseTexture 32
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\MouseTexture.png
-illum 2
-
-newmtl Sausage
-Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\SausageStraight.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Lvl1topcheese.png
 illum 2
 
 newmtl Tootpick1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\Toothpicks.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Toothpicks.png
 illum 2
 
-newmtl Bowl1
+newmtl Soda_Can_Material
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\BowlBig.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Can.png
+illum 2
+
+newmtl Eggs
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Eggs.png
+illum 2
+
+newmtl Bowl
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\BowlBig.png
+illum 2
+
+newmtl Path_Tutorial
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Path_Tutorial.png
+illum 2
+
+newmtl Apple1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Apple.png
+illum 2
+
+newmtl Cheese Cube
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Cheese Cube.png
+illum 2
+
+newmtl Mug1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\mug.png
+illum 2
+
+newmtl SideCheese3
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Flatcheese.png
+illum 2
+
+newmtl SideCheese2
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\SideCheese.png
+illum 2
+
+newmtl Meat_Steak
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Meat_Steak.png
+illum 2
+
+newmtl Spatula1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Spatula.png
+illum 2
+
+newmtl Spoon1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\spoon.png
+illum 2
+
+newmtl MouseTexture 31
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\MouseTexture.png
+illum 2
+
+newmtl PanUV
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\PanUV.png
+illum 2
+
+newmtl BigO'Cheesy
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\BigO'Cheesy.png
+illum 2
+
+newmtl Olive3
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Olives.png
+illum 2
+
+newmtl Cheesy_Bites1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\CheeseyBites.png
+illum 2
+
+newmtl Pear1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Pear.png
+illum 2
+
+newmtl Avocado1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Avocado.png
+illum 2
+
+newmtl RatTrap1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\RatTrap.png
 illum 2
 
 newmtl lambert32
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\BG_Kitchen_Table_Thing_1_lambert1_AlbedoTransparency.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\BG_Kitchen_Table_Thing_1_lambert1_AlbedoTransparency.png
 illum 2
 
-newmtl knife 4
+newmtl Flag1
 Kd 1 1 1
-map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutotialLevel\knife.png
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Flag.png
+illum 2
+
+newmtl Lvl1cheese1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Lvl1Cheese.png
+illum 2
+
+newmtl Grapes1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Grapes.png
+illum 2
+
+newmtl Plate1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\Plate.png
+illum 2
+
+newmtl MouseTexture 32
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\MouseTexture.png
+illum 2
+
+newmtl Sausage
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\TutorialLevel\SausageStraight.png
 illum 2
 

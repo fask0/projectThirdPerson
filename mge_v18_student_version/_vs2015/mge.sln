@@ -13,8 +13,8 @@ Global
 		Release Static|x86 = Release Static|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug Dynamic|x86.ActiveCfg = Debug Static|Win32
-		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug Dynamic|x86.Build.0 = Debug Static|Win32
+		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug Dynamic|x86.ActiveCfg = Release Static|Win32
+		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug Dynamic|x86.Build.0 = Release Static|Win32
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug Static|x86.ActiveCfg = Debug Static|Win32
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Debug Static|x86.Build.0 = Debug Static|Win32
 		{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}.Release Dynamic|x86.ActiveCfg = Release Dynamic|Win32

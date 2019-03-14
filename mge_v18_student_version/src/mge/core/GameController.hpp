@@ -60,6 +60,8 @@ class GameController : public GameObject
 	static LitDynamicTextureGridMaterial* MainPlaneMaterial;
 	static SoundEffect* MainMenuMusic;
 	static SoundEffect* GameplayMusic;
+	static SoundEffect* UIClick;
+	static SoundEffect* WaveAlarm;
 
 	static glm::mat4 InitialCameraTransform;
 
