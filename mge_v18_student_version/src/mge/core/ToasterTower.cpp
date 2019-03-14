@@ -44,7 +44,7 @@ void ToasterTower::PlayAttackSound()
 	{
 		if (SFX[i]->GetSound().getStatus() != sf::Sound::Playing)
 		{
-			SFX[i]->PlaySoundEffect();
+			SFX[i]->Play();
 			break;
 		}
 	}

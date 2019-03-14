@@ -18,18 +18,20 @@ class SoundEffect
 	void SetSoundEffect(const std::string & pFilePath);
 
 	sf::Sound& GetSound() { return _sound; }
+	sf::Music& GetMusic() { return _music; }
 
-	void SetVolume(float pVolume) { _sound.setVolume(pVolume); }
-	float GetVolume() { return _sound.getVolume(); }
+	void SetVolume(float pVolume);
+	float GetVolume();
 
-	void PlaySoundEffect() { _sound.play(); }
-	void SetPitch(float pPitch) { _sound.setPitch(pPitch); }
+	void Play();
+	void Pause();
 
 	SoundType GetType() { return _soundType; }
 
 	private:
 	sf::SoundBuffer _buffer;
 	sf::Sound _sound;
+	sf::Music _music;
 
 	SoundType _soundType;
 };

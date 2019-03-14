@@ -52,32 +52,32 @@ void MenuManager::CreateMenu(Menu pMenu)
 
 	switch (pMenu)
 	{
-	case MenuManager::MainMenu:
+		case MenuManager::MainMenu:
 		GameController::UIManager->_sprites.push_back(_mainMenu);
 		GameController::World->add(_mainMenu);
 		_mainMenuBeingDisplayed = true;
 		break;
-	case MenuManager::LevelSelectMenu:
+		case MenuManager::LevelSelectMenu:
 		GameController::UIManager->_sprites.push_back(_levelSelectMenu);
 		GameController::World->add(_levelSelectMenu);
 		_levelSelectMenuBeingDisplayed = true;
 		break;
-	case MenuManager::WinMenu:
+		case MenuManager::WinMenu:
 		GameController::UIManager->_sprites.push_back(_winMenu);
 		GameController::World->add(_winMenu);
 		_winMenuBeingDisplayed = true;
 		break;
-	case MenuManager::LoseMenu:
+		case MenuManager::LoseMenu:
 		GameController::UIManager->_sprites.push_back(_loseMenu);
 		GameController::World->add(_loseMenu);
 		_loseMenuBeingDisplayed = true;
 		break;
-	case MenuManager::LoadingScreen:
+		case MenuManager::LoadingScreen:
 		GameController::UIManager->_sprites.push_back(_loadingScreen);
 		GameController::World->add(_loadingScreen);
 		_loadingScreenBeingDisplayed = true;
 		break;
-	case MenuManager::PauseScreen:
+		case MenuManager::PauseScreen:
 		GameController::UIManager->_sprites.push_back(_pauseScreen);
 		GameController::World->add(_pauseScreen);
 		_pauseScreenBeingDisplayed = true;
@@ -348,7 +348,16 @@ void MenuManager::update(float pStep)
 
 	if (GameController::CurrentHealth <= 0 && !_loseMenuBeingDisplayed)
 	{
-		GameController::CurrentLevel->reset();
+		if (GameController::CurrentLevel != nullptr)
+		{
+			GameController::CurrentLevel->_children.clear();
+			GameController::UIManager->_sprites.clear();
+			GameController::Enemies.clear();
+			for each (EnemySpawner* spawner in GameController::SpawnPoints)
+			{
+				spawner->_currentWave = 0;
+			}
+		}
 		GameController::CurrentHealth = GameController::MaxHealth;
 		CreateMenu(Menu::LoseMenu);
 	}

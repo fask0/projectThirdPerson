@@ -62,7 +62,7 @@ Enemy::~Enemy()
 	if (_health <= 0)
 	{
 		int rnd = rand() % _deathSFX.size();
-		_deathSFX[rnd]->PlaySoundEffect();
+		_deathSFX[rnd]->Play();
 	}
 }
 
@@ -108,25 +108,25 @@ void Enemy::OnCollisionEnter(GameObject* pOther)
 	{
 		int rnd = rand() % CutSFX.size();
 		if (CutSFX[rnd]->GetSound().getStatus() != sf::Sound::Playing)
-			CutSFX[rnd]->PlaySoundEffect();
+			CutSFX[rnd]->Play();
 	}
 	else if (pOther->GetTag().compare("iceProjectile") == 0)
 	{
 		int rnd = rand() % FreezeSFX.size();
 		if (FreezeSFX[rnd]->GetSound().getStatus() != sf::Sound::Playing)
-			FreezeSFX[rnd]->PlaySoundEffect();
+			FreezeSFX[rnd]->Play();
 	}
 	else if (pOther->GetTag().compare("honeyProjectile") == 0)
 	{
 		int rnd = rand() % HoneySlowSFX.size();
 		if (HoneySlowSFX[rnd]->GetSound().getStatus() != sf::Sound::Playing)
-			HoneySlowSFX[rnd]->PlaySoundEffect();
+			HoneySlowSFX[rnd]->Play();
 	}
 	else if (pOther->GetTag().compare("magnifyingGlassHitBox") == 0)
 	{
 		int rnd = rand() % BurnSFX.size();
 		if (BurnSFX[rnd]->GetSound().getStatus() != sf::Sound::Playing)
-			BurnSFX[rnd]->PlaySoundEffect();
+			BurnSFX[rnd]->Play();
 	}
 }
 

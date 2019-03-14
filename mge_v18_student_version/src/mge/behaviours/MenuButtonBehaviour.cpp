@@ -40,9 +40,23 @@ void MenuButtonBehaviour::On2DMouseClick()
 		else
 		{
 			if (GameController::CurrentLevel != nullptr)
+			{
 				GameController::CurrentLevel->_children.clear();
+				GameController::UIManager->_sprites.clear();
+				GameController::Enemies.clear();
+				for each (EnemySpawner* spawner in GameController::SpawnPoints)
+				{
+					spawner->_currentWave = 0;
+				}
+			}
 			GameController::MenuManager->CreateMenu(_menuToLoad);
 			GameController::UIManager->Draw();
+			if (GameController::GameplayMusic->GetMusic().getStatus() == sf::Music::Playing)
+			{
+				GameController::GameplayMusic->Pause();
+				if (GameController::MainMenuMusic->GetMusic().getStatus() != sf::Music::Playing)
+					GameController::MainMenuMusic->Play();
+			}
 		}
 	}
 	else if (_levelToLoad < 0 && !_loadNextLevel)

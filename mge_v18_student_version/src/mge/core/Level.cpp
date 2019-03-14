@@ -24,6 +24,8 @@ Level::Level(std::string pName, glm::vec3 pPosition, int pLayers)
 	: GameObject(pName, pPosition), _layerAmount(pLayers)
 {
 	GameController::Levels.push_back(this);
+	_lowMusicVolume = GameController::MaxMusicVolume * 0.25f;
+	_currentMusicVolume = GameController::MaxMusicVolume;
 }
 
 Level::~Level()
@@ -33,7 +35,22 @@ Level::~Level()
 void Level::update(float pStep)
 {
 	GameObject::update(pStep);
-
+	if (GameController::Enemies.size() > 0)
+	{
+		if (_currentMusicVolume > _lowMusicVolume)
+		{
+			_currentMusicVolume -= pStep * 20;
+			GameController::GameplayMusic->SetVolume(_currentMusicVolume);
+		}
+	}
+	else
+	{
+		if (_currentMusicVolume < GameController::MaxMusicVolume)
+		{
+			_currentMusicVolume += pStep * 20;
+			GameController::GameplayMusic->SetVolume(_currentMusicVolume);
+		}
+	}
 	updateNextWaveButton();
 }
 
@@ -92,14 +109,20 @@ void Level::Init()
 	GameController::TowerDefenseScene->SetGridManager(gridManager);
 	inintialize2Dobjects();
 	initializeNextWaveButton();
+	if (GameController::MainMenuMusic->GetMusic().getStatus() == sf::Music::Playing)
+		GameController::MainMenuMusic->Pause();
+
+	if (GameController::GameplayMusic->GetMusic().getStatus() != sf::Music::Playing)
+		GameController::GameplayMusic->Play();
 }
 
 void Level::reset()
 {
-	for (int i = 0; i < _children.size(); i++)
+	while (_children.size() > 0)
 	{
-		GameObject* child = _children[i];
-		child->Kill();
+		GameObject* child = _children[0];
+		remove(child);
+		delete child;
 	}
 	_parent->remove(this);
 	CollisionManager::projectileCollisions.clear();
@@ -361,13 +384,14 @@ void Level::inintialize2Dobjects()
 void Level::initializeNextWaveButton()
 {
 	_nextWaveButtonTex = new sf::Texture();
-	_nextWaveButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "NextWave.png");
+	_nextWaveButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "next_wave_when_you_can_press_it.png");
 	_nextWaveButtonSelTex = new sf::Texture();
-	_nextWaveButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "NextWave_sel.png");
+	_nextWaveButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "next_wave_sel.png");
 	_waveInProgressButtonTex = new sf::Texture();
-	_waveInProgressButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "WaveInProgress.png");
+	_waveInProgressButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "next_wave_when_you_cant_press_it.png");
 
 	_nextWaveButton = new AdvancedSprite(_nextWaveButtonTex);
+	_nextWaveButton->setPosition(GameController::WindowWidth - 64 - _nextWaveButtonTex->getSize().x, GameController::WindowHeight - _nextWaveButtonTex->getSize().y / 2 - 256);
 	_nextWaveButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(_nextWaveButtonSelTex));
 	_nextWaveButton->addBehaviour(new NextWaveButtonBehaviour());
 

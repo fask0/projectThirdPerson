@@ -68,7 +68,7 @@ void LitTextureMaterial::render(World* pWorld, Mesh* pMesh, const glm::mat4& pMo
 
 	//Light stuff 2
 	glUniform3fv(_shader->getUniformLocation("dirLight.lightCol"), 1, glm::value_ptr(GameController::Lights[0]->_color));
-	glUniform3fv(_shader->getUniformLocation("dirLight.lightRot"), 1, glm::value_ptr(GameController::Lights[0]->getTransform()[1]));
+	glUniform3fv(_shader->getUniformLocation("dirLight.lightPos"), 1, glm::value_ptr(GameController::Lights[0]->getLocalPosition()));
 
 	////Light stuff
 	for (int i = 1; i < GameController::Lights.size(); i++)

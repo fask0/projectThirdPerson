@@ -24,7 +24,10 @@ Rat::Rat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::stri
 	: Enemy(pName, pPosition, pLane, pTag)
 {
 	_size = GameController::RatSize;
-	_health = GameController::RatHealth;
+	if (GameController::SpawnPoints[0]->_currentWave == 0)
+		_health = GameController::RatHealth;
+	else
+		_health = GameController::RatHealth + (GameController::RatHealth * GameController::SpawnPoints[0]->_currentWave) * 0.1f;
 	_baseHealth = _health;
 	_healthRegen = GameController::RatHealthRegen;
 	_damage = GameController::RatDamage;

@@ -4,7 +4,7 @@
 
 struct DirLight{
 	vec3 lightCol;
-	vec3 lightRot;
+	vec3 lightPos;
 };
 
 struct SpotLight{
@@ -31,7 +31,7 @@ out vec4 fragment_color;
 vec4 CalcDirLight(DirLight _dirLight, vec3 normal)
 {
 	vec3 norm = normalize(normal);
-	vec3 lightDir = -_dirLight.lightRot;
+	vec3 lightDir = normalize(_dirLight.lightPos - FragPos);
 	float diff = max(dot(norm, lightDir), 0.0f);
 	vec3 diffuse = diff * _dirLight.lightCol;
 

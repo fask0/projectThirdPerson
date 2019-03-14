@@ -146,7 +146,7 @@ void GridManager::SpecificTowerSelection(sf::Event pEvent)
 		towerMesh = ShockTower::MainMesh;
 		_tower = new ShockTower();
 		break;
-		case sf::Keyboard::Key::Num4:
+	case sf::Keyboard::Key::Num4:
 		towerMesh = IceTower::MainMesh;
 		_tower = new IceTower();
 		break;
@@ -154,7 +154,7 @@ void GridManager::SpecificTowerSelection(sf::Event pEvent)
 		towerMesh = MagnifyingGlassTower::Mesh;
 		_tower = new MagnifyingGlassTower();
 		break;
-		case sf::Keyboard::Key::Num6:
+	case sf::Keyboard::Key::Num6:
 		towerMesh = SniperTower::MainMesh;
 		_tower = new SniperTower();
 		break;
@@ -455,7 +455,7 @@ void GridManager::SelectTower(int pTowerNumber)
 			towerMesh = ShockTower::MainMesh;
 			_tower = new ShockTower();
 			break;
-			case 4:
+		case 4:
 			towerMesh = IceTower::MainMesh;
 			_tower = new IceTower();
 			break;
@@ -463,7 +463,7 @@ void GridManager::SelectTower(int pTowerNumber)
 			towerMesh = MagnifyingGlassTower::Mesh;
 			_tower = new MagnifyingGlassTower();
 			break;
-			case 6:
+		case 6:
 			towerMesh = SniperTower::MainMesh;
 			_tower = new SniperTower();
 			break;
@@ -492,14 +492,14 @@ void GridManager::PauseTowerPlacement()
 void GridManager::InitializeUIElements()
 {
 	sf::Texture* sellButtonTex = new sf::Texture();
-	sellButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "SellButton.png");
+	sellButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "sell_button.png");
 
 	sf::Texture* sellButtonSelTex = new sf::Texture();
-	sellButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "SellButton_sel.png");
+	sellButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "sell_button_sel.png");
 
 	_sellButton = new AdvancedSprite(sellButtonTex);
 
-	_sellButton->setPosition(sf::Vector2f(GameController::WindowWidth - 64 - sellButtonTex->getSize().x, GameController::WindowHeight - sellButtonTex->getSize().y / 2 - 256));
+	_sellButton->setPosition(sf::Vector2f(GameController::WindowWidth - 140 - sellButtonTex->getSize().x, GameController::WindowHeight - sellButtonTex->getSize().y / 2 - 256));
 	_sellButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(sellButtonSelTex));
 	_sellButton->addBehaviour(new SellTowerBehaviour());
 }

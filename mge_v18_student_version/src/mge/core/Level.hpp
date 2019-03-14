@@ -59,4 +59,7 @@ class Level : public GameObject
 	sf::Texture* _nextWaveButtonSelTex;
 	sf::Texture* _waveInProgressButtonTex;
 	lua_State* _lua;
+
+	float _lowMusicVolume;
+	float _currentMusicVolume;
 };

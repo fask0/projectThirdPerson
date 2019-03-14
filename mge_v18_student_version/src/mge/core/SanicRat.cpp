@@ -25,7 +25,10 @@ SanicRat::SanicRat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane,
 	: Enemy(pName, pPosition, pLane, pTag)
 {
 	_size = GameController::SanicSize;
-	_health = GameController::SanicHealth;
+	if (GameController::SpawnPoints[0]->_currentWave == 0)
+		_health = GameController::SanicHealth;
+	else
+		_health = GameController::SanicHealth + (GameController::SanicHealth * GameController::SpawnPoints[0]->_currentWave) * 0.1f;
 	_baseHealth = _health;
 	_healthRegen = GameController::SanicHealthRegen;
 	_damage = GameController::SanicDamage;

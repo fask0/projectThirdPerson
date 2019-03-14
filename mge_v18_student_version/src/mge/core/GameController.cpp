@@ -65,6 +65,8 @@ MenuManager* GameController::MenuManager;
 Level* GameController::CurrentLevel = nullptr;
 GameObject* GameController::MainPlane;
 LitDynamicTextureGridMaterial* GameController::MainPlaneMaterial;
+SoundEffect* GameController::MainMenuMusic;
+SoundEffect* GameController::GameplayMusic;
 
 glm::mat4 GameController::InitialCameraTransform;
 
@@ -82,6 +84,8 @@ bool GameController::Debug = false;
 bool GameController::DrawColliders;
 int GameController::MaxHealth;
 int GameController::CurrentHealth;
+float GameController::MaxMusicVolume;
+float GameController::MaxSFXVolume;
 
 //Level
 //Spawners and Scaling
@@ -273,6 +277,9 @@ void GameController::SetUpLevels()
 	CupboardLevel* l3 = new CupboardLevel("CupboardLevel", glm::vec3(0, 0, 0), 4);
 	FridgeLevel* l4 = new FridgeLevel("FridgeLevel", glm::vec3(0, 0, 0), 4);
 	TableLevel* l5 = new TableLevel("TableLevel", glm::vec3(0, 0, 0), 4);
+
+	MainMenuMusic = new SoundEffect(config::MGE_SOUNDS_PATH + "MainMenuSong.wav", SoundEffect::Music);
+	GameplayMusic = new SoundEffect(config::MGE_SOUNDS_PATH + "GameplaySong.wav", SoundEffect::Music);
 }
 
 void GameController::SetTowerVariables()

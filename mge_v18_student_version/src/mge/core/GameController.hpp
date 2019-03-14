@@ -21,6 +21,7 @@
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/core/MenuManager.hpp"
 #include "mge/core/EnemySpawner.hpp"
+#include "mge/core/SoundEffects.hpp"
 
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 
@@ -57,11 +58,15 @@ class GameController : public GameObject
 	static Level* CurrentLevel;
 	static GameObject* MainPlane;
 	static LitDynamicTextureGridMaterial* MainPlaneMaterial;
+	static SoundEffect* MainMenuMusic;
+	static SoundEffect* GameplayMusic;
 
 	static glm::mat4 InitialCameraTransform;
 
 	static int WindowWidth;
 	static int WindowHeight;
+	static float MaxMusicVolume;
+	static float MaxSFXVolume;
 
 	static bool IsGamePaused;
 

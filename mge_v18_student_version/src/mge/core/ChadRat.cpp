@@ -24,7 +24,10 @@ ChadRat::ChadRat(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, s
 	: Enemy(pName, pPosition, pLane, pTag)
 {
 	_size = GameController::ChadSize;
-	_health = GameController::ChadHealth;
+	if (GameController::SpawnPoints[0]->_currentWave == 0)
+		_health = GameController::ChadHealth;
+	else
+		_health = GameController::ChadHealth + (GameController::ChadHealth * GameController::SpawnPoints[0]->_currentWave) * 0.1f;
 	_baseHealth = _health;
 	_healthRegen = GameController::ChadHealthRegen;
 	_damage = GameController::ChadDamage;
