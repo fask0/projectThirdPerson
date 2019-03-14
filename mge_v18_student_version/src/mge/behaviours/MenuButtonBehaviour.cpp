@@ -46,6 +46,7 @@ void MenuButtonBehaviour::On2DMouseClick()
 				GameController::UIManager->_sprites.clear();
 				GameController::UIManager->_texts.clear();
 				GameController::CurrentHealth = GameController::MaxHealth;
+				GameController::GridManager->_currentMoney = GameController::StartingMoney;
 				for each (EnemySpawner* spawner in GameController::SpawnPoints)
 				{
 					spawner->_currentWave = 0;
