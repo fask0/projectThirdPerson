@@ -279,12 +279,12 @@ void Level::inintialize2Dobjects()
 	sf::Texture* magnifyingGlassDescription = new sf::Texture();
 	sf::Texture* sniperDescription = new sf::Texture();
 	sf::Texture* batteryDescription = new sf::Texture();
-	toasterDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/toaster_description.png");
-	honeyDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/honey_description.png");
-	iceDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/ice_description.png");
-	magnifyingGlassDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/magnifying_glass_description.png");
-	sniperDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/sniper_description.png");
-	batteryDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/battery_description.png");
+	toasterDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/baked_blades.png");
+	honeyDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/honey_hive.png");
+	iceDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/cold_clash.png");
+	magnifyingGlassDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/blistering_beam.png");
+	sniperDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/piercing_peas.png");
+	batteryDescription->loadFromFile(config::MGE_SPRITES_PATH + "descriptions/electric_eraser.png");
 
 	//------//
 	// Coin //

@@ -194,6 +194,7 @@
     <ClInclude Include="..\src\mge\behaviours\ToasterTowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\TowerBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\TowerIconBehaviour.hpp" />
+    <ClInclude Include="..\src\mge\behaviours\TutorialHintBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\WASDBehaviour.hpp" />
     <ClInclude Include="..\src\mge\behaviours\WaypointFollowBehaviour.hpp" />
     <ClInclude Include="..\src\mge\config.hpp" />
@@ -275,6 +276,7 @@
     <ClCompile Include="..\src\mge\behaviours\ToasterTowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\TowerBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\TowerIconBehaviour.cpp" />
+    <ClCompile Include="..\src\mge\behaviours\TutorialHintBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\WASDBehaviour.cpp" />
     <ClCompile Include="..\src\mge\behaviours\WaypointFollowBehaviour.cpp" />
     <ClCompile Include="..\src\mge\core\AbstractGame.cpp" />

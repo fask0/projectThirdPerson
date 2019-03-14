@@ -33,6 +33,7 @@ public:
 	//pIndex of -1 = next level 
 	void LoadLevelNextFrame(int pIndex = -1);
 	bool GetWinScreenBeingDisplayed();
+	bool AreAnyScreensEnabled = true;
 
 private:
 	void init();

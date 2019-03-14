@@ -5,7 +5,7 @@
 --EnemyScalingPercentage    --The increasing amount of enemies
 --DelayBetweenEnemies       --How much time between each enemy (in seconds)
 --------------------------------------------------------------------------------------
-StartingMoney = 50;
+StartingMoney = 5000;
 --Lane One
 LaneOneNormieFromWave = 10;
 LaneOneSanicFromWave = 10;
