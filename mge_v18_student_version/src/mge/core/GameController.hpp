@@ -29,7 +29,7 @@
  */
 class GameController : public GameObject
 {
-public:
+	public:
 	GameController();
 
 	virtual ~GameController();
@@ -54,6 +54,8 @@ public:
 	static Level* CurrentLevel;
 	static GameObject* MainPlane;
 	static LitDynamicTextureGridMaterial* MainPlaneMaterial;
+
+	static glm::mat4 InitialCameraTransform;
 
 	static int WindowWidth;
 	static int WindowHeight;
@@ -161,7 +163,7 @@ public:
 	static glm::mat4* lightSpaceMatrix;
 	static unsigned int shadowMap;
 
-private:
+	private:
 	GameController(const GameController&);
 	GameController& operator= (const GameController&);
 

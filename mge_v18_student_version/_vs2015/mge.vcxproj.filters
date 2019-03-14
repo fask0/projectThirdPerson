@@ -179,6 +179,12 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\core\AudioManager.cpp" />
     <ClCompile Include="..\src\mge\core\SoundEffects.cpp" />
+    <ClCompile Include="..\src\mge\core\CupboardLevel.cpp" />
+    <ClCompile Include="..\src\mge\core\LevelOne.cpp" />
+    <ClCompile Include="..\src\mge\core\LevelTwo.cpp" />
+    <ClCompile Include="..\src\mge\core\SniperTowerProjectile.cpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -360,6 +366,12 @@
     </ClInclude>
     <ClInclude Include="..\src\mge\core\AudioManager.hpp" />
     <ClInclude Include="..\src\mge\core\SoundEffects.hpp" />
+    <ClInclude Include="..\src\mge\core\CupboardLevel.hpp" />
+    <ClInclude Include="..\src\mge\core\LevelOne.hpp" />
+    <ClInclude Include="..\src\mge\core\LevelTwo.hpp" />
+    <ClInclude Include="..\src\mge\core\SniperTowerProjectile.hpp">
+      <Filter>Towers\Projectiles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Materials">

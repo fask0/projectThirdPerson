@@ -5,7 +5,7 @@
 
 class EffectBehaviour : public AbstractBehaviour
 {
-public:
+	public:
 	enum Effect
 	{
 		SpeedUp,
@@ -20,7 +20,7 @@ public:
 	virtual void update(float pStep);
 	Effect _effect;
 
-private:
+	private:
 	Enemy* _enemyOwner;
 
 	int _effectPotency;

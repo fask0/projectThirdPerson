@@ -1,0 +1,109 @@
+newmtl MayoGlass
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\MayoGlass.png
+illum 2
+
+newmtl Lasagna1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Lasagna.png
+illum 2
+
+newmtl Bowl
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\BowlBig.png
+illum 2
+
+newmtl Avocado1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Avocado.png
+illum 2
+
+newmtl Joghurt 11
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Joghurt.png
+illum 2
+
+newmtl MouseTexture 46
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\MouseTexture.png
+illum 2
+
+newmtl Apple1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Apple.png
+illum 2
+
+newmtl Eggs1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Eggs.png
+illum 2
+
+newmtl MilkBottleOutside1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\MilkBottle.png
+illum 2
+
+newmtl Default-Material
+Kd 1 1 1
+illum 2
+
+newmtl Grapes1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Grapes.png
+illum 2
+
+newmtl Flag
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Flag.png
+illum 2
+
+newmtl Joghurt 10
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Joghurt.png
+illum 2
+
+newmtl CuttingBoard
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Board.png
+illum 2
+
+newmtl MouseTexture 43
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\MouseTexture.png
+illum 2
+
+newmtl Joghurt 9
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Joghurt.png
+illum 2
+
+newmtl MouseTexture 44
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\MouseTexture.png
+illum 2
+
+newmtl Joghurt 8
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Joghurt.png
+illum 2
+
+newmtl Butter1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Butter.png
+illum 2
+
+newmtl Fork1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\fork.png
+illum 2
+
+newmtl MouseTexture 45
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\MouseTexture.png
+illum 2
+
+newmtl MouseTexture 42
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\MouseTexture.png
+illum 2
+

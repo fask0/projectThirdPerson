@@ -1,0 +1,74 @@
+newmtl WineOutside
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\WineGlass.png
+illum 2
+
+newmtl Sausage
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\SausageStraight.png
+illum 2
+
+newmtl RatTrap1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\RatTrap.png
+illum 2
+
+newmtl Default-Material
+Kd 1 1 1
+illum 2
+
+newmtl Pear1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Pear.png
+illum 2
+
+newmtl Olive2
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Olives.png
+illum 2
+
+newmtl Tomatoes
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Tomatoes.png
+illum 2
+
+newmtl WIneInside
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\WineGlass.png
+illum 2
+
+newmtl Spatula1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Spatula.png
+illum 2
+
+newmtl Towel1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Towel.png
+illum 2
+
+newmtl PanUV
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\PanUV.png
+illum 2
+
+newmtl Pot1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Pot.png
+illum 2
+
+newmtl PotLid1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\PotLid.png
+illum 2
+
+newmtl Tootpick
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Toothpicks.png
+illum 2
+
+newmtl Plate1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Plate.png
+illum 2
+

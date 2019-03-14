@@ -2,12 +2,15 @@
 #define MAGNIFYINGGLASSTOWER_HPP
 
 #include <string>
+#include <vector>
+#include <time.h>
 
 #include "mge/core/Tower.hpp"
 #include "mge/core/Mesh.hpp"
 #include "mge/core/SoundEffects.hpp"
 
 #include "mge/materials/AbstractMaterial.hpp"
+#include "mge/materials/LitTextureMaterial.hpp"
 
 /**
  * Camera is just a GameObject with an additional projection matrix.
@@ -27,13 +30,32 @@ class MagnifyingGlassTower : public Tower
 	static std::vector<SoundEffect*> SFX;
 
 	void AddTowerBehaviour() override;
-	void PlayAttackSound();
-
-	void OnCollisionEnter(GameObject* pOther) override;
 
 	private:
 	MagnifyingGlassTower(const MagnifyingGlassTower&);
 	MagnifyingGlassTower& operator= (const MagnifyingGlassTower&);
+};
+
+class MagnifyingGlassHitBox : public GameObject
+{
+	public:
+	static std::vector < Mesh*> Animations;
+	static LitTextureMaterial*  Material;
+
+	MagnifyingGlassHitBox();
+	~MagnifyingGlassHitBox();
+
+	void update(float pStep) override;
+
+	void OnCollisionEnter(GameObject* pOther) override;
+	void OnCollisionExit(GameObject * pOther) override;
+	bool SkipCollisionCheck() override;
+
+	private:
+	std::vector<GameObject*> _objectsInRange;
+	time_t _timer = 0;
+	int _currentFrame = 0;
+	bool _goBack = false;
 };
 
 #endif // CAMERA_HPP

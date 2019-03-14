@@ -28,14 +28,14 @@ in vec2 texCoord;
 
 out vec4 fragment_color;
 
-vec3 CalcDirLight(DirLight _dirLight, vec3 normal)
+vec4 CalcDirLight(DirLight _dirLight, vec3 normal)
 {
 	vec3 norm = normalize(normal);
 	vec3 lightDir = -_dirLight.lightRot;
 	float diff = max(dot(norm, lightDir), 0.0f);
 	vec3 diffuse = diff * _dirLight.lightCol;
 
-	vec3 result = (ambientColor + diffuse) * vec3(texture(diffuseTexture,texCoord));
+	vec4 result = vec4((ambientColor + diffuse), 1.0) * texture(diffuseTexture,texCoord);
 	return result;	
 }
 
@@ -57,12 +57,12 @@ vec3 CalcSpotLight(SpotLight _spotLight, vec3 normal, vec3 fragPos)
 
 void main( void ) {
 
-	vec3 result = vec3(0, 0, 0);
+	vec4 result = vec4(0, 0, 0, 0);
 
 	result += CalcDirLight(dirLight, Normal);
 
-	for(int i = 0; i < NR_SPOT_LIGHTS; i++)
-		result += CalcSpotLight(spotLights[i], Normal, FragPos);
+	// for(int i = 0; i < NR_SPOT_LIGHTS; i++)
+	// 	result += CalcSpotLight(spotLights[i], Normal, FragPos);
 
-	fragment_color = vec4(result, 1.0);		
+	fragment_color = result;		
 }

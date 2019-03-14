@@ -18,7 +18,7 @@ ToasterProjectile::ToasterProjectile(glm::mat4 pTransform) : GameObject("Toaster
 	_ignoreTags.push_back(_tag);
 	_ignoreTags.push_back("honeyProjectile");
 	_ignoreTags.push_back("iceProjectile");
-	_ignoreTags.push_back("magnifyingGlassTower");
+	_ignoreTags.push_back("magnifyingGlassHitBox");
 
 	CollisionBehaviour* colBehaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, 1, true);
 	addBehaviour(colBehaviour);

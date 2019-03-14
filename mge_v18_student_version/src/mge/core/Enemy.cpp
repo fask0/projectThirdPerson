@@ -15,6 +15,9 @@ std::vector<SoundEffect*> Enemy::CutSFX;
 std::vector<SoundEffect*> Enemy::BurnSFX;
 std::vector<SoundEffect*> Enemy::FreezeSFX;
 std::vector<SoundEffect*> Enemy::HoneySlowSFX;
+Mesh* Enemy::HealthBarMesh;
+TextureMaterial* Enemy::HealthBarMaterial;
+TextureMaterial* Enemy::HealthBarMaterialBG;
 
 #include "mge/materials/TextureMaterial.hpp"
 
@@ -41,13 +44,11 @@ Enemy::Enemy(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane, std::
 	GameController::Enemies.push_back(this);
 
 	_healthBar = new GameObject("HealthBar", glm::vec3(0.2f, 2, 0));
-	_healthBar->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane"));
+	_healthBar->setMesh(HealthBarMesh);
 	_healthBar->scale(glm::vec3(0.1f, 0.03f, 0.75f));
-	_healthBar->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "HealthBarTexture.png")));
 	_healthBarBackground = new GameObject("HealthBarBackground", glm::vec3(0.2f, 1.98f, 0));
-	_healthBarBackground->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane"));
+	_healthBarBackground->setMesh(HealthBarMesh);
 	_healthBarBackground->scale(glm::vec3(0.15f, 0.03f, 0.8f));
-	_healthBarBackground->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "HealthBarTextureBackground.png")));
 	add(_healthBar);
 	add(_healthBarBackground);
 }
@@ -81,12 +82,23 @@ void Enemy::update(float pStep)
 		_timer = clock();
 	}
 
+	if (_shouldShowHealthBar)
+	{
+		_healthBar->setMaterial(HealthBarMaterial);
+		_healthBarBackground->setMaterial(HealthBarMaterialBG);
+		if (clock() >= _healthBarTimer + 5 * CLOCKS_PER_SEC)
+		{
+			_healthBar->removeMaterial();
+			_healthBarBackground->removeMaterial();
+			_shouldShowHealthBar = false;
+		}
+	}
+
 	if (_speed == _baseSpeed) return;
 	if (_speed + pStep * _effectRecovery <= _baseSpeed)
 		_speed += pStep * _effectRecovery;
 	else if (_speed - pStep * _effectRecovery >= _baseSpeed)
 		_speed -= pStep * _effectRecovery;
-
 }
 
 void Enemy::OnCollisionEnter(GameObject* pOther)
@@ -109,7 +121,7 @@ void Enemy::OnCollisionEnter(GameObject* pOther)
 		if (HoneySlowSFX[rnd]->GetSound().getStatus() != sf::Sound::Playing)
 			HoneySlowSFX[rnd]->PlaySoundEffect();
 	}
-	else if (pOther->GetTag().compare("magnifyingGlassTower") == 0)
+	else if (pOther->GetTag().compare("magnifyingGlassHitBox") == 0)
 	{
 		int rnd = rand() % BurnSFX.size();
 		if (BurnSFX[rnd]->GetSound().getStatus() != sf::Sound::Playing)
@@ -136,7 +148,8 @@ void Enemy::TakeDamage(int pDamage)
 	_health -= pDamage;
 
 	_healthBar->scale(glm::vec3(1, 1, percentage));
-
+	_healthBarTimer = clock();
+	_shouldShowHealthBar = true;
 	if (_health > 0) return;
 	GameController::GridManager->_currentMoney += KillValue;
 	Kill();

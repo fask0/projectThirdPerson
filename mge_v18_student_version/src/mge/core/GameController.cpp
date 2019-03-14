@@ -23,11 +23,15 @@
 #include "mge/core/ToasterProjectile.hpp"
 #include "mge/core/HoneyProjectile.hpp"
 #include "mge/core/IceProjectile.hpp"
+#include "mge/core/SniperTowerProjectile.hpp"
 
 #include "mge/core/Level.hpp"
 #include "mge/core/TableLevel.hpp"
 #include "mge/core/TutorialLevel.hpp"
 #include "mge/core/FridgeLevel.hpp"
+#include "mge/core/CupboardLevel.hpp"
+#include "mge/core/LevelTwo.hpp"
+#include "mge/core/LevelOne.hpp"
 
 #include "mge/TowerDefenseScene.hpp"
 
@@ -60,6 +64,8 @@ GridManager* GameController::GridManager;
 Level* GameController::CurrentLevel;
 GameObject* GameController::MainPlane;
 LitDynamicTextureGridMaterial* GameController::MainPlaneMaterial;
+
+glm::mat4 GameController::InitialCameraTransform;
 
 int GameController::WindowWidth;
 int GameController::WindowHeight;
@@ -245,19 +251,29 @@ void GameController::ReplayLevel()
 
 void GameController::SetUpLevels()
 {
-	FridgeLevel* l2 = new FridgeLevel("FridgeLevel", glm::vec3(0, 0, 0), 4);
 	TutorialLevel* l0 = new TutorialLevel("TutotialLevel", glm::vec3(0, 0, 0), 2);
-	TableLevel* l1 = new TableLevel("TableLevel", glm::vec3(0, 0, 0), 4);
+	LevelOne* l1 = new LevelOne("LevelOne", glm::vec3(0, 0, 0), 2);
+	LevelTwo* l2 = new LevelTwo("LevelTwo", glm::vec3(0, 0, 0), 2);
+	CupboardLevel* l3 = new CupboardLevel("CupboardLevel", glm::vec3(0, 0, 0), 4);
+	FridgeLevel* l4 = new FridgeLevel("FridgeLevel", glm::vec3(0, 0, 0), 4);
+	TableLevel* l5 = new TableLevel("TableLevel", glm::vec3(0, 0, 0), 4);
 }
 
 void GameController::SetTowerVariables()
 {
 	ToasterProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
 	ToasterProjectile::Material = new  LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife.png"));
-	HoneyProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
-	HoneyProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife.png"));
-	IceProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/KnifeProjectile");
-	IceProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "knife.png"));
+	HoneyProjectile::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTowerProjectile0"));
+	HoneyProjectile::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTowerProjectile1"));
+	HoneyProjectile::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTowerProjectile2"));
+	HoneyProjectile::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTowerProjectile3"));
+	HoneyProjectile::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTowerProjectile4"));
+	HoneyProjectile::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/HoneyTowerProjectile5"));
+	HoneyProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "HoneyPot.png"));
+	IceProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/IceTowerProjectile");
+	IceProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "IceTowerProjectile.png"));
+	SniperTowerProjectile::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/SniperTowerProjectile");
+	SniperTowerProjectile::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "PeasTower.png"));
 
 	//Slingshot tower
 	ToasterTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/ToasterTower");
@@ -281,14 +297,24 @@ void GameController::SetTowerVariables()
 	ShockTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/AoETower/BatteryTow02.wav", SoundEffect::SFX));
 	ShockTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/AoETower/BatteryTow03.wav", SoundEffect::SFX));
 	//Ice tower
-	IceTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/IceTower");
+	IceTower::MainMesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/IceTower");
+	IceTower::MouseMesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/IceTowerMouse");
+	IceTower::MainMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "IceTower.png"));
+	IceTower::MouseMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "MouseTexture.png"));
 	IceTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/IceTower/IceThrow01.wav", SoundEffect::SFX));
 	IceTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/IceTower/IceThrow02.wav", SoundEffect::SFX));
 	IceTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/IceTower/IceThrow03.wav", SoundEffect::SFX));
 	//Magnifying glass tower
 	MagnifyingGlassTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/MagnifyingGlassTower");
+	MagnifyingGlassHitBox::Animations.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/MagnifyingGlassHitBox0"));
+	MagnifyingGlassHitBox::Animations.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/MagnifyingGlassHitBox1"));
+	MagnifyingGlassHitBox::Animations.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/MagnifyingGlassHitBox2"));
+	MagnifyingGlassHitBox::Animations.push_back(Mesh::load(config::MGE_MODEL_PATH + "Towers/MagnifyingGlassHitBox3"));
+	MagnifyingGlassHitBox::Material = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "HotArea.png"));
 	//Sniper tower
-	SniperTower::Mesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/SniperTower");
+	SniperTower::MainMesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/SniperTower");
+	SniperTower::MouseMesh = Mesh::load(config::MGE_MODEL_PATH + "Towers/SniperTowerMouse");
+	SniperTower::MainMaterial = new LitTextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "PeasTower.png"));
 	SniperTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/SniperTower/SniperSpit01.wav", SoundEffect::SFX));
 	SniperTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/SniperTower/SniperSpit02.wav", SoundEffect::SFX));
 	SniperTower::SFX.push_back(new SoundEffect(config::MGE_SOUNDS_PATH + "Towers/SniperTower/SniperSpit03.wav", SoundEffect::SFX));
@@ -300,6 +326,10 @@ void GameController::SetUpEnemies()
 	//Collider Mesh
 	CollisionBehaviour::BoxMesh = Mesh::load(config::MGE_MODEL_PATH + "cube_smooth");
 	CollisionBehaviour::SphereMesh = Mesh::load(config::MGE_MODEL_PATH + "sphere4");
+
+	Enemy::HealthBarMesh = Mesh::load(config::MGE_MODEL_PATH + "plane");
+	Enemy::HealthBarMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "HealthBarTexture.png"));
+	Enemy::HealthBarMaterialBG = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "HealthBarTextureBackground.png"));
 
 	//Rat
 	Rat::Animation.push_back(Mesh::load(config::MGE_MODEL_PATH + "Enemies/Normie/normie0"));

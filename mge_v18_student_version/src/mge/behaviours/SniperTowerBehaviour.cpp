@@ -5,6 +5,7 @@
 #include "mge/core/World.hpp"
 #include "mge/core/Helper.hpp"
 #include "mge/core/SniperTower.hpp"
+#include "mge/core/SniperTowerProjectile.hpp"
 
 SniperTowerBehaviour::SniperTowerBehaviour() : TowerBehaviour()
 {
@@ -46,7 +47,7 @@ void SniperTowerBehaviour::Rotate()
 {
 	if (_enemiesInRange)
 	{
-		Helper::LookAt(_owner, _allInRangeEnemies[0]);
+		Helper::LookAt(dynamic_cast<SniperTower*>(_owner)->getMouse(), _allInRangeEnemies[0]);
 	}
 }
 
@@ -56,6 +57,8 @@ void SniperTowerBehaviour::Attack()
 	{
 		if (_enemiesInRange)
 		{
+			SniperTowerProjectile* projectile = new SniperTowerProjectile(_owner->getLocalPosition() + glm::vec3(0, 1.7f, 0), _allInRangeEnemies[0]);
+			GameController::CurrentLevel->add(projectile);
 			_allInRangeEnemies[0]->TakeDamage(GameController::SniperDamage);
 			dynamic_cast<SniperTower*>(_owner)->PlayAttackSound();
 			_lastAttackTime = clock();

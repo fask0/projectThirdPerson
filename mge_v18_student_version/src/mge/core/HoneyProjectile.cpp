@@ -1,3 +1,5 @@
+#include <iostream>
+#include <vector>
 #include "glm.hpp"
 #include "mge/core/HoneyProjectile.hpp"
 #include "mge/behaviours/HoneyProjectileBehaviour.hpp"
@@ -10,7 +12,7 @@
 #include "mge/core/Enemy.hpp"
 #include <time.h>
 
-Mesh* HoneyProjectile::Mesh;
+std::vector<Mesh*> HoneyProjectile::Animation;
 LitTextureMaterial* HoneyProjectile::Material;
 
 HoneyProjectile::HoneyProjectile(glm::mat4 pTransform, float pDiff) : GameObject("HoneyProjectile")
@@ -19,12 +21,12 @@ HoneyProjectile::HoneyProjectile(glm::mat4 pTransform, float pDiff) : GameObject
 	_ignoreTags.push_back(_tag);
 	_ignoreTags.push_back("toasterProjectile");
 	_ignoreTags.push_back("iceProjectile");
-	_ignoreTags.push_back("magnifyingGlassTower");
+	_ignoreTags.push_back("magnifyingGlassHitBox");
 
 	setTransform(pTransform);
 
 	addBehaviour(new HoneyProjectileBehaviour(pDiff));
-	setMesh(Mesh);
+	setMesh(Animation[0]);
 	setMaterial(Material);
 
 	_spawnTime = clock();
@@ -41,6 +43,16 @@ void HoneyProjectile::update(float pStep)
 	//rayCast();
 	GameObject::update(pStep);
 	if (_shouldDie) return;
+	if (_shouldAnimate && _currentFrame < Animation.size())
+	{
+		if (clock() >= _timer + 0.05f * CLOCKS_PER_SEC)
+		{
+			setMesh(Animation[_currentFrame]);
+			_currentFrame++;
+			_timer = clock();
+		}
+	}
+
 	if (clock() > _spawnTime + (5 * CLOCKS_PER_SEC))
 	{
 		for each (Enemy* enemy in enemiesCollidingWith)

@@ -51,7 +51,6 @@ void MagnifyingGlassTowerBehaviour::Attack()
 			{
 				enemy->TakeDamage(5);
 			}
-			dynamic_cast<MagnifyingGlassTower*>(_owner)->PlayAttackSound();
 			_lastAttackTime = clock();
 		}
 	}

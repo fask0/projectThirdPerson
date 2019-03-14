@@ -33,3 +33,6 @@
 # Things
 *.vs
 **/debug_dynamic_build
+**/debug_static_build
+**/release_static_build
+**/release_dynamic_build

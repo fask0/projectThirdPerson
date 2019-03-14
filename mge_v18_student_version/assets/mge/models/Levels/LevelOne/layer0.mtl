@@ -1,0 +1,9 @@
+newmtl Default-Material
+Kd 1 1 1
+illum 2
+
+newmtl PlaneTex2
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\LevelOne\PlaneTex2.png
+illum 2
+

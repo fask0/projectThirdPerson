@@ -22,16 +22,21 @@ class SniperTower : public Tower
 
 	void update(float pStep) override;
 
-	static Mesh* Mesh;
-	static AbstractMaterial* Material;
+	static Mesh* MainMesh;
+	static Mesh* MouseMesh;
+	static AbstractMaterial* MainMaterial;
 	static std::vector<SoundEffect*> SFX;
 
+	GameObject* getMouse() { return _mouse; }
 	void AddTowerBehaviour() override;
+
 	void PlayAttackSound();
 
 	private:
 	SniperTower(const SniperTower&);
 	SniperTower& operator= (const SniperTower&);
+	GameObject* _mouse = nullptr;
+	bool _isMouseInit = false;
 };
 
 #endif // CAMERA_HPP

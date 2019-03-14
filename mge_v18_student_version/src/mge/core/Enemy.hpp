@@ -11,6 +11,7 @@
 #include "mge/core/Mesh.hpp"
 #include "mge/core/SoundEffects.hpp"
 #include "mge/core/Texture.hpp"
+#include "mge/materials/TextureMaterial.hpp"
 
 class Enemy : public GameObject
 {
@@ -19,6 +20,11 @@ class Enemy : public GameObject
 	static std::vector<SoundEffect*> BurnSFX;
 	static std::vector<SoundEffect*> FreezeSFX;
 	static std::vector<SoundEffect*> HoneySlowSFX;
+
+	static Mesh* HealthBarMesh;
+	static TextureMaterial* HealthBarMaterial;
+	static TextureMaterial* HealthBarMaterialBG;
+
 	Enemy(
 		std::string pName = "Enemy",
 		glm::vec3 pPosition = glm::vec3(0, 0, 0),
@@ -63,4 +69,6 @@ class Enemy : public GameObject
 	std::vector<Mesh*> _animation;
 	int _currentFrame;
 	time_t _timer;
+	time_t _healthBarTimer;
+	bool _shouldShowHealthBar = false;
 };

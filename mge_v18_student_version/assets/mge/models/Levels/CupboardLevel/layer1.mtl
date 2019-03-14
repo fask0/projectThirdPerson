@@ -1,0 +1,54 @@
+newmtl Cheesy_Bites
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\CheeseyBites.png
+illum 2
+
+newmtl Chicken_Leg1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Chicken.png
+illum 2
+
+newmtl TopCheeseLVL1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Lvl1topcheese.png
+illum 2
+
+newmtl SideCheese1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Flatcheese.png
+illum 2
+
+newmtl PathTextureTest1
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\PathTextureTest1.png
+illum 2
+
+newmtl Lvl1cheese
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Lvl1Cheese.png
+illum 2
+
+newmtl BigO'Cheesy
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\BigO'Cheesy.png
+illum 2
+
+newmtl lambert32
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\BG_Kitchen_Table_Thing_1_lambert1_AlbedoTransparency.png
+illum 2
+
+newmtl Default-Material
+Kd 1 1 1
+illum 2
+
+newmtl SideCheese
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\SideCheese.png
+illum 2
+
+newmtl Cheese Cube
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Levels\CupboardLevel\Cheese Cube.png
+illum 2
+

@@ -1,6 +1,7 @@
 #ifndef HONEYPROJECTILE_HPP
 #define HONEYPROJECTILE_HPP
-
+#include <iostream>
+#include <vector>
 #include <string>
 #include "mge/core/GameObject.hpp"
 #include <time.h>
@@ -25,8 +26,14 @@ class HoneyProjectile : public GameObject
 	void OnCollisionExit(GameObject* pOther) override;
 	bool SkipCollisionCheck() override;
 
-	static Mesh* Mesh;
+	static std::vector<Mesh*> Animation;
 	static LitTextureMaterial* Material;
+
+	void startAnimation()
+	{
+		scale(glm::vec3(2, 1, 2));
+		_shouldAnimate = true;
+	}
 
 	protected:
 	HoneyProjectile(const HoneyProjectile&);
@@ -34,6 +41,9 @@ class HoneyProjectile : public GameObject
 	clock_t _spawnTime;
 	glm::vec3 _spawnPos;
 	std::vector<Enemy*> enemiesCollidingWith;
+	bool _shouldAnimate = false;
+	time_t _timer = 0;
+	int _currentFrame = 0;
 };
 
 #endif // CAMERA_HPP

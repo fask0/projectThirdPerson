@@ -199,6 +199,7 @@
     <ClInclude Include="..\src\mge\core\AudioManager.hpp" />
     <ClInclude Include="..\src\mge\core\CollisionManager.hpp" />
     <ClInclude Include="..\src\mge\core\Camera.hpp" />
+    <ClInclude Include="..\src\mge\core\CupboardLevel.hpp" />
     <ClInclude Include="..\src\mge\core\Enemy.hpp" />
     <ClInclude Include="..\src\mge\core\EnemySpawner.hpp" />
     <ClInclude Include="..\src\mge\core\FridgeLevel.hpp" />
@@ -212,6 +213,8 @@
     <ClInclude Include="..\src\mge\core\IceTower.hpp" />
     <ClInclude Include="..\src\mge\core\ChadRat.hpp" />
     <ClInclude Include="..\src\mge\core\Level.hpp" />
+    <ClInclude Include="..\src\mge\core\LevelOne.hpp" />
+    <ClInclude Include="..\src\mge\core\LevelTwo.hpp" />
     <ClInclude Include="..\src\mge\core\Light.hpp" />
     <ClInclude Include="..\src\mge\core\MagnifyingGlassTower.hpp" />
     <ClInclude Include="..\src\mge\core\Mesh.hpp" />
@@ -221,6 +224,7 @@
     <ClInclude Include="..\src\mge\core\ShaderProgram.hpp" />
     <ClInclude Include="..\src\mge\core\ShockTower.hpp" />
     <ClInclude Include="..\src\mge\core\SniperTower.hpp" />
+    <ClInclude Include="..\src\mge\core\SniperTowerProjectile.hpp" />
     <ClInclude Include="..\src\mge\core\SoundEffects.hpp" />
     <ClInclude Include="..\src\mge\core\TableLevel.hpp" />
     <ClInclude Include="..\src\mge\core\ToasterProjectile.hpp" />
@@ -271,6 +275,7 @@
     <ClCompile Include="..\src\mge\core\AudioManager.cpp" />
     <ClCompile Include="..\src\mge\core\Camera.cpp" />
     <ClCompile Include="..\src\mge\core\CollisionManager.cpp" />
+    <ClCompile Include="..\src\mge\core\CupboardLevel.cpp" />
     <ClCompile Include="..\src\mge\core\Enemy.cpp" />
     <ClCompile Include="..\src\mge\core\EnemySpawner.cpp" />
     <ClCompile Include="..\src\mge\core\FridgeLevel.cpp" />
@@ -284,6 +289,8 @@
     <ClCompile Include="..\src\mge\core\IceProjectile.cpp" />
     <ClCompile Include="..\src\mge\core\IceTower.cpp" />
     <ClCompile Include="..\src\mge\core\Level.cpp" />
+    <ClCompile Include="..\src\mge\core\LevelOne.cpp" />
+    <ClCompile Include="..\src\mge\core\LevelTwo.cpp" />
     <ClCompile Include="..\src\mge\core\Light.cpp" />
     <ClCompile Include="..\src\mge\core\MagnifyingGlassTower.cpp" />
     <ClCompile Include="..\src\mge\core\Mesh.cpp" />
@@ -293,6 +300,7 @@
     <ClCompile Include="..\src\mge\core\ShaderProgram.cpp" />
     <ClCompile Include="..\src\mge\core\ShockTower.cpp" />
     <ClCompile Include="..\src\mge\core\SniperTower.cpp" />
+    <ClCompile Include="..\src\mge\core\SniperTowerProjectile.cpp" />
     <ClCompile Include="..\src\mge\core\SoundEffects.cpp" />
     <ClCompile Include="..\src\mge\core\TableLevel.cpp" />
     <ClCompile Include="..\src\mge\core\ToasterProjectile.cpp" />

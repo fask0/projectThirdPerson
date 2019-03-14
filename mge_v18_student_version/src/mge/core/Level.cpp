@@ -40,9 +40,8 @@ void Level::Init()
 	_waypoints.clear();
 	_layers.clear();
 	GameController::GridObjects.clear();
-	GameController::MainCamera->setLocalPosition(glm::vec3(0, 35, 0));
+	GameController::MainCamera->setTransform(GameController::InitialCameraTransform);
 	GameController::CameraBehaviour->SetBounds(_minX, _maxX, _minZ, _maxZ);
-
 	inintialize2Dobjects();
 
 	for (int i = 0; i < _layerAmount; ++i)

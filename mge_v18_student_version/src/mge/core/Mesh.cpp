@@ -160,35 +160,35 @@ Mesh* Mesh::load(std::string pFileName)
 						int wpIndex = ((int)obj.at(2) - 48) * 10 + (int)obj.at(3) - 48;
 						switch (obj.at(1))
 						{
-						case 'A':
+							case 'A':
 							if (wpIndex == 0)
 								col = new EnemySpawner("Spawner", pos, Waypoint::A);
 							else
 								col = new Waypoint("Waypoint", pos, Waypoint::A, wpIndex);
 							break;
 
-						case 'B':
+							case 'B':
 							if (wpIndex == 0)
 								col = new EnemySpawner("Spawner", pos, Waypoint::B);
 							else
 								col = new Waypoint("Waypoint", pos, Waypoint::B, wpIndex);
 							break;
 
-						case 'C':
+							case 'C':
 							if (wpIndex == 0)
 								col = new EnemySpawner("Spawner", pos, Waypoint::C);
 							else
 								col = new Waypoint("Waypoint", pos, Waypoint::C, wpIndex);
 							break;
 
-						case 'D':
+							case 'D':
 							if (wpIndex == 0)
 								col = new EnemySpawner("Spawner", pos, Waypoint::D);
 							else
 								col = new Waypoint("Waypoint", pos, Waypoint::D, wpIndex);
 							break;
 
-						default:
+							default:
 							break;
 						}
 
@@ -199,9 +199,9 @@ Mesh* Mesh::load(std::string pFileName)
 						col = new GameObject("Collider", pos);
 						col->SetTag("emptyCollider");
 						CollisionBehaviour* objectCollider = new CollisionBehaviour(CollisionBehaviour::Tower,
-							glm::vec3(glm::max(vOne.x, vTwo.x) - glm::min(vOne.x, vTwo.x),
-								glm::max(vOne.y, vTwo.y) - glm::min(vOne.y, vTwo.y),
-								glm::max(vOne.z, vTwo.z) - glm::min(vOne.z, vTwo.z)), true);
+																					glm::vec3(glm::max(vOne.x, vTwo.x) - glm::min(vOne.x, vTwo.x),
+																							  glm::max(vOne.y, vTwo.y) - glm::min(vOne.y, vTwo.y),
+																							  glm::max(vOne.z, vTwo.z) - glm::min(vOne.z, vTwo.z)), true);
 						col->addBehaviour(objectCollider);
 						if (GameController::DrawColliders)
 							objectCollider->DrawCollider();
@@ -252,9 +252,9 @@ Mesh* Mesh::load(std::string pFileName)
 				glm::ivec3 normalIndex;
 				glm::ivec3 uvIndex;
 				int count = sscanf(line.c_str(), "%10s %d/%d/%d %d/%d/%d %d/%d/%d", cmd,
-					&vertexIndex[0], &uvIndex[0], &normalIndex[0],
-					&vertexIndex[1], &uvIndex[1], &normalIndex[1],
-					&vertexIndex[2], &uvIndex[2], &normalIndex[2]);
+								   &vertexIndex[0], &uvIndex[0], &normalIndex[0],
+								   &vertexIndex[1], &uvIndex[1], &normalIndex[1],
+								   &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 
 				vertexIndex[0] -= 24 * colliderCount;
 				vertexIndex[1] -= 24 * colliderCount;

@@ -6,12 +6,12 @@
 
 class HoneyProjectileBehaviour : public AbstractBehaviour
 {
-public:
+	public:
 	HoneyProjectileBehaviour(float pDiffBetweenTowerAndTarget);
 	virtual ~HoneyProjectileBehaviour();
 
 	virtual void update(float pStep);
-private:
+	private:
 	glm::vec3 _velocity;
 	float _gravityStrength;
 	bool _reachedDestination = false;

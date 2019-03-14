@@ -15,7 +15,7 @@ class Mesh;
  */
 class GameObject
 {
-public:
+	public:
 	GameObject(const std::string& pName = nullptr, const glm::vec3& pPosition = glm::vec3(0.0f, 0.0f, 0.0f));
 	virtual ~GameObject();
 
@@ -29,6 +29,7 @@ public:
 	//access just the local position
 	void setLocalPosition(glm::vec3 pPosition);
 	glm::vec3 getLocalPosition() const;
+
 
 	//get the objects world position by combining transforms, SLOW use with care
 	glm::vec3 getWorldPosition() const;
@@ -44,6 +45,7 @@ public:
 	Mesh* getMesh() const;
 
 	//mesh and material should be shared as much as possible
+	void removeMaterial();
 	void setMaterial(AbstractMaterial* pMaterial);
 	AbstractMaterial* getMaterial() const;
 
@@ -93,7 +95,7 @@ public:
 	void Kill();
 	std::vector<GameObject*> _children;
 
-protected:
+	protected:
 	std::string _name;
 	glm::vec3 _lastPosition;
 	glm::mat4 _transform;
@@ -118,7 +120,7 @@ protected:
 
 	bool _shouldDie;
 
-private:
+	private:
 	GameObject(const GameObject&);
 	GameObject& operator= (const GameObject&);
 };

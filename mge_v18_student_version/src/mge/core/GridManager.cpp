@@ -141,7 +141,7 @@ void GridManager::SpecificTowerSelection(sf::Event pEvent)
 		_tower = new ShockTower();
 		break;
 		case sf::Keyboard::Key::Num4:
-		towerMesh = IceTower::Mesh;
+		towerMesh = IceTower::MainMesh;
 		_tower = new IceTower();
 		break;
 		case sf::Keyboard::Key::Num5:
@@ -149,7 +149,7 @@ void GridManager::SpecificTowerSelection(sf::Event pEvent)
 		_tower = new MagnifyingGlassTower();
 		break;
 		case sf::Keyboard::Key::Num6:
-		towerMesh = SniperTower::Mesh;
+		towerMesh = SniperTower::MainMesh;
 		_tower = new SniperTower();
 		break;
 	}
@@ -430,7 +430,7 @@ void GridManager::SelectTower(int pTowerNumber)
 			_tower = new ShockTower();
 			break;
 			case 4:
-			towerMesh = IceTower::Mesh;
+			towerMesh = IceTower::MainMesh;
 			_tower = new IceTower();
 			break;
 			case 5:
@@ -438,7 +438,7 @@ void GridManager::SelectTower(int pTowerNumber)
 			_tower = new MagnifyingGlassTower();
 			break;
 			case 6:
-			towerMesh = SniperTower::Mesh;
+			towerMesh = SniperTower::MainMesh;
 			_tower = new SniperTower();
 			break;
 		}

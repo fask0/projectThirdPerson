@@ -208,6 +208,7 @@ void TowerDefenseScene::_initializeScene()
 	_camera->addBehaviour(new CameraMovementBehaviour(-30, 30, -17, 17, 10, 35, _window, _camera->getLocalPosition(), 1.0f, 20.0f));
 	_world->add(_camera);
 	_world->setMainCamera(_camera);
+	GameController::InitialCameraTransform = _camera->getTransform();
 
 	//add light to the scene
 	Light* light = new Light("light", glm::vec3(0, 40, -19), glm::vec3(0.9f, 1.0f, 0.8f), 10.0f, 30.0f, Light::Directional);

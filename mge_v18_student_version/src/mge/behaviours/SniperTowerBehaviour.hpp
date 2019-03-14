@@ -10,12 +10,12 @@
  */
 class SniperTowerBehaviour : public TowerBehaviour
 {
-public:
+	public:
 	SniperTowerBehaviour();
 	virtual ~SniperTowerBehaviour();
 	virtual void update(float pStep);
 
-private:
+	private:
 	//Methods
 	void CheckForEnemies();
 	void Rotate();
@@ -27,5 +27,4 @@ private:
 
 	std::vector<Enemy*> _allInRangeEnemies;
 };
-
 #endif // ROTATINGBEHAVIOUR_HPP

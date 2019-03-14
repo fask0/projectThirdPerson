@@ -51,7 +51,7 @@ void IceTowerBehaviour::Rotate()
 {
 	if (_enemiesInRange)
 	{
-		Helper::LookAt(_owner, _furthestEnemy);
+		Helper::LookAt(dynamic_cast<IceTower*>(_owner)->getMouse(), _furthestEnemy);
 	}
 }
 
@@ -61,7 +61,7 @@ void IceTowerBehaviour::Attack()
 	{
 		if (_enemiesInRange)
 		{
-			_projectile = new IceProjectile(_owner->getTransform());
+			_projectile = new IceProjectile(dynamic_cast<IceTower*>(_owner)->getMouse()->getTransform());
 			GameController::CurrentLevel->add(_projectile);
 			dynamic_cast<IceTower*>(_owner)->PlayAttackSound();
 			_lastAttackTime = clock();

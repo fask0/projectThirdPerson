@@ -1,7 +1,8 @@
 #include "mge/behaviours/HoneyProjectileBehaviour.hpp"
-#include "mge/core/ToasterProjectile.hpp"
+#include "mge/core/HoneyProjectile.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/behaviours/CollisionBehaviour.hpp"
+#include "mge/core/GameController.hpp"
 
 HoneyProjectileBehaviour::HoneyProjectileBehaviour(float pDiffBetweenTowerAndTarget) :AbstractBehaviour()
 {
@@ -24,10 +25,12 @@ void HoneyProjectileBehaviour::update(float pStep)
 	if (_owner->getLocalPosition().y < 0 && !_reachedDestination)
 	{
 		_reachedDestination = true;
+		dynamic_cast<HoneyProjectile*>(_owner)->startAnimation();
 		_owner->setLocalPosition(glm::vec3(_owner->getLocalPosition().x, 0.0f, _owner->getLocalPosition().z));
 		CollisionBehaviour* behaviour = new CollisionBehaviour(CollisionBehaviour::Projectile, 2.0f, true);
 		_owner->addBehaviour(behaviour);
-		behaviour->DrawCollider();
+		if (GameController::DrawColliders)
+			behaviour->DrawCollider();
 	}
 	if (!_reachedDestination)
 	{

@@ -34,6 +34,7 @@ WaypointFollowBehaviour::~WaypointFollowBehaviour()
 {
 	_currentWaypoint = nullptr;
 	_enemyOwner = nullptr;
+	delete _dummyTransform;
 	_dummyTransform = nullptr;
 }
 
@@ -60,7 +61,7 @@ void WaypointFollowBehaviour::update(float pStep)
 		}
 	}
 	else if (glm::abs(distToCurrent.x) <= _enemyOwner->getSpeed() * pStep * 3 &&
-		glm::abs(distToCurrent.z) <= _enemyOwner->getSpeed() * pStep * 3)
+			 glm::abs(distToCurrent.z) <= _enemyOwner->getSpeed() * pStep * 3)
 	{
 		if (_toDo.size() > 1)
 			_currentWaypoint = _toDo[1];
@@ -77,16 +78,18 @@ void WaypointFollowBehaviour::update(float pStep)
 
 void WaypointFollowBehaviour::Init()
 {
-	_direction = getDir();
 	_enemyOwner = dynamic_cast<Enemy*>(_owner);
+	_direction = getDir();
+	_dummyTransform->setLocalPosition(_enemyOwner->getLocalPosition());
+	Helper::LookAt(_dummyTransform, _currentWaypoint);
 	Helper::LookAt(_enemyOwner, _currentWaypoint);
 }
 
 glm::vec3 WaypointFollowBehaviour::getDir()
 {
-	glm::vec3 dir = _currentWaypoint->getLocalPosition() - _owner->getLocalPosition();
+	glm::vec3 dir = _currentWaypoint->getLocalPosition() - _enemyOwner->getLocalPosition();
 	dir.y = 0;
-	_dummyTransform->setLocalPosition(_owner->getLocalPosition());
+	_dummyTransform->setLocalPosition(_enemyOwner->getLocalPosition());
 	Helper::LookAt(_dummyTransform, _currentWaypoint);
 	return glm::normalize(dir);
 }

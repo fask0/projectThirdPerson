@@ -1,0 +1,10 @@
+newmtl MouseTexture 50
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\MouseTexture.png
+illum 2
+
+newmtl PeasTower
+Kd 1 1 1
+map_Kd E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\assets\mge\models\Towers\PeasTower.png
+illum 2
+

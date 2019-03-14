@@ -75,6 +75,11 @@ glm::vec3 GameObject::getLocalPosition() const
 	return glm::vec3(_transform[3]);
 }
 
+void GameObject::removeMaterial()
+{
+	_material = nullptr;
+}
+
 void GameObject::setMaterial(AbstractMaterial* pMaterial)
 {
 	_material = pMaterial;
