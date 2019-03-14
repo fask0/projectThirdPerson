@@ -8,6 +8,8 @@
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 #include "Lua/lua.hpp"
 #include "mge/core/UIManager.hpp"
+#include "mge/core/AdvancedSprite.hpp"
+#include "SFML/Graphics.hpp"
 
 class DebugHud;
 
@@ -23,6 +25,8 @@ public:
 	//Lua global variables
 	int WindowHeight;
 	int WindowWidth;
+
+	bool isHoveringOverSomething = false;
 
 protected:
 	//override so we can construct the actual scene
@@ -49,6 +53,11 @@ private:
 
 	TowerDefenseScene(const TowerDefenseScene&);
 	TowerDefenseScene& operator=(const TowerDefenseScene&);
+
+	//Cursor
+	sf::Texture* _normalCursorTex;
+	sf::Texture* _hoverCursorTex;
+	AdvancedSprite* _cursor;
 };
 
 #endif

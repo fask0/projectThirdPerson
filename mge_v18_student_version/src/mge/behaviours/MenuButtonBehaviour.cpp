@@ -40,7 +40,10 @@ void MenuButtonBehaviour::On2DMouseClick()
 		else
 		{
 			if (GameController::CurrentLevel != nullptr)
+			{
 				GameController::CurrentLevel->_children.clear();
+				GameController::UIManager->_sprites.clear();
+			}
 			GameController::MenuManager->CreateMenu(_menuToLoad);
 			GameController::UIManager->Draw();
 		}

@@ -2,6 +2,7 @@
 #include "mge/core/AdvancedSprite.hpp"
 #include "mge/core/GameObject.hpp"
 #include <SFML/Graphics.hpp>
+#include "mge/core/GameController.hpp"
 
 SwitchSpriteOnHoverBehaviour::SwitchSpriteOnHoverBehaviour(sf::Texture* pSwitchTexture) : AbstractBehaviour(), _switchTexture(pSwitchTexture)
 {
@@ -24,8 +25,14 @@ void SwitchSpriteOnHoverBehaviour::update(float pstep)
 		_advancedOwner->Texture = _advancedOwner->StartTexture;
 }
 
+void SwitchSpriteOnHoverBehaviour::On2DMouseOver()
+{
+	GameController::TowerDefenseScene->isHoveringOverSomething = true;
+}
+
 void SwitchSpriteOnHoverBehaviour::On2DMouseEnter()
 {
+	GameController::TowerDefenseScene->isHoveringOverSomething = true;
 	SwitchTexture = true;
 	AbstractBehaviour::On2DMouseEnter();
 }

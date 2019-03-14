@@ -49,6 +49,7 @@ void TowerDefenseScene::initialize()
 	std::cout << "HUD initialized." << std::endl << std::endl;
 
 	GameController::World = _world;
+	//Healthbar
 	Mesh* _healthBarMesh = Mesh::load(config::MGE_MODEL_PATH + "teapot_smooth.obj");
 	GameController::HealthBarMesh = _healthBarMesh;
 	Texture* _healthBarTexture = Texture::load(config::MGE_TEXTURE_PATH + "HealthBarTexture.png");
@@ -56,6 +57,9 @@ void TowerDefenseScene::initialize()
 
 	//Initialize menu
 	GameController::MenuManager->CreateMenu(MenuManager::Menu::MainMenu);
+
+	//Init 2d objects
+	inintialize2Dobjects();
 }
 
 void TowerDefenseScene::initializeLua()
@@ -225,6 +229,14 @@ void TowerDefenseScene::_initializeScene()
 
 void TowerDefenseScene::inintialize2Dobjects()
 {
+	_normalCursorTex = new sf::Texture();
+	_normalCursorTex->loadFromFile(config::MGE_SPRITES_PATH + "simpleCursor.png");
+	_hoverCursorTex = new sf::Texture();
+	_hoverCursorTex->loadFromFile(config::MGE_SPRITES_PATH + "selectCursor.png");
+
+	_cursor = new AdvancedSprite(_normalCursorTex);
+	_cursor->setPosition(sf::Vector2f(sf::Mouse::getPosition(*_window).x, sf::Mouse::getPosition(*_window).y));	_uiManager->AddSprite(_cursor);
+	//_cursor->setScale(0.75f, 0.75f);
 }
 
 void TowerDefenseScene::_render()
@@ -273,6 +285,22 @@ void TowerDefenseScene::_updateHud()
 
 void TowerDefenseScene::updateUIElements()
 {
+	_cursor->setPosition(sf::Vector2f(sf::Mouse::getPosition(*_window).x, sf::Mouse::getPosition(*_window).y));
+	if (isHoveringOverSomething)
+		_cursor->Texture = _hoverCursorTex;
+	else
+		_cursor->Texture = _normalCursorTex;
+
+	for (int i = 0; i < GameController::UIManager->_sprites.size(); i++)
+	{
+		if (GameController::UIManager->_sprites[i] == _cursor)
+		{
+			GameController::UIManager->_sprites.erase(GameController::UIManager->_sprites.begin() + i);
+		}
+	}
+	_uiManager->AddSprite(_cursor);
+
+	isHoveringOverSomething = false;
 	_uiManager->Draw();
 }
 

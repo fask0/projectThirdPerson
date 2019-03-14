@@ -285,13 +285,14 @@ void Level::inintialize2Dobjects()
 void Level::initializeNextWaveButton()
 {
 	_nextWaveButtonTex = new sf::Texture();
-	_nextWaveButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "NextWave.png");
+	_nextWaveButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "next_wave_when_you_can_press_it.png");
 	_nextWaveButtonSelTex = new sf::Texture();
-	_nextWaveButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "NextWave_sel.png");
+	_nextWaveButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "next_wave_sel.png");
 	_waveInProgressButtonTex = new sf::Texture();
-	_waveInProgressButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "WaveInProgress.png");
+	_waveInProgressButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "next_wave_when_you_cant_press_it.png");
 
 	_nextWaveButton = new AdvancedSprite(_nextWaveButtonTex);
+	_nextWaveButton->setPosition(GameController::WindowWidth - 64 - _nextWaveButtonTex->getSize().x, GameController::WindowHeight - _nextWaveButtonTex->getSize().y / 2 - 256);
 	_nextWaveButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(_nextWaveButtonSelTex));
 	_nextWaveButton->addBehaviour(new NextWaveButtonBehaviour());
 

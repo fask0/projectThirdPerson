@@ -11,6 +11,7 @@ public:
 
 	virtual void update(float pstep);
 
+	void On2DMouseOver() override;
 	void On2DMouseEnter() override;
 	void On2DMouseExit() override;
 
