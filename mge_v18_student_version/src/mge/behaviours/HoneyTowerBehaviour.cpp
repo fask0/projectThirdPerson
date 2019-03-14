@@ -28,6 +28,7 @@ void HoneyTowerBehaviour::update(float pStep)
 void HoneyTowerBehaviour::CheckForEnemies()
 {
 	_enemiesInRange = false;
+	float furthestDistance = 0;
 	if (GameController::Enemies.size() == 0) return;
 	for each (Enemy* enemy in GameController::Enemies)
 	{
@@ -36,8 +37,11 @@ void HoneyTowerBehaviour::CheckForEnemies()
 			GameController::HoneyRange * GameController::HoneyRange)
 		{
 			_enemiesInRange = true;
-			_furthestEnemy = enemy;
-			return;
+			if (enemy->distanceValue > furthestDistance)
+			{
+				_furthestEnemy = enemy;
+				furthestDistance = enemy->distanceValue;
+			}
 		}
 	}
 }

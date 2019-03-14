@@ -24,8 +24,6 @@ private:
 	bool _enemiesInRange;
 	Enemy* _furthestEnemy = nullptr;
 	clock_t _lastAttackTime;
-
-	std::vector<Enemy*> _allInRangeEnemies;
 };
 
 #endif // ROTATINGBEHAVIOUR_HPP

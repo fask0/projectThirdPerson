@@ -11,6 +11,7 @@
 #include "mge/core/GameController.hpp"
 #include "mge/core/AdvancedSprite.hpp"
 #include "mge/core/GridManager.hpp"
+#include "mge/core/EnemySpawner.hpp"
 
 //std::vector<AdvancedSprite*> UIManager::_sprites;
 
@@ -47,6 +48,8 @@ void UIManager::Draw()
 			sf::Text text = *_texts[i];
 			if (i == 0 && GameController::GridManager != NULL)
 				text.setString(text.getString() + std::to_string(GameController::GridManager->_currentMoney));
+			if (i == 1)
+				text.setString(std::to_string(GameController::SpawnPoints[0]->_currentWave) + " / 15");
 
 			glActiveTexture(GL_TEXTURE0);
 			_window->pushGLStates();

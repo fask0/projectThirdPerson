@@ -186,6 +186,9 @@
     <ClCompile Include="..\src\mge\behaviours\SellTowerBehaviour.cpp">
       <Filter>Behaviours\2DBehaviours</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\NextWaveButtonBehaviour.cpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -372,6 +375,9 @@
       <Filter>Behaviours\2DBehaviours</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\behaviours\SellTowerBehaviour.hpp">
+      <Filter>Behaviours\2DBehaviours</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\NextWaveButtonBehaviour.hpp">
       <Filter>Behaviours\2DBehaviours</Filter>
     </ClInclude>
   </ItemGroup>

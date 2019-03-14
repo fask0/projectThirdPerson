@@ -7,6 +7,8 @@
 #include "mge/core/EnemySpawner.hpp"
 #include "mge/core/Waypoint.hpp"
 #include "mge/core/Mesh.hpp"
+#include "mge/behaviours/NextWaveButtonBehaviour.hpp"
+#include "mge/behaviours/SwitchSpriteOnHoverBehaviour.hpp"
 
 #include "glm.hpp"
 
@@ -42,4 +44,14 @@ protected:
 	float _maxX;
 	float _minZ;
 	float _maxZ;
+
+	//Next wave button
+	void initializeNextWaveButton();
+	void updateNextWaveButton();
+
+	AdvancedSprite* _nextWaveButton;
+
+	sf::Texture* _nextWaveButtonTex;
+	sf::Texture* _nextWaveButtonSelTex;
+	sf::Texture* _waveInProgressButtonTex;
 };

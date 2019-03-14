@@ -330,9 +330,12 @@ void GridManager::TowerSelectionControls(sf::Event pEvent)
 			if (_selectedTower != nullptr)
 				_selectedTower->ResetMaterial();
 
-			if (_gridObjects.size() > 0)
+			if (_tower == nullptr)
 			{
-				dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
+				if (_gridObjects.size() > 0)
+				{
+					dynamic_cast<LitDynamicTextureGridMaterial*>(_gridObjects[0]->getMaterial())->setRangeShowing(false);
+				}
 			}
 
 			HideSelectedTowerUIElements();

@@ -20,6 +20,7 @@
 #include "mge/core/Mesh.hpp"
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/core/MenuManager.hpp"
+#include "mge/core/EnemySpawner.hpp"
 
 #include "mge/materials/LitDynamicGridTextureMaterial.hpp"
 

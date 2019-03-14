@@ -7,6 +7,7 @@
 #include "mge/core/AdvancedSprite.hpp"
 #include "mge/behaviours/SwitchSpriteOnHoverBehaviour.hpp"
 #include "mge/behaviours/MenuButtonBehaviour.hpp"
+#include "mge/behaviours/MenuOnHoverBehaviour.hpp"
 #include "mge/config.hpp"
 #include "mge/core/CollisionManager.hpp"
 
@@ -167,22 +168,23 @@ void MenuManager::initLevelSelectMenu()
 	sf::Texture* backButtonSelTex = new sf::Texture();
 	backButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/back_sel.png");
 	sf::Texture* level1ButtonSelTex = new sf::Texture();
-	level1ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level2.png");
+	level1ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level1_sel.png");
 	sf::Texture* level2ButtonSelTex = new sf::Texture();
-	level2ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level3.png");
+	level2ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level2_sel.png");
 	sf::Texture* level3ButtonSelTex = new sf::Texture();
-	level3ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level4.png");
+	level3ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level3_sel.png");
 	sf::Texture* level4ButtonSelTex = new sf::Texture();
-	level4ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level5.png");
+	level4ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level4_sel.png");
 	sf::Texture* level5ButtonSelTex = new sf::Texture();
-	level5ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level6.png");
+	level5ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level5_sel.png");
 	sf::Texture* level6ButtonSelTex = new sf::Texture();
-	level6ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level1.png");
+	level6ButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "menus/level6_sel.png");
 
 	//----------------//
 	// Create Sprites //
 	//----------------//
 	_levelSelectMenu = new AdvancedSprite(menuTex);
+	std::vector<AdvancedSprite*> menuThings;
 	//Buttons
 	AdvancedSprite* backButton = new AdvancedSprite(backButtonTex);
 	AdvancedSprite* level1Button = new AdvancedSprite(level1ButtonTex);
@@ -191,11 +193,16 @@ void MenuManager::initLevelSelectMenu()
 	AdvancedSprite* level4Button = new AdvancedSprite(level4ButtonTex);
 	AdvancedSprite* level5Button = new AdvancedSprite(level5ButtonTex);
 	AdvancedSprite* level6Button = new AdvancedSprite(level6ButtonTex);
+	menuThings.push_back(level2Button);
+	menuThings.push_back(level3Button);
 	//Add behaviours
 	backButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(backButtonSelTex));
 	backButton->addBehaviour(new MenuButtonBehaviour(Menu::MainMenu));
 	level1Button->addBehaviour(new SwitchSpriteOnHoverBehaviour(level1ButtonSelTex));
 	level1Button->addBehaviour(new MenuButtonBehaviour(Menu::LoadingScreen, 0));
+	//Hover menu -----------------
+	level1Button->addBehaviour(new MenuOnHoverBehaviour(menuThings));
+
 	level2Button->addBehaviour(new SwitchSpriteOnHoverBehaviour(level2ButtonSelTex));
 	level2Button->addBehaviour(new MenuButtonBehaviour(Menu::LoadingScreen, 1));
 	level3Button->addBehaviour(new SwitchSpriteOnHoverBehaviour(level3ButtonSelTex));

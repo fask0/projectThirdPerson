@@ -29,6 +29,7 @@ void ToasterTowerBehaviour::update(float pStep)
 void ToasterTowerBehaviour::CheckForEnemies()
 {
 	_enemiesInRange = false;
+	float furthestDistance = 0;
 	if (GameController::Enemies.size() == 0) return;
 	for each (Enemy* enemy in GameController::Enemies)
 	{
@@ -37,8 +38,11 @@ void ToasterTowerBehaviour::CheckForEnemies()
 			GameController::ToasterRange * GameController::ToasterRange)
 		{
 			_enemiesInRange = true;
-			_furthestEnemy = enemy;
-			return;
+			if (enemy->distanceValue > furthestDistance)
+			{
+				_furthestEnemy = enemy;
+				furthestDistance = enemy->distanceValue;
+			}
 		}
 	}
 }

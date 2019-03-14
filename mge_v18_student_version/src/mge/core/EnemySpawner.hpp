@@ -5,10 +5,12 @@
 
 #include "mge/core/GameObject.hpp"
 #include "mge/core/Waypoint.hpp"
+#include "mge/core/AdvancedSprite.hpp"
+#include "mge/behaviours/NextWaveButtonBehaviour.hpp"
 
 class EnemySpawner : public GameObject
 {
-	public:
+public:
 	EnemySpawner(
 		std::string pName = "Spawner",
 		glm::vec3 pPosition = glm::vec3(0, 0, 0),
@@ -18,17 +20,17 @@ class EnemySpawner : public GameObject
 	virtual void update(float pStep) override;
 
 	void initializeWave();
+	bool _waveHasStarted;
+	int _currentWave = 0;
 
-	private:
+private:
 	Waypoint::Lane _lane;
 	int _size;
 	int _baseSize;
-	int _currentWave;
 	int _currentEnemiesInLane;
 	int _enemyScaling;
 	int _enemyGrowth;
 	float _delayBetweenEnemies;
-	bool _waveHasStarted;
 
 	clock_t _lastSpawnTime;
 };

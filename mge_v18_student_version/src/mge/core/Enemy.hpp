@@ -14,7 +14,7 @@
 
 class Enemy : public GameObject
 {
-	public:
+public:
 	static std::vector<SoundEffect*> CutSFX;
 	static std::vector<SoundEffect*> BurnSFX;
 	static std::vector<SoundEffect*> FreezeSFX;
@@ -45,7 +45,9 @@ class Enemy : public GameObject
 	GameObject* _healthBar;
 	GameObject* _healthBarBackground;
 
-	protected:
+	float distanceValue = 0;
+
+protected:
 	std::vector<SoundEffect*> _deathSFX;
 	Waypoint::Lane _lane;
 	int _size;

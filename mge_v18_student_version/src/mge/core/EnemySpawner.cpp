@@ -12,8 +12,12 @@
 #include "mge/core/Rat.hpp"
 #include "mge/core/ChadRat.hpp"
 #include "mge/core/SanicRat.hpp"
+#include "SFML/Graphics.hpp"
 
 #include "mge/behaviours/CollisionBehaviour.hpp"
+#include "mge/behaviours/SwitchSpriteOnHoverBehaviour.hpp"
+
+#include "mge/config.hpp"
 
 EnemySpawner::EnemySpawner(std::string pName, glm::vec3 pPosition, Waypoint::Lane pLane)
 	: GameObject(pName, pPosition), _lane(pLane)
@@ -67,7 +71,7 @@ void EnemySpawner::update(float pStep)
 {
 	GameObject::update(pStep);
 
-	if (_currentWave > 1 && GameController::Enemies.size() == 0 && _waveHasStarted)
+	if (_currentWave > 14 && GameController::Enemies.size() == 0 && !_waveHasStarted)
 	{
 		if (!GameController::MenuManager->GetWinScreenBeingDisplayed())
 		{

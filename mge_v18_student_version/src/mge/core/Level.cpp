@@ -32,6 +32,8 @@ Level::~Level()
 void Level::update(float pStep)
 {
 	GameObject::update(pStep);
+
+	updateNextWaveButton();
 }
 
 void Level::Init()
@@ -87,6 +89,7 @@ void Level::Init()
 	this->add(gridManager);
 	GameController::TowerDefenseScene->SetGridManager(gridManager);
 	inintialize2Dobjects();
+	initializeNextWaveButton();
 }
 
 void Level::reset()
@@ -196,6 +199,15 @@ void Level::inintialize2Dobjects()
 	coinsText->setPosition(GameController::Window->getSize().x - 164, GameController::Window->getSize().y - coinIcon->getSize().y - 80);
 	coinsText->setFont(font);
 
+	//------//
+	// Wabe //
+	//------//
+	sf::Text* waveText = new sf::Text();
+	waveText->setString("0 / 15");
+	waveText->setFillColor(sf::Color(48, 52, 55, 255));
+	waveText->setFont(font);
+	waveText->setPosition(GameController::Window->getSize().x / 2 - waveText->getGlobalBounds().width / 2, 32);
+
 	//------------//
 	// Health Bar //
 	//------------//
@@ -267,4 +279,56 @@ void Level::inintialize2Dobjects()
 	GameController::UIManager->AddSprite(menuSprite);
 	//Texts
 	GameController::UIManager->AddText(coinsText);
+	GameController::UIManager->AddText(waveText);
+}
+
+void Level::initializeNextWaveButton()
+{
+	_nextWaveButtonTex = new sf::Texture();
+	_nextWaveButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "NextWave.png");
+	_nextWaveButtonSelTex = new sf::Texture();
+	_nextWaveButtonSelTex->loadFromFile(config::MGE_SPRITES_PATH + "NextWave_sel.png");
+	_waveInProgressButtonTex = new sf::Texture();
+	_waveInProgressButtonTex->loadFromFile(config::MGE_SPRITES_PATH + "WaveInProgress.png");
+
+	_nextWaveButton = new AdvancedSprite(_nextWaveButtonTex);
+	_nextWaveButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(_nextWaveButtonSelTex));
+	_nextWaveButton->addBehaviour(new NextWaveButtonBehaviour());
+
+	this->add(_nextWaveButton);
+	GameController::UIManager->AddSprite(_nextWaveButton);
+}
+
+void Level::updateNextWaveButton()
+{
+	if (GameController::Enemies.size() > 0)
+	{
+		if (_nextWaveButton->Texture != _waveInProgressButtonTex)
+		{
+			_nextWaveButton->Texture = _waveInProgressButtonTex;
+			_nextWaveButton->removeAllBehaviours();
+		}
+	}
+
+	else if (GameController::Enemies.size() == 0)
+	{
+		bool started = false;
+		for each (EnemySpawner* spawner in GameController::SpawnPoints)
+		{
+			if (spawner->_waveHasStarted)
+			{
+				started = true;
+			}
+		}
+
+		if (!started)
+		{
+			if (_nextWaveButton->getBehaviours().size() < 2)
+			{
+				_nextWaveButton->Texture = _nextWaveButtonTex;
+				_nextWaveButton->addBehaviour(new SwitchSpriteOnHoverBehaviour(_nextWaveButtonSelTex));
+				_nextWaveButton->addBehaviour(new NextWaveButtonBehaviour());
+			}
+		}
+	}
 }
