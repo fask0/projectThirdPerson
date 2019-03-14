@@ -10,7 +10,7 @@
 
 class EnemySpawner : public GameObject
 {
-public:
+	public:
 	EnemySpawner(
 		std::string pName = "Spawner",
 		glm::vec3 pPosition = glm::vec3(0, 0, 0),
@@ -19,11 +19,15 @@ public:
 
 	virtual void update(float pStep) override;
 
+
 	void initializeWave();
 	bool _waveHasStarted;
 	int _currentWave = 0;
 
-private:
+	private:
+	void spawnEnemy();
+	void checkAvailable();
+
 	Waypoint::Lane _lane;
 	int _size;
 	int _baseSize;
@@ -31,6 +35,9 @@ private:
 	int _enemyScaling;
 	int _enemyGrowth;
 	float _delayBetweenEnemies;
+	bool _isNormieAvailable;
+	bool _isSanicAvailable;
+	bool _isChadAvailable;
 
 	clock_t _lastSpawnTime;
 };

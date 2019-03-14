@@ -1,64 +1,351 @@
-﻿  TowerDefenseScene.cpp
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(163): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(295): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+﻿  main.cpp
+  AbstractBehaviour.cpp
+  CameraMovementBehaviour.cpp
+  CollisionBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\collisionbehaviour.cpp(53): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\collisionbehaviour.cpp(58): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\collisionbehaviour.cpp(60): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\collisionbehaviour.cpp(73): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\collisionbehaviour.cpp(78): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\collisionbehaviour.cpp(80): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\collisionbehaviour.cpp(194): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\collisionbehaviour.cpp(208): warning C4018: '<': signed/unsigned mismatch
+  EffectBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\effectbehaviour.cpp(54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\effectbehaviour.cpp(60): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\effectbehaviour.cpp(69): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\effectbehaviour.cpp(75): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  FollowMouseOnGridBehaviour.cpp
+  HealthBarBehaviour.cpp
+  HoneyProjectileBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+  HoneyTowerBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+  IceProjectileBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+  IceTowerBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+  MagnifyingGlassTowerBehaviour.cpp
+  MenuButtonBehaviour.cpp
+  MenuOnHoverBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\menuonhoverbehaviour.cpp(43): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\menuonhoverbehaviour.cpp(63): warning C4018: '<': signed/unsigned mismatch
+  NextWaveButtonBehaviour.cpp
+  SellTowerBehaviour.cpp
+  ShockTowerBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+  SniperTowerBehaviour.cpp
+  SwitchSpriteOnHoverBehaviour.cpp
+  ToasterProjectileBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+  Generating Code...
+  Compiling...
+  ToasterTowerBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+  TowerBehaviour.cpp
+  TowerIconBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\towericonbehaviour.cpp(20): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=int
+          ]
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\towericonbehaviour.cpp(32): warning C4018: '<': signed/unsigned mismatch
+  WASDBehaviour.cpp
+  WaypointFollowBehaviour.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\behaviours\waypointfollowbehaviour.cpp(17): warning C4018: '<': signed/unsigned mismatch
+  AbstractGame.cpp
+  AdvancedSprite.cpp
+  AudioManager.cpp
+  Camera.cpp
+  CollisionManager.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(33): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(47): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(125): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(215): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(229): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\collisionmanager.cpp(307): warning C4018: '<': signed/unsigned mismatch
+  CupboardLevel.cpp
+  Enemy.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\enemy.cpp(58): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\enemy.cpp(161): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\enemy.cpp(166): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\enemy.cpp(176): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  EnemySpawner.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\enemyspawner.cpp(65): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\enemyspawner.cpp(172): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  FridgeLevel.cpp
+  GameController.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\gamecontroller.cpp(205): warning C4018: '>=': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\gamecontroller.cpp(226): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\gamecontroller.cpp(231): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\gamecontroller.cpp(254): warning C4018: '<': signed/unsigned mismatch
+  GameObject.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\gameobject.cpp(122): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\gameobject.cpp(268): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\gameobject.cpp(323): warning C4018: '<': signed/unsigned mismatch
+  GridManager.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\gridmanager.cpp(295): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\gridmanager.cpp(502): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
           with
           [
               T=unsigned int
           ]
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(300): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\gridmanager.cpp(516): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\gridmanager.cpp(531): warning C4018: '<': signed/unsigned mismatch
+  Helper.cpp
+  HoneyProjectile.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\honeyprojectile.cpp(46): warning C4018: '<': signed/unsigned mismatch
+  HoneyTower.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\honeytower.cpp(60): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
+  ChadRat.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\chadrat.cpp(32): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  IceProjectile.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\iceprojectile.cpp(63): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  IceTower.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\icetower.cpp(57): warning C4018: '<': signed/unsigned mismatch
+  Level.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(56): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(99): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(170): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(270): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(300): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(307): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(275): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(315): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(291): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(318): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(299): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(323): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(302): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(328): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(307): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(333): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(312): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(338): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(317): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(343): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(322): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-g:\school\year 2\project third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(402): warning C4018: '<': signed/unsigned mismatch
-TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_settop referenced in function "private: bool __thiscall TowerDefenseScene::boolFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?boolFromLua@TowerDefenseScene@@AAE_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
-TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_tonumber referenced in function "private: float __thiscall TowerDefenseScene::floatFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?floatFromLua@TowerDefenseScene@@AAEMV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
-TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_tointeger referenced in function "private: int __thiscall TowerDefenseScene::intFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?intFromLua@TowerDefenseScene@@AAEHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
-TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_toboolean referenced in function "private: bool __thiscall TowerDefenseScene::boolFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?boolFromLua@TowerDefenseScene@@AAE_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
-TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_getfield referenced in function "private: bool __thiscall TowerDefenseScene::boolFromLua(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?boolFromLua@TowerDefenseScene@@AAE_NV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z)
-TowerDefenseScene.obj : error LNK2019: unresolved external symbol _lua_call referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
-TowerDefenseScene.obj : error LNK2019: unresolved external symbol _luaL_openlibs referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
-TowerDefenseScene.obj : error LNK2019: unresolved external symbol _luaL_loadfile referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
-TowerDefenseScene.obj : error LNK2019: unresolved external symbol _luaL_newstate referenced in function "private: void __thiscall TowerDefenseScene::initializeLua(void)" (?initializeLua@TowerDefenseScene@@AAEXXZ)
-debug_static_exe/mge.exe : fatal error LNK1120: 9 unresolved externals
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\level.cpp(327): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+  LevelOne.cpp
+  LevelTwo.cpp
+  Light.cpp
+  MagnifyingGlassTower.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\magnifyingglasstower.cpp(131): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\magnifyingglasstower.cpp(130): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\magnifyingglasstower.cpp(139): warning C4018: '<': signed/unsigned mismatch
+  MenuManager.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(32): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(217): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(218): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(219): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(220): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(221): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(222): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(223): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(248): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(271): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(318): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\menumanager.cpp(319): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+  Mesh.cpp
+  Rat.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\rat.cpp(32): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Renderer.cpp
+  SanicRat.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\sanicrat.cpp(33): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  ShockTower.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\shocktower.cpp(66): warning C4018: '<': signed/unsigned mismatch
+  SniperTower.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\snipertower.cpp(58): warning C4018: '<': signed/unsigned mismatch
+  SniperTowerProjectile.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+  SoundEffects.cpp
+  TableLevel.cpp
+  ToasterProjectile.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+  ToasterTower.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(41): warning C4150: deletion of pointer to incomplete type 'ShaderProgram'; no destructor called
+  e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.hpp(7): note: see declaration of 'ShaderProgram'
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\toastertower.cpp(43): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
+  Tower.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\tower.cpp(21): warning C4018: '<': signed/unsigned mismatch
+  TutorialLevel.cpp
+  UIManager.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\uimanager.cpp(45): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\core\uimanager.cpp(66): warning C4018: '<': signed/unsigned mismatch
+  Waypoint.cpp
+  World.cpp
+  AbstractMaterial.cpp
+  ColorMaterial.cpp
+  LitDynamicGridTextureMaterial.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\litdynamicgridtexturematerial.cpp(50): warning C4018: '<': signed/unsigned mismatch
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\litdynamicgridtexturematerial.cpp(74): warning C4018: '<': signed/unsigned mismatch
+  LitMaterial.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\litmaterial.cpp(60): warning C4018: '<': signed/unsigned mismatch
+  LitSelectedTextureMaterial.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\litselectedtexturematerial.cpp(62): warning C4018: '<': signed/unsigned mismatch
+  LitTextureGridMaterial.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturegridmaterial.cpp(66): warning C4018: '<': signed/unsigned mismatch
+  LitTextureMaterial.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\materials\littexturematerial.cpp(74): warning C4018: '<': signed/unsigned mismatch
+  TextureGridMaterial.cpp
+  TextureMaterial.cpp
+  TowerDefenseScene.cpp
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(157): warning C4244: '=': conversion from 'lua_Number' to 'float', possible loss of data
+e:\development\year 2\2.3 third person\mge_v18_student_version\src\mge\towerdefensescene.cpp(236): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+glew32sd.lib(glew.obj) : warning LNK4099: PDB 'glew_static.pdb' was not found with 'glew32sd.lib(glew.obj)' or at 'E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\_vs2015\debug_static_exe\glew_static.pdb'; linking object as if no debug info
+  mge.vcxproj -> E:\Development\Year 2\2.3 Third Person\mge_v18_student_version\_vs2015\debug_static_exe/mge.exe

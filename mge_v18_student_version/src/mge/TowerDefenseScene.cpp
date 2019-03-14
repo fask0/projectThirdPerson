@@ -80,29 +80,6 @@ void TowerDefenseScene::initializeLua()
 	GameController::WindowWidth = WindowWidth;
 	GameController::WindowHeight = WindowHeight;
 
-	//Level
-	//Lane A
-	GameController::LaneOneBaseSize = intFromLua("LaneOneBaseSize");
-	GameController::LaneOneSizeGrowthFrequency = intFromLua("LaneOneSizeGrowthFrequency");
-	GameController::LaneOneEnemyScalingPercentage = intFromLua("LaneOneEnemyScalingPercentage");
-	GameController::LaneOneDelayBetweenEnemies = floatFromLua("LaneOneDelayBetweenEnemies");
-	//Lane B
-	GameController::LaneTwoBaseSize = intFromLua("LaneTwoBaseSize");
-	GameController::LaneTwoSizeGrowthFrequency = intFromLua("LaneTwoSizeGrowthFrequency");
-	GameController::LaneTwoEnemyScalingPercentage = intFromLua("LaneTwoEnemyScalingPercentage");
-	GameController::LaneTwoDelayBetweenEnemies = floatFromLua("LaneTwoDelayBetweenEnemies");
-	//Lane C
-	GameController::LaneThreeBaseSize = intFromLua("LaneThreeBaseSize");
-	GameController::LaneThreeSizeGrowthFrequency = intFromLua("LaneThreeSizeGrowthFrequency");
-	GameController::LaneThreeEnemyScalingPercentage = intFromLua("LaneThreeEnemyScalingPercentage");
-	GameController::LaneThreeDelayBetweenEnemies = floatFromLua("LaneThreeDelayBetweenEnemies");
-	//Lane D
-	GameController::LaneFourBaseSize = intFromLua("LaneFourBaseSize");
-	GameController::LaneFourSizeGrowthFrequency = intFromLua("LaneFourSizeGrowthFrequency");
-	GameController::LaneFourEnemyScalingPercentage = intFromLua("LaneFourEnemyScalingPercentage");
-	GameController::LaneFourDelayBetweenEnemies = floatFromLua("LaneFourDelayBetweenEnemies");
-
-	GameController::StartingMoney = intFromLua("StartingMoney");
 	//Toaster tower
 	GameController::ToasterRange = floatFromLua("ToasterRange");
 	GameController::ToasterAttSpeed = floatFromLua("ToasterAttSpeed");
@@ -160,6 +137,8 @@ void TowerDefenseScene::initializeLua()
 	GameController::SanicEffectRecoverySpeed = floatFromLua("SanicEffectRecoverySpeed");
 
 	std::cout << "All Lua variables initialized." << std::endl;
+
+	lua_close(lua);
 }
 
 int TowerDefenseScene::intFromLua(std::string pVariableName)

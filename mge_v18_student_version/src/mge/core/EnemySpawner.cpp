@@ -28,28 +28,28 @@ EnemySpawner::EnemySpawner(std::string pName, glm::vec3 pPosition, Waypoint::Lan
 
 	switch (pLane)
 	{
-	case Waypoint::A:
+		case Waypoint::A:
 		_baseSize = GameController::LaneOneBaseSize;
 		_enemyGrowth = GameController::LaneOneSizeGrowthFrequency;
 		_enemyScaling = GameController::LaneOneEnemyScalingPercentage;
 		_delayBetweenEnemies = GameController::LaneOneDelayBetweenEnemies;
 		break;
 
-	case Waypoint::B:
+		case Waypoint::B:
 		_baseSize = GameController::LaneTwoBaseSize;
 		_enemyGrowth = GameController::LaneTwoSizeGrowthFrequency;
 		_enemyScaling = GameController::LaneTwoEnemyScalingPercentage;
 		_delayBetweenEnemies = GameController::LaneTwoDelayBetweenEnemies;
 		break;
 
-	case Waypoint::C:
+		case Waypoint::C:
 		_baseSize = GameController::LaneThreeBaseSize;
 		_enemyGrowth = GameController::LaneThreeSizeGrowthFrequency;
 		_enemyScaling = GameController::LaneThreeEnemyScalingPercentage;
 		_delayBetweenEnemies = GameController::LaneThreeDelayBetweenEnemies;
 		break;
 
-	case Waypoint::D:
+		case Waypoint::D:
 		_baseSize = GameController::LaneFourBaseSize;
 		_enemyGrowth = GameController::LaneFourSizeGrowthFrequency;
 		_enemyScaling = GameController::LaneFourEnemyScalingPercentage;
@@ -80,40 +80,87 @@ void EnemySpawner::update(float pStep)
 		}
 		return;
 	}
+
 	if (!_waveHasStarted) return;
 	if (_currentEnemiesInLane < _size && clock() >= (_lastSpawnTime + _delayBetweenEnemies * CLOCKS_PER_SEC))
 	{
-		Enemy* enemy;
-		int selectEnemy = std::rand() % 3 + 1;
-		switch (selectEnemy)
-		{
-		case 1:
-			enemy = new Rat("Rat", getLocalPosition(), _lane);
-			break;
-
-		case 2:
-			if (_currentEnemiesInLane + GameController::SanicSize <= _size)
-				enemy = new SanicRat("SanicRat", getLocalPosition(), _lane);
-			else
-				enemy = new Rat("Rat", getLocalPosition(), _lane);
-			break;
-
-		case 3:
-			if (_currentEnemiesInLane + GameController::ChadSize <= _size)
-				enemy = new ChadRat("ChadRat", getLocalPosition(), _lane);
-			else if (_currentEnemiesInLane + GameController::SanicSize <= _size)
-				enemy = new SanicRat("SanicRat", getLocalPosition(), _lane);
-			else
-				enemy = new Rat("Rat", getLocalPosition(), _lane);
-			break;
-		}
-		GameController::CurrentLevel->add(enemy);
-		_currentEnemiesInLane += enemy->getSize();
+		spawnEnemy();
 
 		if (_currentEnemiesInLane >= _size)
 			_waveHasStarted = false;
 
 		_lastSpawnTime = clock();
+	}
+}
+
+void EnemySpawner::spawnEnemy()
+{
+	Enemy* enemy;
+	int selectEnemy = std::rand() % 3 + 1;
+
+	switch (selectEnemy)
+	{
+		case 1:
+		if (!_isNormieAvailable)
+		{
+			spawnEnemy();
+			return;
+		}
+		else
+			enemy = new Rat("Rat", getLocalPosition(), _lane);
+		break;
+
+		case 2:
+		if (!_isSanicAvailable)
+		{
+			spawnEnemy();
+			return;
+		}
+		else
+			enemy = new SanicRat("SanicRat", getLocalPosition(), _lane);
+		break;
+
+		case 3:
+		if (!_isChadAvailable)
+		{
+			spawnEnemy();
+			return;
+		}
+		else
+			enemy = new ChadRat("ChadRat", getLocalPosition(), _lane);
+		break;
+	}
+	GameController::CurrentLevel->add(enemy);
+	_currentEnemiesInLane += enemy->getSize();
+}
+
+void EnemySpawner::checkAvailable()
+{
+	switch (_lane)
+	{
+		case Waypoint::A:
+		_isNormieAvailable = (_currentWave >= GameController::LaneOneNormieFromWave);
+		_isSanicAvailable = (_currentWave >= GameController::LaneOneSanicFromWave);
+		_isChadAvailable = (_currentWave >= GameController::LaneOneChadFromWave);
+		break;
+
+		case Waypoint::B:
+		_isNormieAvailable = (_currentWave >= GameController::LaneTwoNormieFromWave);
+		_isSanicAvailable = (_currentWave >= GameController::LaneTwoSanicFromWave);
+		_isChadAvailable = (_currentWave >= GameController::LaneTwoChadFromWave);
+		break;
+
+		case Waypoint::C:
+		_isNormieAvailable = (_currentWave >= GameController::LaneTreeNormieFromWave);
+		_isSanicAvailable = (_currentWave >= GameController::LaneTreeSanicFromWave);
+		_isChadAvailable = (_currentWave >= GameController::LaneTreeChadFromWave);
+		break;
+
+		case Waypoint::D:
+		_isNormieAvailable = (_currentWave >= GameController::LaneFourNormieFromWave);
+		_isSanicAvailable = (_currentWave >= GameController::LaneFourSanicFromWave);
+		_isChadAvailable = (_currentWave >= GameController::LaneFourChadFromWave);
+		break;
 	}
 }
 
@@ -126,7 +173,7 @@ void EnemySpawner::initializeWave()
 
 	_lastSpawnTime = 0;
 	_currentEnemiesInLane = 0;
-
 	_currentWave++;
+	checkAvailable();
 	_waveHasStarted = true;
 }

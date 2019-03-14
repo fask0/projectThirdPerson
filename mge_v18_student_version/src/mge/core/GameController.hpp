@@ -78,25 +78,37 @@ class GameController : public GameObject
 	//Level
 	//Spawners and Scaling
 	//Lane A
-	static int GameController::LaneOneBaseSize;
-	static int GameController::LaneOneSizeGrowthFrequency;
-	static int GameController::LaneOneEnemyScalingPercentage;
-	static float GameController::LaneOneDelayBetweenEnemies;
+	static int LaneOneNormieFromWave;
+	static int LaneOneSanicFromWave;
+	static int LaneOneChadFromWave;
+	static int LaneOneBaseSize;
+	static int LaneOneSizeGrowthFrequency;
+	static int LaneOneEnemyScalingPercentage;
+	static float LaneOneDelayBetweenEnemies;
 	//Lane B
-	static int GameController::LaneTwoBaseSize;
-	static int GameController::LaneTwoSizeGrowthFrequency;
-	static int GameController::LaneTwoEnemyScalingPercentage;
-	static float GameController::LaneTwoDelayBetweenEnemies;
+	static int LaneTwoNormieFromWave;
+	static int LaneTwoSanicFromWave;
+	static int LaneTwoChadFromWave;
+	static int LaneTwoBaseSize;
+	static int LaneTwoSizeGrowthFrequency;
+	static int LaneTwoEnemyScalingPercentage;
+	static float LaneTwoDelayBetweenEnemies;
 	//Lane C
-	static int GameController::LaneThreeBaseSize;
-	static int GameController::LaneThreeSizeGrowthFrequency;
-	static int GameController::LaneThreeEnemyScalingPercentage;
-	static float GameController::LaneThreeDelayBetweenEnemies;
+	static int LaneTreeNormieFromWave;
+	static int LaneTreeSanicFromWave;
+	static int LaneTreeChadFromWave;
+	static int LaneThreeBaseSize;
+	static int LaneThreeSizeGrowthFrequency;
+	static int LaneThreeEnemyScalingPercentage;
+	static float LaneThreeDelayBetweenEnemies;
 	//Lane D
-	static int GameController::LaneFourBaseSize;
-	static int GameController::LaneFourSizeGrowthFrequency;
-	static int GameController::LaneFourEnemyScalingPercentage;
-	static float GameController::LaneFourDelayBetweenEnemies;
+	static int LaneFourNormieFromWave;
+	static int LaneFourSanicFromWave;
+	static int LaneFourChadFromWave;
+	static int LaneFourBaseSize;
+	static int LaneFourSizeGrowthFrequency;
+	static int LaneFourEnemyScalingPercentage;
+	static float LaneFourDelayBetweenEnemies;
 
 	//Towers
 	static int StartingMoney;

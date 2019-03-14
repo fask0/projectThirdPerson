@@ -86,21 +86,33 @@ int GameController::CurrentHealth;
 //Level
 //Spawners and Scaling
 //Lane A
+int GameController::LaneOneNormieFromWave;
+int GameController::LaneOneSanicFromWave;
+int GameController::LaneOneChadFromWave;
 int GameController::LaneOneBaseSize;
 int GameController::LaneOneSizeGrowthFrequency;
 int GameController::LaneOneEnemyScalingPercentage;
 float GameController::LaneOneDelayBetweenEnemies;
 //Lane B
+int GameController::LaneTwoNormieFromWave;
+int GameController::LaneTwoSanicFromWave;
+int GameController::LaneTwoChadFromWave;
 int GameController::LaneTwoBaseSize;
 int GameController::LaneTwoSizeGrowthFrequency;
 int GameController::LaneTwoEnemyScalingPercentage;
 float GameController::LaneTwoDelayBetweenEnemies;
 //Lane C
+int GameController::LaneTreeNormieFromWave;
+int GameController::LaneTreeSanicFromWave;
+int GameController::LaneTreeChadFromWave;
 int GameController::LaneThreeBaseSize;
 int GameController::LaneThreeSizeGrowthFrequency;
 int GameController::LaneThreeEnemyScalingPercentage;
 float GameController::LaneThreeDelayBetweenEnemies;
 //Lane D
+int GameController::LaneFourNormieFromWave;
+int GameController::LaneFourSanicFromWave;
+int GameController::LaneFourChadFromWave;
 int GameController::LaneFourBaseSize;
 int GameController::LaneFourSizeGrowthFrequency;
 int GameController::LaneFourEnemyScalingPercentage;
@@ -255,7 +267,7 @@ void GameController::ReplayLevel()
 
 void GameController::SetUpLevels()
 {
-	TutorialLevel* l0 = new TutorialLevel("TutotialLevel", glm::vec3(0, 0, 0), 2);
+	TutorialLevel* l0 = new TutorialLevel("TutorialLevel", glm::vec3(0, 0, 0), 2);
 	LevelOne* l1 = new LevelOne("LevelOne", glm::vec3(0, 0, 0), 2);
 	LevelTwo* l2 = new LevelTwo("LevelTwo", glm::vec3(0, 0, 0), 2);
 	CupboardLevel* l3 = new CupboardLevel("CupboardLevel", glm::vec3(0, 0, 0), 4);

@@ -15,6 +15,7 @@
 #include "mge/behaviours/MenuOnHoverBehaviour.hpp"
 #include "mge/behaviours/SwitchSpriteOnHoverBehaviour.hpp"
 #include "mge/behaviours/TowerIconBehaviour.hpp"
+#include "Lua/lua.hpp"
 
 #include "glm.hpp"
 #include "mge/config.hpp"
@@ -44,6 +45,7 @@ void Level::Init()
 	GameController::GridObjects.clear();
 	GameController::MainCamera->setTransform(GameController::InitialCameraTransform);
 	GameController::CameraBehaviour->SetBounds(_minX, _maxX, _minZ, _maxZ);
+	initLuaVariables();
 
 	for (int i = 0; i < _layerAmount; ++i)
 	{
@@ -103,6 +105,80 @@ void Level::reset()
 	CollisionManager::projectileCollisions.clear();
 	CollisionManager::towerCollisions.clear();
 	GameController::UIManager->_sprites.clear();
+}
+
+void Level::initLuaVariables()
+{
+	_lua = luaL_newstate();
+	luaL_openlibs(_lua);
+	luaL_loadfile(_lua, (config::MGE_LUA_PATH + _name + ".lua").c_str());
+
+	//Run
+	lua_call(_lua, 0, 0);
+
+	//Lane A
+	GameController::LaneOneNormieFromWave = intFromLua("LaneOneNormieFromWave");
+	GameController::LaneOneSanicFromWave = intFromLua("LaneOneSanicFromWave");
+	GameController::LaneOneChadFromWave = intFromLua("LaneOneChadFromWave");
+	GameController::LaneOneBaseSize = intFromLua("LaneOneBaseSize");
+	GameController::LaneOneSizeGrowthFrequency = intFromLua("LaneOneSizeGrowthFrequency");
+	GameController::LaneOneEnemyScalingPercentage = intFromLua("LaneOneEnemyScalingPercentage");
+	GameController::LaneOneDelayBetweenEnemies = floatFromLua("LaneOneDelayBetweenEnemies");
+	//Lane B
+	GameController::LaneTwoNormieFromWave = intFromLua("LaneTwoNormieFromWave");
+	GameController::LaneTwoSanicFromWave = intFromLua("LaneTwoSanicFromWave");
+	GameController::LaneTwoChadFromWave = intFromLua("LaneTwoChadFromWave");
+	GameController::LaneTwoBaseSize = intFromLua("LaneTwoBaseSize");
+	GameController::LaneTwoSizeGrowthFrequency = intFromLua("LaneTwoSizeGrowthFrequency");
+	GameController::LaneTwoEnemyScalingPercentage = intFromLua("LaneTwoEnemyScalingPercentage");
+	GameController::LaneTwoDelayBetweenEnemies = floatFromLua("LaneTwoDelayBetweenEnemies");
+	//Lane C
+	GameController::LaneTreeNormieFromWave = intFromLua("LaneTreeNormieFromWave");
+	GameController::LaneTreeSanicFromWave = intFromLua("LaneTreeSanicFromWave");
+	GameController::LaneTreeChadFromWave = intFromLua("LaneTreeChadFromWave");
+	GameController::LaneThreeBaseSize = intFromLua("LaneThreeBaseSize");
+	GameController::LaneThreeSizeGrowthFrequency = intFromLua("LaneThreeSizeGrowthFrequency");
+	GameController::LaneThreeEnemyScalingPercentage = intFromLua("LaneThreeEnemyScalingPercentage");
+	GameController::LaneThreeDelayBetweenEnemies = floatFromLua("LaneThreeDelayBetweenEnemies");
+	//Lane D
+	GameController::LaneFourNormieFromWave = intFromLua("LaneFourNormieFromWave");
+	GameController::LaneFourSanicFromWave = intFromLua("LaneFourSanicFromWave");
+	GameController::LaneFourChadFromWave = intFromLua("LaneFourChadFromWave");
+	GameController::LaneFourBaseSize = intFromLua("LaneFourBaseSize");
+	GameController::LaneFourSizeGrowthFrequency = intFromLua("LaneFourSizeGrowthFrequency");
+	GameController::LaneFourEnemyScalingPercentage = intFromLua("LaneFourEnemyScalingPercentage");
+	GameController::LaneFourDelayBetweenEnemies = floatFromLua("LaneFourDelayBetweenEnemies");
+	//Misc
+	GameController::StartingMoney = intFromLua("StartingMoney");
+
+	lua_close(_lua);
+}
+
+int Level::intFromLua(std::string pVariableName)
+{
+	int i;
+	lua_getglobal(_lua, pVariableName.c_str());
+	i = lua_tointeger(_lua, -1);
+	lua_pop(_lua, -1);
+	return i;
+}
+
+float Level::floatFromLua(std::string pVariableName)
+{
+	float f;
+	lua_getglobal(_lua, pVariableName.c_str());
+	f = lua_tonumber(_lua, -1);
+	lua_pop(_lua, -1);
+	return f;
+}
+
+bool Level::boolFromLua(std::string pVariableName)
+{
+	bool b;
+	lua_getglobal(_lua, pVariableName.c_str());
+	b = lua_toboolean(_lua, -1);
+	lua_pop(_lua, -1);
+	return b;
 }
 
 void Level::inintialize2Dobjects()
