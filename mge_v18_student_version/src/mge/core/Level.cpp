@@ -294,7 +294,10 @@ void Level::inintialize2Dobjects()
 	sf::Text* coinsText = new sf::Text();
 	sf::Font font = sf::Font();
 	font.loadFromFile(config::MGE_SPRITES_PATH + "CREABBB_.TTF");
-	coinsText->setFillColor(sf::Color(48, 52, 55, 255));
+	//coinsText->setFillColor(sf::Color(48, 52, 55, 255));
+	coinsText->setOutlineColor(sf::Color(0, 0, 0, 255));
+	coinsText->setOutlineThickness(2.0f);
+	coinsText->setFillColor(sf::Color(255, 255, 255, 255));
 	coinsText->setPosition(GameController::Window->getSize().x - 164, GameController::Window->getSize().y - coinIcon->getSize().y - 80);
 	coinsText->setFont(font);
 
@@ -303,7 +306,10 @@ void Level::inintialize2Dobjects()
 	//------//
 	sf::Text* waveText = new sf::Text();
 	waveText->setString("0 / 15");
-	waveText->setFillColor(sf::Color(48, 52, 55, 255));
+	//waveText->setFillColor(sf::Color(48, 52, 55, 255));
+	waveText->setOutlineColor(sf::Color(0, 0, 0, 255));
+	waveText->setOutlineThickness(2.0f);
+	waveText->setFillColor(sf::Color(255, 255, 255, 255));
 	waveText->setFont(font);
 	waveText->setCharacterSize(55);
 	waveText->setPosition(GameController::Window->getSize().x / 2 - waveText->getGlobalBounds().width / 2, 16);

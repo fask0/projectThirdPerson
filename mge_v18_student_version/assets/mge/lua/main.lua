@@ -2,9 +2,9 @@ Debug = false;
 DrawColliders = false;
 WindowWidth = 1920;
 WindowHeight = 1080;
-MaxMusicVolume = 80;   -- 0 to 100
-MaxSFXVolume = 50;     -- 0 to 100
-MaxHealth = 10000;
+MaxMusicVolume = 50;   -- 0 to 100
+MaxSFXVolume = 35;     -- 0 to 100
+MaxHealth = 100;
 
 --------------------------------------------------------------------------------------
 ----------------------------------------Level-----------------------------------------

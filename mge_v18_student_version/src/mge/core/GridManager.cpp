@@ -410,6 +410,16 @@ void GridManager::GridControls(sf::Event pEvent)
 					std::cout << "Set line thiccness to: " + std::to_string(material->getLineThiccness()) << std::endl;
 				}
 				break;
+			case sf::Keyboard::Key::Numpad5:
+				for each (Enemy* enemy in GameController::Enemies)
+				{
+					enemy->Kill();
+				}
+				for each (EnemySpawner* spawner in GameController::SpawnPoints)
+				{
+					spawner->_waveHasStarted = false;
+				}
+				break;
 			}
 			break;
 		}
@@ -452,12 +462,12 @@ void GridManager::SelectTower(int pTowerNumber)
 			_tower = new HoneyTower();
 			break;
 		case 3:
-			towerMesh = ShockTower::MainMesh;
-			_tower = new ShockTower();
-			break;
-		case 4:
 			towerMesh = IceTower::MainMesh;
 			_tower = new IceTower();
+			break;
+		case 4:
+			towerMesh = ShockTower::MainMesh;
+			_tower = new ShockTower();
 			break;
 		case 5:
 			towerMesh = MagnifyingGlassTower::Mesh;

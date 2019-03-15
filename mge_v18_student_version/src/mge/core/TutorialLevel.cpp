@@ -7,6 +7,7 @@
 
 #include "glm.hpp"
 #include "mge/config.hpp"
+#include "mge/core/World.hpp"
 
 TutorialLevel::TutorialLevel(std::string pName, glm::vec3 pPosition, int pLayers)
 	: Level(pName, pPosition, pLayers)
@@ -69,6 +70,12 @@ void TutorialLevel::initializeHints()
 
 void TutorialLevel::updateHints()
 {
+	if (GameController::SpawnPoints.size() < 1)
+	{
+		_hintHasBeenSpawned = false;
+		return;
+	}
+
 	if (!GameController::SpawnPoints[0]->_waveHasStarted && GameController::Enemies.size() <= 0 &&
 		!_hintHasBeenSpawned)
 	{
