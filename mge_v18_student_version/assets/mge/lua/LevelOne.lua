@@ -7,18 +7,18 @@
 --------------------------------------------------------------------------------------
 StartingMoney = 50;
 --Lane One
-LaneOneNormieFromWave = 0;
+LaneOneNormieFromWave = 1;
 LaneOneSanicFromWave = 0;
-LaneOneChadFromWave = 0;
-LaneOneBaseSize = 60;
+LaneOneChadFromWave = 4;
+LaneOneBaseSize = 40;
 LaneOneSizeGrowthFrequency = 1;
-LaneOneEnemyScalingPercentage = 10;
-LaneOneDelayBetweenEnemies = 1;
+LaneOneEnemyScalingPercentage = 5;
+LaneOneDelayBetweenEnemies = 1.5;
 --Lane Two
 LaneTwoNormieFromWave = 0;
 LaneTwoSanicFromWave = 0;
 LaneTwoChadFromWave = 0;
-LaneTwoBaseSize = 60;
+LaneTwoBaseSize = 50;
 LaneTwoSizeGrowthFrequency = 1;
 LaneTwoEnemyScalingPercentage = 10;
 LaneTwoDelayBetweenEnemies = 1.0;
@@ -38,3 +38,5 @@ LaneFourBaseSize = 20;
 LaneFourSizeGrowthFrequency = 1;
 LaneFourEnemyScalingPercentage = 10;
 LaneFourDelayBetweenEnemies = 1.0;
+
+--Max amount of waves this level: 15

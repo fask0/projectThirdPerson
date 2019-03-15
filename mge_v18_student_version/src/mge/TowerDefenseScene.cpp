@@ -256,11 +256,14 @@ void TowerDefenseScene::_render()
 
 void TowerDefenseScene::_updateHud()
 {
-	std::string debugInfo = "";
-	debugInfo += std::string("FPS:") + std::to_string((int)_fps) + "\n";
+	if (GameController::Debug)
+	{
+		std::string debugInfo = "";
+		debugInfo += std::string("FPS:") + std::to_string((int)_fps) + "\n";
 
-	_hud->setDebugInfo(debugInfo);
-	_hud->draw();
+		_hud->setDebugInfo(debugInfo);
+		_hud->draw();
+	}
 }
 
 void TowerDefenseScene::updateUIElements()

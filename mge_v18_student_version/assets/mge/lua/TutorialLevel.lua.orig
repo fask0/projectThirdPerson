@@ -5,22 +5,34 @@
 --EnemyScalingPercentage    --The increasing amount of enemies
 --DelayBetweenEnemies       --How much time between each enemy (in seconds)
 --------------------------------------------------------------------------------------
-StartingMoney = 60;
---Lane One
-LaneOneNormieFromWave = 0;
-LaneOneSanicFromWave = 6;
+<<<<<<< HEAD
+StartingMoney = 50;
+--Lane One only one wave
+LaneOneNormieFromWave = 0; --after wave *number* normies will spawn
+LaneOneSanicFromWave = 5;
 LaneOneChadFromWave = 3;
-LaneOneBaseSize = 10;
+LaneOneBaseSize = 20;
 LaneOneSizeGrowthFrequency = 2;
-LaneOneEnemyScalingPercentage = 20;
-LaneOneDelayBetweenEnemies = 1.0;
+LaneOneEnemyScalingPercentage = 15;
+LaneOneDelayBetweenEnemies = 1; 
+=======
+StartingMoney = 5000;
+--Lane One
+LaneOneNormieFromWave = 10;
+LaneOneSanicFromWave = 10;
+LaneOneChadFromWave = 0;
+LaneOneBaseSize = 60;
+LaneOneSizeGrowthFrequency = 1;
+LaneOneEnemyScalingPercentage = 10;
+LaneOneDelayBetweenEnemies = 1;
+>>>>>>> a0d57214e633ddc9a7f41c178620d2a6a93584a1
 --Lane Two
 LaneTwoNormieFromWave = 0;
 LaneTwoSanicFromWave = 0;
-LaneTwoChadFromWave = 25;
-LaneTwoBaseSize = 70;
-LaneTwoSizeGrowthFrequency = 10;
-LaneTwoEnemyScalingPercentage = 40;
+LaneTwoChadFromWave = 0;
+LaneTwoBaseSize = 60;
+LaneTwoSizeGrowthFrequency = 1;
+LaneTwoEnemyScalingPercentage = 10;
 LaneTwoDelayBetweenEnemies = 1.0;
 --Lane Three
 LaneTreeNormieFromWave = 0;
@@ -39,4 +51,4 @@ LaneFourSizeGrowthFrequency = 1;
 LaneFourEnemyScalingPercentage = 10;
 LaneFourDelayBetweenEnemies = 1.0;
 
--- 20 waves fam
+--Max amount of waves this level: 10
