@@ -9,10 +9,10 @@
 CupboardLevel::CupboardLevel(std::string pName, glm::vec3 pPosition, int pLayers)
 	: Level(pName, pPosition, pLayers)
 {
-	_minX = -25;
-	_maxX = 25;
-	_minZ = -25;
-	_maxZ = 25;
+	_minX = -28;
+	_maxX = 26;
+	_minZ = -35;
+	_maxZ = 44;
 }
 
 CupboardLevel::~CupboardLevel()

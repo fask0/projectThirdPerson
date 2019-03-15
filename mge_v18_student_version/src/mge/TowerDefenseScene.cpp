@@ -240,14 +240,17 @@ void TowerDefenseScene::_render()
 		GameController::MainPlaneMaterial->setHighlightArea(planePos);
 	}
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
+	if (GameController::Debug)
 	{
-		GameController::LoadNextLevel();
-	}
-	if (GameController::CurrentLevel != NULL && sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-	{
-		for (int i = 0; i < GameController::CurrentLevel->getEnemySpawnPoints().size(); ++i)
-			GameController::CurrentLevel->getEnemySpawnPoints()[i]->initializeWave();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::B))
+		{
+			GameController::LoadNextLevel();
+		}
+		if (GameController::CurrentLevel != NULL && sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+		{
+			for (int i = 0; i < GameController::CurrentLevel->getEnemySpawnPoints().size(); ++i)
+				GameController::CurrentLevel->getEnemySpawnPoints()[i]->initializeWave();
+		}
 	}
 
 	_updateHud();

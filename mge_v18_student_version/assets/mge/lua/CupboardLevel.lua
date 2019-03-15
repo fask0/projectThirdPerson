@@ -12,7 +12,7 @@ LaneOneSanicFromWave = 30;
 LaneOneChadFromWave = 0;
 LaneOneBaseSize = 12;
 LaneOneSizeGrowthFrequency = 1;
-LaneOneEnemyScalingPercentage = 10;s
+LaneOneEnemyScalingPercentage = 10;
 LaneOneDelayBetweenEnemies = 1.5;
 --Lane Two
 LaneTwoNormieFromWave = 0;

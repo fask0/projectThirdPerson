@@ -79,6 +79,10 @@
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\TowerDefenseScene.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="..\src\mge\behaviours\TutorialHintBehaviour.cpp" />
+>>>>>>> a0d57214e633ddc9a7f41c178620d2a6a93584a1
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp" />
@@ -160,5 +164,9 @@
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\TowerDefenseScene.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
+<<<<<<< HEAD
+=======
+    <ClInclude Include="..\src\mge\behaviours\TutorialHintBehaviour.hpp" />
+>>>>>>> a0d57214e633ddc9a7f41c178620d2a6a93584a1
   </ItemGroup>
 </Project>

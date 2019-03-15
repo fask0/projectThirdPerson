@@ -25,7 +25,7 @@ FollowMouseOnGridBehaviour::~FollowMouseOnGridBehaviour()
 void FollowMouseOnGridBehaviour::update(float pstep)
 {
 	glm::mat4 transform = GameController::GridObjects[0]->getWorldTransform();
-	glm::vec4 bounds = GameController::CameraBehaviour->GetBounds();
+	glm::vec4 bounds = GameController::CurrentLevel->GetBounds();
 	float yScale = glm::sqrt(_owner->getTransform()[1][0] * _owner->getTransform()[1][0] + _owner->getTransform()[1][1] * _owner->getTransform()[1][1] + _owner->getTransform()[1][2] * _owner->getTransform()[1][2]);
 
 	if (_material != nullptr)

@@ -9,10 +9,10 @@
 LevelTwo::LevelTwo(std::string pName, glm::vec3 pPosition, int pLayers)
 	: Level(pName, pPosition, pLayers)
 {
-	_minX = -25;
-	_maxX = 25;
-	_minZ = -25;
-	_maxZ = 25;
+	_minX = -23;
+	_maxX = 27;
+	_minZ = -30;
+	_maxZ = 28;
 }
 
 LevelTwo::~LevelTwo()
